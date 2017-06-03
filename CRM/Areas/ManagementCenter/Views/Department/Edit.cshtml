@@ -1,0 +1,106 @@
+﻿@model Ingenious.DTO.DepartmentDTO
+@{
+    ViewBag.Title = "Edit";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 部门管理</a></li>
+    <li class="active">编辑部门</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">编辑部门</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/admin/department/edit" method="post">
+                
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Version)
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsBranch, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.CheckBoxFor(model => model.IsBranch, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.IsBranch, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PriceStrategyId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.DropDownListFor(model => model.PriceStrategyId, ViewBag.PriceStrategy as IEnumerable<SelectListItem>, null, new { @class = "input-sm form-control input-s-sm inline" })
+                        @Html.ValidationMessageFor(model => model.PriceStrategyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.DropDownListFor(model => model.ParentId, ViewBag.Departments as IEnumerable<SelectListItem>, "", new { @class = "input-sm form-control input-s-sm inline" })
+                        @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Principal, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Principal, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Principal, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Phone, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OfficePhone, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.OfficePhone, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Website, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/admin/department" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+

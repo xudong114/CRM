@@ -1,0 +1,141 @@
+﻿@using Ingenious.Infrastructure.Extensions
+@model CRM.Models.ClientComposite
+@{
+
+}
+@section css{
+<style>
+    .modal-backdrop {
+        background-color: transparent;
+    }
+    .modal-dialog{
+        width:auto;
+        margin-left: 420px;
+    }
+    .modal-content {
+        width: 100%;
+        height: 700px;
+        top: 65px;
+        border-radius:0;
+        border:0;
+        box-shadow:-1px 0 3px #d3d8db;
+    }
+</style>
+
+}
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+            $('a[client]').click(function () {
+                var id = $(this).attr("id");
+                $('#clientDetailFrame').html('');
+                $('#clientDetailFrame').attr("src", "/client/detail/" + id);
+                e.preventDefault();
+            });
+
+
+
+        });
+    </script>
+}
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a><i class="fa fa-home"></i> 客户管理</a></li>
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 客户列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/client/create"> 新建客户</a>
+        </div>
+        <form id="userSearchForm" action="/client/index" method="post">
+
+            <div class="col-sm-3 pull-right ">
+                <div class="input-group">
+                    <input type="text" name="keywords" value="@ViewBag.keywords" class="form-control" placeholder="按客户名称、所有人、省份、电话查找客户">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th class="th-sortable" data-toggle="class">客户名称 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                    <th>客户所有人</th>
+                    <th>所属部门</th>
+                    <th>客户级别</th>
+                    <th>总人数</th>
+                    <th>省份</th>
+                    <th>电话</th>
+                    <th>创建日期</th>
+                    <th>公司网址</th>
+                    <th width="30"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model.ClientDTOList)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td>
+                                @*<a id="@item.Id" href="#modal-form" client class="" data-toggle="modal">@item.Name</a>*@
+                                <a href="/client/detail/@item.Id" >@item.Name</a>
+                            </td>
+                            <td>@item.UserName</td>
+                            <td>@(item.DepartmentFullName)</td>
+                            <td>@item.GradeName</td>
+                            <td>@item.Headcount</td>
+                            <td>@item.Province</td>
+                            <td>@item.OfficePhone</td>
+                            <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                            <td>
+                                @{
+                        if (!string.IsNullOrWhiteSpace(item.Website))
+                        {
+                            <a href="@item.Website" target="_blank">@item.Name</a>
+                        }
+                                }
+
+
+                            </td>
+
+                            <td>
+                                <a href="/admin/department/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                <a href="#" data-toggle="class">
+                                    <i class="fa fa-check text-success text-active"></i>
+                                    <i class="fa fa-times text-danger text"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+
+<div class="modal fade" id="modal-form">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <iframe id="clientDetailFrame" style="width:100%;height:100%; border:0;" ></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

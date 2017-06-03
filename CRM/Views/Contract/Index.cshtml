@@ -1,0 +1,88 @@
+﻿@using Ingenious.Infrastructure.Extensions
+@model Ingenious.DTO.ContractDTOList
+@{
+
+}
+@section css{
+
+}
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+        });
+    </script>
+}
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a><i class="fa fa-home"></i> 合同管理</a></li>
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 合同列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/contract/create"> 新建合同</a>
+        </div>
+        <form id="userSearchForm" action="/contract/index" method="post">
+
+            <div class="col-sm-3 pull-right ">
+                <div class="input-group">
+                    <input type="text" name="keywords" value="@ViewBag.keywords" class="form-control" placeholder="按合同主题、客户名称查找合同">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th class="th-sortable" data-toggle="class">主题 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                    <th>客户</th>
+                    <th>开始日期</th>
+                    <th>结束日期</th>
+                    <th>总金额</th>
+                    <th>回款金额</th>
+                    <th>合同状态</th>
+                    <th>合同所有人</th>
+                    <th width="30"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td>
+                                @*<a id="@item.Id" href="#modal-form" client class="" data-toggle="modal">@item.Name</a>*@
+                                <a href="/contract/edit/@item.Id">@item.Title</a>
+                            </td>
+                            <td>@item.Client.Name</td>
+                            <td>@(item.BeginDate.ToString("yyyy-MM-dd"))</td>
+                            <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.TotalAmount</td>
+                            <td>0</td>
+                            <td>@item.StatusLabel</td>
+                            <td>@item.Owner.Name</td>
+                            <td>
+                                <a href="/contract/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                <a href="#" data-toggle="class">
+                                    <i class="fa fa-check text-success text-active"></i>
+                                    <i class="fa fa-times text-danger text"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>

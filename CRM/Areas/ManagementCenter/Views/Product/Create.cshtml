@@ -1,0 +1,56 @@
+﻿@model Ingenious.DTO.ProductDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 产品管理</a></li>
+    <li class="active">新建产品</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建产品</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/admin/product/create" method="post">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsSettlement, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.CheckBoxFor(model => model.IsSettlement, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.IsSettlement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Comment, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.TextAreaFor(model => model.Comment, new {  @class = "form-control form-control-large"  })
+                        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/admin/product" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+

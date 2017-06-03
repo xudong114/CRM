@@ -1,0 +1,568 @@
+﻿@using Ingenious.Infrastructure.Extensions
+@model CRM.Models.ContractComposite
+@{
+    ViewBag.Title = "Create";
+
+    var productString = new System.Text.StringBuilder();
+    foreach (var item in Model.ProductDTOList)
+    {
+        productString.Append("{");
+        productString.Append(string.Format("Id:'{0}',Name:'{1}',IsSettlement:'{2}'", item.Id, item.Name, item.IsSettlement));
+        productString.Append("},");
+    }
+
+    var jsonProduct = productString.ToString().Substring(0, productString.Length - 1);
+
+    var priceString = new System.Text.StringBuilder();
+    var priceDetail = new System.Text.StringBuilder();
+    foreach (var item in Model.PriceStrategyDTOList)
+    {
+        priceString.Append("{");
+        foreach (var detail in item.PriceStrategyDetailList)
+        {
+            priceDetail.Append("{");
+
+            priceDetail.Append(string.Format("PriceStrategyId:'{0}',ProductId:'{1}',Price:'{2}',RenewPrice:'{3}',DiscountRate:'{4}',Minimum:'{5}'", detail.PriceStrategyId, detail.ProductId, detail.Price, detail.RenewPrice, detail.DiscountRate, detail.Minimum));
+
+            priceDetail.Append("},");
+        }
+        priceString.Append(string.Format("Id:'{0}',Name:'{1}',Items:[{2}]", item.Id, item.Name, priceDetail.ToString().Substring(0, priceDetail.Length - 1)));
+        priceString.Append("},");
+        priceDetail.Clear();
+    }
+
+    var jsonPrice = priceString.ToString().Substring(0, priceString.Length - 1);
+
+    var departmentString = new System.Text.StringBuilder();
+    foreach (var item in Model.DepartmentDTOList)
+    {
+        departmentString.Append("{");
+        departmentString.Append(string.Format("Id:'{0}',Name:'{1}',ParentId:'{2}',IsBranch:'{3}',PriceStrategyId:'{4}'", item.Id, item.Name, item.ParentId, item.IsBranch, item.PriceStrategyId));
+        departmentString.Append("},");
+    }
+
+    var jsonDepartment = departmentString.ToString().Substring(0, departmentString.Length - 1);
+
+}
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a><i class="fa fa-home"></i> 合同管理</a></li>
+    <li class="active">新建合同</li>
+</ul>
+@section css{
+    <link href="~/Scripts/select2/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/select2/theme.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+        .ui-dialog {
+            padding: 0;
+            box-shadow: 0px 0px 10px 0px #41586e;
+        }
+
+        .ui-dialog-titlebar {
+            height: 50px;
+        }
+
+        .ui-widget-header {
+            background-color: #41586e;
+            color: #fff;
+            border: 0;
+        }
+
+        .ui-widget input, .ui-widget button {
+            font-size: 14px !important;
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/lang/datepicker-zh-CN.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/default/datepicker-option-default.js"></script>
+    <script src="~/Scripts/jquery.numeric.js"></script>
+    <script src="~/Scripts/select2/select2.min.js"></script>
+
+    <script>
+        var jsonProduct = [];
+        var jsonPrice = [];
+        var jsonDepartment = [];
+        var priceStrategyId = null;
+        var productId = null;
+        $().ready(function () {
+            jsonProduct = eval('[@(HttpUtility.JavaScriptStringEncode(jsonProduct))]');
+            jsonPrice = eval('([@(HttpUtility.JavaScriptStringEncode(jsonPrice))])');
+            jsonDepartment = eval('[@(HttpUtility.JavaScriptStringEncode(jsonDepartment))]');
+
+            function setTotalAmount(productId, priceStrategyId, quantity) {
+                if (productId == null
+                    || priceStrategyId == null
+                    ) {
+                    $('#ContractDTO_Quantity').val('');
+                    $('#ContractDTO_TotalAmount').val('');
+                    $('#ContractDTO_TotalAmount').prop("disabled", false);
+                    return;
+                }
+                $(jsonProduct).each(function () {
+                    var item = this;
+
+                    if (item.Id.toLowerCase() == productId) {
+
+                        $(jsonPrice).each(function () {
+                            var price = this;
+
+                            if (price.Id == priceStrategyId) {
+
+                                $(price.Items).each(function () {
+                                    var detail = this;
+
+
+                                    if (detail.ProductId == productId) {
+
+                                        if (isNaN(parseInt(quantity))) {
+
+                                            quantity = detail.Minimum;
+                                            $('#ContractDTO_Quantity').val(quantity);
+                                        } else {
+
+                                            if (parseInt(quantity) < detail.Minimum) {
+                                                alert('不能小于最低购买数量！');
+                                                $('#ContractDTO_Quantity').val(detail.Minimum);
+                                                e.preventDefault();
+                                            }
+                                        }
+
+                                        if (item.IsSettlement == 'True') {
+                                            
+                                            $('#ContractDTO_TotalAmount').val(parseInt(detail.Price) * parseInt(quantity));
+                                            $('#ContractDTO_TotalAmount').prop("disabled", true);
+                                        } else {
+                                            $('#ContractDTO_TotalAmount').val('');
+                                            $('#ContractDTO_TotalAmount').prop("disabled", false);
+                                        }
+                                    }
+
+                                });
+                            }
+                        });
+
+
+                    }
+                    //$('#ContractDTO_TotalAmount').val();
+                });
+            }
+            $('#ContractDTO_ProductId').change(function () {
+
+                productId = $(this).find('option:selected').val().toLowerCase();
+                var quantity = $('#ContractDTO_Quantity').val();
+                setTotalAmount(productId, priceStrategyId, quantity);
+            });
+
+            $('#ContractDTO_BeginDate').datepicker();
+            $('#ContractDTO_EndDate').datepicker();
+            $('#ContractDTO_ContractedDate').datepicker();
+
+
+            $('#customeMoreLink').click(function () {
+                $(this).hide();
+                $('#customeMore').fadeToggle();
+            });
+
+            $('.dropdown-menu a').click(function () {
+                var id = $(this).attr('id');
+                $('#txtDepartmentName').val($(this).text());
+                $('#ContractDTO_DepartmentId').val(id);
+
+                $(jsonDepartment).each(function () {
+                    if (this.Id == id) {
+                        priceStrategyId = this.PriceStrategyId;
+                    }
+                });
+                var quantity = $('#ContractDTO_Quantity').val();
+                setTotalAmount(productId, priceStrategyId, quantity);
+            });
+
+            $('#ContractDTO_Quantity').keyup(function () {
+                setTotalAmount(productId, priceStrategyId, $(this).val());
+            });
+            $('#ContractDTO_Quantity').blur(function () {
+                setTotalAmount(productId, priceStrategyId, $(this).val());
+            });
+            var dialog_department = $("#dialog-form-department").dialog({
+                autoOpen: false,
+                height: 600,
+                width: 1000,
+                modal: true,
+                buttons: {
+                    "返回": function () {
+                        dialog_department.dialog("close");
+                    },
+
+                    "确认": function () {
+                        var id = $('#dialog-form-department input:checked').attr("id");
+                        if (id) {
+                            $('#ContractDTO_ClientId').val(id);
+                            $('#ClientName').val($('#' + id).attr('title'));
+
+
+                            dialog_department.dialog("close");
+                        }
+                    }
+                },
+                close: function () {
+
+                }
+            });
+            //关联客户
+            $('#btnClientName').click(function () {
+                dialog_department.dialog("open");
+                $(".ui-button.ui-corner-all.ui-widget")
+                .removeClass(".ui-button.ui-corner-all.ui-widget")
+                .addClass("btn btn-default");
+            });
+
+            $('#dialog-form-department input:checkbox').each(function () {
+                $(this).change(function () {
+                    var checked = this.checked;
+                    $('#dialog-form-department input:checkbox').prop('checked', false);
+                    this.checked = checked;
+                });
+            });
+
+            var dialog_user = $("#dialog-form-user").dialog({
+                autoOpen: false,
+                height: 600,
+                width: 1000,
+                modal: true,
+                buttons: {
+                    "返回": function () {
+                        dialog_user.dialog("close");
+                    },
+
+                    "确认": function () {
+                        var id = $('#dialog-form-user input:checked').attr("id");
+                        if (id) {
+                            $('#ContractDTO_UserId').val(id);
+                            $('#UserName').val($('#' + id).attr('title'));
+                            dialog_user.dialog("close");
+                        }
+                    }
+                },
+                close: function () {
+
+                }
+            });
+
+            //合同所有人
+            $('#btnUserName').click(function () {
+                dialog_user.dialog("open");
+            });
+
+            $('#dialog-form-user input:checkbox').each(function () {
+                $(this).change(function () {
+                    var checked = this.checked;
+                    $('#dialog-form-user input:checkbox').prop('checked', false);
+                    this.checked = checked;
+                });
+            });
+            $("#ContractDTO_Quantity").numeric({ decimal: false });
+
+
+            $('#btnSave').click(function () {
+                var banlance = @Model.AccountDTO.Balance;
+                var amount = $('#ContractDTO_TotalAmount').val();
+                if(parseFloat(banlance)< parseFloat(amount)){
+                    alert('余额不足，请充值！');
+                    return ;
+                }
+                $('#formContract').submit();
+            });
+
+        });
+    </script>
+
+}
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建合同</header>
+        <div class="panel-body">
+            <form id="formContract" class="bs-example form-horizontal" action="/contract/create" method="post">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.Title, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-4 required">
+                        @Html.EditorFor(model => model.ContractDTO.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContractDTO.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.ClientId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4">
+                        <div class="input-group  required">
+                            <input type="text" id="ClientName" class="form-control" />
+                            <div class="input-group-btn">
+                                <button id="btnClientName" type="button" class="btn btn-default"> <span class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="ContractDTO.ClientId" id="ContractDTO_ClientId" />
+                        @Html.ValidationMessageFor(model => model.ContractDTO.ClientId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.BeginDate, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4 required">
+                        @Html.EditorFor(model => model.ContractDTO.BeginDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContractDTO.BeginDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.EndDate, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4 required">
+                        @Html.EditorFor(model => model.ContractDTO.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContractDTO.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.OwnerId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4">
+                        <div class="input-group required">
+                            <input type="text" id="UserName" class="form-control" />
+                            <div class="input-group-btn">
+                                <button id="btnUserName" type="button" class="btn btn-default"> <span class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="ContractDTO.UserId" id="ContractDTO_UserId" />
+                        @Html.ValidationMessageFor(model => model.ContractDTO.OwnerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.DepartmentId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4">
+                        @{
+                            
+                        }
+
+                        <div class="input-group required">
+                            <input type="text" id="txtDepartmentName" class="form-control ">
+                            <div class="input-group-btn ">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="fa fa-plus"></span></button>
+                                <div class="dropdown-menu pull-right" style="height:300px; width:auto; overflow-x:scroll;">
+                                    <ul class="pull-right">
+                                        <li>
+                                            <div class="select2-search">
+                                                <input type="text" class="select2-input">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            @Html.Raw(ViewBag.HtmlString)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /btn-group -->
+                        </div>
+
+                        <input type="hidden" name="ContractDTO.DepartmentId" id="ContractDTO_DepartmentId" />
+                        @Html.ValidationMessageFor(model => model.ContractDTO.DepartmentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.ProductId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-4 required">
+                        @Html.DropDownListFor(model => model.ContractDTO.ProductId, new SelectList(Model.ProductDTOList, "Id", "Name"), "请选择产品", new { @class = "input-sm form-control input-s-sm inline" })
+                        @Html.ValidationMessageFor(model => model.ContractDTO.ProductId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.Quantity, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4 required">
+                        @Html.EditorFor(model => model.ContractDTO.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContractDTO.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContractDTO.TotalAmount, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4 required">
+                        @Html.EditorFor(model => model.ContractDTO.TotalAmount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContractDTO.TotalAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-lg-10">
+                        <a id="customeMoreLink" style="cursor:pointer;">查看更多信息>></a>
+                    </div>
+                </div>
+
+                <div id="customeMore" style="display:none;">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.Status, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-10">
+                            @Html.EnumDropDownList(typeof(Ingenious.Infrastructure.Enum.ContractStatusEnum), ((int)(Ingenious.Infrastructure.Enum.ContractStatusEnum.Starting)).ToString(), "name = 'ContractDTO.Status' class='input-sm form-control input-s-sm inline'")
+                            @Html.ValidationMessageFor(model => model.ContractDTO.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.Payment, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-10">
+                            @Html.EnumDropDownList(typeof(Ingenious.Infrastructure.Enum.PaymentMethodEnum), null, "name = 'ContractDTO.Payment' class='input-sm form-control input-s-sm inline'")
+                            @Html.ValidationMessageFor(model => model.ContractDTO.Payment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.Content, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-4">
+                            @Html.TextAreaFor(model => model.ContractDTO.Content, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ContractDTO.Content, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.ClientPrincipal, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-2-4">
+                            @Html.EditorFor(model => model.ContractDTO.ClientPrincipal, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContractDTO.ClientPrincipal, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.PrincipalId, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-2-4">
+                            @Html.EditorFor(model => model.ContractDTO.PrincipalId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContractDTO.PrincipalId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.ContractedDate, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-2-4">
+                            @Html.EditorFor(model => model.ContractDTO.ContractedDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContractDTO.ContractedDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractDTO.Comment, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-4">
+                            @Html.TextAreaFor(model => model.ContractDTO.Comment, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ContractDTO.Comment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <a  class="btn btn-sm btn-primary" id="btnSave">保存</a>
+                        <a href="/contract" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<div id="dialog-form-department" title="选择 客户" style="display:none;">
+    <section class="panel panel-default">
+        <div class="row text-sm wrapper">
+
+            <form id="userSearchForm" action="/client/index" method="post">
+
+                <div class="col-sm-3  ">
+                    <div class="input-group">
+                        <input type="text" name="keywords" value="@ViewBag.keywords" class="form-control" placeholder="按客户名称、所有人、省份、电话查找客户">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light text-sm">
+                <thead>
+                    <tr>
+                        <th width="20"></th>
+                        <th class="th-sortable" data-toggle="class">客户名称 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                        <th>客户所有人</th>
+                        <th>所属部门</th>
+                        <th>客户级别</th>
+                        <th>总人数</th>
+                        <th>省份</th>
+                        <th>电话</th>
+                        <th>创建日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in @Model.ClientDTOList)
+                        {
+                            <tr>
+                                <td><input type="checkbox" id="@item.Id" title="@item.Name" /></td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>@item.UserName</td>
+                                <td>@(item.DepartmentFullName)</td>
+                                <td>@item.GradeName</td>
+                                <td>@item.Headcount</td>
+                                <td>@item.Province</td>
+                                <td>@item.OfficePhone</td>
+                                <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
+
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div id="dialog-form-user" title="选择 合同所有人" style="display:none;">
+    <section class="panel panel-default">
+        <div class="row text-sm wrapper">
+            <form id="userSearchForm" action="/admin/user/index" method="post">
+
+                <div class="col-sm-3">
+
+                    <div class="input-group">
+                        <input type="text" name="keywords" value="@ViewBag.keywords" class="form-control" placeholder="按姓名、用户名查找用户">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light text-sm">
+                <thead>
+                    <tr>
+                        <th width="20"></th>
+                        <th class="th-sortable" data-toggle="class">用户名 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                        <th>部门管理员</th>
+                        <th>系统管理员</th>
+                        <th>部门</th>
+                        <th>创建日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.UserDTOList)
+                        {
+                            <tr>
+                                <td><input type="checkbox" id="@item.Id" title="@item.Name" value="3"></td>
+                                <td>@item.UserName</td>
+                                <td>@Html.Raw(item.IsAdmin ? "<i class='fa fa-check'></i>" : "")</td>
+                                <td>@Html.Raw(item.IsSupper ? "<i class='fa fa-check'></i>" : "")</td>
+                                <td>@item.DepartmentName</td>
+                                <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+</div>

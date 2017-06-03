@@ -1,0 +1,346 @@
+﻿@model CRM.Areas.ManagementCenter.Models.DepartmentComposite
+@{
+    ViewBag.Title = "Create";
+}
+@section scripts{
+    <script src="~/Areas/ManagementCenter/Content/Scripts/jquery.numeric.js"></script>
+    <script>
+
+        $().ready(function () {
+            $('#chkIsBranch').click(function () {
+                $('#IsBranch').val(this.checked);
+            });
+            $('.nav.nav-tabs.pull-left.client_tab li').each(function (n, ele) {
+
+                $(this).click(function () {
+                    $('.nav.nav-tabs.pull-left.client_tab li').removeClass('client_sel client_sel_left');
+                    if (n == 0) {
+                        $(this).addClass('client_sel_left');
+                    } else {
+                        $(this).addClass('client_sel');
+                    }
+                });
+            });
+
+            $('#btnRecharge').click(function () {
+                var accountId = $('#AccountId').val();
+                var money = $('#Money').val();
+                $.ajax({
+                    url: "/admin/department/recharge",
+                    data: { accountId: accountId, money: money },
+                    success: function (data) {
+                        $('#Money').val('');
+                        alert(data);
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        $('#Money').val('');
+                        alert(arg3);
+                    }
+                });
+            });
+
+            $("#Money").numeric({ decimal: true, negative: true, decimalPlaces: 2 },
+                function () {
+                    //this.value = "";
+                    //this.focus();
+                });
+        });
+
+    </script>
+}
+
+@section css{
+    <style>
+        #client_header {
+            width: 100%;
+            position: fixed;
+            background-color: #fff;
+            box-shadow: 1px 1px 1px #d3d8db;
+            z-index: 100;
+        }
+
+        .panel-heading {
+            height: 40px;
+        }
+
+        #client-content {
+            top: 70px;
+            position: relative;
+            width: 100%;
+        }
+
+        .client_tab {
+        }
+
+            .client_tab li, .client_tab_right li {
+                border-top-width: 2px;
+                border-top-style: solid;
+                border-top-color: #fff;
+                text-align: center;
+            }
+
+        .panel {
+            border: 0px;
+        }
+
+        .panel-default {
+            border-color: #fff;
+        }
+
+            .panel-default > .panel-heading {
+                color: #333333;
+                background-color: #fff;
+                border-color: #dddddd;
+            }
+
+        .client_sel {
+            border-top: 2px solid #65bd77 !important;
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+
+        .client_sel_left {
+            border-top: 2px solid #65bd77 !important;
+            border-right: 1px solid #e8e8e8;
+        }
+
+        #profile h4 {
+            font-weight: bold;
+        }
+
+        #profile ul li {
+            width: 300px;
+            height: 80px;
+            display: block;
+            float: left;
+        }
+
+            #profile ul li div:first-child {
+                margin-left: 10px;
+                margin-top: 10px;
+                color: #8fa1b2;
+            }
+
+            #profile ul li div:nth-child(2) {
+                margin-left: 10px;
+                font-size: 14px;
+                line-height: 35px;
+                width: 100%;
+                height: 35px;
+                padding-right: 20px;
+                color: #333940;
+                position: relative;
+            }
+
+            #profile ul li:hover {
+                background-color: #f2f4f7;
+                display: inline-block;
+            }
+
+        #profile tr {
+            border-bottom: 1px dashed #e8e8e8;
+        }
+
+        #client_activity div:first-child > div {
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 部门管理</a></li>
+    <li class="active">机构详情</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">机构详情</header>
+        <div class="panel-body">
+            <table class="table table-responsive">
+                <tr>
+                    <td style="width:100px; text-align:right;">@Html.LabelFor(model => model.DepartmentDTO.Name, new { @class = "control-label" })</td>
+                    <td style="width:200px; text-align:left;">@string.Format("{0}-{1}", Model.DepartmentDTO.Parent.Name, Model.DepartmentDTO.Name)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="width:100px; text-align:right;">@Html.LabelFor(model => model.DepartmentDTO.Principal, new { @class = "control-label" })</td>
+                    <td style="width:200px; text-align:left;">@Html.DisplayFor(model => model.DepartmentDTO.Principal) (@Html.DisplayFor(model => model.DepartmentDTO.Phone), @Html.DisplayFor(model => model.DepartmentDTO.OfficePhone))</td>
+                    <td style="width:100px; text-align:right;"></td>
+                    <td style="width:200px; text-align:left;"></td>
+                    <td style="width:100px; text-align:right;"></td>
+                    <td style="width:200px; text-align:left;"></td>
+                </tr>
+                <tr>
+                    <td style="width:100px; text-align:right;">@Html.LabelFor(model => model.DepartmentDTO.Address, new { @class = "control-label" })</td>
+                    <td style="width:200px; text-align:left;">@Html.DisplayFor(model => model.DepartmentDTO.Address)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="width:100px; text-align:right;">@Html.LabelFor(model => model.DepartmentDTO.Website, new { @class = "control-label" })</td>
+                    <td style="width:200px; text-align:left;">@Html.DisplayFor(model => model.DepartmentDTO.Website)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <section class="panel panel-default">
+                <header class="panel-heading text-right bg-light">
+                    <ul class="nav nav-tabs pull-left client_tab">
+                        <li class="active client_sel_left" style="width:100px;"><a href="#client_content" data-toggle="tab">账户</a></li>
+                        <li><a href="#recharge" style="width:100px;" data-toggle="tab">充值</a></li>
+                        <li><a href="#profile" style="width:100px;" data-toggle="tab">交易记录</a></li>
+                        <li><a href="#rechargebill" style="width:100px;" data-toggle="tab">充值记录</a></li>
+                        <li><a href="#price" style="width:100px;" data-toggle="tab">价格策略</a></li>
+                    </ul>
+                </header>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="client_content">
+                            <table class="table table-responsive">
+                                <tr>
+                                    <td style="width:100px;padding-top:20px;text-align:right;">
+                                        可用余额 :
+                                    </td>
+                                    <td style="padding-top:15px; text-align:left;">
+                                        <span style=" font-weight:900;font-size:20px;color:red;">@Model.AccountDTO.Balance</span> (元)
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="recharge">
+                            <form action="/department/reharge" method="post">
+                                <table class="table table-responsive">
+                                    <tr>
+                                        <td style="width:100px; padding-top:15px;">
+                                            充值金额
+                                        </td>
+                                        <td>
+                                            <div class="col-lg-2-4">
+                                                <input type="hidden" name="AccountId" id="AccountId" value="@Model.AccountDTO.Id" />
+                                                <input type="text" name="Money" id="Money" class="form-control" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <a class="btn btn-sm btn-primary" id="btnRecharge">提交</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade " id="profile">
+                            <table class="table table-hover table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>合同</th>
+                                        <th>金额</th>
+                                        <th>发生时间</th>
+                                        <th>操作账号</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var item in Model.BillDTOList)
+                                        {
+                                            <tr>
+                                                <td><a href="/contract/detail/@item.ContractId" target="_blank">@item.Contract.Title</a> </td>
+                                                <td>@item.Money</td>
+                                                <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                                                <td>@item.CreatedBy</td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="rechargebill">
+
+                            <table class="table table-hover table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>金额</th>
+                                        <th>充值时间</th>
+                                        <th>操作账号</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var item in Model.RechargeDTOList)
+                                        {
+                                            <tr>
+                                                <td>@item.Money (元)</td>
+                                                <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                                                <td>@item.CreatedBy</td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="price">
+
+                            <table class="table table-hover table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>生效时间</th>
+                                        <th>终止时间</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        <tr>
+                                            <td>@Model.DepartmentDTO.PriceStrategy.Name</td>
+                                            <td>@Model.DepartmentDTO.PriceStrategy.BeginDate.ToString("yyyy-MM-dd")</td>
+                                            <td>@Model.DepartmentDTO.PriceStrategy.EndDate.ToString("yyyy-MM-dd")</td>
+                                            <td>@Model.DepartmentDTO.PriceStrategy.Comment</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-hover table-responsive table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>产品</th>
+                                        <th>最小购买量</th>
+                                        <th>执行价格</th>
+                                        <th>续费价格</th>
+                                        <th>折扣率</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+    foreach (var item in Model.DepartmentDTO.PriceStrategy.PriceStrategyDetailList)
+                                        {
+                                            <tr>
+                                                <td>@item.Product.Name</td>
+                                                <td>@item.Minimum</td>
+                                                <td>@item.Price</td>
+                                                <td>@item.RenewPrice</td>
+                                                <td>@item.DiscountRate</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>

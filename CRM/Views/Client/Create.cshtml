@@ -1,0 +1,209 @@
+﻿@model Ingenious.DTO.ClientDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a><i class="fa fa-home"></i> 客户管理</a></li>
+    <li class="active">新建客户</li>
+</ul>
+@section css{
+<link href="~/Scripts/select2/select2.css" rel="stylesheet" />
+<link href="~/Scripts/select2/theme.css" rel="stylesheet" />
+}
+@section scripts{
+<script src="~/Scripts/select2/select2.min.js"></script>
+<script src="~/Scripts/jquery.district.js"></script>
+    <script>
+        $().ready(function () {
+
+            $.provinces({ id: 'Province', selected: '', defaultOption: '请选择' });
+            $('#Province').change(function () {
+ 
+                $.cities({ id: 'City', code:$(this).val(), selected: '', defaultOption: '请选择' });
+            });
+            
+            $('#City').change(function () {
+                
+                $.countries({ id: 'Country',code:$(this).val(), selected: '', defaultOption: '请选择' });
+
+            });
+            
+            $('#Country').change(function () {
+
+            });
+
+            $('#customeMoreLink').click(function () {
+                $(this).hide();
+                $('#customeMore').fadeToggle();
+
+            });
+
+
+            $('.dropdown-menu input').click(function (e) {
+                
+                e.stopPropagation();
+            });
+
+            $('.dropdown-menu a').click(function () {
+                $('#txtDepartmentId').val($(this).text());
+                $('#DepartmentId').val($(this).attr('id'));
+            });
+
+        });
+    </script>
+
+}
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建客户</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/client/create" method="post">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4 required">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Province, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <select id="Province" name="Province" class="input-sm form-control input-s-sm inline"></select>
+                        <select id="City" name="City" class="input-sm form-control input-s-sm inline"></select>
+                        <select id="Country" name="Country" class="input-sm form-control input-s-sm inline"></select>
+                        @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Street, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-4">
+                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OfficePhone, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4">
+                        @Html.EditorFor(model => model.OfficePhone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Comment, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-4">
+                        @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DepartmentId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-2-4 required">
+                        @*@Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })*@
+                        <div class="input-group ">
+                            <input type="text" id="txtDepartmentId" class="form-control ">
+                            <div class="input-group-btn ">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> <span class="fa fa-plus"></span></button>
+                                <div class="dropdown-menu pull-right" style="height:300px; width:auto; overflow-x:scroll;">
+                                    <ul class="pull-right">
+                                        <li>
+                                            <div class="select2-search">
+                                                <input type="text" class="select2-input">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            @Html.Raw(ViewBag.HtmlString)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /btn-group -->
+                        </div>
+                    </div>
+                    <input type="hidden" name="DepartmentId" id="DepartmentId" />
+                </div>
+
+
+
+                <div class="form-group">
+                    
+                    <div class="col-lg-10">
+                        <a id="customeMoreLink" style="cursor:pointer;">查看更多信息>></a>
+                    </div>
+                </div>
+                    
+                    <div id="customeMore" style="display:none;">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.GradeId, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.GradeId, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.ValidationMessageFor(model => model.GradeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IndustryId, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.IndustryId, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.ValidationMessageFor(model => model.IndustryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Postcode, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Postcode, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Fax, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Website, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Weibo, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Weibo, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.ValidationMessageFor(model => model.Weibo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Headcount, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Headcount, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.ValidationMessageFor(model => model.Headcount, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Saleroom, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Saleroom, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline", @value = "0.0" } })
+                                @Html.ValidationMessageFor(model => model.Saleroom, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                            <a href="/client" class="btn btn-sm btn-default">取消</a>
+                        </div>
+                    </div>
+</form>
+        </div>
+    </section>
+</div>
+
+
+
+

@@ -1,0 +1,157 @@
+﻿@using Ingenious.Infrastructure.Extensions
+@model Ingenious.DTO.UserDTOList
+@{
+
+}
+
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+            $('.fa.fa-fw.fa-search').click(function () {
+                $('#userSearchForm').submit();
+            });
+        });
+    </script>
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 用户管理</a></li>
+    @*<li class="active">Workset</li>*@
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 用户列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/admin/user/create"> 新建用户</a>
+        </div>
+        <form id="userSearchForm" action="/admin/user/index" method="post">
+
+            @Html.EnumDropDownList(typeof(Ingenious.Infrastructure.Enum.UserStatusEnum), "", "class='input-sm form-control input-s-sm inline' name='Status' ", "")
+            @Html.DropDownList("Department", (ViewBag.Departments as IEnumerable<SelectListItem>), new { @class = "input-sm form-control input-s-sm inline" })
+            <div class="col-sm-3 pull-right ">
+
+                <div class="input-group">
+                    <input type="text" name="keywords" value="@ViewBag.keywords" class="form-control" placeholder="按姓名、用户名查找用户">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th class="th-sortable" data-toggle="class">用户名 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                    <th>部门管理员</th>
+                    <th>系统管理员</th>
+                    <th>部门</th>
+                    <th>创建日期</th>
+                    @*<th>创建人</th>*@
+                    <th>状态</th>
+                    <th width="30"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td>@item.UserName</td>
+                            <td>@Html.Raw(item.IsAdmin ? "<i class='fa fa-check'></i>" : "")</td>
+                            <td>@Html.Raw(item.IsSupper ? "<i class='fa fa-check'></i>" : "")</td>
+                            <td>@item.DepartmentName</td>
+                            <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
+                            @*<td>@item.CreatedBy</td>*@
+                            <td>@item.StatusName</td>
+                            <td>
+                                <a href="#" data-toggle="class">
+                                    <i class="fa fa-edit"></i>
+                                    <i class="fa fa-check text-success text-active"></i>
+                                    <i class="fa fa-times text-danger text"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Idrawfast 02/2013</h4>
+            </div>
+            <div class="modal-body">
+                <p>This is a table in a modal, click the trash icon to remove the item</p>
+                <section class="panel panel-default m-l-n-md m-r-n-md m-b-none">
+                    <header class="panel-heading"> <span class="label bg-danger pull-right">4 left</span> Tasks </header>
+                    <table class="table table-striped m-b-none text-sm">
+                        <thead>
+                            <tr>
+                                <th>Progress</th>
+                                <th>Item</th>
+                                <th width="20"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="item-1">
+                                <td>
+                                    <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
+                                        <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="80%" style="width: 80%"></div>
+                                    </div>
+                                </td>
+                                <td>App prototype design</td>
+                                <td class="text-right"><a href="#item-1" data-dismiss="alert"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                            <tr id="item-2">
+                                <td>
+                                    <div class="progress progress-xs m-t-xs m-b-none">
+                                        <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="40%" style="width: 40%"></div>
+                                    </div>
+                                </td>
+                                <td>Design documents</td>
+                                <td class="text-right"><a href="#item-2" data-dismiss="alert"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                            <tr id="item-3">
+                                <td>
+                                    <div class="progress progress-xs m-t-xs m-b-none">
+                                        <div class="progress-bar progress-bar-warning" data-toggle="tooltip" data-original-title="20%" style="width: 20%"></div>
+                                    </div>
+                                </td>
+                                <td>UI toolkit</td>
+                                <td class="text-right"><a href="#item-3" data-dismiss="alert"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                            <tr id="item-4">
+                                <td>
+                                    <div class="progress progress-xs m-t-xs m-b-none">
+                                        <div class="progress-bar progress-bar-danger" data-toggle="tooltip" data-original-title="15%" style="width: 15%"></div>
+                                    </div>
+                                </td>
+                                <td>Testing</td>
+                                <td class="text-right"><a href="#item-4" data-dismiss="alert"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" data-loading-text="Updating...">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

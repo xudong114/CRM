@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>艾博软件 CRM</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Areas/ManagementCenter/Content/Css/style.css" rel="stylesheet" />
+    <link href="~/Areas/ManagementCenter/Content/Css/accordion.css" rel="stylesheet" />
+    <link href="~/Areas/ManagementCenter/Content/Css/content.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="header">
+        <div class="header_content">
+            <div class="logo"></div>
+            <div class="logout">
+                <ul>
+                    <li>
+                        欢迎您，
+                        <span>@ViewBag.UserName</span>
+                    </li>
+                    <li>
+                        <a href="#" class="return"><i></i>返回首页</a>
+                    </li>
+                    <li>
+                        <a href="#" class="exit"><i></i>退出系统</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="all">
+        <div id="content">
+            <div class="leftContent">
+                <div class="left_nav">
+                    <div id="accordion" class="accordion ui-accordion ui-widget ui-helper-reset" role="tablist">
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-1" aria-controls="ui-id-2" aria-selected="false" aria-expanded="false" tabindex="-1">
+                            <a href="javascript:void(0)" class="ico ico_14" id="home"><i></i><span onclick="$(&#39;#indexhome&#39;).click()">后台主页</span></a>
+                        </h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-2" aria-labelledby="ui-id-1" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list" style="display: none;">
+                                <li class="hover">
+                                    <a href="javascript:void(0)" id="indexhome" class="nc_menu" url="/admin/license/homeIndex.action?decorator=ajaxformat&amp;confirm=true">后台主页</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h5 class="ui-accordion-header ui-state-default ui-accordion-header-active ui-state-active ui-corner-top" role="tab" id="ui-id-3" aria-controls="ui-id-4" aria-selected="true" aria-expanded="true" tabindex="0"><a href="javascript:void(0);" id="departAndUserMenu" class="ico ico_7"><i></i>用户和权限</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" style="display: block;" id="ui-id-4" aria-labelledby="ui-id-3" role="tabpanel" aria-hidden="false">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" id="professional_role_a" url="/admin/dimension/privilege/professional.action">角色管理</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" id="reload_responsibility_list" url="/admin/auth/responsibility.action">职能管理</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-5" aria-controls="ui-id-6" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="#" class="ico ico_1"><i></i>标准业务对象管理</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-6" aria-labelledby="ui-id-5" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a id="account_customize" href="javascript:void(0);" class="nc_menu" url="/admin/business-manage/account-init-item-list.action" param="{&#39;itemGroupId&#39;:&#39;1&#39;,&#39;belongId&#39;:&#39;1&#39;}">客户</a>
+                                </li>
+                                <li>
+                                    <a id="contact_customize" href="javascript:void(0);" class="nc_menu" url="/admin/business-manage/contact-init-item-list.action" param="{&#39;itemGroupId&#39;:&#39;2&#39;,&#39;belongId&#39;:&#39;2&#39;}">联系人</a>
+                                </li>
+                                <li>
+                                    <a id="opportunity_customize" href="javascript:void(0);" class="nc_menu" url="/admin/business-manage/opportunity-init-item-list.action" param="{&#39;itemGroupId&#39;:&#39;3&#39;,&#39;belongId&#39;:&#39;3&#39;}">销售机会</a>
+                                </li>
+                                <li>
+                                    <a id="campaign_customize" href="javascript:void(0);" class="nc_menu" url="/admin/business-manage/campaign-init-item-list.action" param="{&#39;itemGroupId&#39;:&#39;8&#39;,&#39;belongId&#39;:&#39;6&#39;}">市场活动</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-9" aria-controls="ui-id-10" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" class="ico ico_4"><i></i>办公设置</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-10" aria-labelledby="ui-id-9" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li><a id="apply_customize" href="javascript:void(0);" class="nc_menu" url="/admin/business-manage/apply-init-item-list.action" param="{&#39;itemGroupId&#39;:&#39;13&#39;,&#39;belongId&#39;:&#39;13&#39;}">审批单</a></li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" id="workreport_a" url="/admin//work-report/index.action?decorator=ajaxformat&amp;confirm=true" param="{&#39;itemGroupId&#39;:&#39;25&#39;,&#39;belongId&#39;:&#39;25&#39;}">工作报告</a>
+                                </li>
+                                <h5><a href="javascript:void(0);"></a></h5>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" id="schudule_a" url="/admin/sales-param-manage/init-schedule.action">日程</a>
+                                </li>
+                                <li>
+                                    <a id="attendance_customize" href="javascript:void(0);" class="nc_menu" url="/admin/attendance/index.action">考勤点管理</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" url="/admin/sales-param-manage/init-announcement.action?fromPage=5">部门公告</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" id="blogCategory_a" url="/admin/syssetting/init-blog-category.action?decorator=ajaxformat&amp;confirm=true">博客分类</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-11" aria-controls="ui-id-12" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" id="FlowManageMenu" class="ico ico_8"><i></i>流程管理</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-12" aria-labelledby="ui-id-11" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li><a id="apply_customize_manage" href="javascript:void(0);" class="nc_menu" url="/admin/flow/flow-list.action?decorator=ajaxformat&amp;confirm=true" param="{&#39;itemGroupId&#39;:&#39;13&#39;,&#39;belongId&#39;:&#39;13&#39;}">审批流程管理</a></li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-13" aria-controls="ui-id-14" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" class="ico ico_9"><i></i>系统设置</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-14" aria-labelledby="ui-id-13" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" url="/admin/syssetting/init-common-parameter.action?decorator=ajaxformat&amp;confirm=true">基本设置</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-15" aria-controls="ui-id-16" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" class="ico ico_13"><i></i>安全设置</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-16" aria-labelledby="ui-id-15" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a href="javascript:void(0)" id="reload_password_rule_list" class="nc_menu" url="/admin/security/password/index.action?decorator=ajaxformat&amp;confirm=true">密码规则</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" id="reload_browser_session" class="nc_menu" url="/admin/security/session/index.action?decorator=ajaxformat&amp;confirm=true">超时登出</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" url="/admin/security/devicebind/index.action?decorator=ajaxformat&amp;confirm=true">手机绑定</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-17" aria-controls="ui-id-18" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" class="ico ico_15"><i></i>日志查询</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-18" aria-labelledby="ui-id-17" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" url="/admin/loginlog/index.action?decorator=ajaxformat&amp;confirm=true">用户登录日志</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" url="/admin/operationlog/index.action?decorator=ajaxformat&amp;confirm=true">用户操作日志</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="nc_menu" url="/admin/systemlog/index.action?decorator=ajaxformat&amp;confirm=true">用户/权限管理日志</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-19" aria-controls="ui-id-20" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" class="ico ico_10"><i></i>许可管理</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-20" aria-labelledby="ui-id-19" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a href="javascript:void(0)" id="license_info" class="nc_menu" url="/admin/license/info.action?decorator=ajaxformat&amp;confirm=true">许可信息</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="ui-accordion-header ui-state-default ui-corner-all" role="tab" id="ui-id-21" aria-controls="ui-id-22" aria-selected="false" aria-expanded="false" tabindex="-1"><a href="javascript:void(0);" class="ico ico_16"><i></i>用户界面</a></h5>
+                        <div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="display: none;" id="ui-id-22" aria-labelledby="ui-id-21" role="tabpanel" aria-hidden="true">
+                            <ul class="accordion_set_list">
+                                <li>
+                                    <a href="javascript:void(0)" id="application_packs" class="nc_menu" url="/admin/pack/list.action?decorator=ajaxformat&amp;confirm=true">导航菜单</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="rightContent" id="rightContent">
+                <div class="right_frame multi_latitude_frame">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer_bottom">
+        <span>&copy; @DateTime.Now.Year - 苏州艾博软件科技有限公司</span>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $( function() {
+
+            $( "#accordion h5" ).click(function(){
+                $( "#accordion h5" )
+                    .removeClass("ui-accordion-header-active ui-state-active ui-corner-top")
+                    .addClass("ui-corner-all")
+                    .next()
+                    .slideUp();
+
+                $(this)
+                    .addClass("ui-accordion-header-active ui-state-active ui-corner-top")
+                    .next()
+                    .slideDown(300);
+            });
+
+        } );
+    </script>
+</body>
+</html>

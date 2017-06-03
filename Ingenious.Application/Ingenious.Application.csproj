@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1772C979-3A92-4CCD-8FAA-0E7F153D3661}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ingenious.Application</RootNamespace>
+    <AssemblyName>Ingenious.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\packages\Unity.Interception.4.0.1\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\packages\Unity.Interception.4.0.1\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationService.cs" />
+    <Compile Include="DependencyRegisterType.cs" />
+    <Compile Include="IApplication.cs" />
+    <Compile Include="Implement\RechargeService.cs" />
+    <Compile Include="Implement\BillService.cs" />
+    <Compile Include="Implement\ActivityCategoryService.cs" />
+    <Compile Include="Implement\ActivityService.cs" />
+    <Compile Include="Implement\AccountService.cs" />
+    <Compile Include="Implement\ContractService.cs" />
+    <Compile Include="Implement\ClientService.cs" />
+    <Compile Include="Implement\DepartmentService.cs" />
+    <Compile Include="Implement\PriceStrategyService.cs" />
+    <Compile Include="Implement\PriceStrategyDetailService.cs" />
+    <Compile Include="Implement\ProductService.cs" />
+    <Compile Include="Implement\UserDetailService.cs" />
+    <Compile Include="Implement\UserService.cs" />
+    <Compile Include="Interface\IRechargeService.cs" />
+    <Compile Include="Interface\IBillService.cs" />
+    <Compile Include="Interface\IActivityCategoryService.cs" />
+    <Compile Include="Interface\IActivityService.cs" />
+    <Compile Include="Interface\IAccountService.cs" />
+    <Compile Include="Interface\IContractService.cs" />
+    <Compile Include="Interface\IClientService.cs" />
+    <Compile Include="Interface\IDepartmentService.cs" />
+    <Compile Include="Interface\IPriceStrategyDetailService.cs" />
+    <Compile Include="Interface\IPriceStrategyService.cs" />
+    <Compile Include="Interface\IProductService.cs" />
+    <Compile Include="Interface\IUserDetailService.cs" />
+    <Compile Include="Interface\IUserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ingenious.Domain\Ingenious.Domain.csproj">
+      <Project>{28497894-d60e-434c-8e73-8513866d71e4}</Project>
+      <Name>Ingenious.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ingenious.DTO\Ingenious.DTO.csproj">
+      <Project>{a3c47c44-219e-4911-8210-1120f83204fa}</Project>
+      <Name>Ingenious.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ingenious.Infrastructure\Ingenious.Infrastructure.csproj">
+      <Project>{b6af8517-457d-43ae-a239-24b73872f13b}</Project>
+      <Name>Ingenious.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ingenious.Repositories\Ingenious.Repositories.csproj">
+      <Project>{728142b2-deb6-41e1-b555-b90e5cd2d454}</Project>
+      <Name>Ingenious.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

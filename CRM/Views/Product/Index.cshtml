@@ -1,0 +1,56 @@
+﻿@model Ingenious.DTO.ProductDTOList
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+        });
+    </script>
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a><i class="fa fa-home"></i> 产品管理</a></li>
+</ul>
+<section class="panel panel-default" style="border-top:0;">
+
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th>名称 </th>
+                    <th>编码</th>
+                    <th>价格</th>
+                    <th>续费</th>
+                    <th>折扣</th>
+                    <th>最小购买量</th>
+                    <th>创建日期</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                            <td>@item.Price.ToString("F")</td>
+                            <td>@item.RenewPrice.ToString("F")</td>
+                            <td>@item.DiscountRate.ToString("F")</td>
+                            <td>@item.Minimum</td>
+                            <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
+                            <td>@item.Comment</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+

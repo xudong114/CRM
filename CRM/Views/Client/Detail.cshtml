@@ -1,0 +1,999 @@
+﻿@using Ingenious.Infrastructure.Extensions
+@model CRM.Models.ClientComposite
+@{
+    ViewBag.Title = "Detail";
+}
+
+
+@section css{
+    <link href="~/Content/css/client.css" rel="stylesheet" />
+    <style>
+        .panel-heading {
+            height: 40px;
+        }
+
+        #client-content {
+            top: 10px;
+            position:relative;
+        }
+
+        .client_tab {
+        }
+
+        .client_tab li, .client_tab_right li {
+            border-top-width: 2px;
+            border-top-style: solid;
+            border-top-color: #fff;
+            text-align: center;
+        }
+
+        .panel {
+            border: 0px;
+        }
+
+        .panel-default {
+            border-color: #fff;
+        }
+
+        .panel-default > .panel-heading {
+            color: #333333;
+            background-color: #fff;
+            border-color: #dddddd;
+        }
+
+        .client_sel {
+            border-top: 2px solid #00aaef !important;
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+        }
+
+        .client_sel_left {
+            border-top: 2px solid #00aaef !important;
+            border-right: 1px solid #e8e8e8;
+        }
+
+        #profile ul li {
+            width: 300px;
+            
+            display: block;
+            float: left;
+        }
+
+        #profile ul li div:first-child {
+            margin-left: 10px;
+            margin-top: 10px;
+            color: #8fa1b2;
+        }
+
+        #profile ul li div:nth-child(2) {
+            margin-left: 10px;
+            font-size: 14px;
+            line-height: 35px;
+            width: 100%;
+            height: 35px;
+            padding-right: 20px;
+            color: #333940;
+            position: relative;
+        }
+
+        #profile ul li:hover {
+            background-color: #f2f4f7;
+            display: inline-block;
+        }
+
+        #profile tr {
+            border-bottom: 1px dashed #e8e8e8;
+        }
+
+        #client_activity div:first-child > div {
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+@section scripts{
+    <script src="~/Scripts/json2.min.js"></script>
+    <script src="~/Scripts/juicer-min.js"></script>
+    <script>
+        $().ready(function () {
+
+            $('.nav.nav-tabs.pull-left.client_tab li').each(function (n, ele) {
+
+                $(this).click(function () {
+                    $('.nav.nav-tabs.pull-left.client_tab li').removeClass('client_sel client_sel_left');
+                    if (n == 0) {
+                        $(this).addClass('client_sel_left');
+                    } else {
+                        $(this).addClass('client_sel');
+                    }
+                });
+            });
+
+            $('#btnSaveActivity').click(function () {
+                var clientId = '@Model.Client.Id';
+                var cateId = $('#ActivityCategories').val();
+                var content = $('#client_activity_content').val();
+                if (content == '')
+                    return;
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/client/CreateActivity",
+                    data: { clientId: clientId, cateId: cateId, content: content },
+                    success: function (data) {
+                        $('#client_activity_content').val('');
+                        var data = JSON.parse(data);
+                        var tpl = document.getElementById('tplActivity').innerHTML;
+                        var html = $(juicer(tpl, data)).hide();
+                        $('.comment-list.block').prepend(html);
+                        html.fadeIn(2000);
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        alert(arg3);
+                    }
+                });
+            });
+
+            juicer.set({
+                'tag::operationOpen': '{@@',
+                'tag::operationClose': '}',
+                'tag::interpolateOpen': '${',
+                'tag::interpolateClose': '}',
+                'tag::noneencodeOpen': '$${',
+                'tag::noneencodeClose': '}',
+                'tag::commentOpen': '{#',
+                'tag::commentClose': '}'
+            });
+
+        });
+    </script>
+
+    <script id="tplActivity" type="text/template">
+
+        {@@each List as item,index}
+        <article id="comment-id-1" class="comment-item">
+            <a class="pull-left thumb-sm avatar activity_category_icon"> <img class="icon_location" /> </a> <span class="arrow left"></span>
+            <section class="comment-body panel panel-default">
+                <header class="panel-heading bg-white">
+                    <a href="#">${item.UserName} ${item.ActivityCategoryName}</a>
+                    {@@if item.CreatedDate !=  item.ModifiedDate }
+                    <label class='label bg-info m-l-xs'>已编辑</label>
+                    {@@/if}
+                    <span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> ${item.TimeLabel} </span>
+                </header>
+                <div class="panel-body">
+                    <div>
+                        ${item.Content}
+                    </div>
+                    <div class="comment-action m-t-sm">
+                        <a href="#comment-form" class="btn btn-default btn-xs">
+                            <i class="fa fa-mail-reply text-muted"></i> 评论
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </article>
+        {@@/each}
+
+    </script>
+}
+
+
+<input type="hidden" id="Client.Id" value="@Model.Client.Id" />
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a><i class="fa fa-home"></i> 客户详情</a></li>
+</ul>
+
+<div id="crmContentDetail" style="right: -12px;  " class="crm-content-detail crm-sliding-content">
+    <div class="plantflom-tpl-pc xsyAccountDetail" id="1" wtype="xsyAccountDetail">
+        <div class="xsy_detail" style="padding-top: 0px;">
+            <div data-layout="head" class="xsy_locked_layout">
+                <div id="8351178" wtype="xsyApprovalBar" class="xsyApprovalBar xsy_approval_bar" _token="112" style="display: none;"></div>
+                <div id="8618428" wtype="xsyAccountHeader" class="xsyAccountHeader xsy_su_header" _token="2">
+                    <div class="xsy_row xsy_detail_header">
+                        <header class="xsy_detail_top">
+                            <div class="plantflom-header">
+                                <div class="xsy_su_header_grid grid_align_spread">
+                                    <div class="xsy_su_header_col xsy_su_header_businfo">
+                                        <div class="xsy_su_header_grid xsy_su_header_primary">
+                                            <div class="xsy_su_header_grid xsy_su_header_field">
+                                                <div class="xsy_su_header_col">
+                                                    <h1 class="xsy_su_header_title"> <span class="xsy_su_header_figure xsy_header_account"></span> <span act="title" class="xsy_su_header_figure">@Model.Client.Name</span> </h1>
+                                                    <div class="js-popup crm-customer-popup" style="display: none;"></div>
+                                                </div>
+                                                <div class="xsy_su_header_col shrink-none ">
+                                                    <a style="" href="javascript:;" class="xsy_su_header_hasfollow xsyFavouriteButton" is-private="true" wtype="xsyFavouriteButton" title="取消关注" id="8179038"><i></i>已关注</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="xsy_su_header_col shrink-none xsy_su_header_menu">
+                                        <div id="8618428_buttonbar" wtype="xsyAccountButtonBar" class="xsy_buttonbar" is-private="true">
+                                            <ul class="xsy_buttonbar_list">
+                                                <li> <a href="javascript:;" in="new_detail" class="xsy_buttonbar_link edit   " business="account" ><i></i>编辑</a> </li>
+                                                <li>
+                                                    <a href="javascript:;" in="new_detail" data-id="5" businessname="" entity-id="" entity-name="" act="" class="xsy_buttonbar_link  create  "><i></i>新建</a>
+                                                    <div class="xsy_buttonbar_menu xsy_buttonbar_menu1" style="display:none;">
+                                                        <ul>
+                                                            <li> <a in="new_detail" data-id="3620653" act="createContact" entity-id="2" entity-name="" title="联系人" class="xsy_buttonbar_item" businessname="联系人" business="contact" postdata="{&quot;accountId&quot;:13828420}"> <span>联系人</span> </a> </li>
+                                                            <li> <a in="new_detail" data-id="3620642" act="createOpportunity" entity-id="3" entity-name="" title="销售机会" class="xsy_buttonbar_item" businessname="销售机会" business="opportunity" postdata="{&quot;accountId&quot;:13828420}"> <span>销售机会</span> </a> </li>
+                                                            <li> <a in="new_detail" data-id="3620665" act="createContract" entity-id="15" entity-name="" title="合同" class="xsy_buttonbar_item" businessname="合同" business="contract" postdata="{&quot;accountId&quot;:13828420}"> <span>合同</span> </a> </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;" in="new_detail" data-id="6" businessname="" entity-id="" entity-name="" act="" class="xsy_buttonbar_link   more "><i></i></a>
+                                                    <div class="xsy_buttonbar_menu xsy_buttonbar_menu1" style="display:none;">
+                                                        <ul>
+                                                            <li> <a in="new_detail" data-id="" act="transferAccount" entity-id="1" entity-name="" title="转移给他人" class="xsy_buttonbar_item" businessname="转移给他人"> <span>转移给他人</span> </a> </li>
+                                                            <li> <a in="new_detail" data-id="" act="deleteAccount" entity-id="1" entity-name="" title="删除" class="xsy_buttonbar_item" businessname="删除"> <span>删除</span> </a> </li>
+                                                            <li> <a in="new_detail" data-id="" act="viewAccountLog" entity-id="1" entity-name="" title="查看操作记录" class="xsy_buttonbar_item" businessname="查看操作记录"> <span>查看操作记录</span> </a> </li>
+                                                            <li> <a in="new_detail" data-id="" act="lockData" entity-id="1" entity-name="" title="锁定" class="xsy_buttonbar_item" businessname="锁定"> <span>锁定</span> </a> </li>
+                                                            <li> <a in="new_detail" data-id="" act="leadConvertLog" entity-id="1" entity-name="" title="查看线索转换记录" class="xsy_buttonbar_item" businessname="查看线索转换记录"> <span>查看线索转换记录</span> </a> </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="xsy_su_header_grid xsy_su_header_detail" style="visibility: visible;">
+                                    <ul class="xsy_su_header_sedfields" data-entity-primary="13828420" style="margin-top: 0px;">
+                                        <li class="xsy_su_header_col size-1-of-5">
+                                            <div class="xsy_su_header_item">
+                                                <div class="xsy_su_header_label xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis">客户类型</span>
+                                                </div>
+                                                <div class="xsy_su_header_value xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis" data-item-primary="account.entityType" title="默认业务类型">默认业务类型</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="xsy_su_header_col size-1-of-5">
+                                            <div class="xsy_su_header_item">
+                                                <div class="xsy_su_header_label xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis">公司网址</span>
+                                                </div>
+                                                <div class="xsy_su_header_value xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis" data-item-primary="account.url" title="">@Model.Client.Website</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="xsy_su_header_col size-1-of-5">
+                                            <div class="xsy_su_header_item">
+                                                <div class="xsy_su_header_label xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis">电话</span>
+                                                </div>
+                                                <div class="xsy_su_header_value xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis" data-item-primary="account.phone" title="">@Model.Client.OfficePhone</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="xsy_su_header_col size-1-of-5">
+                                            <div class="xsy_su_header_item">
+                                                <div class="xsy_su_header_label xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis">所属公海</span>
+                                                </div>
+                                                <div class="xsy_su_header_value xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis" data-item-primary="account.highSeaId" title=""></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="xsy_su_header_col size-1-of-5">
+                                            <div class="xsy_su_header_item">
+                                                <div class="xsy_su_header_label xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis">客户所有人</span>
+                                                </div>
+                                                <div class="xsy_su_header_value xsy_su_header_recordcell ellipsis">
+                                                    <span class="ellipsis" data-item-primary="account.ownerId" title=""><a href="/final/user.action?id=672261" ucard="uid=672261" target="_blank" class="item-user" title="江苏化工"><img src="/img/default_face.png" class="item-user-icon " /><span class="item-user-name"></span></a></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div> 
+
+
+<div id="client-content">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:60%;  vertical-align:top;">
+                <section class="panel panel-default">
+                    <header class="panel-heading text-right bg-light">
+                        <ul class="nav nav-tabs pull-left client_tab">
+                            <li class="active client_sel_left" style="width:100px;"><a href="#client_content" data-toggle="tab">相关</a></li>
+                            <li><a href="#profile" style="width:100px;" data-toggle="tab">资料</a></li>
+                        </ul>
+                    </header>
+                    <div class="">
+                        <div class="tab-content">
+
+                            <div class="xsy_tab_content tab-pane fade active in" id="client_content">
+                                <div class="xsy_tab_con xsyDiv plantflom-main-panel" id="9811419">
+                                    <div class="xsy_listpreview xsy_designer_droppable">
+                                        <div id="8113288" wtype="xsyReferContainer" class="xsyReferContainer plantflom-main-panel xsy_designer_draggable">
+                                            <div class="xsy_listpreview xsy_designer_droppable">
+                                                <div class="xsy_bus_crumbs" style="">
+                                                    <a href="#8487788">联系人 <span class="color">(1)</span></a>
+                                                    <a href="#8250508">销售机会 <span class="">(0)</span></a>
+                                                    <a href="#8475798">合同 <span class="color">(1)</span></a>
+                                                    <a href="#8528268">日程 <span class="">(0)</span></a>
+                                                    <a href="#8295268">审批 <span class="">(0)</span></a>
+                                                    <a href="#8904988">文档 <span class="">(0)</span></a>
+                                                    <a href="#8408438">任务 <span class="">(0)</span></a>
+                                                </div>
+                                                <div id="8487788" wtype="xsyContactRefer" class="xsyContactRefer" _token="1001" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer  xsy_listpreview" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/contact.action?fromBelongId=1&amp;fromDataId=13828420&amp;fromItemId=85875764&amp;widgetId=1001&amp;configId=377133"> <a href="/contact.action?fromBelongId=1&amp;fromDataId=13828420&amp;fromItemId=85875764&amp;widgetId=1001&amp;configId=377133" name="" target="_blank"> <span class="xsy_su_refer_icon xsy_su_refer_contact_icon"></span> <span class="xsy_su_refer_name ellipsis">联系人</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">1</span>）</span> <span class="xsy_su_refer_more">更多<i></i></span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_create" act="createContact" referitemid="85875764" business="contact" businessid="13828420" businessname="联系人" data-id="3620653" entity-id="2" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body" style="display: block;">
+                                                            <div class="xsy_su_refer_card" wtype="xsyReferCardView" is-private="true" style="display: none;" data_out_of_date="true">
+                                                                <ul>
+                                                                    <li data-rid="8685389" class="xsy_su_refer_card_item">
+                                                                        <div class="xsy_su_refer_card_itembody">
+                                                                            <h2 class="xsy_su_refer_card_field">
+                                                                                <div class="xsy_su_refer_card_title">
+                                                                                    <a target="_blank" href="/final/contact.action?id=8685389" class="xsy_su_refer_card_link">艺人</a>
+                                                                                </div>
+                                                                                <div class="xsy_su_refer_card_toolbar" act="xsy_refer_card_menu">
+                                                                                    <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                </div>
+                                                                            </h2>
+                                                                            <ul class="xsy_su_refer_card_rows">
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="公司名称">
+                                                                                            公司名称：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="adfasdfasd">
+                                                                                            <a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="职务">
+                                                                                            职务：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="电话">
+                                                                                            电话：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li data-rid="8685574" class="xsy_su_refer_card_item">
+                                                                        <div class="xsy_su_refer_card_itembody">
+                                                                            <h2 class="xsy_su_refer_card_field">
+                                                                                <div class="xsy_su_refer_card_title">
+                                                                                    <a target="_blank" href="/final/contact.action?id=8685574" class="xsy_su_refer_card_link">请问二位</a>
+                                                                                </div>
+                                                                                <div class="xsy_su_refer_card_toolbar" act="xsy_refer_card_menu">
+                                                                                    <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                </div>
+                                                                            </h2>
+                                                                            <ul class="xsy_su_refer_card_rows">
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="公司名称">
+                                                                                            公司名称：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="adfasdfasd">
+                                                                                            <a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="职务">
+                                                                                            职务：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="电话">
+                                                                                            电话：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li data-rid="8563368" class="xsy_su_refer_card_item">
+                                                                        <div class="xsy_su_refer_card_itembody">
+                                                                            <h2 class="xsy_su_refer_card_field">
+                                                                                <div class="xsy_su_refer_card_title">
+                                                                                    <a target="_blank" href="/final/contact.action?id=8563368" class="xsy_su_refer_card_link">sss</a>
+                                                                                </div>
+                                                                                <div class="xsy_su_refer_card_toolbar" act="xsy_refer_card_menu">
+                                                                                    <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                </div>
+                                                                            </h2>
+                                                                            <ul class="xsy_su_refer_card_rows">
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="公司名称">
+                                                                                            公司名称：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="adfasdfasd">
+                                                                                            <a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="职务">
+                                                                                            职务：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="电话">
+                                                                                            电话：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="xsy_su_refer_grid" style="display: block;" wtype="xsyReferGridView" is-private="true" current="true">
+                                                                <div class="table_body">
+                                                                    <table class="product_table" style="width: 100%; table-layout: fixed;" cellspacing="0" cellpadding="0">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th data-id="col0" style="width: 15.8305%;" itemname="contactName"><span>姓名</span></th>
+                                                                                <th data-id="col1" style="width: 15.8305%;" itemname="accountId"><span>公司名称</span></th>
+                                                                                <th data-id="col2" style="width: 15.8305%;" itemname="post"><span>职务</span></th>
+                                                                                <th data-id="col3" style="width: 15.8305%;" itemname="phone"><span>电话</span></th>
+                                                                                <th data-id="col4" style="width: 15.8305%;" itemname="mobile"><span>手机</span></th>
+                                                                                <th data-id="col5" style="width: 15.8305%;" itemname="email"><span>电子邮件</span></th>
+                                                                                <th data-id="col6" style="width: 42px;"><span>&nbsp;</span></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr data-rid="8685389">
+                                                                                <td data-cid="col0"><span class="cell-product cell-text" title="艺人"><a target="_blank" href="/final/contact.action?id=8685389" class="xsy_su_refer_card_link" refid="8685389">艺人</a></span></td>
+                                                                                <td data-cid="col1"><span class="cell-product cell-text" title="adfasdfasd"><a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a></span></td>
+                                                                                <td data-cid="col2"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col3"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col4"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col5"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col6">
+                                                                                    <span class="cell-product cell-text" title="    " style="max-width: 32px;">
+                                                                                        <div class="xsy_su_refer_card_toolbar">
+                                                                                            <a href="javascript:;"><i class="xsy_su_refer_arrow" isdelegatemenusbutton="true" delegatemenuid="8487788_delegatemenu_1"></i></a>
+                                                                                        </div>
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr data-rid="8685574">
+                                                                                <td data-cid="col0"><span class="cell-product cell-text" title="请问二位"><a target="_blank" href="/final/contact.action?id=8685574" class="xsy_su_refer_card_link" refid="8685574">请问二位</a></span></td>
+                                                                                <td data-cid="col1"><span class="cell-product cell-text" title="adfasdfasd"><a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a></span></td>
+                                                                                <td data-cid="col2"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col3"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col4"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col5"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col6">
+                                                                                    <span class="cell-product cell-text" title="    " style="max-width: 32px;">
+                                                                                        <div class="xsy_su_refer_card_toolbar">
+                                                                                            <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                        </div>
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr data-rid="8563368">
+                                                                                <td data-cid="col0"><span class="cell-product cell-text" title="sss"><a target="_blank" href="/final/contact.action?id=8563368" class="xsy_su_refer_card_link" refid="8563368">sss</a></span></td>
+                                                                                <td data-cid="col1"><span class="cell-product cell-text" title="adfasdfasd"><a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a></span></td>
+                                                                                <td data-cid="col2"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col3"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col4"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col5"><span class="cell-product cell-text" title=""></span></td>
+                                                                                <td data-cid="col6">
+                                                                                    <span class="cell-product cell-text" title="    " style="max-width: 32px;">
+                                                                                        <div class="xsy_su_refer_card_toolbar">
+                                                                                            <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                        </div>
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="8250508" wtype="xsyOpportunityRefer" class="xsyOpportunityRefer" _token="1002" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer  xsy_listpreview xsy_su_refer_null" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/opportunity.action?fromBelongId=1&amp;fromDataId=13828420&amp;fromItemId=85875797&amp;widgetId=1002&amp;configId=377133"> <a href="javascript:void(0)" name=""> <span class="xsy_su_refer_icon xsy_su_refer_opportunity_icon"></span> <span class="xsy_su_refer_name ellipsis">销售机会</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">0</span>）</span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_create" act="createOpportunity" referitemid="85875797" business="opportunity" businessid="13828420" businessname="销售机会" data-id="3620642" entity-id="3" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body">
+                                                            <div class="xsy_su_refer_card" current="true" wtype="xsyReferCardView" is-private="true" style="display: none;"></div>
+                                                            <div class="xsy_su_refer_grid" style="display:none;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="8475798" wtype="xsyContractRefer" class="xsyContractRefer" _token="1003" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer  xsy_listpreview" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/contract.action?fromBelongId=1&amp;fromDataId=13828420&amp;fromItemId=85876137&amp;widgetId=1003&amp;configId=377133"> <a href="/contract.action?fromBelongId=1&amp;fromDataId=13828420&amp;fromItemId=85876137&amp;widgetId=1003&amp;configId=377133" name="" target="_blank"> <span class="xsy_su_refer_icon xsy_su_refer_contract_icon"></span> <span class="xsy_su_refer_name ellipsis">合同</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">1</span>）</span> <span class="xsy_su_refer_more">更多<i></i></span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_create" act="createContract" referitemid="85876137" business="contract" businessid="13828420" businessname="合同" data-id="3620665" entity-id="15" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body">
+                                                            <div class="xsy_su_refer_card" style="display: none;" current="true" wtype="xsyReferCardView" is-private="true">
+                                                                <ul>
+                                                                    <li data-rid="703996" class="xsy_su_refer_card_item">
+                                                                        <div class="xsy_su_refer_card_itembody">
+                                                                            <h2 class="xsy_su_refer_card_field">
+                                                                                <div class="xsy_su_refer_card_title">
+                                                                                    <a target="_blank" href="/final/contract.action?id=703996" class="xsy_su_refer_card_link">打发</a>
+                                                                                </div>
+                                                                                <div class="xsy_su_refer_card_toolbar" act="xsy_refer_card_menu">
+                                                                                    <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                </div>
+                                                                            </h2>
+                                                                            <ul class="xsy_su_refer_card_rows">
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="客户">
+                                                                                            客户：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="adfasdfasd">
+                                                                                            <a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">adfasdfasd</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="合同类型">
+                                                                                            合同类型：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="xsy_su_refer_card_rows" data-id="">
+                                                                                    <div class="xsy_su_refer_card_recorditem">
+                                                                                        <div class="xsy_su_refer_card_label ellipsis" title="开始日期">
+                                                                                            开始日期：
+                                                                                        </div>
+                                                                                        <div class="xsy_su_refer_card_value ellipsis" title="2017-04-28">
+                                                                                            2017-04-28
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="xsy_su_refer_grid" style="display: block;" current="true" wtype="xsyReferGridView" is-private="true">
+                                                                <div class="table_body">
+                                                                    <table class="product_table" style="width: 100%; table-layout: fixed;" cellspacing="0" cellpadding="0">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th data-id="col0" style="width: 15.8305%;" itemname="title"><span>主题</span></th>
+                                                                                <th data-id="col1" style="width: 15.8305%;" itemname="accountId"><span>客户</span></th>
+                                                                                <th data-id="col2" style="width: 15.8305%;" itemname="contractType"><span>合同类型</span></th>
+                                                                                <th data-id="col3" style="width: 15.8305%;" itemname="startDate"><span>开始日期</span></th>
+                                                                                <th data-id="col4" style="width: 15.8305%;" itemname="amount"><span>总金额</span></th>
+                                                                                <th data-id="col5" style="width: 15.8305%;" itemname="payBack"><span>回款金额</span></th>
+                                                                                <th data-id="col6" style="width: 42px;"><span>&nbsp;</span></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                foreach (var item in Model.Client.ContractDTOList)
+                                                                                {
+                                                                                    <tr data-rid="703996">
+                                                                                        <td data-cid="col0"><span class="cell-product cell-text" title="打发"><a target="_blank" href="/final/contract.action?id=703996" class="xsy_su_refer_card_link" refid="703996">@item.Title</a></span></td>
+                                                                                        <td data-cid="col1"><span class="cell-product cell-text" title="adfasdfasd"><a href="/final/account.action?id=13828420" target="_blank" class="xsy_su_refer_card_link" title="adfasdfasd">@Model.Client.Name</a></span></td>
+                                                                                        <td data-cid="col2"><span class="cell-product cell-text" title=""></span></td>
+                                                                                        <td data-cid="col3"><span class="cell-product cell-text" title="2017-04-28">@item.BeginDate.ToString("yyyy-MM-dd")</span></td>
+                                                                                        <td data-cid="col4"><span class="cell-product cell-text" title="1,234,213.00元">@item.TotalAmount.ToString("F")元</span></td>
+                                                                                        <td data-cid="col5"><span class="cell-product cell-text" title="0.00元">0.00元</span></td>
+                                                                                        <td data-cid="col6">
+                                                                                            <span class="cell-product cell-text" title="    " style="max-width: 32px;">
+                                                                                                <div class="xsy_su_refer_card_toolbar">
+                                                                                                    <a href="javascript:;"><i class="xsy_su_refer_arrow"></i></a>
+                                                                                                </div>
+                                                                                            </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div> 
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="8528268" wtype="xsyScheduleRefer" class="xsyScheduleRefer" _token="1007" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer xsy_schedule_refer xsy_listpreview xsy_su_refer_null" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/schedule.action?fromBelongId=1&amp;fromDataId=13828420&amp;name=adfasdfasd&amp;address="> <a href="javascript:void(0)" name=""> <span class="xsy_su_refer_icon xsy_su_refer_schedule_icon"></span> <span class="xsy_su_refer_name ellipsis">日程</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">0</span>）</span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_create" act="" business="schedule" businessid="13828420" businessname="TITLE_SCHEDULE" data-id="" entity-id="31" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body">
+                                                            <div class="xsy_su_refer_card" current="true" style="display: none;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="8295268" wtype="xsyApprovalRefer" class="xsyApprovalRefer" _token="1008" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer  xsy_listpreview xsy_su_refer_null" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/approval_list.action?fromBelongId=1&amp;fromDataId=13828420"> <a href="javascript:void(0)" name=""> <span class="xsy_su_refer_icon xsy_su_refer_approval_icon"></span> <span class="xsy_su_refer_name ellipsis">审批</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">0</span>）</span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body">
+                                                            <div class="xsy_su_refer_card" current="true" wtype="xsyReferCardView" is-private="true" style="display: none;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="8904988" wtype="xsyRescenterRefer" class="xsyRescenterRefer" _token="1009" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer  xsy_listpreview xsy_su_refer_null" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/doc.action?groupId=36140797&amp;fromBelongId=1&amp;fromDataId=13828420"> <a href="javascript:void(0)" name=""> <span class="xsy_su_refer_icon xsy_su_refer_rescenter_icon"></span> <span class="xsy_su_refer_name ellipsis">文档</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">0</span>）</span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_upload" act="" business="" businessid="13828420" businessname="SCRIPT_TEMPLATE_CASE_DETAIL_6" data-id="" entity-id="" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body">
+                                                            <div class="xsy_su_refer_card" current="true" wtype="xsyReferCardView" is-private="true" style="display: none;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="8408438" wtype="xsyTaskRefer" class="xsyTaskRefer" _token="2026" has_delegatemenu="true">
+                                                    <!-- 控件html开始： -->
+                                                    <div class="xsy_su_refer xsy_task_refer xsy_listpreview xsy_su_refer_null" is-rk-widget="true">
+                                                        <div class="xsy_su_refer_header">
+                                                            <h2 class="xsy_su_refer_title" url="/task.action?fromBelongId=1&amp;fromDataId=13828420&amp;name=adfasdfasd&amp;address="> <a href="javascript:void(0)" name=""> <span class="xsy_su_refer_icon xsy_su_refer_task_icon"></span> <span class="xsy_su_refer_name ellipsis">任务</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">0</span>）</span> </a> </h2>
+                                                            <div class="xsy_su_refer_right">
+                                                                <div class="xsy_su_refer_buttonset">
+                                                                    <ul>
+                                                                        <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_create" act="" business="schedule" businessid="13828420" businessname="TITLE_TASK" data-id="" entity-id="" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="xsy_su_refer_body">
+                                                            <div class="xsy_su_refer_card" current="true" style="display: none;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade " id="profile">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h5>基本信息</h5>
+                                            <ul>
+                                                <li>
+                                                    <div>客户所有人</div>
+                                                    <div>
+                                                        <a>@Model.Client.UserName</a>
+                                                    </div>
+                                                </li>
+                                                <li edit="Name">
+                                                    <div>客户名称</div>
+                                                    <div>
+                                                        <a>@Model.Client.Name</a>
+                                                    </div>
+                                                    <i class=""></i>
+                                                </li>
+                                                <li edit="Grade">
+                                                    <div>客户级别</div>
+                                                    <div>
+                                                        <a>@Model.Client.GradeName</a>
+                                                    </div>
+                                                    <i></i>
+                                                </li>
+                                                <li edit="Industry">
+                                                    <div>行业</div>
+                                                    <div>
+                                                        <a>@Model.Client.IndustryName</a>
+                                                    </div>
+                                                    <i></i>
+                                                </li>
+                                            </ul>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <h5>联系信息</h5>
+                                            <ul>
+                                                <li style="width:600px;">
+                                                    <div>省，市，区</div>
+                                                    <div>
+                                                        @Model.Client.District
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>详细地址</div>
+                                                    <div>
+                                                        @Model.Client.Street
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>邮政编码</div>
+                                                    <div>
+                                                        @Model.Client.Postcode
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>电话</div>
+                                                    <div>
+                                                        @Model.Client.OfficePhone
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>传真</div>
+                                                    <div>
+                                                        @Model.Client.Fax
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>公司网站</div>
+                                                    <div>
+                                                        @Model.Client.Website
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>微博</div>
+                                                    <div>
+                                                        @Model.Client.Weibo
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>微信公众号</div>
+                                                    <div>
+                                                        @Model.Client.Wechat
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5>其它信息</h5>
+                                            <ul>
+                                                <li>
+                                                    <div>总人数</div>
+                                                    <div>
+                                                        @Model.Client.Headcount
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>销售额</div>
+                                                    <div>@Model.Client.Saleroom</div>
+                                                </li>
+
+                                                <li>
+                                                    <div>创建人</div>
+                                                    <div>@Model.Client.CreatedBy</div>
+                                                </li>
+                                                <li>
+                                                    <div>创建人</div>
+                                                    <div>@Model.Client.CreatedDate.ToString("yyyy-MM-dd")</div>
+                                                </li>
+
+                                                <li>
+                                                    <div>最新修改人</div>
+                                                    <div>@Model.Client.ModifiedBy</div>
+                                                </li>
+                                                <li>
+                                                    <div>最新修改日</div>
+                                                    <div>@Model.Client.ModifiedDate.ToString("yyyy-MM-dd")</div>
+                                                </li>
+                                                <li>
+                                                    <div>备注</div>
+                                                    <div>@Model.Client.Comment</div>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5>数据权限</h5>
+                                            <ul>
+                                                <li>
+                                                    <div>所属部门</div>
+                                                    <div>
+                                                        @Model.Client.DepartmentFullName
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>锁定状态</div>
+                                                    <div></div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </section>
+            </td>
+            <td style="width:40%;  vertical-align:top;">
+                <section class="panel panel-default" style="margin-left:10px;">
+                    <header class="panel-heading text-right bg-light">
+                        <ul class="nav nav-tabs pull-left client_tab_right">
+                            <li class="active client_sel_left" style="width:100px;"><a href="#client_activity" data-toggle="tab">动态</a></li>
+                        </ul>
+                    </header>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="client_activity">
+                                <div>
+                                    <div>
+                                        记录类型
+                                    </div>
+
+                                    <div>
+                                        @Html.DropDownList("ActivityCategories", ViewBag.ActivityCategories as SelectList, new { @class = "input-sm form-control input-s-sm inline" })
+                                    </div>
+                                    <div>
+                                        <textarea id="client_activity_content" class="form-control" placeholder="添加跟进记录"></textarea>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-default btn-sm">取消</a>
+                                        <a id="btnSaveActivity" class="btn btn-primary btn-sm">确定</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6" style="background-color:#f7f7f7; width:100%; margin-top:20px;">
+                                    <!-- .comment-list -->
+                                    <section class="comment-list block" style="margin-top:10px;">
+                                        @{
+                                            foreach (var item in Model.ActivityDTOList.Where(item => !item.ParentId.HasValue))
+                                            {
+                                                <article id="comment-id-1" class="comment-item">
+                                                    <a class="pull-left thumb-sm avatar activity_category_icon"> <img class="icon_location" /> </a> <span class="arrow left"></span>
+                                                    <section class="comment-body panel panel-default">
+                                                        <header class="panel-heading bg-white">
+                                                            <a href="#">
+                                                                @item.UserName
+                                                                @if (!string.IsNullOrWhiteSpace(item.ActivityCategoryName))
+                                                                {
+                                                                    @Html.Raw(string.Format("[{0}]", item.ActivityCategoryName))
+                                                                }
+                                                            </a>
+                                                            @if (item.CreatedDate != item.ModifiedDate)
+                                                            {
+                                                                @Html.Raw("<label class='label bg-info m-l-xs'>已编辑</label>")
+                                                            }
+
+                                                            <span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> @item.TimeLabel </span>
+                                                        </header>
+                                                        <div class="panel-body">
+                                                            <div>
+                                                                @Html.Raw(item.Content)
+                                                            </div>
+                                                            <div class="comment-action m-t-sm">
+                                                                <a href="#comment-form" class="btn btn-default btn-xs">
+                                                                    <i class="fa fa-mail-reply text-muted"></i> 评论
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                </article>
+                                            }
+
+                                        }
+
+
+                                    </section>
+                                    <!-- / .comment-list -->
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </td>
+        </tr>
+    </table>
+</div>
