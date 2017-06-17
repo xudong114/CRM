@@ -13,12 +13,6 @@ namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            //HasOptional<Department>(model => model.Department);
-            //HasOptional<Department>(model => model.Dept);
-            //HasRequired<UserDetail>(model => model.UserDetail)
-            //    .WithOptional()
-            //    .WillCascadeOnDelete();
-           
         }
     }
 }

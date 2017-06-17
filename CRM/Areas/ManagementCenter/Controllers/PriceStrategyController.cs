@@ -69,7 +69,7 @@ namespace CRM.Areas.ManagementCenter.Controllers
                 item.CreatedDate = item.ModifiedDate = DateTime.Now;
             });
             this._IPriceStrategyDetailService.Update(composite.PriceStrategyDetailDTOList);
-            return RedirectToAction("Index");
+            return RedirectToAction("Detail", new { Id = composite.PriceStrategyDTO.Id });
         }
         /// <summary>
         /// 初次新建价格明细
@@ -85,8 +85,23 @@ namespace CRM.Areas.ManagementCenter.Controllers
                     item.CreatedDate = item.ModifiedDate = DateTime.Now;
                 });
             this._IPriceStrategyDetailService.Create(composite.PriceStrategyDetailDTOList);
-            //return RedirectToAction("Detail",composite.PriceStrategyDetailDTOList.First().PriceStrategyId);
-            return RedirectToAction("Index");
+            return RedirectToAction("Detail", new { Id = composite.PriceStrategyDTO.Id });
         }
+        public void Disable(Guid[] ids, bool status = false)
+        {
+            var dtoList = new List<PriceStrategyDTO>();
+            ids.ToList().ForEach(item =>
+            {
+                dtoList.Add(new PriceStrategyDTO { Id = item, IsActive = status, ModifiedBy = this.User.Id });
+            });
+            this._IPriceStrategyService.Delete(dtoList);
+        }
+
+        public void Resume(Guid id)
+        {
+            var dtoList = new List<PriceStrategyDTO> { new PriceStrategyDTO { Id = id, IsActive = true, ModifiedBy = this.User.Id } };
+            this._IPriceStrategyService.Delete(dtoList);
+        }
+
     }
 }

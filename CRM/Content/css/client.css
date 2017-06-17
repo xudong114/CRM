@@ -7365,6 +7365,7 @@ a.xsy_rescenter_detail_manage {
 }
 
 .xsy_su_refer .xsy_su_refer_create i {
+    cursor:pointer;
     display: block;
     width: 12px;
     height: 12px;

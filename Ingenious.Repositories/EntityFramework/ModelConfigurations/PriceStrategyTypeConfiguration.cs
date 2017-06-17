@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
 {
-    public class PriceStrategyDetailTypeConfiguration : EntityTypeConfiguration<PriceStrategyDetail>
+    public class PriceStrategyTypeConfiguration : EntityTypeConfiguration<PriceStrategy>
     {
-        public PriceStrategyDetailTypeConfiguration()
+        public PriceStrategyTypeConfiguration()
         {
             HasKey(model => model.Id);
             Property(model => model.Id)
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(model => model.Name)
+                .IsRequired();
+
         }
     }
 }

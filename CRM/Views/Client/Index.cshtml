@@ -68,16 +68,17 @@
             <thead>
                 <tr>
                     <th width="20"><input type="checkbox"></th>
-                    <th class="th-sortable" data-toggle="class">客户名称 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                    <th>客户名称</th>
                     <th>客户所有人</th>
                     <th>所属部门</th>
                     <th>客户级别</th>
                     <th>总人数</th>
-                    <th>省份</th>
+                    <th>地区</th>
                     <th>电话</th>
+                    <th>创建人</th>
                     <th>创建日期</th>
                     <th>公司网址</th>
-                    <th width="30"></th>
+                    <th width="100">操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,9 +95,10 @@
                             <td>@(item.DepartmentFullName)</td>
                             <td>@item.GradeName</td>
                             <td>@item.Headcount</td>
-                            <td>@item.Province</td>
+                            <td>@item.Province-@item.City-@item.Country</td>
                             <td>@item.OfficePhone</td>
-                            <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
+                            <td>@item.CreatedByUser.Name</td>
+                            <td title="@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")">@item.CreatedDate.ToString("yyyy-MM-dd")</td>
                             <td>
                                 @{
                         if (!string.IsNullOrWhiteSpace(item.Website))
@@ -109,11 +111,7 @@
                             </td>
 
                             <td>
-                                <a href="/admin/department/edit/@item.Id"><i class="fa fa-edit"></i></a>
-                                <a href="#" data-toggle="class">
-                                    <i class="fa fa-check text-success text-active"></i>
-                                    <i class="fa fa-times text-danger text"></i>
-                                </a>
+                                <a href="/client/edit/@item.Id"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                     }

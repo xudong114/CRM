@@ -7377,7 +7377,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f196"
 }
 html {
-	background-color:#f7f7f7;
+	background-color:#e6e9f0;/*#f7f7f7*/
 	overflow-x:hidden;
 }
 body {
@@ -10271,4 +10271,10 @@ display:inherit !important;
 
 .table a:hover{
     color:#65bd77;
+}
+
+.resume{
+    border-bottom:dotted 1px #808080; 
+    color:#fb6b5b; 
+    cursor:pointer;
 }

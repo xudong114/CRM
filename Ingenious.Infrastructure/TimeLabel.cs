@@ -38,7 +38,7 @@ namespace Ingenious.Infrastructure
                     label = "刚刚";
                 else if (timeDiff.TotalMinutes < 60)
                     label = string.Format("{0}分钟前", (int)timeDiff.TotalMinutes);
-                else if (timeDiff.TotalHours < 24)
+                else if (timeDiff.TotalHours < 8)
                     label = string.Format("{0}小时前", (int)timeDiff.TotalHours);
                 else
                 {

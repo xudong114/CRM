@@ -45,15 +45,14 @@
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\ActivityCategory.cs" />
+    <Compile Include="Models\ClientContact.cs" />
+    <Compile Include="Models\Dictionary.cs" />
     <Compile Include="Models\Recharge.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Function.cs" />
-    <Compile Include="Models\Grade.cs" />
-    <Compile Include="Models\Industry.cs" />
     <Compile Include="Models\PriceStrategy.cs" />
     <Compile Include="Models\PriceStrategyDetail.cs" />
     <Compile Include="Models\Product.cs" />

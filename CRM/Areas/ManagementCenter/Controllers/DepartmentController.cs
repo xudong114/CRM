@@ -118,6 +118,22 @@ namespace CRM.Areas.ManagementCenter.Controllers
             return (accountList.Count > 0 ? "充值成功！" : "充值失败！");
         }
 
+        public void Disable(Guid[] ids, bool status = false)
+        {
+            var dtoList = new List<DepartmentDTO>();
+            ids.ToList().ForEach(item =>
+            {
+                dtoList.Add(new DepartmentDTO { Id = item, IsActive = status,ModifiedBy=this.User.Id });
+            });
+            this._IDepartmentService.Delete(dtoList);
+        }
+
+        public void Resume(Guid id)
+        {
+            List<DepartmentDTO> dtoList = new List<DepartmentDTO> { new DepartmentDTO { Id = id, IsActive = true, ModifiedBy = this.User.Id } };
+            this._IDepartmentService.Delete(dtoList);
+        }
+
         private void DataBind()
         {
             ViewBag.Departments = new SelectList(

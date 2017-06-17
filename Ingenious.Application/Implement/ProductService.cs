@@ -16,12 +16,14 @@ namespace Ingenious.Application.Implement
     {
 
         private readonly IProductRepository _IProductRepository;
-
+        private readonly IUserRepository _UserRepository;
         public ProductService(IRepositoryContext context,
-            IProductRepository iProductRepository)
+            IProductRepository iProductRepository,
+            IUserRepository userRepository)
             : base(context)
         {
             this._IProductRepository = iProductRepository;
+            this._UserRepository = userRepository;
         }
 
         public DTO.ProductDTOList GetAll(string keywords = "")
@@ -36,6 +38,8 @@ namespace Ingenious.Application.Implement
             this._IProductRepository.GetAll(spec).ToList().ForEach(item =>
                 products.Add(AutoMapper.Mapper.Map<Product, ProductDTO>(item))
                 );
+
+            this.AppendUserInfo(products, _UserRepository.Data);
             return products;
         }
 

@@ -16,6 +16,8 @@ namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
             Property(model => model.Name)
                 .IsRequired();
 
+
+
             //HasRequired<Department>(model => model.Department)
             //    .WithOptional()
             //    .WillCascadeOnDelete(false);

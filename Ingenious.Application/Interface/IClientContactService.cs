@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Ingenious.Application.Interface
 {
-    public interface IActivityCategoryService : IApplication<ActivityCategoryDTO>
+    public interface IClientContactService : IApplication<ClientContactDTO>
     {
-        ActivityCategoryDTOList GetAll(string sort = "created_desc");
+        ClientContactDTOList GetContactsByClientId(Guid clientId);
     }
 }

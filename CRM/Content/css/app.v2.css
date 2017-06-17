@@ -7368,7 +7368,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f196"
 }
 html {
-	background-color:#f7f7f7;
+	background-color:#e6e9f0;/*#f7f7f7*/
 	overflow-x:hidden;
 }
 body {
@@ -10245,17 +10245,22 @@ display:inherit !important;
 
 /*活动类型图标*/
 .activity_category_icon{
+    margin-left:8px;
     background:url('/Content/images/active_ico.png') no-repeat !important;
 }
+
 .activity_category_icon .icon_location{
     background-position: 0 0;
 }
+
 .activity_category_icon .icon_call{
     background-position: 0 -19px;
 }
+
 .activity_category_icon .icon_note{
     background-position: 0 -38px;
 }
+
 
 .client {
 }
@@ -10275,4 +10280,10 @@ display:inherit !important;
     text-decoration: none;
     color: #475059; 
     background: #e1e5eb;
+}
+
+.resume{
+    border-bottom:dotted 1px #808080; 
+    color:#fb6b5b; 
+    cursor:pointer;
 }

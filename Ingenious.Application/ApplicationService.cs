@@ -7,6 +7,7 @@ using Ingenious.Infrastructure;
 using Ingenious.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace Ingenious.Application
 {
     public class ApplicationService
@@ -34,17 +35,8 @@ namespace Ingenious.Application
             Mapper.CreateMap<Client, ClientDTO>();
             Mapper.CreateMap<ClientDTO, Client>();
 
-            Mapper.CreateMap<Grade, GradeDTO>();
-            Mapper.CreateMap<GradeDTO, Grade>();
-
-            Mapper.CreateMap<Industry, IndustryDTO>();
-            Mapper.CreateMap<IndustryDTO, Industry>();
-
             Mapper.CreateMap<Activity, ActivityDTO>();
             Mapper.CreateMap<ActivityDTO, Activity>();
-
-            Mapper.CreateMap<ActivityCategory, ActivityCategoryDTO>();
-            Mapper.CreateMap<ActivityCategoryDTO, ActivityCategory>();
 
             Mapper.CreateMap<Product, ProductDTO>();
             Mapper.CreateMap<ProductDTO, Product>();
@@ -66,6 +58,13 @@ namespace Ingenious.Application
 
             Mapper.CreateMap<Recharge, RechargeDTO>();
             Mapper.CreateMap<RechargeDTO, Recharge>();
+
+            Mapper.CreateMap<Dictionary, DictionaryDTO>();
+            Mapper.CreateMap<DictionaryDTO, Dictionary>();
+
+            Mapper.CreateMap<ClientContact, ClientContactDTO>();
+            Mapper.CreateMap<ClientContactDTO, ClientContact>();
+
         }
 
 
@@ -193,6 +192,19 @@ namespace Ingenious.Application
             repository.Context.Commit();
         }
 
+        public void AppendUserInfo(IEnumerable<ModelRoot> dtoList, IQueryable<User> userList)
+        {
+            foreach(var item in dtoList)
+            {
+                item.CreatedByUser = AutoMapper.Mapper.Map<User, UserDTO>(userList.FirstOrDefault(i => i.Id == item.CreatedBy));
+                item.ModifiedByUser = AutoMapper.Mapper.Map<User, UserDTO>(userList.FirstOrDefault(i => i.Id == item.ModifiedBy));
+            }
+        }
 
+        public void AppendUserInfo(ModelRoot dto, IQueryable<User> userList)
+        {
+            dto.CreatedByUser = AutoMapper.Mapper.Map<User, UserDTO>(userList.FirstOrDefault(i => i.Id == dto.CreatedBy));
+            dto.ModifiedByUser = AutoMapper.Mapper.Map<User, UserDTO>(userList.FirstOrDefault(i => i.Id == dto.ModifiedBy));
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Ingenious.Domain.Models
         /// <summary>
         /// 记录类型
         /// </summary>
-        public virtual ActivityCategory ActivityCategory { get; set; }
+        public virtual Dictionary ActivityCategory { get; set; }
         /// <summary>
         /// 评论主体标识
         /// </summary>

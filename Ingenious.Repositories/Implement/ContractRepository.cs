@@ -43,16 +43,18 @@ namespace Ingenious.Repositories.Implement
                 context.SaveChanges();
 
                 //账单
-                var bill = new Bill();
-                bill.CreatedBy = bill.ModifiedBy = contract.CreatedBy;
+                //var bill = new Bill();
+                var bill = context.Bills.Create();
+                bill.CreatedBy = bill.CreatedBy = contract.CreatedBy;
                 bill.AccountId = account.Id;
                 bill.ContractId = contract.Id;
                 bill.Money = contract.TotalAmount;
                 bill.Version = 1;
                 bill.IsActive = true;
                 bill.CreatedDate = bill.ModifiedDate = DateTime.Now;
-                context.Bills.Attach(bill);
-                context.Entry(bill).State = System.Data.Entity.EntityState.Added;
+                //context.Bills.Attach(bill);
+                //context.Entry(bill).State = System.Data.Entity.EntityState.Added;
+                context.Bills.Add(bill);
                 context.SaveChanges();
 
                 ts.Complete();
@@ -60,5 +62,6 @@ namespace Ingenious.Repositories.Implement
 
             return contract;
         }
+
     }
 }

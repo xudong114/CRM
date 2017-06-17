@@ -9,5 +9,6 @@ namespace Ingenious.Repositories.Interface
     {
         User Login(User user);
         IQueryable<User> GetAll(ISpecification<User> spec);
+
     }
 }

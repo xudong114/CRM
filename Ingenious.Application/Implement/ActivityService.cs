@@ -16,11 +16,14 @@ namespace Ingenious.Application.Implement
     public class ActivityService : ApplicationService, IActivityService
     {
         private readonly IActivityRepository _IActivityRepository;
+        private readonly IUserRepository _IUserRepository;
         public ActivityService(IRepositoryContext context,
-            IActivityRepository iActivityRepository)
+            IActivityRepository iActivityRepository,
+            IUserRepository iUserRepository)
             : base(context)
         {
             this._IActivityRepository = iActivityRepository;
+            this._IUserRepository = iUserRepository;
         }
 
         public ActivityDTOList GetAll(Guid? referenceId, Guid? userId, string sort = "created_desc")
@@ -35,14 +38,16 @@ namespace Ingenious.Application.Implement
             this._IActivityRepository.GetAll(spec).OrderByDescending(model=>model.CreatedDate).ToList().ForEach(item=>
                     list.Add(Mapper.Map<Activity, ActivityDTO>(item))
                 );
+            this.AppendUserInfo(list, this._IUserRepository.Data);
             return list;
         }
 
         public ActivityDTO GetByKey(Guid id)
         {
             var model = this._IActivityRepository.GetByKey(id);
-
-            return Mapper.Map<Activity, ActivityDTO>(model);
+            var dto = Mapper.Map<Activity, ActivityDTO>(model);
+            this.AppendUserInfo(dto, this._IUserRepository.Data);
+            return dto;
         }
 
         public ActivityDTO Create(ActivityDTO dto)

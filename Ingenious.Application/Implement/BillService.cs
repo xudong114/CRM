@@ -15,11 +15,14 @@ namespace Ingenious.Application.Implement
     public class BillService : ApplicationService, IBillService
     {
         private readonly IBillRepository _IBillRepository;
+        private readonly IUserRepository _IUserRepository;
         public BillService(IRepositoryContext context,
-    IBillRepository iBillRepository)
+    IBillRepository iBillRepository,
+            IUserRepository iUserRepository)
             : base(context)
         {
             this._IBillRepository = iBillRepository;
+            this._IUserRepository = iUserRepository;
         }
 
 
@@ -31,13 +34,16 @@ namespace Ingenious.Application.Implement
             this._IBillRepository.GetAll(spec).ToList().ForEach(item =>
                 Bills.Add(AutoMapper.Mapper.Map<Bill, BillDTO>(item))
                 );
+            this.AppendUserInfo(Bills, this._IUserRepository.Data);
             return Bills;
         }
 
         public DTO.BillDTO GetByKey(Guid id)
         {
             var model = this._IBillRepository.GetByKey(id);
-            return AutoMapper.Mapper.Map<Bill, BillDTO>(model);
+            var dto = AutoMapper.Mapper.Map<Bill, BillDTO>(model);
+            this.AppendUserInfo(dto, this._IUserRepository.Data);
+            return dto;
         }
 
         public DTO.BillDTOList GetByAccountId(Guid id)
@@ -46,7 +52,8 @@ namespace Ingenious.Application.Implement
             ISpecification<Bill> spec = Specification<Bill>.Eval(item => true);
             this._IBillRepository.GetByAccountId(id).ToList().ForEach(item =>
               Bills.Add(AutoMapper.Mapper.Map<Bill, BillDTO>(item))
-              ); ;
+              );
+            this.AppendUserInfo(Bills, this._IUserRepository.Data);
             return Bills;
         }
 

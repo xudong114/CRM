@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Linq;
 using System.Data.Entity.ModelConfiguration;
 using System;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Ingenious.Repositories.EntityFramework
 {
@@ -20,6 +21,9 @@ namespace Ingenious.Repositories.EntityFramework
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
             //modelBuilder.Configurations
             //    .Add(new UserTypeConfiguration())
             //    .Add(new UserDetailTypeConfiguration())
@@ -48,12 +52,9 @@ namespace Ingenious.Repositories.EntityFramework
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Department> Departments { get; set; }
 
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Industry> Industries { get; set; }
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<ActivityCategory> ActivityCategories { get; set; }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<PriceStrategy> PriceStrategies { get; set; }
@@ -65,6 +66,8 @@ namespace Ingenious.Repositories.EntityFramework
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Recharge> Recharges { get; set; }
 
+        public DbSet<Dictionary> Dictionaries { get; set; }
+        public DbSet<ClientContact> ClientContacts { get; set; }
         #endregion
     }
 }

@@ -15,6 +15,21 @@ namespace Ingenious.DTO
     /// </summary>
     public class UserDTO : ModelRoot
     {
+        //public UserDTO()
+        //{
+        //    this.UserDetailId = Guid.Empty;
+        //    this.UserDetail = new UserDetailDTO { Name = "-" };
+        //    this.DepartmentId = Guid.Empty;
+        //    this.Department = new DepartmentDTO();
+        //    this.BranchId = Guid.Empty;
+        //    this.Branch = new DepartmentDTO();
+        //    this.UserName = "-";
+        //    this.Password = string.Empty;
+        //    this.IsAdmin = false;
+        //    this.IsSupper = false;
+        //    this.Status = UserStatusEnum.All;
+        //}
+
         /// <summary>
         /// 账户名称
         /// </summary>

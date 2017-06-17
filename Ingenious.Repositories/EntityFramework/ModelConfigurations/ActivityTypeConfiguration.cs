@@ -20,7 +20,7 @@ namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(model => model.Content)
                 .IsRequired();
-            HasRequired<User>(model => model.User);
+
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Ingenious.Domain.Models;
-using Ingenious.Domain.Specifications;
 using Ingenious.Repositories.EntityFramework;
 using Ingenious.Repositories.Interface;
 using System;
@@ -10,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace Ingenious.Repositories.Implement
 {
-    public class ActivityCategoryRepository : EntityFrameworkRepository<ActivityCategory>, IActivityCategoryRepository
+    public class ClientContactRepository : EntityFrameworkRepository<ClientContact>, IClientContactRepository
     {
-        public ActivityCategoryRepository(IRepositoryContext context)
+        public ClientContactRepository(IRepositoryContext context)
             : base(context)
         {
 
         }
 
-        public IQueryable<ActivityCategory> GetAll()
+        public IQueryable<ClientContact> GetContactsByClientId(Guid clientId)
         {
             var context = this.EFContext.Context as IngeniousDbContext;
-            return context.ActivityCategories;
+            return context.ClientContacts.Where(item => item.ClientId.Equals(clientId));
         }
+
 
     }
 }

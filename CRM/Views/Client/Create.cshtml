@@ -20,16 +20,17 @@
             $('#Province').change(function () {
  
                 $.cities({ id: 'City', code:$(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidProvince').val($(this).find("option:selected").text());
             });
             
             $('#City').change(function () {
                 
                 $.countries({ id: 'Country',code:$(this).val(), selected: '', defaultOption: '请选择' });
-
+                $('#hidCity').val($(this).find("option:selected").text());
             });
             
             $('#Country').change(function () {
-
+                $('#hidCountry').val($(this).find("option:selected").text());
             });
 
             $('#customeMoreLink').click(function () {
@@ -69,9 +70,12 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Province, new { @class = "col-lg-2 control-label" })
                     <div class="col-lg-10">
-                        <select id="Province" name="Province" class="input-sm form-control input-s-sm inline"></select>
-                        <select id="City" name="City" class="input-sm form-control input-s-sm inline"></select>
-                        <select id="Country" name="Country" class="input-sm form-control input-s-sm inline"></select>
+                        <select id="Province" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Province" id="hidProvince" />
+                        <select id="City" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="City" id="hidCity" />
+                        <select id="Country" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Country" id="hidCountry" />
                         @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -137,14 +141,14 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.GradeId, new { @class = "col-lg-2 control-label" })
                             <div class="col-lg-10">
-                                @Html.EditorFor(model => model.GradeId, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.DropDownListFor(model => model.GradeId, ViewBag.Grades as IEnumerable<SelectListItem>, null, new { @class = "input-sm form-control input-s-sm inline" })
                                 @Html.ValidationMessageFor(model => model.GradeId, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.IndustryId, new { @class = "col-lg-2 control-label" })
                             <div class="col-lg-10">
-                                @Html.EditorFor(model => model.IndustryId, new { htmlAttributes = new { @class = "input-sm form-control input-s-sm inline" } })
+                                @Html.DropDownListFor(model => model.IndustryId, ViewBag.Industries as IEnumerable<SelectListItem>, null, new { @class = "input-sm form-control input-s-sm inline" })
                                 @Html.ValidationMessageFor(model => model.IndustryId, "", new { @class = "text-danger" })
                             </div>
                         </div>

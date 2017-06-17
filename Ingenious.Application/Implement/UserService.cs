@@ -3,6 +3,7 @@ using Ingenious.Application.Interface;
 using Ingenious.Domain.Models;
 using Ingenious.Domain.Specifications;
 using Ingenious.DTO;
+using Ingenious.Infrastructure;
 using Ingenious.Infrastructure.Enum;
 using Ingenious.Infrastructure.Helper;
 using Ingenious.Repositories;
@@ -41,11 +42,11 @@ namespace Ingenious.Application.Implement
             spec = new AndSpecification<User>(spec,
                 Specification<User>.Eval(user => (keywords == "") || user.UserName.Contains(keywords)));
             spec = new AndSpecification<User>(spec,
-                Specification<User>.Eval(user => !(department.HasValue) || user.DepartmentId == department.Value));
+                Specification<User>.Eval(user => !(department.HasValue) || user.BranchId == department.Value));
 
             this._IUserRepository.GetAll(spec).ToList().ForEach(item =>
                 userDTOList.Add(Mapper.Map<User, UserDTO>(item)));
-
+            this.AppendUserInfo(userDTOList, this._IUserRepository.Data);
             return userDTOList;
         }
 
@@ -62,7 +63,7 @@ namespace Ingenious.Application.Implement
         {
             return base.Create<UserDTO, User>(dto
                 , _IUserRepository
-                , dtoAction => {});
+                , dtoAction => { }); ;
         }
 
         public List<UserDTO> Update(System.Collections.Generic.List<UserDTO> dtoList)
@@ -72,21 +73,28 @@ namespace Ingenious.Application.Implement
                 , dto => dto.Id
                 , (dto, entity) =>
                 {
-
+                    entity.DepartmentId = dto.DepartmentId;
+                    entity.BranchId = dto.BranchId;
+                    entity.IsAdmin = dto.IsAdmin;
+                    entity.IsSupper = dto.IsSupper;
+                    entity.Status = dto.Status;
                 });
         }
 
+
         public void Delete(System.Collections.Generic.List<UserDTO> dtoList)
         {
-            base.Update<UserDTO, List<UserDTO>, User>(dtoList
-            , _IUserRepository
-            , dto => dto.Id
-            , (dto, entity) =>
-            {
-                entity.IsActive = dto.IsActive;
-                entity.ModifiedDate = dto.ModifiedDate;
-                entity.ModifiedBy = dto.ModifiedBy;
-            });
+                base.Update<UserDTO, List<UserDTO>, User>(dtoList
+                , _IUserRepository
+                , dto => dto.Id
+                , (dto, entity) =>
+                {
+                    entity.Status = dto.Status;
+                    entity.IsActive = dto.IsActive;
+                    entity.ModifiedDate = dto.ModifiedDate;
+                    entity.ModifiedBy = dto.ModifiedBy;
+                });
         }
+
     }
 }

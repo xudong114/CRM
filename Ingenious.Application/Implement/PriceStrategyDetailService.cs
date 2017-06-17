@@ -16,30 +16,37 @@ namespace Ingenious.Application.Implement
     {
 
         private readonly IPriceStrategyDetailRepository _IPriceStrategyDetailRepository;
-
+        private readonly IUserRepository _IUserRepository;
         public PriceStrategyDetailService(IRepositoryContext context,
-            IPriceStrategyDetailRepository iPriceStrategyDetailRepository)
+            IPriceStrategyDetailRepository iPriceStrategyDetailRepository,
+            IUserRepository iUserRepository)
             : base(context)
         {
+            this._IUserRepository = iUserRepository;
             this._IPriceStrategyDetailRepository = iPriceStrategyDetailRepository;
         }
 
         public DTO.PriceStrategyDetailDTOList GetAll(string keywords = "")
         {
-            var PriceStrategyDetails = new PriceStrategyDetailDTOList();
+            var priceStrategyDetails = new PriceStrategyDetailDTOList();
             ISpecification<PriceStrategyDetail> spec = Specification<PriceStrategyDetail>.Eval(item => true);
 
             this._IPriceStrategyDetailRepository.GetAll(spec).ToList().ForEach(item =>
-                PriceStrategyDetails.Add(AutoMapper.Mapper.Map<PriceStrategyDetail, PriceStrategyDetailDTO>(item))
+                priceStrategyDetails.Add(AutoMapper.Mapper.Map<PriceStrategyDetail, PriceStrategyDetailDTO>(item))
                 );
-            return PriceStrategyDetails;
+            this.AppendUserInfo(priceStrategyDetails, this._IUserRepository.Data);
+            return priceStrategyDetails;
         }
 
         public PriceStrategyDetailDTO GetByKey(Guid id)
         {
             var model = this._IPriceStrategyDetailRepository.GetByKey(id);
 
-            return AutoMapper.Mapper.Map<PriceStrategyDetail, PriceStrategyDetailDTO>(model);
+            var dto = AutoMapper.Mapper.Map<PriceStrategyDetail, PriceStrategyDetailDTO>(model);
+
+            this.AppendUserInfo(dto, this._IUserRepository.Data);
+
+            return dto;
         }
 
         public PriceStrategyDetailDTO Create(PriceStrategyDetailDTO dto)

@@ -8,7 +8,41 @@
 
     <script>
         $().ready(function () {
+            $('a[delete]').click(function () {
+                var ids = [];
+                $(':checkbox[code]:checked').each(function () {
+                    ids.push($(this).attr('code'));
+                });
+                if (ids.length == 0) {
+                    return;
+                }
+                $.ajax({
+                    url: '/admin/department/disable',
+                    data: { ids: ids },
+                    traditional: true,
+                    success: function (data) {
+                        window.location.reload();
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        alert(arg3);
+                    }
+                });
+            });
 
+            $('a[resume]').click(function () {
+                var id = $(this).attr('code');
+                $.ajax({
+                    url: '/admin/department/resume',
+                    data: { id: id },
+                    success: function (data) {
+                        alert('操作成功');
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('操作失败');
+                    }
+                });
+            });
         });
     </script>
 }
@@ -49,7 +83,8 @@
                     <th>创建日期</th>
                     <th>创建人</th>
                     <th>Go佳居</th>
-                    <th width="30"></th>
+                    <th>状态</th>
+                    <th width="100">操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +92,7 @@
                     foreach (var item in @Model)
                     {
                         <tr>
-                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td><input type="checkbox" code="@item.Id" value="3"></td>
                             <td>@item.Name</td>
                             <td>@item.PriceStrategyName</td>
                             <td>@item.Principal</td>
@@ -65,7 +100,7 @@
                             <td>@item.OfficePhone</td>
                             <td>@item.Address</td>
                             <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
-                            <td>@item.CreatedBy</td>
+                            <td>@item.CreatedByUser.Name</td>
                             <td>
                                 @{
                         if (!string.IsNullOrWhiteSpace(item.Website))
@@ -74,15 +109,20 @@
                         }
                                 }
 
-
                             </td>
-
                             <td>
-                                <a href="/admin/department/edit/@item.Id"><i class="fa fa-edit"></i></a>
-                                <a href="#" data-toggle="class">
-                                    <i class="fa fa-check text-success text-active"></i>
-                                    <i class="fa fa-times text-danger text"></i>
-                                </a>
+                                @item.IsActiveName
+                                @{
+                        if (!item.IsActive)
+                        {
+                            <a resume class="resume" code="@item.Id">恢复</a>
+                        }
+                                }
+
+                                
+                            </td>
+                            <td>
+                                <a href="/admin/department/edit/@item.Id" title="编辑部门"><i class="fa fa-edit"></i></a>
                             </td>
                         </tr>
                     }
@@ -90,6 +130,10 @@
 
             </tbody>
         </table>
+        <hr />
+        <div style="margin-left:15px; margin-bottom:10px;">
+            <a class="btn btn-danger" delete>批量冻结</a>
+        </div>
     </div>
 
 </section>

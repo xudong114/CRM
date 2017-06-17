@@ -25,9 +25,19 @@
             options = "<option>" + option.defaultOption + "</option>";
         }
 
+        if (isNaN(parseInt(option.code))) {
+            for (var i = 0 ; i < districts.length; i++) {
+                if (districts[i].names == option.code) {
+                    option.code = districts[i].code;
+                }
+            }
+        }
+
         for (var i = 0 ; i < districts.length; i++) {
-            if ((districts[i].code.substring(0, 2) == option.code.substring(0, 2))  
-                && (districts[i].level=="1")) {
+
+            if (districts[i].code.substring(0, 2) == option.code.substring(0, 2)
+                && (districts[i].level == "1"
+                )) {
                 options += "<option value='" + decodeURI(districts[i].code) + "' " + (option.selected == decodeURI(districts[i].names) ? "selected" : "") + ">" + decodeURI(districts[i].names) + "</option>";
             }
         }
@@ -39,8 +49,16 @@
         if (option.defaultOption !== "") {
             options = "<option>" + option.defaultOption + "</option>";
         }
+        if (isNaN(parseInt(option.code))) {
+            for (var i = 0 ; i < districts.length; i++) {
+                if (districts[i].names == option.code) {
+                    option.code = districts[i].code;
+                }
+            }
+        }
         for (var i = 0 ; i < districts.length; i++) {
-            if (districts[i].code.substring(0, 4) == option.code.substring(0, 4)
+            if ((districts[i].code.substring(0, 4) == option.code.substring(0, 4)
+                || decodeURI(districts[i].names )== option.code)
                 && (districts[i].level == "2")) {
                 options += "<option value='" + decodeURI(districts[i].code) + "' " + (option.selected == decodeURI(districts[i].names) ? "selected" : "") + ">" + decodeURI(districts[i].names) + "</option>";
             }

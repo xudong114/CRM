@@ -126,6 +126,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\BaseController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\DepartmentController.cs" />
+    <Compile Include="Areas\ManagementCenter\Controllers\DictionaryController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\HomeController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\PriceStrategyController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\ProductController.cs" />
@@ -157,6 +158,7 @@
     <Content Include="Areas\ManagementCenter\Content\images\app.png" />
     <Content Include="Areas\ManagementCenter\Content\images\avatar.jpg" />
     <Content Include="Areas\ManagementCenter\Content\images\avatar_default.jpg" />
+    <Content Include="Areas\ManagementCenter\Content\images\default_face.png" />
     <Content Include="Areas\ManagementCenter\Content\images\logo.png" />
     <Content Include="Areas\ManagementCenter\Content\images\main.png" />
     <Content Include="Areas\ManagementCenter\Content\images\phone-1.png" />
@@ -259,6 +261,7 @@
     <Content Include="Content\images\avatar_default.jpg" />
     <Content Include="Content\images\card_ico.png" />
     <Content Include="Content\images\card_ico_hover.png" />
+    <Content Include="Content\images\default_face.png" />
     <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\edit_hover.png" />
     <Content Include="Content\images\header_entity_icos.png" />
@@ -330,6 +333,11 @@
     <Content Include="Areas\ManagementCenter\Views\Department\Branch.cshtml" />
     <Content Include="Areas\ManagementCenter\Views\Department\Account.cshtml" />
     <Content Include="Areas\ManagementCenter\Views\Department\Detail.cshtml" />
+    <Content Include="Areas\ManagementCenter\Views\User\Edit.cshtml" />
+    <Content Include="Areas\ManagementCenter\Views\Dictionary\Index.cshtml" />
+    <Content Include="Areas\ManagementCenter\Views\Dictionary\Create.cshtml" />
+    <Content Include="Areas\ManagementCenter\Views\Dictionary\Edit.cshtml" />
+    <Content Include="Content\css\jQuery UI Effects.txt" />
     <None Include="Properties\PublishProfiles\crm.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\calendar\bootstrap_calendar.css" />
@@ -439,8 +447,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Contract\Edit.cshtml" />
+    <Content Include="Views\Client\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\dark_rounded\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\dark_square\" />

@@ -30,7 +30,7 @@ namespace Ingenious.DTO
         /// <summary>
         /// 记录类型
         /// </summary>
-        public ActivityCategoryDTO ActivityCategory { get; set; }
+        public DictionaryDTO ActivityCategory { get; set; }
         /// <summary>
         /// 记录类型名称
         /// </summary>

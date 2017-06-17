@@ -24,7 +24,7 @@ namespace Ingenious.DTO
         /// </summary>
         [DisplayName("所属账号")]
         public Guid? UserId { get; set; }
-        public virtual UserDTO User { get; set; }
+        public UserDTO User { get; set; }
         public string UserName
         {
             get
@@ -114,11 +114,21 @@ namespace Ingenious.DTO
             }
         }
         /// <summary>
+        /// 所属人
+        /// </summary>
+        public string BelongTo
+        {
+            get
+            {
+                return string.Format("{0}-{1}", this.DepartmentFullName, this.UserName);
+            }
+        }
+        /// <summary>
         /// 等级
         /// </summary>
         [DisplayName("等级")]
         public Guid? GradeId { get; set; }
-        public GradeDTO Grade { get; set; }
+        public DictionaryDTO Grade { get; set; }
         public string GradeName
         {
             get
@@ -131,7 +141,7 @@ namespace Ingenious.DTO
         /// </summary>
         [DisplayName("行业")]
         public Guid? IndustryId { get; set; }
-        public IndustryDTO Industry { get; set; }
+        public DictionaryDTO Industry { get; set; }
         public string IndustryName
         {
             get
@@ -178,6 +188,15 @@ namespace Ingenious.DTO
         /// 合同列表
         /// </summary>
         public ContractDTOList ContractDTOList { get; set; }
+        /// <summary>
+        /// 活动记录
+        /// </summary>
+        public ActivityDTOList Activities { get; set; }
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public ClientContactDTOList ClientContacts { get; set; }
+
     }
 
     public class ClientDTOList : List<ClientDTO>

@@ -47,5 +47,12 @@ namespace Ingenious.Repositories.EntityFramework
         {
             return this._EFContext.Context.Set<T>().Find(key);
         }
+
+        public override IQueryable<T> Data
+        {
+            get {
+                return this._EFContext.Context.Set<T>();
+            }
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace Ingenious.Application.Implement
 
         public DTO.PriceStrategyDTOList GetAll(string keywords = "")
         {
-            var PriceStrategys = new PriceStrategyDTOList();
+            var priceStrategys = new PriceStrategyDTOList();
             ISpecification<PriceStrategy> spec = Specification<PriceStrategy>.Eval(item => true);
             spec = new AndSpecification<PriceStrategy>(spec,
                 Specification<PriceStrategy>.Eval(item =>
@@ -53,16 +53,21 @@ namespace Ingenious.Application.Implement
                     item.Name.Contains(keywords)));
 
             this._IPriceStrategyRepository.GetAll(spec).ToList().ForEach(item =>
-                PriceStrategys.Add(AutoMapper.Mapper.Map<PriceStrategy, PriceStrategyDTO>(item))
+                priceStrategys.Add(AutoMapper.Mapper.Map<PriceStrategy, PriceStrategyDTO>(item))
                 );
-            return PriceStrategys;
+            this.AppendUserInfo(priceStrategys, this._IUserRepository.Data);
+            return priceStrategys;
         }
 
         public PriceStrategyDTO GetByKey(Guid id)
         {
             var model = this._IPriceStrategyRepository.GetByKey(id);
 
-            return AutoMapper.Mapper.Map<PriceStrategy, PriceStrategyDTO>(model);
+            var dto = AutoMapper.Mapper.Map<PriceStrategy, PriceStrategyDTO>(model);
+
+            this.AppendUserInfo(dto, this._IUserRepository.Data);
+
+            return dto;
         }
 
         public PriceStrategyDTO Create(PriceStrategyDTO dto)

@@ -15,6 +15,7 @@ namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(model => model.Title)
                 .IsRequired();
+
             //HasRequired<Department>(model => model.Department)
             //    .WithOptional()
             //    .WillCascadeOnDelete(false);

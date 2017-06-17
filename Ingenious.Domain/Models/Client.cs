@@ -56,12 +56,12 @@ namespace Ingenious.Domain.Models
         /// 等级
         /// </summary>
         public Guid? GradeId { get; set; }
-        public virtual Grade Grade { get; set; }
+        public virtual Dictionary Grade { get; set; }
         /// <summary>
         /// 行业
         /// </summary>
         public Guid? IndustryId { get; set; }
-        public Industry Industry { get; set; }
+        public virtual Dictionary Industry { get; set; }
         /// <summary>
         /// 邮政编码
         /// </summary>
@@ -95,5 +95,9 @@ namespace Ingenious.Domain.Models
         /// 活动记录
         /// </summary>
         public virtual ICollection<Activity> Activities { get; set; }
+        /// <summary>
+        /// 联系人
+        /// </summary>
+        public virtual ICollection<ClientContact> ClientContacts { get; set; }
     }
 }

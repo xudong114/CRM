@@ -18,12 +18,7 @@ namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
             Property(model => model.Id)
                 .IsRequired()
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            //HasRequired<Contract>(model => model.Contract)
-            //    .WithOptional()
-            //    .WillCascadeOnDelete(false);
-            //HasRequired<Account>(model => model.Account)
-            //    .WithOptional()
-            //    .WillCascadeOnDelete(false);
+
         }
     }
 }

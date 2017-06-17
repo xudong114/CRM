@@ -50,11 +50,13 @@ namespace CRM.Controllers
         {
             var model = new ContractComposite();
             model.AccountDTO = this._IAccountService.GetByDepartmentId(this.User.BranchId);
-            model.ClientDTOList = this._IClientService.GetAll();
+            model.ClientDTOList = this._IClientService.GetAll(string.Empty, this.User.IsSupper ? null : new Nullable<Guid>(this.User.BranchId));
             model.ProductDTOList = this._IProductService.GetAll();
-            model.UserDTOList = this._IUserService.GetUsers(null, Ingenious.Infrastructure.Enum.UserStatusEnum.Available);
+            model.UserDTOList = this._IUserService.GetUsers(this.User.IsSupper ? null : new Nullable<Guid>(this.User.BranchId), Ingenious.Infrastructure.Enum.UserStatusEnum.Available);
             model.PriceStrategyDTOList = this._IPriceStrategyService.GetAll();
             model.DepartmentDTOList = this._IDepartmentService.GetAll(true);
+            model.User = this.User;
+            
             this.DataBind();
             return View(model);
         }
@@ -71,6 +73,7 @@ namespace CRM.Controllers
                     ModelState.AddModelError("overbalance", "余额不足，请充值！");
                     return View(contractComposite);
                 }
+
                 contract.ModifiedBy = contract.CreatedBy = this.User.Id;
                 contract.CreatedDate = contract.ModifiedDate = DateTime.Now;
                 contract.OwnerId = this.User.Id;

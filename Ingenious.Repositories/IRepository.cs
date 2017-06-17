@@ -13,5 +13,7 @@ namespace Ingenious.Repositories
         void Update(T aggregateRoot);
         void Delete(T aggregateRoot);
         T GetByKey(Guid id);
+
+        IQueryable<T> Data { get; }
     }
 }

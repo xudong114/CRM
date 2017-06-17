@@ -44,11 +44,6 @@ namespace Ingenious.Application
             container.RegisterType<IActivityService, ActivityService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
-            container.RegisterType<IActivityCategoryRepository, ActivityCategoryRepository>(new Interceptor<InterfaceInterceptor>(),
-                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
-            container.RegisterType<IActivityCategoryService, ActivityCategoryService>(new Interceptor<InterfaceInterceptor>(),
-                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
-
             container.RegisterType<IProductRepository, ProductRepository>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
             container.RegisterType<IProductService, ProductService>(new Interceptor<InterfaceInterceptor>(),
@@ -83,6 +78,17 @@ namespace Ingenious.Application
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
             container.RegisterType<IRechargeService, RechargeService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IDictionaryRepository, DictionaryRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IDictionaryService, DictionaryService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IClientContactRepository, ClientContactRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IClientContactService, ClientContactService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
 
             //container.RegisterType<IProductRepository, ProductRepository>();
             //container.RegisterType<IProductService, ProductService>(new Interceptor<InterfaceInterceptor>(),

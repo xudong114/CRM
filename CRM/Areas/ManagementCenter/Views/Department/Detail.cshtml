@@ -159,7 +159,7 @@
             <table class="table table-responsive">
                 <tr>
                     <td style="width:100px; text-align:right;">@Html.LabelFor(model => model.DepartmentDTO.Name, new { @class = "control-label" })</td>
-                    <td style="width:200px; text-align:left;">@string.Format("{0}-{1}", Model.DepartmentDTO.Parent.Name, Model.DepartmentDTO.Name)</td>
+                    <td style="width:200px; text-align:left;">@string.Format("{0}-{1}", Model.DepartmentDTO.Parent == null ? "" : Model.DepartmentDTO.Parent.Name, Model.DepartmentDTO.Name)</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -255,7 +255,7 @@
                                                 <td><a href="/contract/detail/@item.ContractId" target="_blank">@item.Contract.Title</a> </td>
                                                 <td>@item.Money</td>
                                                 <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
-                                                <td>@item.CreatedBy</td>
+                                                <td>@item.CreatedByUser.Name</td>
                                             </tr>
                                         }
                                     }
@@ -280,7 +280,7 @@
                                             <tr>
                                                 <td>@item.Money (元)</td>
                                                 <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
-                                                <td>@item.CreatedBy</td>
+                                                <td>@item.CreatedByUser.UserName (@item.CreatedByUser.Name)</td>
                                             </tr>
                                         }
                                     }

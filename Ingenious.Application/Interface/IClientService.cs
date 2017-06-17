@@ -9,6 +9,6 @@ namespace Ingenious.Application.Interface
 {
     public interface IClientService : IApplication<ClientDTO>
     {
-        ClientDTOList GetAll(string keywords = "");
+        ClientDTOList GetAll(string keywords = "", Guid? departmentId = null);
     }
 }

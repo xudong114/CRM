@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ingenious.Infrastructure.Helper;
+using Ingenious.Infrastructure;
 
 namespace CRM.Areas.ManagementCenter.Controllers
 {
@@ -51,18 +52,24 @@ namespace CRM.Areas.ManagementCenter.Controllers
             {
                 var userDetail = new UserDetailDTO
                 {
+                    Logo="",
                     Name = user.UserDetail.Name,
-                    CreatedBy = user.CreatedBy,
-                    ModifiedBy = user.ModifiedBy,
-                    CreatedDate = user.CreatedDate,
-                    ModifiedDate = user.ModifiedDate
+                    CreatedBy = this.User.Id,
+                    ModifiedBy = this.User.Id,
+                    CreatedDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now,
+                    IsActive=true,
+                    Version=1
                 };
-                userDetail = this._IUserDetailService.Create(userDetail);
-                user.UserDetailId = userDetail.Id;
+                //userDetail = this._IUserDetailService.Create(userDetail);
+                user.UserDetail = userDetail;
+                //user.UserDetailId = userDetail.Id;
                 user.Status = UserStatusEnum.Available;
                 user.Password =Ingenious.Infrastructure.GlobalMessage.DefaultPasswordFormat.ToMD5String();
                 user.CreatedBy = user.ModifiedBy = this.User.Id;
+                
                 user = this._IUserService.Create(user);
+
                 return RedirectToAction("Index");
             }
             this.DataBind();
@@ -70,6 +77,46 @@ namespace CRM.Areas.ManagementCenter.Controllers
             model.DepartmentDTOList = this._IDepartmentService.GetAll();
             model.UserDTO = user;
             return View(model);
+        }
+
+        public ActionResult Edit(Guid id)
+        {
+            var model = new UserDTOComposite();
+            model.DepartmentDTOList = this._IDepartmentService.GetAll();
+            model.UserDTO = this._IUserService.GetByKey(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(UserDTOComposite userDTOComposite)
+        {
+            var user = userDTOComposite.UserDTO;
+            if (ModelState.IsValid)
+            {
+                this._IUserService.Update(new UserDTOList { user });
+
+                return RedirectToAction("Index");
+            }
+            this.DataBind();
+            var model = new UserDTOComposite();
+            model.DepartmentDTOList = this._IDepartmentService.GetAll();
+            model.UserDTO = user;
+            return View(model);
+        }
+
+        public void Resume(Guid id)
+        {
+            List<UserDTO> dtoList = new List<UserDTO> { new UserDTO { Id = id, Status = UserStatusEnum.Available } };
+            this._IUserService.Delete(dtoList);
+        }
+        public void Disable(Guid[] ids, bool status = false)
+        {
+            List<UserDTO> dtoList = new List<UserDTO>();
+            ids.ToList().ForEach(item =>
+            {
+                dtoList.Add(new UserDTO { Id = item, Status = !status ? UserStatusEnum.Disabled : UserStatusEnum.Available,ModifiedBy=this.User.Id });
+            });
+            this._IUserService.Delete(dtoList);
         }
 
         private void DataBind()

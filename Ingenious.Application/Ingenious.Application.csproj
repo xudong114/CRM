@@ -34,10 +34,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -71,9 +73,10 @@
     <Compile Include="ApplicationService.cs" />
     <Compile Include="DependencyRegisterType.cs" />
     <Compile Include="IApplication.cs" />
+    <Compile Include="Implement\ClientContactService.cs" />
+    <Compile Include="Implement\DictionaryService.cs" />
     <Compile Include="Implement\RechargeService.cs" />
     <Compile Include="Implement\BillService.cs" />
-    <Compile Include="Implement\ActivityCategoryService.cs" />
     <Compile Include="Implement\ActivityService.cs" />
     <Compile Include="Implement\AccountService.cs" />
     <Compile Include="Implement\ContractService.cs" />
@@ -84,9 +87,10 @@
     <Compile Include="Implement\ProductService.cs" />
     <Compile Include="Implement\UserDetailService.cs" />
     <Compile Include="Implement\UserService.cs" />
+    <Compile Include="Interface\IClientContactService.cs" />
+    <Compile Include="Interface\IDictionaryService.cs" />
     <Compile Include="Interface\IRechargeService.cs" />
     <Compile Include="Interface\IBillService.cs" />
-    <Compile Include="Interface\IActivityCategoryService.cs" />
     <Compile Include="Interface\IActivityService.cs" />
     <Compile Include="Interface\IAccountService.cs" />
     <Compile Include="Interface\IContractService.cs" />

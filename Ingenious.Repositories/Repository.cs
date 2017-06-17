@@ -43,5 +43,7 @@ namespace Ingenious.Repositories
         {
             get { return this._Context; }
         }
+
+        public abstract IQueryable<T> Data { get; }
     }
 }

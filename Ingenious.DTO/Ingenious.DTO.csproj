@@ -44,14 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountDTO.cs" />
-    <Compile Include="ActivityCategoryDTO.cs" />
     <Compile Include="ActivityDTO.cs" />
     <Compile Include="BillDTO.cs" />
+    <Compile Include="ClientContactDTO.cs" />
     <Compile Include="ClientDTO.cs" />
     <Compile Include="ContractDTO.cs" />
     <Compile Include="DepartmentDTO.cs" />
-    <Compile Include="GradeDTO.cs" />
-    <Compile Include="IndustryDTO.cs" />
+    <Compile Include="DictionaryDTO.cs" />
     <Compile Include="ModelRoot.cs" />
     <Compile Include="PriceStrategyDetailDTO.cs" />
     <Compile Include="PriceStrategyDTO.cs" />

@@ -29,14 +29,28 @@ namespace Ingenious.Application.Implement
         }
 
 
-        public DTO.ContractDTOList GetAll(string keywords = "")
+        public DTO.ContractDTOList GetAll(string keywords = "", Guid? clientId = null, Guid? userId = null, Guid? departmentId = null)
         {
             var Contracts = new ContractDTOList();
             ISpecification<Contract> spec = Specification<Contract>.Eval(item => true);
+            spec = new AndSpecification<Contract>(spec,
+            Specification<Contract>.Eval(item =>
+                !userId.HasValue ||
+                item.OwnerId == userId.Value));
+            spec = new AndSpecification<Contract>(spec,
+            Specification<Contract>.Eval(item =>
+                !departmentId.HasValue ||
+                item.DepartmentId == userId.Value));
+            spec = new AndSpecification<Contract>(spec,
+            Specification<Contract>.Eval(item =>
+                !clientId.HasValue ||
+                item.ClientId == clientId.Value));
+
             spec = new AndSpecification<Contract>(spec, 
                 Specification<Contract>.Eval(item => 
                     keywords == "" || 
                     item.Title.Contains(keywords)));
+
 
             this._IContractRepository.GetAll(spec).ToList().ForEach(item =>
                 Contracts.Add(AutoMapper.Mapper.Map<Contract, ContractDTO>(item))

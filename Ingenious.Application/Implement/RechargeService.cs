@@ -15,11 +15,14 @@ namespace Ingenious.Application.Implement
     public class RechargeService : ApplicationService, IRechargeService
     {
         private readonly IRechargeRepository _IRechargeRepository;
+        private readonly IUserRepository _IUserRepository;
         public RechargeService(IRepositoryContext context,
-    IRechargeRepository iRechargeRepository)
+    IRechargeRepository iRechargeRepository,
+            IUserRepository iUserRepository)
             : base(context)
         {
             this._IRechargeRepository = iRechargeRepository;
+            this._IUserRepository = iUserRepository;
         }
 
 
@@ -31,13 +34,16 @@ namespace Ingenious.Application.Implement
             this._IRechargeRepository.GetAll(spec).ToList().ForEach(item =>
                 Recharges.Add(AutoMapper.Mapper.Map<Recharge, RechargeDTO>(item))
                 );
+            this.AppendUserInfo(Recharges,this._IUserRepository.Data);
             return Recharges;
         }
 
         public DTO.RechargeDTO GetByKey(Guid id)
         {
             var model = this._IRechargeRepository.GetByKey(id);
-            return AutoMapper.Mapper.Map<Recharge, RechargeDTO>(model);
+            var dto = AutoMapper.Mapper.Map<Recharge, RechargeDTO>(model);
+            this.AppendUserInfo(dto, this._IUserRepository.Data);
+            return dto;
         }
 
         public DTO.RechargeDTOList GetByAccountId(Guid id)
@@ -47,6 +53,7 @@ namespace Ingenious.Application.Implement
             this._IRechargeRepository.GetByAccountId(id).ToList().ForEach(item =>
               Recharges.Add(AutoMapper.Mapper.Map<Recharge, RechargeDTO>(item))
               );
+            this.AppendUserInfo(Recharges, this._IUserRepository.Data);
             return Recharges;
         }
 

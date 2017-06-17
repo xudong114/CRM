@@ -64,6 +64,7 @@
     <Compile Include="Enum\ContractStatusEnum.cs" />
     <Compile Include="Enum\PaymentMethodEnum.cs" />
     <Compile Include="Enum\UserStatusEnum.cs" />
+    <Compile Include="Extensions\EqualityComparer.cs" />
     <Compile Include="Extensions\SelectExtensions.cs" />
     <Compile Include="GlobalMessage.cs" />
     <Compile Include="Helper\SecurityHelper.cs" />

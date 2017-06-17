@@ -16,17 +16,20 @@ namespace Ingenious.Application.Implement
     {
         private readonly IClientRepository _IClientRepository;
         private readonly IActivityService _IActivityService;
+        private readonly IUserRepository _IUserRepository;
         public ClientService(IRepositoryContext context,
     IClientRepository iClientRepository,
-            IActivityService iActivityService)
+            IActivityService iActivityService,
+            IUserRepository IUserRepository)
             : base(context)
         {
             this._IClientRepository = iClientRepository;
             this._IActivityService = iActivityService;
+            this._IUserRepository = IUserRepository;
         }
 
 
-        public DTO.ClientDTOList GetAll(string keywords = "")
+        public DTO.ClientDTOList GetAll(string keywords = "", Guid? departmentId = null)
         {
             var clients = new ClientDTOList();
             ISpecification<Client> spec = Specification<Client>.Eval(item => true);
@@ -34,18 +37,24 @@ namespace Ingenious.Application.Implement
                 Specification<Client>.Eval(item => 
                     keywords == "" || 
                     item.Name.Contains(keywords)));
+            spec = new AndSpecification<Client>(spec,
+                Specification<Client>.Eval(item =>
+                    !departmentId.HasValue ||
+                    item.DepartmentId==departmentId.Value));
 
             this._IClientRepository.GetAll(spec).ToList().ForEach(item =>
                 clients.Add(AutoMapper.Mapper.Map<Client, ClientDTO>(item))
                 );
+            this.AppendUserInfo(clients, this._IUserRepository.Data);
             return clients;
         }
 
         public DTO.ClientDTO GetByKey(Guid id)
         {
             var model = this._IClientRepository.GetByKey(id);
-
-            return AutoMapper.Mapper.Map<Client, ClientDTO>(model);
+            var dto = AutoMapper.Mapper.Map<Client, ClientDTO>(model);
+            this.AppendUserInfo(dto, this._IUserRepository.Data);
+            return dto;
         }
 
         public DTO.ClientDTO Create(DTO.ClientDTO dto)
@@ -77,9 +86,22 @@ namespace Ingenious.Application.Implement
                     , (dto, entity) =>
                     {
                         entity.Name = dto.Name;
+                        entity.Province = dto.Province;
+                        entity.City = dto.City;
+                        entity.Country = dto.Country;
+                        entity.Street = dto.Street;
+                        entity.OfficePhone = dto.OfficePhone;
+                        entity.Comment = dto.Comment;
+                        entity.DepartmentId = dto.DepartmentId;
+                        entity.GradeId = dto.GradeId;
+                        entity.IndustryId = dto.IndustryId;
+                        entity.Postcode = dto.Postcode;
+                        entity.Fax = dto.Fax;
+                        entity.Website = dto.Website;
+                        entity.Weibo = dto.Weibo;
+                        entity.Headcount = dto.Headcount;
+                        entity.Saleroom = dto.Saleroom;
                         entity.ModifiedBy = dto.ModifiedBy;
-                        entity.ModifiedDate = dto.ModifiedDate;
-
                     });
         }
 

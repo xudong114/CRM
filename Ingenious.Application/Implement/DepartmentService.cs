@@ -15,10 +15,14 @@ namespace Ingenious.Application.Implement
     public class DepartmentService : ApplicationService, IDepartmentService 
     {
         private readonly IDepartmentRepository _IDepartmentRepository;
+        private readonly IUserRepository _IUserRepository;
         public DepartmentService(IRepositoryContext context,
-            IDepartmentRepository iDepartmentRepository): base(context)
+            IDepartmentRepository iDepartmentRepository,
+            IUserRepository iUserRepository)
+            : base(context)
         {
             this._IDepartmentRepository = iDepartmentRepository;
+            this._IUserRepository = iUserRepository;
         }
 
         public DepartmentDTOList GetAll(bool? isBranch = null, string keywords = "")
@@ -33,7 +37,7 @@ namespace Ingenious.Application.Implement
 
             this._IDepartmentRepository.GetAll(spec).ToList().ForEach(item =>
                 list.Add(Mapper.Map<Department, DepartmentDTO>(item)));
-
+            this.AppendUserInfo(list, this._IUserRepository.Data);
             return list;
         }
 

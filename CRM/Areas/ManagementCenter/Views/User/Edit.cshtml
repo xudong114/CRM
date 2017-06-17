@@ -1,0 +1,136 @@
+﻿@model CRM.Areas.ManagementCenter.Models.UserDTOComposite
+@{
+    ViewBag.Title = "Create";
+    var departmentString = new System.Text.StringBuilder();
+    foreach (var item in Model.DepartmentDTOList)
+    {
+        departmentString.Append("{");
+        departmentString.Append(string.Format("Id:'{0}',Name:'{1}',ParentId:'{2}',IsBranch:'{3}'",item.Id,item.Name,item.ParentId,item.IsBranch));
+        departmentString.Append("},");
+    }
+    
+    var jsonDepartment = departmentString.ToString().Substring(0, departmentString.Length - 1);
+}
+
+@section scripts{
+<script src="~/Scripts/json2.min.js"></script>
+    <script>
+        var jsonDepartment = [];
+        var branchId = '@Model.UserDTO.BranchId';
+        var deptId = '@Model.UserDTO.DepartmentId';
+
+        $().ready(function () {
+
+            jsonDepartment = eval('[@(HttpUtility.JavaScriptStringEncode(jsonDepartment))]');
+
+            $(jsonDepartment).each(function () {
+                
+                if (this.IsBranch === 'True') {
+                    $('#UserDTO_BranchId').append('<option value=' + this.Id + '>' + this.Name + '</option>');
+                }
+            });
+
+            $('#UserDTO_DepartmentId').html('');
+            $(jsonDepartment).each(function () {
+                var id = $('#UserDTO_BranchId').val();
+                if (this.ParentId === id) {
+                    $('#UserDTO_DepartmentId').append('<option value=' + this.Id + '>' + this.Name + '</option>');
+                }
+            });
+
+            $('#UserDTO_BranchId').change(function () {
+                var id = $(this).val();
+                $('#UserDTO_DepartmentId').html('');
+                $(jsonDepartment).each(function () {
+
+                    if (this.ParentId === id) {
+                        $('#UserDTO_DepartmentId').append('<option value=' + this.Id + '>' + this.Name + '</option>');
+                    }
+                });
+            });
+
+            $('#UserDTO_BranchId').val(branchId);
+            $('#UserDTO_DepartmentId').val(deptId);
+
+            $('#chkIsAdmin').click(function () {
+                $('#IsAdmin').val(this.checked);
+            });
+            $('#chkIsSupper').click(function () {
+                $('#IsSupper').val(this.checked);
+            });
+        });
+
+    </script>
+}
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 账号管理</a></li>
+    <li class="active">编辑账号</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">编辑账号</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/admin/user/edit" method="post">
+                <input type="hidden" name="UserDTO.Password" value="000000" />
+                <input type="hidden" name="UserDTO.Id" value="@Model.UserDTO.Id" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserDTO.UserName, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.UserDTO.UserName, new { htmlAttributes = new { @class = "form-control form-control-large", @placeholder = "系统账号名称" } })
+                        @Html.ValidationMessageFor(model => model.UserDTO.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserDTO.UserDetail.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.UserDTO.UserDetail.Name, new { htmlAttributes = new { @class = "form-control form-control-large", @placeholder = "姓名" } })
+                        @Html.ValidationMessageFor(model => model.UserDTO.UserDetail.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserDTO.BranchId, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @*@Html.DropDownListFor(model => model.UserDTO.DepartmentId, ViewBag.Departments as IEnumerable<SelectListItem>, new { @class="input-sm form-control input-s-sm inline"})*@
+                        <select id="UserDTO_BranchId" name="UserDTO.BranchId" class="input-sm form-control input-s-sm inline"></select>
+                        <select id="UserDTO_DepartmentId" name="UserDTO.DepartmentId" class="input-sm form-control input-s-sm inline"></select>
+                        @Html.ValidationMessageFor(model => model.UserDTO.DepartmentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserDTO.IsAdmin, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <label class="switch">
+                            <input id="chkIsAdmin" type="checkbox" @(Model.UserDTO.IsAdmin?"checked='checked'":"")/>
+                            <span></span>
+                        </label>
+                        <input id="IsAdmin" name="UserDTO.IsAdmin" type="hidden" value="@(Model.UserDTO.IsAdmin?"True":"False")" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserDTO.IsSupper, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <label class="switch">
+                            <input id="chkIsSupper" type="checkbox" @(Model.UserDTO.IsSupper ? "checked='checked'" : "") />
+                            <span></span>
+                        </label>
+                        <input id="IsSupper" name="UserDTO.IsSupper" type="hidden" value="@(Model.UserDTO.IsSupper?"True":"False")" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/admin/user" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+

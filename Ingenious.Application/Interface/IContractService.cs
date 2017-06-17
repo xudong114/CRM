@@ -9,6 +9,6 @@ namespace Ingenious.Application.Interface
 {
     public interface IContractService : IApplication<ContractDTO>
     {
-        ContractDTOList GetAll(string keywords = "");
+        ContractDTOList GetAll(string keywords = "", Guid? clientId = null, Guid? userId = null, Guid? departmentId = null);
     }
 }

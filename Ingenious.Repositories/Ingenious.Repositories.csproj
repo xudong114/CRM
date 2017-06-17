@@ -30,10 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -53,24 +55,24 @@
     <Compile Include="EntityFramework\IngeniousDbContext.cs" />
     <Compile Include="EntityFramework\IngeniousDbContextInitializer.cs" />
     <Compile Include="EntityFramework\IngeniousDbMigrationsConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\ClientContactTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\DictionaryTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\RechargeTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\BillTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\AccountTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\ActivityCategoryTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ActivityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ContractTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ClientTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\DepartmentTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\GradeTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\IndustryTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\PriceStrategyDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\PriceStrategyTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\PriceStrategyDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ProductTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserTypeConfiguration.cs" />
+    <Compile Include="Implement\ClientContactRepository.cs" />
+    <Compile Include="Implement\DictionaryRepository.cs" />
     <Compile Include="Implement\RechargeRepository.cs" />
     <Compile Include="Implement\BillRepository.cs" />
-    <Compile Include="Implement\ActivityCategoryRepository.cs" />
     <Compile Include="Implement\ActivityRepository.cs" />
     <Compile Include="Implement\AccountRepository.cs" />
     <Compile Include="Implement\ContractRepository.cs" />
@@ -81,9 +83,10 @@
     <Compile Include="Implement\ProductRepository.cs" />
     <Compile Include="Implement\UserDetailRepository.cs" />
     <Compile Include="Implement\UserRepository.cs" />
+    <Compile Include="Interface\IClientContactRepository.cs" />
+    <Compile Include="Interface\IDictionaryRepository.cs" />
     <Compile Include="Interface\IRechargeRepository.cs" />
     <Compile Include="Interface\IBillRepository.cs" />
-    <Compile Include="Interface\IActivityCategoryRepository.cs" />
     <Compile Include="Interface\IActivityRepository.cs" />
     <Compile Include="Interface\IAccountRepository.cs" />
     <Compile Include="Interface\IContractRepository.cs" />

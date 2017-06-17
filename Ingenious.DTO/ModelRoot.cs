@@ -5,6 +5,7 @@ namespace Ingenious.DTO
 {
     public class ModelRoot
     {
+
         [DisplayName("标识")]
         public Guid Id { get; set; }
         /// <summary>
@@ -22,6 +23,27 @@ namespace Ingenious.DTO
         /// </summary>
         [DisplayName("创建人")]
         public Guid CreatedBy { get; set; }
+        private UserDTO _CreatedByUser ;
+        public UserDTO CreatedByUser
+        {
+            get
+            {
+                if (_CreatedByUser == null)
+                    return new UserDTO();
+                return _CreatedByUser; 
+            }
+            set
+            {
+                if (value == null)
+                {
+                    _CreatedByUser = new UserDTO();
+                }
+                else
+                {
+                    _CreatedByUser=value;
+                }
+            }
+        }
         /// <summary>
         /// 最后修改时间
         /// </summary>
@@ -32,7 +54,26 @@ namespace Ingenious.DTO
         /// </summary>
         [DisplayName("最后修改人")]
         public Guid ModifiedBy { get; set; }
-
+        private UserDTO _ModifiedByUser ;
+        public UserDTO ModifiedByUser
+        {
+             get {
+                 if (_ModifiedByUser == null)
+                     return new UserDTO();
+                 return _ModifiedByUser; 
+            }
+            set
+            {
+                if (value == null)
+                {
+                    _ModifiedByUser = new UserDTO();
+                }
+                else
+                {
+                    _ModifiedByUser = value;
+                }
+            }
+        }
         /// <summary>
         /// 数据状态
         /// </summary>
@@ -45,7 +86,7 @@ namespace Ingenious.DTO
         {
             get
             {
-                return this.IsActive ? "可用" : "删除";
+                return this.IsActive ? "可用" : "已删除";
             }
         }
     }

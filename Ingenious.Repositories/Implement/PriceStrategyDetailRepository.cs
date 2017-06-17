@@ -28,5 +28,6 @@ namespace Ingenious.Repositories.Implement
             context.SaveChanges();
             return list;
         }
+
     }
 }

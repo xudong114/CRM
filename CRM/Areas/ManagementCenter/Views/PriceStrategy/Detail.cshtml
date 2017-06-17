@@ -59,10 +59,23 @@
                         @Model.PriceStrategyDTO.EndDate.ToString("yyyy-MM-dd")
                     </div>
                 </div>
+               
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PriceStrategyDTO.CreatedDate, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-12">
+                        @Model.PriceStrategyDTO.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PriceStrategyDTO.CreatedBy, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-12">
+                        @Model.PriceStrategyDTO.CreatedByUser.Name
+                    </div>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.PriceStrategyDTO.Comment, new { @class = "col-lg-2 control-label" })
                     <div class="col-lg-12">
-                        @Model.PriceStrategyDTO.Name
+                        @Model.PriceStrategyDTO.Comment
                     </div>
                 </div>
             </div>
@@ -82,7 +95,6 @@
                                         <th>折扣</th>
                                         <th>最小购买量</th>
                                         <th>创建日期</th>
-                                        <th>创建人</th>
                                         <th width="30"></th>
                                     </tr>
                                 </thead>
@@ -100,17 +112,11 @@
                             <td><input name="PriceStrategyDetailDTOList[@index].Minimum" type="text" value="@item.Minimum" /></td>
 
                             <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
-                            <td></td>
                             <td>
-                                <a href="/admin/department/edit/@item.Id"><i class="fa fa-edit"></i></a>
-                                <a href="#" data-toggle="class">
-                                    <i class="fa fa-check text-success text-active"></i>
-                                    <i class="fa fa-times text-danger text"></i>
-                                </a>
+                                <input type="hidden" name="PriceStrategyDTO.Id" value="@Model.PriceStrategyDTO.Id" />
                                 <input type="hidden" name="PriceStrategyDetailDTOList[@index].PriceStrategyId" value="@Model.PriceStrategyDTO.Id" />
                                 <input type="hidden" name="PriceStrategyDetailDTOList[@index].Id" value="@item.Id" />
                                 <input type="hidden" name="PriceStrategyDetailDTOList[@index].ProductId" value="@item.ProductId" />
-
                             </td>
                         </tr>
                         index++;
@@ -128,8 +134,9 @@
                         </div>
                     </form>
                 }
-                else
+                if (Model.ProductDTOList.Where(i => !Model.PriceStrategyDTO.PriceStrategyDetailList.Exists(item => item.ProductId == i.Id)).Count() > 0)
                 {
+                    <span>新产品</span>
                     <form class="bs-example form-horizontal" action="/admin/pricestrategy/submit" method="post">
                         <div class="table-responsive" style="border-top:1px dashed #e4e4e4;padding-top:10px;border-bottom:1px dashed #e4e4e4;padding-bottom:10px;">
                             <table class="table table-striped b-t b-light text-sm">
@@ -147,7 +154,7 @@
                                 <tbody>
                                     @{
                     index = 0;
-                    foreach (var item in Model.ProductDTOList)
+                    foreach (var item in Model.ProductDTOList.Where(i => !Model.PriceStrategyDTO.PriceStrategyDetailList.Exists(item=>item.ProductId==i.Id)))
                     {
                         <tr>
                             <td><input type="checkbox" name="post[]" value="3"></td>
@@ -157,11 +164,7 @@
                             <td><input name="PriceStrategyDetailDTOList[@index].DiscountRate" type="text" value="0" style="width:50px;" /> % (按百分比计算，例如：95折填写95)</td>
                             <td><input name="PriceStrategyDetailDTOList[@index].Minimum" type="text" value="1" /></td>
                             <td>
-                                <a href="/admin/department/edit/@item.Id"><i class="fa fa-edit"></i></a>
-                                <a href="#" data-toggle="class">
-                                    <i class="fa fa-check text-success text-active"></i>
-                                    <i class="fa fa-times text-danger text"></i>
-                                </a>
+                                <input type="hidden" name="PriceStrategyDTO.Id" value="@Model.PriceStrategyDTO.Id" />
                                 <input type="hidden" name="PriceStrategyDetailDTOList[@index].PriceStrategyId" value="@Model.PriceStrategyDTO.Id" />
                                 <input type="hidden" name="PriceStrategyDetailDTOList[@index].ProductId" value="@item.Id" />
                             </td>
@@ -176,7 +179,7 @@
 
                         <div class="form-group" style="margin-top:10px;">
                             <div class="col-lg-offset-2 col-lg-10 ">
-                                <input type="submit" class="btn btn-sm btn-primary" value="提价" />
+                                <input type="submit" class="btn btn-sm btn-primary" value="提交" />
                                 <a href="/admin/pricestrategy" class="btn btn-sm btn-default">取消</a>
                             </div>
                         </div>

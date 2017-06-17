@@ -15,35 +15,147 @@ namespace Ingenious.Repositories.EntityFramework
 
         protected override void Seed(IngeniousDbContext context)
         {
-            //var userDetailId = Guid.NewGuid();
-            //context.UserDetails.Add(new UserDetail
-            //{
-            //    Id = userDetailId,
-            //    Name = "赵佳宏",
-            //    CreatedDate = DateTime.Now,
-            //    ModifiedDate = DateTime.Now,
-            //    CreatedBy = Guid.NewGuid(),
-            //    ModifiedBy = Guid.NewGuid()
-            //});
-            //context.Users.Add(new User { 
-            // UserName = "admin",
-             
-            //});
-
-            //context.Departments.RemoveRange(context.Departments);
-            //context.Departments.AddRange(new List<Department> { 
-            //    new Department{ 
-            //        Id=Guid.NewGuid(),
-            //        Name="全公司",
-            //        ParentId = null,
-            //        CreatedDate=DateTime.Now,
-            //        ModifiedDate=DateTime.Now,
-            //        CreatedBy = Guid.NewGuid(),
-            //        ModifiedBy= Guid.NewGuid()
-            //     }
-            //});
-
+            this.Init(context, false);
             base.Seed(context);
+        }
+
+        private void Init(IngeniousDbContext context,bool isExcute)
+        {
+            if (!isExcute)
+                return;
+            var dept = new Department
+            {
+                Id = Guid.NewGuid(),
+                Name = "全公司",
+                ParentId = null,
+                IsActive = true,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                CreatedBy = Guid.NewGuid(),
+                ModifiedBy = Guid.NewGuid()
+            };
+            context.Departments.Add(dept);
+
+            var userDetail = new UserDetail
+            {
+                Id = Guid.NewGuid(),
+                Name = "管理员",
+                Logo = Infrastructure.GlobalMessage.DefaultFace,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                CreatedBy = Guid.NewGuid(),
+                ModifiedBy = Guid.NewGuid()
+            };
+
+            var user = new User
+            {
+                Id = new Guid(),
+                UserName = "admin",
+                BranchId = dept.Id,
+                IsActive = true,
+                IsAdmin = true,
+                IsSupper = true,
+                Password = "c8837b23ff8aaa8a2dde915473ce0991",
+                Status = Infrastructure.Enum.UserStatusEnum.Available,
+                UserDetail = userDetail,
+                Version = 1,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                CreatedBy = Guid.NewGuid(),
+                ModifiedBy = Guid.NewGuid()
+            };
+
+            context.Users.Add(user);
+
+            var dataItemList = new List<Dictionary> { 
+                 new Dictionary
+                 {
+                    Id=new Guid(),Category = "客户级别",Name ="A", Code="A", Description ="重点客户",IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(),Category = "客户级别",Name ="B",Code="B",  Description ="普通客户",IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(),Category = "客户级别",Name ="C", Code="C", Description ="非优先客户",IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(),Category = "客户活动类型",Name ="电话",Code="电话", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "客户活动类型", Name ="快速记录",Code="快速记录", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "客户活动类型", Name ="拜访签到", Code="拜访签到", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                 new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="金融", Code="金融", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="电信", Code="电信", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="教育", Code="教育", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="高科技", Code="高科技", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="政府", Code="政府", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="制造业", Code="制造业", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="服务", Code="服务", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="能源", Code="能源", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="零售", Code="零售", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="媒体", Code="媒体", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="娱乐", Code="娱乐", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="咨询", Code="咨询", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="非营利事业", Code="非营利事业", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="公用事业", Code="公用事业", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                },
+                new Dictionary
+                 {
+                    Id=new Guid(), Category = "行业", Name ="其它", Code="其它", IsActive=true,Sort=0,Version=1,CreatedDate = DateTime.Now,ModifiedDate = DateTime.Now,CreatedBy = user.Id,ModifiedBy = user.Id
+                }
+            };
+
+            context.Dictionaries.AddRange(dataItemList);
+
         }
     }
 }
