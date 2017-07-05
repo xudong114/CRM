@@ -19,5 +19,23 @@ namespace CRM
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error()
+        {
+            var error = Server.GetLastError();
+            
+            if(error is HttpException)
+            {
+                var httpError = error as HttpException;
+            }
+            else
+            {
+                Response.StatusCode = 500;
+            }
+            
+            Application["PATH"] = Request.Url.ToString();
+            Application["MESSAGE"] = error.Message;
+            Server.ClearError();
+        }
     }
 }

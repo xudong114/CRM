@@ -62,7 +62,7 @@
             <thead>
                 <tr>
                     <th width="20"><input type="checkbox"></th>
-                    <th class="th-sortable" data-toggle="class">名称 <span class="th-sort"> <i class="fa fa-sort-down text"></i> <i class="fa fa-sort-up text-active"></i> <i class="fa fa-sort"></i> </span> </th>
+                    <th >名称</th>
                     <th>标准价格</th>
                     <th>经销商标准价格</th>
                     <th>备注</th>
@@ -79,14 +79,14 @@
                     {
                         <tr>
                             <td><input type="checkbox" code="@item.Id" value="3"></td>
-                            <td><a href="/admin/pricestrategy/detail/@item.Id" @(item.PriceStrategyDetailList.Count == 0 ? "title=未设置价格信息" : "")>@item.Name @Html.Raw(item.PriceStrategyDetailList.Count == 0 ? "<i style='color:red;' class='fa fa-times pull-right' title='未设置价格信息'></i>" : "")</a> </td>
+                            <td><a href="/admin/pricestrategy/detail/@item.Id" @(item.PriceStrategyDetailList.Count == 0 ? "title=未设置价格信息" : "")>@item.Name @Html.Raw(item.PriceStrategyDetailList.Count == 0 ? "<i style='color:red;' class='fa fa-question pull-right' title='未设置价格信息'></i>" : "")</a> </td>
                             <td>@Html.Raw(item.IsDefault ? "<i class='fa fa-check'></i>" : "")</td>
                             <td>@Html.Raw(item.IsAgent ? "<i class='fa fa-check'></i>" : "")</td>
                             <td>@item.Comment</td>
                             <td>@item.BeginDate.ToString("yyyy-MM-dd")</td>
                             <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
                             <td>@item.CreatedDate.ToString("yyyy-MM-dd hh:mm:ss")</td>
-                            
+                            <td>@item.CreatedByUser.UserDetail.Name</td>
                             <td>
                                 @item.IsActiveName
                                 @{
@@ -96,7 +96,7 @@
                         }
                                 }
                             </td>
-                            <td>@item.CreatedByUser.UserDetail.Name</td>
+                            
                         </tr>
                     }
                 }

@@ -11,7 +11,9 @@
         productString.Append("},");
     }
 
-    var jsonProduct = productString.ToString().Substring(0, productString.Length - 1);
+    var jsonProduct = productString.Length == 0
+        ? ""
+        : productString.ToString().Substring(0, productString.Length - 1);
 
     var priceString = new System.Text.StringBuilder();
     var priceDetail = new System.Text.StringBuilder();
@@ -26,12 +28,18 @@
 
             priceDetail.Append("},");
         }
-        priceString.Append(string.Format("Id:'{0}',Name:'{1}',Items:[{2}]", item.Id, item.Name, priceDetail.ToString().Substring(0, priceDetail.Length - 1)));
-        priceString.Append("},");
-        priceDetail.Clear();
+        if (priceDetail.Length != 0)
+        {
+            priceString.Append(string.Format("Id:'{0}',Name:'{1}',Items:[{2}]", item.Id, item.Name, priceDetail.ToString().Substring(0, priceDetail.Length - 1)));
+            priceString.Append("},");
+            priceDetail.Clear();
+        }
+
     }
 
-    var jsonPrice = priceString.ToString().Substring(0, priceString.Length - 1);
+    var jsonPrice = priceString.Length == 0
+        ? ""
+        : priceString.ToString().Substring(0, priceString.Length - 1);
 
     var departmentString = new System.Text.StringBuilder();
     foreach (var item in Model.DepartmentDTOList)
@@ -41,7 +49,9 @@
         departmentString.Append("},");
     }
 
-    var jsonDepartment = departmentString.ToString().Substring(0, departmentString.Length - 1);
+    var jsonDepartment = departmentString.Length == 0
+    ? ""
+    : departmentString.ToString().Substring(0, departmentString.Length - 1);
 
 }
 

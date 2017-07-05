@@ -297,6 +297,7 @@
     <Content Include="Content\jquery-ui-1.12.1.custom\lang\datepicker-zh-CN.js" />
     <Content Include="Content\jquery-ui-1.12.1.custom\LICENSE.txt" />
     <Content Include="Content\css\landing.css" />
+    <Content Include="error.html" />
     <Content Include="Scripts\jquery.district.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -424,7 +425,9 @@
     <Content Include="Scripts\wysiwyg\demo.js" />
     <Content Include="Scripts\wysiwyg\jquery.hotkeys.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -448,6 +451,7 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Contract\Edit.cshtml" />
     <Content Include="Views\Client\Edit.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

@@ -48,6 +48,12 @@ namespace Ingenious.Repositories.EntityFramework
 
         #region Models
 
+        #region Api.Go
+        
+        public DbSet<F_User> F_Users { get; set; }
+        
+        #endregion
+
         public DbSet<User> Users { get; set; }
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Department> Departments { get; set; }

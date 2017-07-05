@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +69,7 @@
     <Compile Include="EntityFramework\ModelConfigurations\PriceStrategyDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ProductTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserDetailTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\F_UserTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserTypeConfiguration.cs" />
     <Compile Include="Implement\ClientContactRepository.cs" />
     <Compile Include="Implement\DictionaryRepository.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Implement\PriceStrategyRepository.cs" />
     <Compile Include="Implement\ProductRepository.cs" />
     <Compile Include="Implement\UserDetailRepository.cs" />
+    <Compile Include="Implement\F_UserRepository.cs" />
     <Compile Include="Implement\UserRepository.cs" />
     <Compile Include="Interface\IClientContactRepository.cs" />
     <Compile Include="Interface\IDictionaryRepository.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Interface\IPriceStrategyRepository.cs" />
     <Compile Include="Interface\IProductRepository.cs" />
     <Compile Include="Interface\IUserDetailRepository.cs" />
+    <Compile Include="Interface\IF_UserRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IRepositoryContext.cs" />

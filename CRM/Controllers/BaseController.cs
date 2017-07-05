@@ -9,6 +9,11 @@ namespace CRM.Controllers
 {
     public class BaseController : Controller
     {
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+        }
+
         public UserDTO User { get; set; }
 
         protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)

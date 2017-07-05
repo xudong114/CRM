@@ -86,6 +86,7 @@
     <Compile Include="Implement\PriceStrategyDetailService.cs" />
     <Compile Include="Implement\ProductService.cs" />
     <Compile Include="Implement\UserDetailService.cs" />
+    <Compile Include="Implement\F_UserService.cs" />
     <Compile Include="Implement\UserService.cs" />
     <Compile Include="Interface\IClientContactService.cs" />
     <Compile Include="Interface\IDictionaryService.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Interface\IPriceStrategyService.cs" />
     <Compile Include="Interface\IProductService.cs" />
     <Compile Include="Interface\IUserDetailService.cs" />
+    <Compile Include="Interface\IF_UserService.cs" />
     <Compile Include="Interface\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

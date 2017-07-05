@@ -1,5 +1,6 @@
 ﻿using Ingenious.Application.Implement;
 using Ingenious.Application.Interface;
+using Ingenious.Infrastructure.Cache;
 using Ingenious.Repositories;
 using Ingenious.Repositories.EntityFramework;
 using Ingenious.Repositories.Implement;
@@ -16,6 +17,23 @@ namespace Ingenious.Application
             //注册 repository 和 service 
 
             container.AddNewExtension<Interception>();
+
+            //缓存实现
+            container.RegisterType<IAPICacheProvider, APIMemoryCacheProvider>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<ICacheProvider, MemoryCacheProvider>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+
+
+            #region Api.Go
+
+            container.RegisterType<IF_UserRepository, F_UserRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_UserService, F_UserService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+           
+            #endregion
 
             container.RegisterType<IRepositoryContext, EntityFrameworkRepositoryContext>();
 
@@ -89,7 +107,7 @@ namespace Ingenious.Application
             container.RegisterType<IClientContactService, ClientContactService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
-
+            
             //container.RegisterType<IProductRepository, ProductRepository>();
             //container.RegisterType<IProductService, ProductService>(new Interceptor<InterfaceInterceptor>(),
             //    new InterceptionBehavior<Ingenious.Infrastucture.AOP.LoggingBehavior>());

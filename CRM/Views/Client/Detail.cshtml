@@ -365,9 +365,7 @@
                                                     <h1 class="xsy_su_header_title"> <span class="xsy_su_header_figure xsy_header_account"></span> <span act="title" class="xsy_su_header_figure">@Model.Client.Name</span> </h1>
                                                     <div class="js-popup crm-customer-popup" style="display: none;"></div>
                                                 </div>
-                                                <div class="xsy_su_header_col shrink-none ">
-                                                    <a style="" href="javascript:;" class="xsy_su_header_hasfollow xsyFavouriteButton" is-private="true" wtype="xsyFavouriteButton" title="取消关注" id="8179038"><i></i>已关注</a>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -673,12 +671,12 @@
                                                     <!-- 控件html开始： -->
                                                     <div class="xsy_su_refer  xsy_listpreview" is-rk-widget="true">
                                                         <div class="xsy_su_refer_header">
-                                                            <h2 class="xsy_su_refer_title" url="/contract.action?fromBelongId=1&amp;fromDataId=13828420&amp;fromItemId=85876137&amp;widgetId=1003&amp;configId=377133"> <a href="/contract" name="" target="_blank"> <span class="xsy_su_refer_icon xsy_su_refer_contract_icon"></span> <span class="xsy_su_refer_name ellipsis">合同</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">@Model.Client.ContractDTOList.Count</span>）</span> <span class="xsy_su_refer_more">更多<i></i></span> </a> </h2>
+                                                            <h2 class="xsy_su_refer_title" > <a href="/contract" name="" target="_blank"> <span class="xsy_su_refer_icon xsy_su_refer_contract_icon"></span> <span class="xsy_su_refer_name ellipsis">合同</span> <span class="xsy_su_refer_num">（<span class="xsy_su_refer_num_num">@Model.Client.ContractDTOList.Count</span>）</span> <span class="xsy_su_refer_more">更多<i></i></span> </a> </h2>
                                                             <div class="xsy_su_refer_right">
                                                                 <div class="xsy_su_refer_buttonset">
                                                                     <ul>
                                                                         <li style="display:none;"> <a href="javascript:;" class="xsy_su_refer_expand" act="toggle"><i></i><span>收起区域</span></a> </li>
-                                                                        <li> <a href="javascript:;" class="xsy_su_refer_create" act="createContract" referitemid="85876137" business="contract" businessid="13828420" businessname="合同" data-id="3620665" entity-id="15" postdata="{&quot;accountId&quot;:13828420}" pos="refer" in="new_detail"><i></i></a> </li>
+                                                                        <li> <a href="/contract/create" target="_blank" class="xsy_su_refer_create" in="new_detail"><i></i></a> </li>
                                                                         <li> <a href="javascript:;" class="xsy_su_refer_set"><i></i></a> </li>
                                                                     </ul>
                                                                 </div>

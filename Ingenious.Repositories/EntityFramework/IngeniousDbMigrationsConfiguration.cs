@@ -1,6 +1,7 @@
 ﻿using Ingenious.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Migrations;
 
 namespace Ingenious.Repositories.EntityFramework
@@ -15,7 +16,8 @@ namespace Ingenious.Repositories.EntityFramework
 
         protected override void Seed(IngeniousDbContext context)
         {
-            this.Init(context, false);
+            var isInit = bool.Parse(ConfigurationManager.AppSettings["IsInit"].ToString());
+            this.Init(context, isInit);
             base.Seed(context);
         }
 
@@ -29,6 +31,7 @@ namespace Ingenious.Repositories.EntityFramework
                 Name = "全公司",
                 ParentId = null,
                 IsActive = true,
+                Version = 1,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 CreatedBy = Guid.NewGuid(),
@@ -36,11 +39,27 @@ namespace Ingenious.Repositories.EntityFramework
             };
             context.Departments.Add(dept);
 
+            var account = new Account
+            {
+                Id = new Guid(),
+                DepartmentId = dept.Id,
+                Balance = 0.0m,
+                Version=1,
+                IsActive = true,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                CreatedBy = Guid.NewGuid(),
+                ModifiedBy = Guid.NewGuid()
+            };
+            context.Accounts.Add(account);
+
             var userDetail = new UserDetail
             {
                 Id = Guid.NewGuid(),
                 Name = "管理员",
                 Logo = Infrastructure.GlobalMessage.DefaultFace,
+                IsActive=true,
+                Version = 1,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 CreatedBy = Guid.NewGuid(),

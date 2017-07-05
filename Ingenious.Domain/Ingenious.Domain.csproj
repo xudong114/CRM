@@ -47,6 +47,7 @@
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\ClientContact.cs" />
     <Compile Include="Models\Dictionary.cs" />
+    <Compile Include="Models\F_User.cs" />
     <Compile Include="Models\Recharge.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\Client.cs" />

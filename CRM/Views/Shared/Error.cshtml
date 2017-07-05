@@ -6,12 +6,42 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
+    <title>CRM系统出现问题</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .table {
+            width: 39%;
+            margin-bottom: 20px;
+            margin: 30px auto;
+        }
+
+        hgroup {
+            text-align: center;
+            margin-top: 200px;
+        }
+        div{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
+        <h2>很抱歉，系统出现问题。已通知管理员。</h2>
+        [发生时间：@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")]
     </hgroup>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td style="width:100px;">出错路径</td>
+            <td> @HttpContext.Current.Application["PATH"]</td>
+        </tr>
+        <tr>
+            <td>错误信息</td>
+            <td>@HttpContext.Current.Application["MESSAGE"]</td>
+        </tr>
+    </table>
+    <div>
+        [
+        <a href="javascript:history.go(-1)">返回</a>]
+    </div>
 </body>
 </html>
