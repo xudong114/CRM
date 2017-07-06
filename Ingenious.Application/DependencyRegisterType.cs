@@ -32,7 +32,15 @@ namespace Ingenious.Application
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
             container.RegisterType<IF_UserService, F_UserService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
-           
+
+            container.RegisterType<IF_UserDetailRepository, F_UserDetailRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_UserDetailService, F_UserDetailService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_BrankRepository, F_BrankRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
             #endregion
 
             container.RegisterType<IRepositoryContext, EntityFrameworkRepositoryContext>();

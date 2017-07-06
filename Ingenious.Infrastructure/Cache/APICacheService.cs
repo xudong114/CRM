@@ -65,7 +65,7 @@ namespace Ingenious.Infrastructure.Cache
         /// <param name="key">缓存的键值，该值通常是使用缓存机制的方法的名称。</param>
         /// <param name="valKey">缓存值的键值，该值通常是由使用缓存机制的方法的参数值所产生。</param>
         /// <returns>被缓存的对象。</returns>
-        public object Get(string key, string valKey)
+        public object Get(string key, string valKey = "")
         {
             return _cacheProvider.Get(key, valKey);
         }

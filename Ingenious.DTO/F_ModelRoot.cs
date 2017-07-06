@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Ingenious.DTO
 {
@@ -24,27 +25,27 @@ namespace Ingenious.DTO
         [DisplayName("创建人")]
         public Guid CreatedBy { get; set; }
         private F_UserDTO _CreatedByUser ;
-
-        public F_UserDTO CreatedByUser
-        {
-            get
-            {
-                if (_CreatedByUser == null)
-                    return new F_UserDTO();
-                return _CreatedByUser; 
-            }
-            set
-            {
-                if (value == null)
-                {
-                    _CreatedByUser = new F_UserDTO();
-                }
-                else
-                {
-                    _CreatedByUser=value;
-                }
-            }
-        }
+        [IgnoreDataMember]
+        public F_UserDTO CreatedByUser { get; set; }
+        //{
+        //    get
+        //    {
+        //        if (_CreatedByUser == null)
+        //            return new F_UserDTO();
+        //        return _CreatedByUser; 
+        //    }
+        //    set
+        //    {
+        //        if (value == null)
+        //        {
+        //            _CreatedByUser = new F_UserDTO();
+        //        }
+        //        else
+        //        {
+        //            _CreatedByUser=value;
+        //        }
+        //    }
+        //}
         /// <summary>
         /// 最后修改时间
         /// </summary>
@@ -56,26 +57,26 @@ namespace Ingenious.DTO
         [DisplayName("最后修改人")]
         public Guid ModifiedBy { get; set; }
         private F_UserDTO _ModifiedByUser;
-
-        public F_UserDTO ModifiedByUser
-        {
-             get {
-                 if (_ModifiedByUser == null)
-                     return new F_UserDTO();
-                 return _ModifiedByUser; 
-            }
-            set
-            {
-                if (value == null)
-                {
-                    _ModifiedByUser = new F_UserDTO();
-                }
-                else
-                {
-                    _ModifiedByUser = value;
-                }
-            }
-        }
+        [IgnoreDataMember]
+        public F_UserDTO ModifiedByUser { get; set; }
+        //{
+        //     get {
+        //         if (_ModifiedByUser == null)
+        //             return new F_UserDTO();
+        //         return _ModifiedByUser; 
+        //    }
+        //    set
+        //    {
+        //        if (value == null)
+        //        {
+        //            _ModifiedByUser = new F_UserDTO();
+        //        }
+        //        else
+        //        {
+        //            _ModifiedByUser = value;
+        //        }
+        //    }
+        //}
         /// <summary>
         /// 数据状态
         /// </summary>
@@ -84,6 +85,7 @@ namespace Ingenious.DTO
         /// <summary>
         /// 数据状态名称
         /// </summary>
+        [IgnoreDataMember]
         public string IsActiveName
         {
             get

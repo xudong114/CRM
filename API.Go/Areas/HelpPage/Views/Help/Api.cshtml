@@ -1,10 +1,10 @@
 @using System.Web.Http
 @using API.Go.Areas.HelpPage.Models
 @model HelpPageApiModel
-@section Scripts {
+@*@section Scripts {
     @Html.DisplayForModel("TestClientDialogs")
     @Html.DisplayForModel("TestClientReferences")
-}
+}*@
 
 @{
     var description = Model.ApiDescription;
@@ -24,3 +24,10 @@
         @Html.DisplayForModel()
     </section>
 </div>
+
+@Html.DisplayForModel("TestClientDialogs")
+@section Scripts{
+    <link href='~/Areas/HelpPage/HelpPage.css' rel='stylesheet' />
+    @Html.DisplayForModel("TestClientReferences")
+}
+  

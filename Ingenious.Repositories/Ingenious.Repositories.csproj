@@ -68,11 +68,15 @@
     <Compile Include="EntityFramework\ModelConfigurations\PriceStrategyTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\PriceStrategyDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ProductTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\F_UserDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserDetailTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\F_UserTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\F_BrankTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserTypeConfiguration.cs" />
     <Compile Include="Implement\ClientContactRepository.cs" />
     <Compile Include="Implement\DictionaryRepository.cs" />
+    <Compile Include="Implement\F_UserDetailRepository.cs" />
+    <Compile Include="Implement\F_BrankRepository.cs" />
     <Compile Include="Implement\RechargeRepository.cs" />
     <Compile Include="Implement\BillRepository.cs" />
     <Compile Include="Implement\ActivityRepository.cs" />
@@ -88,6 +92,8 @@
     <Compile Include="Implement\UserRepository.cs" />
     <Compile Include="Interface\IClientContactRepository.cs" />
     <Compile Include="Interface\IDictionaryRepository.cs" />
+    <Compile Include="Interface\IF_UserDetailRepository.cs" />
+    <Compile Include="Interface\IF_BrankRepository.cs" />
     <Compile Include="Interface\IRechargeRepository.cs" />
     <Compile Include="Interface\IBillRepository.cs" />
     <Compile Include="Interface\IActivityRepository.cs" />

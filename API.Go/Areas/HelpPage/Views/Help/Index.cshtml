@@ -6,7 +6,7 @@
 @model Collection<ApiDescription>
 
 @{
-    ViewBag.Title = "ASP.NET Web API Help Page";
+    ViewBag.Title = "API 帮助页面";
 
     // Group APIs by controller
     ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
@@ -23,9 +23,9 @@
 <div id="body" class="help-page">
     <section class="featured">
         <div class="content-wrapper">
-            <h2>Introduction</h2>
+            <h2>简介</h2>
             <p>
-                Provide a general description of your APIs here.
+                调用时路径 “/api/{conrtoller}/{action}”，controller 指的是下面每块头部大写的英文部分，action 指的是下面的具体方法。右侧的Description表示方法的功能。
             </p>
         </div>
     </section>

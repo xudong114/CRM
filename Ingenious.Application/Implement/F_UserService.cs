@@ -26,7 +26,7 @@ namespace Ingenious.Application.Implement
 
         public F_UserDTO Login(F_UserDTO user)
         {
-            //user.Password = user.Password.ToMD5String();
+            user.Password = user.Password.ToMD5String();
             return Mapper.Map<F_User, F_UserDTO>(
                     this._IF_UserRepository.Login(Mapper.Map<F_UserDTO, F_User>(user))
                  );

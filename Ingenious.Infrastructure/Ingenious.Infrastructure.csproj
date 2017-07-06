@@ -95,6 +95,7 @@
     <Compile Include="IoC\UnityDependencyScope.cs" />
     <Compile Include="IoC\UnityDependencyResolverAPI.cs" />
     <Compile Include="IoC\UnityDependencyResolver.cs" />
+    <Compile Include="MessageResult.cs" />
     <Compile Include="Message\MessageService.cs" />
     <Compile Include="PagedResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -33,6 +33,8 @@ namespace Ingenious.Infrastructure
         /// </summary>
         public const string DataItem_ClientActivityCategory = "客户活动类型";
 
+        #region Session
+
         /// <summary>
         /// Api 手机验证码 Session 标识
         /// </summary>
@@ -40,7 +42,18 @@ namespace Ingenious.Infrastructure
         /// <summary>
         /// Api 用户登录 Session 标识
         /// </summary>
-        public const string API_Session_User = "API_Session_User";
+        public const string API_Session_User = "API_Session_User{0}";
+        /// <summary>
+        /// Api 用户登录 token 标识
+        /// </summary>
+        public const string API_Session_User_Token = "API_Session_User_Token{0}";
+        /// <summary>
+        /// 重置密码时保存手机号码用于验证
+        /// </summary>
+        public const string API_Session_ResetPassword = "API_Session_ResetPassword{0}";
+
+        #endregion
+
 
         /// <summary>
         /// 缓存过期时间（秒）
@@ -58,5 +71,6 @@ namespace Ingenious.Infrastructure
         /// </summary>
         public const string SMS_SecurityCode = "您的本次验证码是{0}，如非本人操作请忽略。";
 
+        
     }
 }

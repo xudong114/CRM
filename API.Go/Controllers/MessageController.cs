@@ -10,6 +10,9 @@ using System.Web.Http;
 
 namespace API.Go.Controllers
 {
+    /// <summary>
+    /// 消息服务
+    /// </summary>
     [AllowAnonymous]
     public class MessageController : BaseController
     {
@@ -17,7 +20,7 @@ namespace API.Go.Controllers
         /// 获取手机验证码
         /// </summary>
         /// <param name="phoneNo">手机号码</param>
-        /// <returns></returns>
+        /// <returns>返回验证码</returns>
         public string GetSecurityCode(string phoneNo)
         {
             var code = Utility.GetRandomNo(6);
@@ -31,31 +34,15 @@ namespace API.Go.Controllers
         }
 
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        /// <summary>
+        /// 获取手机验证码
+        /// </summary>
+        /// <param name="phoneNo">手机号码</param>
+        /// <returns>返回验证码</returns>
+        public string Get(string phoneNo)
         {
-            return new string[] { "value1", "value2" };
+            return this.GetSecurityCode(phoneNo);
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }

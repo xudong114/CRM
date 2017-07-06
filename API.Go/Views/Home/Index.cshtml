@@ -3,12 +3,17 @@
 
     $().ready(function () {
 
+        var data = {
+            "UserName": "13962475261",
+            "Password": "123456"
+        };
+
         $('#btnLogin').click(function () {
 
             $.ajax({
-                url: "/api/user",
-                data: { userName: "admin", password: "123321" },
-                datatype: "json",
+                type:"get",
+                url: "/api/User/login",
+                data: data,
                 success: function (data) {
                     data = eval(data);
                     alert(data.Message);
@@ -19,11 +24,13 @@
             });
         });
 
-
     });
 
 </script>
+
 <br />
 <br />
 <br />
-<a id="btnLogin" class="btn btn-default">Login</a>
+<br />
+<br />
+<a id="btnLogin" class="btn btn-default">登录</a>

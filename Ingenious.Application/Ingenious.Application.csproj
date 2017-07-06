@@ -75,6 +75,7 @@
     <Compile Include="IApplication.cs" />
     <Compile Include="Implement\ClientContactService.cs" />
     <Compile Include="Implement\DictionaryService.cs" />
+    <Compile Include="Implement\F_UserDetailService.cs" />
     <Compile Include="Implement\RechargeService.cs" />
     <Compile Include="Implement\BillService.cs" />
     <Compile Include="Implement\ActivityService.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Implement\UserService.cs" />
     <Compile Include="Interface\IClientContactService.cs" />
     <Compile Include="Interface\IDictionaryService.cs" />
+    <Compile Include="Interface\IF_UserDetailService.cs" />
     <Compile Include="Interface\IRechargeService.cs" />
     <Compile Include="Interface\IBillService.cs" />
     <Compile Include="Interface\IActivityService.cs" />

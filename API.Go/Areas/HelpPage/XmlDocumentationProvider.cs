@@ -31,7 +31,6 @@ namespace API.Go.Areas.HelpPage
             {
                 throw new ArgumentNullException("documentPath");
             }
-            documentPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Dat/API.Go.XML");
             XPathDocument xpath = new XPathDocument(documentPath);
             _documentNavigator = xpath.CreateNavigator();
         }

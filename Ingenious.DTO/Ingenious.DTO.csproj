@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +47,13 @@
     <Compile Include="AccountDTO.cs" />
     <Compile Include="ActivityDTO.cs" />
     <Compile Include="BillDTO.cs" />
+    <Compile Include="F_BrankDTO.cs" />
     <Compile Include="ClientContactDTO.cs" />
     <Compile Include="ClientDTO.cs" />
     <Compile Include="ContractDTO.cs" />
     <Compile Include="DepartmentDTO.cs" />
     <Compile Include="DictionaryDTO.cs" />
+    <Compile Include="F_UserDetailDTO.cs" />
     <Compile Include="F_UserDTO.cs" />
     <Compile Include="F_ModelRoot.cs" />
     <Compile Include="ModelRoot.cs" />
