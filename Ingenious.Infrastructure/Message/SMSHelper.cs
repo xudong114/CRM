@@ -197,15 +197,6 @@ namespace Ingenious.Infrastructure.Message
     }
 
     /// <summary>
-    /// 短消息发送结果
-    /// </summary>
-    public struct MessageResult
-    {
-        public bool Status { get; set; }
-        public string Message { get; set; }
-    }
-
-    /// <summary>
     /// 手机获取验证码与过期时间
     /// </summary>
     [Serializable]

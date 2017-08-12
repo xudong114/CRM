@@ -65,12 +65,23 @@ namespace Ingenious.Infrastructure
                 return int.Parse(ConfigurationManager.AppSettings["timeout"].ToString());
             }
         }
-
+        /// <summary>
+        /// 初始密码
+        /// </summary>
+        public static string API_InitPassword
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["initpassword"].ToString();
+            }
+        }
         /// <summary>
         /// 手机验证码
         /// </summary>
         public const string SMS_SecurityCode = "您的本次验证码是{0}，如非本人操作请忽略。";
-
-        
+        /// <summary>
+        /// 未授权操作提示
+        /// </summary>
+        public const string Unauthorized = "对该请求的授权已被拒绝";
     }
 }

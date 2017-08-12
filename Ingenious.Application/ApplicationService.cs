@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using Ingenious.Domain;
+using Ingenious.Domain.DataSource;
 using Ingenious.Domain.Models;
 using Ingenious.DTO;
 using Ingenious.Infrastructure;
@@ -25,9 +26,39 @@ namespace Ingenious.Application
 
             #region Api.Go
 
-
             Mapper.CreateMap<F_User, F_UserDTO>();
             Mapper.CreateMap<F_UserDTO, F_User>();
+
+            Mapper.CreateMap<F_UserDetail, F_UserDetailDTO>();
+            Mapper.CreateMap<F_UserDetailDTO, F_UserDetail>();
+
+            Mapper.CreateMap<F_Bank, F_BankDTO>();
+            Mapper.CreateMap<F_BankDTO, F_Bank>();
+
+            Mapper.CreateMap<F_Order, F_OrderDTO>();
+            Mapper.CreateMap<F_OrderDTO, F_Order>();
+
+            Mapper.CreateMap<ComplexOrder, F_OrderDTO>();
+            Mapper.CreateMap<ComplexOrderRecord, F_OrderRecordDTO>();
+
+            Mapper.CreateMap<F_OrderRecord, F_OrderRecordDTO>();
+            Mapper.CreateMap<F_OrderRecordDTO, F_OrderRecord>();
+
+            Mapper.CreateMap<F_File, F_FileDTO>();
+            Mapper.CreateMap<F_FileDTO, F_File>();
+
+            Mapper.CreateMap<F_Store, F_StoreDTO>();
+            Mapper.CreateMap<F_StoreDTO, F_Store>();
+
+            Mapper.CreateMap<F_Account, F_AccountDTO>();
+            Mapper.CreateMap<F_AccountDTO, F_Account>();
+
+            Mapper.CreateMap<F_WithdrawDepositRecord, F_WithdrawDepositRecordDTO>();
+            Mapper.CreateMap<F_WithdrawDepositRecordDTO, F_WithdrawDepositRecord>();
+
+
+            Mapper.CreateMap<F_Activity, F_ActivityDTO>();
+            Mapper.CreateMap<F_ActivityDTO, F_Activity>();
 
             #endregion
 
@@ -282,9 +313,11 @@ namespace Ingenious.Application
                 foreach (var dto in dtoList)
                 {
                     var id = getIdFunc(dto);
+                    //System.Web.HttpContext.Current.Response.Write(id.ToString());
+                    //System.Web.HttpContext.Current.Response.Flush();
+                    //System.Web.HttpContext.Current.Response.End();
                     var entity = repository.GetByKey(id);
-                    //保存版本记录
-                    //...
+
                     dto.Version = dto.Version + 1;
                     dto.ModifiedDate = DateTime.Now;
 

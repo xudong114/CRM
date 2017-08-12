@@ -12,6 +12,8 @@ namespace API.Go
             // Web API configuration and services
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = true;
+            // Global Authorize
+            config.Filters.Add(new API.Go.App_Start.Api_Go_AuthorizationAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

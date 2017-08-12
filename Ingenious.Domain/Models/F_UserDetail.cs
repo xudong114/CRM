@@ -8,6 +8,9 @@ namespace Ingenious.Domain.Models
         /// 关联账户
         /// </summary>
         public Guid F_UserId { get; set; }
+
+        public virtual F_User F_User { get; set; }
+
         /// <summary>
         /// 头像路径
         /// </summary>
@@ -31,7 +34,7 @@ namespace Ingenious.Domain.Models
         /// <summary>
         /// 所在银行
         /// </summary>
-        public Guid? BrandId { get; set; }
+        public string BankCode { get; set; }
         /// <summary>
         /// 职位
         /// </summary>
@@ -56,5 +59,29 @@ namespace Ingenious.Domain.Models
         /// QQ
         /// </summary>
         public string QQ { get; set; }
+        /// <summary>
+        /// 省
+        /// </summary>
+        public string Province { get; set; }
+        /// <summary>
+        /// 城市
+        /// </summary>
+        public string  City { get; set; }
+        /// <summary>
+        /// 县区
+        /// </summary>
+        public string  Country { get; set; }
+        /// <summary>
+        /// 街道
+        /// </summary>
+        public string  Street { get; set; }
+        /// <summary>
+        /// 身份证号码
+        /// </summary>
+        public string IDNo { get; set; }
+        /// <summary>
+        /// 工号
+        /// </summary>
+        public string Code { get; set; }
     }
 }

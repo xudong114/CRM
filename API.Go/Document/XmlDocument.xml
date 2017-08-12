@@ -4,6 +4,17 @@
         <name>API.Go</name>
     </assembly>
     <members>
+        <member name="T:API.Go.App_Start.Api_Go_AuthorizationAttribute">
+            <summary>
+            授权验证
+            </summary>
+        </member>
+        <member name="M:API.Go.App_Start.Api_Go_AuthorizationAttribute.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            授权验证
+            </summary>
+            <param name="actionContext"></param>
+        </member>
         <member name="M:API.Go.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -481,10 +492,89 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:API.Go.Controllers.BankController">
+            <summary>
+            银行模块服务
+            </summary>
+        </member>
         <member name="P:API.Go.Controllers.BaseController.User">
             <summary>
             当前用户
             </summary>
+        </member>
+        <member name="M:API.Go.Controllers.BankController.GetBanks">
+            <summary>
+            获取贷款银行
+            总行
+            </summary>
+            <returns>
+            返回JSON数据结构
+            {
+                Status:true,
+                Data:{
+                        Name: 银行名称
+                        Code: 银行编码
+                    }
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.BankController.GetOrderBanks">
+            <summary>
+            获取订单分配银行
+            </summary>
+            <returns>
+            返回JSON数据结构
+            {
+                Status:true,
+                Data:{
+                        Name: 银行名称
+                        Code: 银行编码
+                    }
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.BankController.GetClerks">
+            <summary>
+            银行模块：获取所有客户经理。
+                    根据当前登录信贷经理账号Id获取所在银行的所有客户经理。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.BankController.SetAssignPolicy(System.Boolean)">
+            <summary>
+            设置分配策略
+            1、自动
+            2、手工
+            </summary>
+            <param name="isauto">是否开启自动分配</param>
+            <returns></returns>
+        </member>
+        <member name="T:API.Go.Controllers.FilesController">
+            <summary>
+            文件管理
+            </summary>
+        </member>
+        <member name="M:API.Go.Controllers.FilesController.GetFiles(System.Guid)">
+            <summary>
+            根据ReferenceId获取图片列表
+            </summary>
+            <param name="referenceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.FilesController.GetFiles(System.Guid,System.String)">
+            <summary>
+            根据ReferenceId和Code获取图片列表
+            </summary>
+            <param name="referenceId"></param>
+            <param name="code">文件类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.FilesController.Delete(System.Guid)">
+            <summary>
+            根据图片Id删除图片
+            </summary>
+            <param name="id">图片Id</param>
+            <returns></returns>
         </member>
         <member name="T:API.Go.Controllers.MessageController">
             <summary>
@@ -505,6 +595,423 @@
             <param name="phoneNo">手机号码</param>
             <returns>返回验证码</returns>
         </member>
+        <member name="M:API.Go.Controllers.MessageController.GetMessage(System.Guid)">
+            <summary>
+            根据外部标识获取消息
+            </summary>
+            <param name="referenceId">外部标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.MessageController.GetMessageCount(System.Guid)">
+            <summary>
+            根据外部标识获取新消息数量，最近7天之内
+            </summary>
+            <param name="referenceId">外部标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.MessageController.GetMessageCount">
+            <summary>
+            根据外部标识获取新消息数量，最近7天之内
+            </summary>
+            <param name="referenceId">外部标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.MessageController.SetMessageStatus(System.Guid)">
+            <summary>
+            设置消息状态已读
+            </summary>
+            <param name="id">消息标识</param>
+            <returns></returns>
+        </member>
+        <member name="T:API.Go.Controllers.OrderController">
+            <summary>
+            管理申请单服务
+            </summary>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrder(System.Guid)">
+            <summary>
+            获取订单数据
+            </summary>
+            <param name="id">订单Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetComplexOrder(System.Guid)">
+            <summary>
+            获取订单所有信息
+            包括订单审核信息，状态信息
+            </summary>
+            <param name="orderId">订单Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.Step01(Ingenious.DTO.F_OrderDTO)">
+            <summary>
+            01：填写个人信息
+            </summary>
+            <param name="order">订单参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.Step02(Ingenious.DTO.F_OrderDTO)">
+            <summary>
+            02：填写房产信息
+            </summary>
+            <param name="order">订单参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.Step03(Ingenious.DTO.F_OrderDTO)">
+            <summary>
+            03：填写交易信息
+            </summary>
+            <param name="order">订单参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.Step04(System.Guid)">
+            <summary>
+            04：填写征信信息
+            </summary>
+            <param name="id">订单Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.Submit(System.Guid)">
+            <summary>
+            提交订单
+            </summary>
+            <param name="id">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.Process(System.Guid,Ingenious.Infrastructure.Enum.F_OrderStatusEnum,System.String)">
+            <summary>
+            订单审核
+            </summary>
+            <param name="id">订单标准（F_Order.Id）</param>
+            <param name="status">订单状态：F_OrderStatusEnum</param>
+            <param name="remark">审核备注</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrders(System.Nullable{Ingenious.Infrastructure.Enum.F_OrderStatusEnum},System.String,System.String,System.String,System.Nullable{System.Guid},System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+            <summary>
+            获取订单
+            </summary>
+            <param name="clerkCode">店员编号</param>
+            <param name="storeCode">店铺编号</param>
+            <param name="brankId">银行编号</param>
+            <param name="userId">关联用户</param>
+            <param name="status">订单状态</param>
+            <param name="min">申请金额范围：最小值</param>
+            <param name="max">申请金额范围：最大值</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderCountByBank">
+            <summary>
+            根据银行编号获取订单数量
+            返回JSON数据结构
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </summary>
+            <returns>
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByBank(System.String)">
+            <summary>
+            根据银行编号获取订单
+            返回JSON数据结构
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </summary>
+            <param name="status">订单阶段：
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </param>
+            <returns>
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderCountByBankClerk">
+            <summary>
+            根据客户经理编号获取订单数量
+            返回JSON数据结构
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </summary>
+            <returns>
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByBankClerk(System.String)">
+            <summary>
+            根据客户经理编号获取订单
+            返回JSON数据结构
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </summary>
+            <param name="status">订单阶段：
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </param>
+            <returns>
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderCountByGojiajuClerk">
+            <summary>
+            根据Go佳居客服编号获取订单数量
+            返回JSON数据结构
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </summary>
+            <returns>
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByGojiajuClerk(System.String)">
+            <summary>
+            根据Go佳居客服编号获取订单
+            返回JSON数据结构
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </summary>
+            <param name="status">订单阶段：
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </param>
+            <returns>
+            {
+                InProcess：待受理，
+                Presigned：待签约，
+                Prepassed：待放款，
+                Passed：已放款，
+                Failed：已失效
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderCountByUserId">
+            <summary>
+            根据用户Id获取订单数量
+            返回JSON数据结构
+            {
+                Status:true
+                Data:{
+                        InProcess：正在申请的数量，
+                        Passed：已通过的数量，
+                        Failed：已拒绝的数量
+                    }
+            }
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByUserId">
+            <summary>
+            根据用户Id获取订单
+            返回JSON数据结构
+            {
+                Status:true
+                Data:{
+                        InProcess：正在申请的订单，
+                        Passed：已通过的订单，
+                        Failed：已拒绝的订单
+                    }
+            }
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByClerkId(System.Guid)">
+            <summary>
+            获取导购收益记录
+            返回JSON数据结构
+            {
+                Data: F_OrderDTO集合
+            }
+            </summary>
+            <param name="userId"></param>
+            <returns>
+            JSON数据结构
+            {
+                Name = yyyy年MM月,
+                List = [{Id:,Code="GFQ20170724001",Money=100,DateTime="7.24", DayOfWeek="星期一" }]
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetWithdrawDepositRecord">
+            <summary>
+            获取导购交易记录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetClerkOrders">
+            <summary>
+            获取导购分期记录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetStoreOrders">
+            <summary>
+            店铺模块：获取导购分期记录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.UpdateStatus(System.Guid,Ingenious.Infrastructure.Enum.F_OrderStatusEnum,System.String)">
+            <summary>
+            更新订单状态
+            1、平台更新（审核）
+            2、银行审核（审核）
+            3、银行更新（放款）
+            </summary>
+            <param name="id">订单Id</param>
+            <param name="status">订单状态（数字）F_OrderStatusEnum</param>
+            <param name="remark">备注信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.UpdateOrder(Ingenious.DTO.F_OrderDTO)">
+            <summary>
+            修改订单
+            </summary>
+            <param name="order">订单参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.CreateOrderRecord(Ingenious.DTO.F_OrderRecordDTO)">
+            <summary>
+            创建订单审核记录
+            </summary>
+            <param name="orderRecord">审核记录对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.AssignOrder(System.Guid,System.String)">
+            <summary>
+            分配订单
+            </summary>
+            <param name="orderId">订单Id（F_Order.Id）</param>
+            <param name="clerkCode">银行客户经理Code(F_User.Code)</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.ResetOrder(Ingenious.DTO.F_OrderDTO)">
+            <summary>
+            编辑订单
+            1、消费者在平台未受理时可修改订单
+            2、平台拒绝、银行拒绝时可修改订单
+            </summary>
+            <param name="order">订单参数</param>
+            <returns></returns>
+        </member>
+        <member name="T:API.Go.Controllers.StoreController">
+            <summary>
+            店铺管理
+            </summary>
+        </member>
+        <member name="M:API.Go.Controllers.StoreController.BindStore(System.String)">
+            <summary>
+            绑定店员和店铺
+            </summary>
+            <param name="storeId">店铺Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.StoreController.GetStoreByClerkId(System.Guid)">
+            <summary>
+            根据店员Id获取店铺
+            </summary>
+            <param name="userId">店员Id</param>
+            <returns>
+            JSON数据格式：
+            {
+                Status:true,
+                Data:F_StoreDTO
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.StoreController.GetStore">
+            <summary>
+            店铺模块：根据账号获取店铺
+            </summary>
+            <returns>
+            JSON数据格式：
+            {
+                Status:true,
+                Data:F_StoreDTO
+            }
+            </returns>
+        </member>
+        <member name="M:API.Go.Controllers.StoreController.GetClerks">
+            <summary>
+            店铺模块：获取店铺所有导购
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:API.Go.Controllers.UserController">
             <summary>
             账号服务
@@ -516,6 +1023,13 @@
             </summary>
             <param name="username">账号</param>
             <param name="password">密码</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.Logout(System.String)">
+            <summary>
+            退出系统
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:API.Go.Controllers.UserController.GetSecurityCode(System.String)">
@@ -533,7 +1047,7 @@
             <param name="code">验证码</param>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.UserController.IsExistsUser(System.String)">
+        <member name="M:API.Go.Controllers.UserController.HasUserName(System.String)">
             <summary>
             用户名是否存在
             </summary>
@@ -547,12 +1061,42 @@
             <param name="user"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Go.Controllers.UserController.RegisterBankClerk(Ingenious.DTO.F_UserDTO)">
+            <summary>
+            银行模块：注册客户经理
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.UpdateClerk(Ingenious.DTO.F_UserDetailDTO)">
+            <summary>
+            修改导购信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:API.Go.Controllers.UserController.ResetPassword(System.String,System.String)">
             <summary>
             重置密码
+            无法登录，使用手机验证码修改密码
             </summary>
             <param name="phoneNo">手机号码</param>
             <param name="password">新密码</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.UpdatePassword(System.String,System.String)">
+            <summary>
+            修改密码
+            登录后输入原始密码来修改密码
+            </summary>
+            <param name="oldPassword">原始密码</param>
+            <param name="newPassword">新密码</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.ResetPassword(System.Guid)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="userId"></param>
             <returns></returns>
         </member>
         <member name="M:API.Go.Controllers.UserController.EditUserDetail(Ingenious.DTO.F_UserDetailDTO)">
@@ -560,6 +1104,41 @@
             编辑个人信息
             </summary>
             <param name="userDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.GetUserDetail(System.Guid)">
+            <summary>
+            获取个人信息
+            </summary>
+            <param name="userId">用户标志(F_UserDetail.Id)</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.GetUserDetail">
+            <summary>
+            获取个人信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.GetAccount">
+            <summary>
+            获取个人账户信息
+            </summary>
+            <param name="userId">用户Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.SetAlipay(System.String,System.String)">
+            <summary>
+            设置支付宝账户信息
+            </summary>
+            <param name="alipay">支付宝账号</param>
+            <param name="name">真实姓名</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.FrozenUser(System.Guid)">
+            <summary>
+            冻结用户
+            </summary>
+            <param name="userId">用户Id</param>
             <returns></returns>
         </member>
     </members>

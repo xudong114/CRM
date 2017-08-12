@@ -52,6 +52,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
@@ -71,6 +72,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="zxing">
+      <HintPath>..\packages\ZXing.Net.0.15.0\lib\net45\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\packages\ZXing.Net.0.15.0\lib\net45\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AOP\LoggingBehavior.cs" />
@@ -83,18 +90,21 @@
     <Compile Include="Cache\APIMemoryCacheProvider.cs" />
     <Compile Include="Cache\MemoryCacheProvider.cs" />
     <Compile Include="Enum\ContractStatusEnum.cs" />
-    <Compile Include="Enum\F_UserType.cs" />
+    <Compile Include="Enum\F_OrderStatusEnum.cs" />
+    <Compile Include="Enum\F_UserTypeEnum.cs" />
     <Compile Include="Enum\PaymentMethodEnum.cs" />
     <Compile Include="Enum\UserStatusEnum.cs" />
     <Compile Include="Extensions\EqualityComparer.cs" />
     <Compile Include="Extensions\SelectExtensions.cs" />
     <Compile Include="GlobalMessage.cs" />
+    <Compile Include="Helper\QRHelper.cs" />
     <Compile Include="Helper\SecurityHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="IdList.cs" />
     <Compile Include="IoC\UnityDependencyScope.cs" />
     <Compile Include="IoC\UnityDependencyResolverAPI.cs" />
     <Compile Include="IoC\UnityDependencyResolver.cs" />
+    <Compile Include="KeyValue.cs" />
     <Compile Include="MessageResult.cs" />
     <Compile Include="Message\MessageService.cs" />
     <Compile Include="PagedResult.cs" />
@@ -107,6 +117,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

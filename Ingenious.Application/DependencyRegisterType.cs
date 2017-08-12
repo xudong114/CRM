@@ -38,8 +38,47 @@ namespace Ingenious.Application
             container.RegisterType<IF_UserDetailService, F_UserDetailService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
-            container.RegisterType<IF_BrankRepository, F_BrankRepository>(new Interceptor<InterfaceInterceptor>(),
+            container.RegisterType<IF_OrderRepository, F_OrderRepository>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_OrderService, F_OrderService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_OrderRecordRepository, F_OrderRecordRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_OrderRecordService, F_OrderRecordService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_BankRepository, F_BankRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_BankService, F_BankService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+
+            container.RegisterType<IF_FileRepository, F_FileRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_FileService, F_FileService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_StoreRepository, F_StoreRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_StoreService, F_StoreService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_AccountRepository, F_AccountRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_AccountService, F_AccountService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_WithdrawDepositRecordRepository, F_WithdrawDepositRecordRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_WithdrawDepositRecordService, F_WithdrawDepositRecordService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_ActivityRepository, F_ActivityRepository>(new Interceptor<InterfaceInterceptor>(),
+                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_ActivityService, F_ActivityService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
 
             #endregion
 

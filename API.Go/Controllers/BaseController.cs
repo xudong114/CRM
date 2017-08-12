@@ -1,17 +1,17 @@
 ﻿using Ingenious.DTO;
 using Ingenious.Infrastructure.Cache;
+using System;
 using System.Web;
 using System.Web.Http;
 
 namespace API.Go.Controllers
 {
-    [API.Go.App_Start.Api_Go_Authorization]
     public class BaseController : ApiController
     {
         /// <summary>
         /// 当前用户
         /// </summary>
-        public F_UserDTO User
+        public new F_UserDTO User
         {
             get
             {

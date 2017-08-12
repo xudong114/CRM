@@ -4,9 +4,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Ingenious.Repositories.EntityFramework.ModelConfigurations
 {
-    public class UserTypeConfiguration : EntityTypeConfiguration<User>
+    public class F_UserTypeConfiguration : EntityTypeConfiguration<F_User>
     {
-        public UserTypeConfiguration()
+        public F_UserTypeConfiguration()
         {
             HasKey(user => user.Id);
             Property(user => user.Id)

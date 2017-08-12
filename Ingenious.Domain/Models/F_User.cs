@@ -14,6 +14,10 @@ namespace Ingenious.Domain.Models
     {
         public string UserName { get; set; }
         public string Password { get; set; }
-        public F_UserType UserType { get; set; }
+        public F_UserTypeEnum UserType { get; set; }
+        /// <summary>
+        /// 所属站点
+        /// </summary>
+        public Guid WebsiteId { get; set; }
     }
 }

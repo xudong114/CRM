@@ -49,10 +49,24 @@ namespace Ingenious.Repositories.EntityFramework
         #region Models
 
         #region Api.Go
-        
+
+        public DbSet<F_Store> F_Stores { get; set; }
         public DbSet<F_User> F_Users { get; set; }
         public DbSet<F_UserDetail> F_UserDetails { get; set; }
-        public DbSet<F_Brank> F_Branks { get; set; }
+        public DbSet<F_Bank> F_Banks { get; set; }
+
+        public DbSet<F_Order> F_Orders { get; set; }
+
+        public DbSet<F_OrderRecord> F_OrderRecords { get; set; }
+
+        public DbSet<F_File> F_Files { get; set; }
+
+        public DbSet<F_StoreClerk> F_StoreClerks { get; set; }
+        public DbSet<F_Account> F_Accounts { get; set; }
+        public DbSet<F_WithdrawDepositRecord> F_WithdrawDepositRecords { get; set; }
+
+        public DbSet<F_Activity> F_Activities { get; set; }
+
         #endregion
 
         public DbSet<User> Users { get; set; }

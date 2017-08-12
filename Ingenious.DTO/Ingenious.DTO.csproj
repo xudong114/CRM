@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,15 +49,23 @@
     <Compile Include="AccountDTO.cs" />
     <Compile Include="ActivityDTO.cs" />
     <Compile Include="BillDTO.cs" />
-    <Compile Include="F_BrankDTO.cs" />
+    <Compile Include="F_ActivityDTO.cs" />
+    <Compile Include="F_AccountDTO.cs" />
+    <Compile Include="F_BankDTO.cs" />
     <Compile Include="ClientContactDTO.cs" />
     <Compile Include="ClientDTO.cs" />
     <Compile Include="ContractDTO.cs" />
     <Compile Include="DepartmentDTO.cs" />
     <Compile Include="DictionaryDTO.cs" />
+    <Compile Include="F_FileDTO.cs" />
+    <Compile Include="F_OrderDTO.cs" />
+    <Compile Include="F_OrderRecordDTO.cs" />
+    <Compile Include="F_StoreClerkDTO.cs" />
     <Compile Include="F_UserDetailDTO.cs" />
+    <Compile Include="F_StoreDTO.cs" />
     <Compile Include="F_UserDTO.cs" />
     <Compile Include="F_ModelRoot.cs" />
+    <Compile Include="F_WithdrawDepositRecordDTO.cs" />
     <Compile Include="ModelRoot.cs" />
     <Compile Include="PriceStrategyDetailDTO.cs" />
     <Compile Include="PriceStrategyDTO.cs" />

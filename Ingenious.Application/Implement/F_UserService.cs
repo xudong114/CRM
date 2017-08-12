@@ -17,11 +17,14 @@ namespace Ingenious.Application.Implement
     public class F_UserService : ApplicationService, IF_UserService 
     {
         private readonly IF_UserRepository _IF_UserRepository;
+        private readonly IF_UserDetailService _IF_UserDetailService;
         public F_UserService(IRepositoryContext context,
-            IF_UserRepository iF_UserRepository)
+            IF_UserRepository iF_UserRepository, 
+            IF_UserDetailService iF_UserDetailService)
             : base(context)
         {
             this._IF_UserRepository = iF_UserRepository;
+            this._IF_UserDetailService = iF_UserDetailService;
         }
 
         public F_UserDTO Login(F_UserDTO user)
@@ -67,23 +70,48 @@ namespace Ingenious.Application.Implement
 
         public F_UserDTO Create(F_UserDTO dto)
         {
-            return base.F_Create<F_UserDTO, F_User>(dto
+           
+            var user= base.F_Create<F_UserDTO, F_User>(dto
                 , _IF_UserRepository
-                , dtoAction => { }); 
+                , dtoAction => { });
+            dto.F_UserDetail = dto.F_UserDetail ?? new F_UserDetailDTO() { 
+                Name = "未设置",
+                PersonalPhone = dto.UserName,
+            };
+            
+            var userDetails = new F_UserDetailDTO { 
+                F_UserId = user.Id,
+                PersonalPhone = dto.F_UserDetail.PersonalPhone,
+                Name = dto.F_UserDetail.Name,
+                BankCode = dto.F_UserDetail.BankCode
+            };
+
+            var model = this._IF_UserDetailService.Create(userDetails);
+
+            if(dto.UserType== F_UserTypeEnum.CL)
+            {
+                QRHelper.MakeWithLogo(model.Code);
+            }
+
+            return user;
         }
 
         public List<F_UserDTO> Update(System.Collections.Generic.List<F_UserDTO> dtoList)
         {
-            return base.F_Update<F_UserDTO, List<F_UserDTO>, F_User>(dtoList
-                , _IF_UserRepository
-                , dto => dto.Id
-                , (dto, entity) =>
-                {
-                    entity.IsActive = dto.IsActive;
-                    entity.Password = dto.Password;
-                    entity.ModifiedDate = dto.ModifiedDate;
-                    entity.ModifiedBy = dto.ModifiedBy;
-                });
+            var list = new List<F_UserDTO>();
+           
+                base.F_Update<F_UserDTO, List<F_UserDTO>, F_User>(dtoList
+                 , _IF_UserRepository
+                 , dto => dto.Id
+                 , (dto, entity) =>
+                 {
+                     entity.WebsiteId = dto.WebsiteId;
+                     entity.IsActive = dto.IsActive;
+                     entity.Password = dto.Password;
+                     entity.ModifiedBy = dto.ModifiedBy;
+                 });
+           
+            return list;
         }
 
 
@@ -94,8 +122,7 @@ namespace Ingenious.Application.Implement
                 , dto => dto.Id
                 , (dto, entity) =>
                 {
-                    entity.IsActive = dto.IsActive;
-                    entity.ModifiedDate = dto.ModifiedDate;
+                    entity.IsActive = false;
                     entity.ModifiedBy = dto.ModifiedBy;
                 });
         }

@@ -21,5 +21,17 @@ namespace API.Go
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error()
+        {
+            var exception = Server.GetLastError();
+            
+            HttpContext.Current.Response.Write("{Status:false,Message:'系统不支持此操作'}");
+            HttpContext.Current.Response.End();
+
+            
+
+            Server.ClearError();
+        }
     }
 }

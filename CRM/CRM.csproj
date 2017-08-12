@@ -55,12 +55,24 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -124,9 +136,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\GoApp\Controllers\StoreController.cs" />
+    <Compile Include="Areas\GoApp\GoAppAreaRegistration.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\BaseController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\DictionaryController.cs" />
+    <Compile Include="Areas\ManagementCenter\Controllers\GoAPPController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\HomeController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\PriceStrategyController.cs" />
     <Compile Include="Areas\ManagementCenter\Controllers\ProductController.cs" />
@@ -149,6 +165,103 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\GoApp\Content\css\accordion.css" />
+    <Content Include="Areas\GoApp\Content\css\app.v2.css" />
+    <Content Include="Areas\GoApp\Content\css\content.css" />
+    <Content Include="Areas\GoApp\Content\css\landing.css" />
+    <Content Include="Areas\GoApp\Content\css\style.css" />
+    <Content Include="Areas\GoApp\Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Areas\GoApp\Content\images\app.png" />
+    <Content Include="Areas\GoApp\Content\images\avatar.jpg" />
+    <Content Include="Areas\GoApp\Content\images\avatar_default.jpg" />
+    <Content Include="Areas\GoApp\Content\images\default_face.png" />
+    <Content Include="Areas\GoApp\Content\images\logo.png" />
+    <Content Include="Areas\GoApp\Content\images\main.png" />
+    <Content Include="Areas\GoApp\Content\images\phone-1.png" />
+    <Content Include="Areas\GoApp\Content\images\phone-2.png" />
+    <Content Include="Areas\GoApp\Content\images\render-1.png" />
+    <Content Include="Areas\GoApp\Content\images\thumb_1.png" />
+    <Content Include="Areas\GoApp\Content\images\thumb_2.png" />
+    <Content Include="Areas\GoApp\Content\images\thumb_3.png" />
+    <Content Include="Areas\GoApp\Content\img\header_ico.png" />
+    <Content Include="Areas\GoApp\Content\img\left_nav_hover_ico.png" />
+    <Content Include="Areas\GoApp\Content\img\left_nav_normal_ico.png" />
+    <Content Include="Areas\GoApp\Content\img\logo_text.png" />
+    <Content Include="Areas\GoApp\Content\img\ui-accordion_down_arrow.png" />
+    <Content Include="Areas\GoApp\Content\img\ui-accordion_left_arrow.png" />
+    <Content Include="Areas\GoApp\Content\js\app.v2.js" />
+    <Content Include="Areas\GoApp\Content\js\appear\jquery.appear.js" />
+    <Content Include="Areas\GoApp\Content\js\apps\notes.js" />
+    <Content Include="Areas\GoApp\Content\js\calendar\bootstrap_calendar.css" />
+    <Content Include="Areas\GoApp\Content\js\calendar\bootstrap_calendar.js" />
+    <Content Include="Areas\GoApp\Content\js\calendar\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\easypiechart\jquery.easy-pie-chart.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\jquery.flot.grow.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\jquery.flot.min.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\jquery.flot.orderBars.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\jquery.flot.pie.min.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\jquery.flot.resize.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Areas\GoApp\Content\js\charts\sparkline\jquery.sparkline.min.js" />
+    <Content Include="Areas\GoApp\Content\js\combodate\combodate.js" />
+    <Content Include="Areas\GoApp\Content\js\datatables\datatables.css" />
+    <Content Include="Areas\GoApp\Content\js\datatables\jquery.dataTables.min.js" />
+    <Content Include="Areas\GoApp\Content\js\datepicker\bootstrap-datepicker.js" />
+    <Content Include="Areas\GoApp\Content\js\datepicker\datepicker.css" />
+    <Content Include="Areas\GoApp\Content\js\file-input\bootstrap-filestyle.min.js" />
+    <Content Include="Areas\GoApp\Content\js\fuelux\demo.datagrid.js" />
+    <Content Include="Areas\GoApp\Content\js\fuelux\fuelux.css" />
+    <Content Include="Areas\GoApp\Content\js\fuelux\fuelux.js" />
+    <Content Include="Areas\GoApp\Content\js\fullcalendar\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\fullcalendar\fullcalendar.css" />
+    <Content Include="Areas\GoApp\Content\js\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Areas\GoApp\Content\js\fullcalendar\theme.css" />
+    <Content Include="Areas\GoApp\Content\js\grid\gallery.css" />
+    <Content Include="Areas\GoApp\Content\js\grid\gallery.js" />
+    <Content Include="Areas\GoApp\Content\js\grid\jquery.grid-a-licious.min.js" />
+    <Content Include="Areas\GoApp\Content\js\ie\excanvas.js" />
+    <Content Include="Areas\GoApp\Content\js\ie\html5shiv.js" />
+    <Content Include="Areas\GoApp\Content\js\ie\respond.min.js" />
+    <Content Include="Areas\GoApp\Content\js\intro\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\intro\intro.min.js" />
+    <Content Include="Areas\GoApp\Content\js\intro\introjs.css" />
+    <Content Include="Areas\GoApp\Content\js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Areas\GoApp\Content\js\jquery.ui.touch-punch.min.js" />
+    <Content Include="Areas\GoApp\Content\js\landing.js" />
+    <Content Include="Areas\GoApp\Content\js\libs\backbone-min.js" />
+    <Content Include="Areas\GoApp\Content\js\libs\backbone.localStorage-min.js" />
+    <Content Include="Areas\GoApp\Content\js\libs\moment.min.js" />
+    <Content Include="Areas\GoApp\Content\js\libs\underscore-min.js" />
+    <Content Include="Areas\GoApp\Content\js\maps\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\maps\gmaps.js" />
+    <Content Include="Areas\GoApp\Content\js\markdown\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\markdown\epiceditor.min.js" />
+    <Content Include="Areas\GoApp\Content\js\nestable\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\nestable\jquery.nestable.js" />
+    <Content Include="Areas\GoApp\Content\js\nestable\nestable.css" />
+    <Content Include="Areas\GoApp\Content\js\parsley\parsley.extend.js" />
+    <Content Include="Areas\GoApp\Content\js\parsley\parsley.min.js" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\default_thumb.png" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\loader.gif" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\sprite.png" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\sprite_next.png" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\sprite_prev.png" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\sprite_x.png" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\default\sprite_y.png" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\jquery.prettyPhoto.js" />
+    <Content Include="Areas\GoApp\Content\js\prettyphoto\prettyPhoto.css" />
+    <Content Include="Areas\GoApp\Content\js\scroll\smoothscroll.js" />
+    <Content Include="Areas\GoApp\Content\js\select2\select2.css" />
+    <Content Include="Areas\GoApp\Content\js\select2\select2.min.js" />
+    <Content Include="Areas\GoApp\Content\js\select2\theme.css" />
+    <Content Include="Areas\GoApp\Content\js\slider\bootstrap-slider.js" />
+    <Content Include="Areas\GoApp\Content\js\slider\slider.css" />
+    <Content Include="Areas\GoApp\Content\js\sortable\jquery.sortable.js" />
+    <Content Include="Areas\GoApp\Content\js\wysiwyg\bootstrap-wysiwyg.js" />
+    <Content Include="Areas\GoApp\Content\js\wysiwyg\demo.js" />
+    <Content Include="Areas\GoApp\Content\js\wysiwyg\jquery.hotkeys.js" />
+    <Content Include="Areas\GoApp\Content\Scripts\jquery.numeric.js" />
     <Content Include="Areas\ManagementCenter\Content\css\accordion.css" />
     <Content Include="Areas\ManagementCenter\Content\css\app.v2.css" />
     <Content Include="Areas\ManagementCenter\Content\css\content.css" />
@@ -339,6 +452,13 @@
     <Content Include="Areas\ManagementCenter\Views\Dictionary\Create.cshtml" />
     <Content Include="Areas\ManagementCenter\Views\Dictionary\Edit.cshtml" />
     <Content Include="Content\css\jQuery UI Effects.txt" />
+    <Content Include="Areas\GoApp\Views\web.config" />
+    <Content Include="Areas\GoApp\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GoApp\Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Areas\GoApp\Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Areas\GoApp\Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Areas\GoApp\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GoApp\Views\Store\Index.cshtml" />
     <None Include="Properties\PublishProfiles\crm.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\calendar\bootstrap_calendar.css" />
@@ -456,12 +576,19 @@
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\GoApp\Content\js\prettyphoto\dark_rounded\" />
+    <Folder Include="Areas\GoApp\Content\js\prettyphoto\dark_square\" />
+    <Folder Include="Areas\GoApp\Content\js\prettyphoto\facebook\" />
+    <Folder Include="Areas\GoApp\Content\js\prettyphoto\light_rounded\" />
+    <Folder Include="Areas\GoApp\Content\js\prettyphoto\light_square\" />
+    <Folder Include="Areas\GoApp\Models\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\dark_rounded\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\dark_square\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\facebook\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\light_rounded\" />
     <Folder Include="Areas\ManagementCenter\Content\js\prettyphoto\light_square\" />
     <Folder Include="Areas\ManagementCenter\Views\Base\" />
+    <Folder Include="Areas\ManagementCenter\Views\GoAPP\" />
     <Folder Include="Scripts\prettyphoto\dark_rounded\" />
     <Folder Include="Scripts\prettyphoto\dark_square\" />
     <Folder Include="Scripts\prettyphoto\facebook\" />

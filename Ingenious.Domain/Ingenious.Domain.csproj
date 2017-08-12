@@ -41,14 +41,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
+    <Compile Include="DataSource\ComplexOrder.cs" />
+    <Compile Include="DataSource\ComplexOrderRecord.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\F_Brank.cs" />
+    <Compile Include="Models\F_Activity.cs" />
+    <Compile Include="Models\F_Account.cs" />
+    <Compile Include="Models\F_Bank.cs" />
     <Compile Include="Models\ClientContact.cs" />
     <Compile Include="Models\Dictionary.cs" />
+    <Compile Include="Models\F_File.cs" />
+    <Compile Include="Models\F_OrderRecord.cs" />
+    <Compile Include="Models\F_Order.cs" />
+    <Compile Include="Models\F_Store.cs" />
+    <Compile Include="Models\F_StoreClerk.cs" />
     <Compile Include="Models\F_User.cs" />
+    <Compile Include="Models\F_WithdrawDepositRecord.cs" />
     <Compile Include="Models\Recharge.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\Client.cs" />

@@ -62,7 +62,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,10 +74,19 @@
   <ItemGroup>
     <Compile Include="ApplicationService.cs" />
     <Compile Include="DependencyRegisterType.cs" />
+    <Compile Include="FileService.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="Implement\ClientContactService.cs" />
     <Compile Include="Implement\DictionaryService.cs" />
+    <Compile Include="Implement\F_ActivityService.cs" />
+    <Compile Include="Implement\F_OrderRecordService.cs" />
     <Compile Include="Implement\F_UserDetailService.cs" />
+    <Compile Include="Implement\F_OrderService.cs" />
+    <Compile Include="Implement\F_FileService.cs" />
+    <Compile Include="Implement\F_StoreService.cs" />
+    <Compile Include="Implement\F_AccountService.cs" />
+    <Compile Include="Implement\F_BankService.cs" />
+    <Compile Include="Implement\F_WithdrawDepositRecordService.cs" />
     <Compile Include="Implement\RechargeService.cs" />
     <Compile Include="Implement\BillService.cs" />
     <Compile Include="Implement\ActivityService.cs" />
@@ -91,7 +102,15 @@
     <Compile Include="Implement\UserService.cs" />
     <Compile Include="Interface\IClientContactService.cs" />
     <Compile Include="Interface\IDictionaryService.cs" />
+    <Compile Include="Interface\IF_ActivityService.cs" />
+    <Compile Include="Interface\IF_OrderRecordService.cs" />
     <Compile Include="Interface\IF_UserDetailService.cs" />
+    <Compile Include="Interface\IF_OrderService.cs" />
+    <Compile Include="Interface\IF_FileService.cs" />
+    <Compile Include="Interface\IF_StoreService.cs" />
+    <Compile Include="Interface\IF_AccountService.cs" />
+    <Compile Include="Interface\IF_BankService.cs" />
+    <Compile Include="Interface\IF_WithdrawDepositRecordService.cs" />
     <Compile Include="Interface\IRechargeService.cs" />
     <Compile Include="Interface\IBillService.cs" />
     <Compile Include="Interface\IActivityService.cs" />

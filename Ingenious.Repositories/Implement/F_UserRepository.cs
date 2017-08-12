@@ -32,5 +32,14 @@ namespace Ingenious.Repositories.Implement
             return context.F_Users.Where(spec.GetExpression());
         }
 
+        public IQueryable<F_User> GetUserByBankCode(string bankCode)
+        {
+            var context = this.EFContext.Context as IngeniousDbContext;
+            var query = from u in context.F_Users
+                        join ud in context.F_UserDetails on u.Id equals ud.F_UserId
+                        where ud.BankCode == bankCode
+                        select u;
+            return query;
+        }
     }
 }

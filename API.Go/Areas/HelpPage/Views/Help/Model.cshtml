@@ -1,0 +1,28 @@
+﻿@model List<API.Go.Areas.HelpPage.Controllers.Models>
+@{
+    ViewBag.Title = "Model";
+}
+
+
+<table class="table table-bordered table-hover" >
+    <thead>
+        <tr>
+            <th style="width:300px;">名称</th>
+            <th>备注</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                <a href="/help/details?name=@item.Name">查看</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

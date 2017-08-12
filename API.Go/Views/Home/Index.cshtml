@@ -1,29 +1,33 @@
 ﻿<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/copyDistrict.js"></script>
 <script>
 
     $().ready(function () {
 
         var data = {
-            "UserName": "13962475261",
-            "Password": "123456"
+            "userId": "6f7ed9a1-f762-e711-8127-0019b93d4f5e"
         };
 
         $('#btnLogin').click(function () {
 
             $.ajax({
+                
                 type:"get",
-                url: "/api/User/login",
-                data: data,
+                url: "/api/User/GetUserDetail",
+                data: { userId: "2bb79692-d36a-e711-8128-0019b93d4f5e"},
+                beforeSend: function (xhr) {
+                    //Authorization
+                    xhr.setRequestHeader('Authorization', 'Basic FDD8D322-8AC9-4873-BF5E-1776894B3D95');
+                },
                 success: function (data) {
-                    data = eval(data);
-                    alert(data.Message);
+                    alert(data);
                 },
                 error: function (arg1, arg2, arg3) {
                     alert(arg3);
                 }
             });
         });
-
+        
     });
 
 </script>
@@ -33,4 +37,11 @@
 <br />
 <br />
 <br />
+
+<form action="/api/files/post" enctype="multipart/form-data" method="post">
+    @*<input type="file" id="fileInput" name="fileInput" />*@
+    <input type="file" name="tt" />
+    <input type="submit" value="提交" />
+</form>
+
 <a id="btnLogin" class="btn btn-default">登录</a>

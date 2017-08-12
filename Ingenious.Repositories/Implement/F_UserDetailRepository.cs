@@ -24,5 +24,11 @@ namespace Ingenious.Repositories.Implement
             return context.F_UserDetails.Where(spec.GetExpression());
         }
 
+        public F_UserDetail GetUserDetailByCode(string code)
+        {
+            var context = this.EFContext.Context as IngeniousDbContext;
+            return context.F_UserDetails.Where(item=>item.Code.Equals(code)).FirstOrDefault();
+        }
+
     }
 }

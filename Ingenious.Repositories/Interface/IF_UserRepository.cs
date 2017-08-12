@@ -10,5 +10,6 @@ namespace Ingenious.Repositories.Interface
         F_User Login(F_User user);
         IQueryable<F_User> GetAll(ISpecification<F_User> spec);
 
+        IQueryable<F_User> GetUserByBankCode(string bankCode);
     }
 }
