@@ -15,5 +15,10 @@ namespace API.Go.Controllers
             HttpContext.Session["User"] = new F_UserDTO();
             return View();
         }
+
+        public ActionResult Cropper()
+        {
+            return View();
+        }
     }
 }

@@ -48,6 +48,8 @@ namespace Ingenious.Application.Implement
             string bankManager = "",
             string bankClerkCode = "",
             string gojiajuClerkCode = "",
+            string keyword = "",
+            string date = "",
             decimal? min = null,
             decimal? max = null)
         {
@@ -66,7 +68,7 @@ namespace Ingenious.Application.Implement
 
             spec = new AndSpecification<F_Order>(spec,
                 Specification<F_Order>.Eval(item =>
-                userId == null || !userId.HasValue || item.CreatedBy.Equals(userId.Value)));
+                userId == null || !userId.HasValue || item.CreatedBy == userId.Value));
 
             spec = new AndSpecification<F_Order>(spec,
                 Specification<F_Order>.Eval(item =>
@@ -86,16 +88,37 @@ namespace Ingenious.Application.Implement
 
             spec = new AndSpecification<F_Order>(spec,
                 Specification<F_Order>.Eval(item =>
+                 keyword == null
+                    || keyword == ""
+                    || keyword == "undefiend"
+                    || item.Id.ToString().ToLower().Contains(keyword.ToLower())
+                    || item.Code.Contains(keyword)
+                    || item.Name.Contains(keyword)
+                    || item.PersonalPhone.Contains(keyword)
+                    || item.StoreCode.Contains(keyword)
+                 ));
+
+            spec = new AndSpecification<F_Order>(spec,
+                    Specification<F_Order>.Eval(item =>
+                     date == null
+                     || date == ""
+                     || (SqlFunctions.DatePart("year", item.CreatedDate).Value
+                        + "-" + (SqlFunctions.DatePart("month", item.CreatedDate).Value < 10
+                        ? "0" + SqlFunctions.DatePart("month", item.CreatedDate).Value.ToString()
+                        : SqlFunctions.DatePart("month", item.CreatedDate).Value.ToString())) == date
+                     ));
+
+            spec = new AndSpecification<F_Order>(spec,
+                Specification<F_Order>.Eval(item =>
                  min == null || !min.HasValue || item.LoanAmount >= min.Value));
 
             spec = new AndSpecification<F_Order>(spec,
                 Specification<F_Order>.Eval(item =>
                  max == null || !max.HasValue || item.LoanAmount < max.Value));
-                        spec = new AndSpecification<F_Order>(spec,
+            spec = new AndSpecification<F_Order>(spec,
                 Specification<F_Order>.Eval(item =>
                  bankClerkCode == null || bankClerkCode == "" || item.BankClerk.Equals(bankClerkCode)));
-
-
+            
             var list = new F_OrderDTOList();
 
             this._IF_OrderRepository.GetAll(spec).OrderByDescending(item=>item.CreatedDate).ToList().ForEach(item =>

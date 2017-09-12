@@ -48,6 +48,18 @@ namespace Ingenious.Repositories.EntityFramework
 
         #region Models
 
+        #region 信用卡
+        
+        public DbSet<F_CreditCardApplication> F_CreditCardApplications { get; set; }
+        public DbSet<F_CreditCard> F_CreditCards { get; set; }
+        public DbSet<F_CreditCardCar> F_CreditCardCars { get; set; }
+        public DbSet<F_CreditCardHouse> F_CreditCardHouses { get; set; }
+        public DbSet<F_CreditCardStore> F_CreditCardStores { get; set; }
+        public DbSet<F_CreditCardFile> F_CreditCardFiles { get; set; }
+        
+        #endregion
+
+
         #region Api.Go
 
         public DbSet<F_Store> F_Stores { get; set; }
@@ -66,7 +78,9 @@ namespace Ingenious.Repositories.EntityFramework
         public DbSet<F_WithdrawDepositRecord> F_WithdrawDepositRecords { get; set; }
 
         public DbSet<F_Activity> F_Activities { get; set; }
-
+        public DbSet<F_AD> F_ADs { get; set; }
+        public DbSet<F_News> F_News { get; set; }
+        public DbSet<F_BankOption> F_BankOptions { get; set; }
         #endregion
 
         public DbSet<User> Users { get; set; }

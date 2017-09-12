@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="~/Content/cropper/cropper.css" rel="stylesheet" />
+    <style>
+        .container {
+            /*max-width: 640px;*/
+            margin: 20px auto;
+        }
+
+        img {
+            max-width: 100%;
+        }
+        /* Override Cropper's styles */
+
+        .cropper-view-box,
+        .cropper-face {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <input type="hidden" name="referenceId" id="referenceId" value="@Guid.NewGuid().ToString()" />
+        <input type="hidden" name="code" id="code" value="123456" />
+
+    </form>
+    <div class="container">
+        <h1>Crop a round image</h1>
+        <h3>Image</h3>
+        <div>
+            <img id="image" src="~/Content/cropper/picture.jpg" alt="Picture">
+            <img id="preview"  alt="Picture">
+        </div>
+        <h3>Result</h3>
+        <button type="button" id="button">Crop</button>
+        <div id="result"></div>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        var ajax = $.ajax;
+    </script>
+    @*<script src="~/Content/cropper/jquery-1.11.0.min.js"></script>*@
+    <script src="~/Content/cropper/jquery-3.1.1.slim.min.js"></script>
+    <script src="~/Content/cropper/cropper.js"></script>
+    <script>
+			function getRoundedCanvas(sourceCanvas) {
+				var canvas = document.createElement('canvas');
+				var context = canvas.getContext('2d');
+				var width = sourceCanvas.width;
+				var height = sourceCanvas.height;
+
+				canvas.width = width;
+				canvas.height = height;
+				context.beginPath();
+				context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+				context.strokeStyle = 'rgba(0,0,0,0)';
+				context.stroke();
+				context.clip();
+				context.drawImage(sourceCanvas, 0, 0, width, height);
+
+				return canvas;
+			}
+
+			$(function() {
+				var $image = $('#image');
+				var $button = $('#button');
+				var $result = $('#result');
+				var croppable = false;
+
+				$image.cropper({
+					aspectRatio: 1,
+					viewMode: 1,
+					ready: function() {
+						croppable = true;
+					}
+				});
+
+				$button.on('click', function() {
+					var croppedCanvas;
+					var roundedCanvas;
+
+					if(!croppable) {
+						return;
+					}
+
+					// Crop
+					croppedCanvas = $image.cropper('getCroppedCanvas');
+
+					// Round
+					roundedCanvas = getRoundedCanvas(croppedCanvas);
+
+					var img = convertBase64UrlToBlob(roundedCanvas.toDataURL());
+					// Show
+					$result.html('<img src="' + roundedCanvas.toDataURL() + '">');
+					sumitImageFile(roundedCanvas.toDataURL());
+				});
+			});
+
+			/**
+			 * 将以base64的图片url数据转换为Blob
+			 * param urlData
+			 *            用url方式表示的base64图片数据
+			 */
+			function convertBase64UrlToBlob(urlData) {
+
+				var bytes = window.atob(urlData.split(',')[1]); //去掉url的头，并转换为byte
+
+				//处理异常,将ascii码小于0的转换为大于0
+				var ab = new ArrayBuffer(bytes.length);
+				var ia = new Uint8Array(ab);
+				for(var i = 0; i < bytes.length; i++) {
+					ia[i] = bytes.charCodeAt(i);
+				}
+
+				return new Blob([ab], {
+					type: 'image/png'
+				});
+			}
+			/**
+			 * param base64Codes
+			 *            图片的base64编码
+			 */
+			function sumitImageFile(base64Codes) {
+				var form = document.forms[0];
+				
+				var formData = new FormData(form); //这里连带form里的其他参数也一起提交了,如果不需要提交其他参数可以直接FormData无参数的构造函数
+
+				//convertBase64UrlToBlob函数是将base64编码转换为Blob
+				formData.append("imageName", convertBase64UrlToBlob(base64Codes)); //append函数的第一个参数是后台获取数据的参数名,和html标签的input的name属性功能相同
+				
+				//ajax 提交form
+				ajax({
+					type:'post',
+					url: 'http://localhost:5189/api/files/base64',
+					data: formData,
+					dataType: "text",
+					processData: false, // 告诉jQuery不要去处理发送的数据
+					contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+                    dataType:'json',
+					success: function (data) {
+					    
+					    console.log(data.Data.Path);
+					    $('#preview').attr('src', data.Data.Path)
+
+					},error:function(arg1,arg2,arg3){
+						console.log(arg1.responseText);
+					}
+//					xhr: function() { //在jquery函数中直接使用ajax的XMLHttpRequest对象
+//						var xhr = new XMLHttpRequest();
+//
+//						xhr.upload.addEventListener("progress", function(evt) {
+//							if(evt.lengthComputable) {
+//								var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+//								console.log("正在提交." + percentComplete.toString() + '%'); //在控制台打印上传进度
+//							}
+//						}, false);
+//
+//						return xhr;
+//					}
+
+				});
+			}
+
+    </script>
+</body>
+
+</html>

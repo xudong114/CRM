@@ -115,7 +115,7 @@ namespace API.Go.Controllers
 
             var code = Ingenious.Infrastructure.Message.MessageService.SMSSecurityCode(phoneNo);
 
-            APICacheService.Instance.Add(phoneNo, phoneNo, code, DateTimeOffset.Now.AddMinutes(1));
+            APICacheService.Instance.Add(phoneNo, phoneNo, code, DateTimeOffset.Now.AddMinutes(2));
 
             return Json(code);
         }
@@ -362,13 +362,47 @@ namespace API.Go.Controllers
             {
                 this._IF_UserDetailService.Create(userDetail);
             }
-            return Json(new MessageResult { Status = true, Message = "更新成功" });
+            return Json(new MessageResult { Status = true, Message = "保存成功" });
+        }
+
+        /// <summary>
+        /// 更新银行信贷经理信息
+        /// </summary>
+        /// <param name="userDetail">信贷经理信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IHttpActionResult UpdateBankManager(F_UserDetailDTO userDetail)
+        {
+            var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
+            user.Email = userDetail.Email;
+            user.OfficePhone = userDetail.OfficePhone;
+            user.Face = userDetail.Face;
+            this._IF_UserDetailService.Update(new List<F_UserDetailDTO> { user });
+
+            return Json(new MessageResult { Status = true, Message = "保存成功" });
+        }
+
+        /// <summary>
+        /// 更新银行客户经理信息
+        /// </summary>
+        /// <param name="userDetail">客户经理信息</param>
+        /// <returns></returns>
+         [HttpPost]
+        public IHttpActionResult UpdateBankClientManager(F_UserDetailDTO userDetail)
+        {
+            var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
+            user.Email = userDetail.Email;
+            user.OfficePhone = userDetail.OfficePhone;
+            user.Face = userDetail.Face;
+            this._IF_UserDetailService.Update(new List<F_UserDetailDTO> { user });
+
+            return Json(new MessageResult { Status = true, Message = "保存成功" });
         }
 
         /// <summary>
         /// 获取个人信息
         /// </summary>
-        /// <param name="userId">用户标志(F_UserDetail.Id)</param>
+        /// <param name="userId">用户标志(F_User.Id)</param>
         /// <returns></returns>
         [System.Web.Http.HttpGet]
         public IHttpActionResult GetUserDetail(Guid userId)

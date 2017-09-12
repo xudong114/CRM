@@ -19,6 +19,8 @@ namespace Ingenious.Application.Interface
             string bankManager = "",
             string bankClerkCode = "",
             string gojiajuClerkCode = "",
+            string keyword = "",
+            string date = "",
             decimal? min = null,
             decimal? max = null);
         F_OrderDTO GetLastSuccessOrder(string clerkCode);

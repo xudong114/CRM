@@ -1,0 +1,275 @@
+body {
+	font-family: Microsoft YaHei;
+	position: relative;
+}
+
+html,
+body,
+.mui-content {
+	min-height: 100%;
+	background: #FFFFFF;
+}
+
+.mui-content {
+	overflow: hidden;
+}
+
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #666;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+input[type=color],
+input[type=date],
+input[type=datetime-local],
+input[type=datetime],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+select,
+textarea {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.date,
+.fr {
+	text-align: left;
+	width: 100%;
+	margin-left: 15px;
+}
+
+div.date span,
+div.fr span {
+	color: #666;
+	vertical-align: bottom;
+	display: inline-block;
+	width: 85px;
+}
+
+div.date input,
+div.fr input {
+	color: #666;
+	border-bottom: 1px solid #666;
+	width: 200px;
+	vertical-align: bottom;
+	margin: 0;
+	height: 21px;
+	margin-top: 20px;
+}
+
+.mesList {
+	margin-top: 20px;
+}
+
+.mui-content .mui-collapse>a:not(.mui-btn) {
+	width: 100%;
+	display: inline-block;
+	/*text-align: center;*/
+	color: #333333;
+}
+
+.mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell {
+	padding-left: 15px;
+}
+
+.mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell:after {
+	left: 15px;
+}
+
+.mesList input {
+	width: 60%;
+	height: 25px;
+}
+
+.mui-table-view span,
+.mui-table-view input {
+	color: #666;
+	font-size: 16px;
+}
+
+.mui-table-view span {
+    text-align:right;
+	width: 97px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.mui-checkbox {
+	display: inline-block;
+	width: 61px;
+	vertical-align: middle;
+}
+
+.mui-checkbox input[type=checkbox],
+.mui-radio input[type=radio] {
+	position: static;
+	height: 25px;
+	line-height: 25px;
+	vertical-align: middle;
+}
+
+.mui-checkbox label,
+.mui-radio label {
+	font-size: 16px;
+	height: 21px;
+	line-height: 21px;
+	padding: 0;
+	width: auto !important;
+	vertical-align: middle;
+	color: #666666;
+}
+
+.mui-checkbox input[type=checkbox]:before,
+.mui-radio input[type=radio]:before {
+	font-size: 24px;
+}
+
+ ::-webkit-input-placeholder {
+	/* WebKit browsers */
+	color: #999;
+}
+
+ :-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #999;
+}
+
+ ::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #999;
+}
+
+ :-ms-input-placeholder {
+	/* Internet Explorer 10+ */
+	color: #999;
+}
+
+.zmd {
+	width: 80px;
+}
+
+.zmd label {
+	width: 50px;
+}
+
+p {
+	text-align: center;
+	font-size: 16px;
+	background: #F2F2F2;
+}
+
+.mui-radio {
+	/*display: inline-block;*/
+	width: 230px;
+	vertical-align: middle;
+	float: right;
+	/*margin-right: 15px;*/
+}
+
+#money {
+	float: right;
+	margin-right: 15px;
+	width: auto !important;
+	text-align: left;
+}
+
+#money input {
+	width: 28px;
+	border-bottom: 1px solid #666;
+}
+
+#money b {
+	font-weight: 400;
+	color: #666;
+}
+
+.adds,
+.addHouse,
+.addCar,
+.addFactory {
+	margin-top: 10px;
+	text-align: center;
+	/*border: 1px solid #333;*/
+}
+
+.adds img,
+.addHouse img,
+.addCar img {
+	/*border: 1px solid #333;*/
+	vertical-align: middle;
+}
+
+.addFactory img,
+.addHouse img,
+.addCar img {
+	margin-bottom: 10px;
+	vertical-align: middle;
+}
+
+.pic p {
+	background: none;
+	text-align: left;
+	color: #666;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.getCmr,
+.addPic {
+	width: 80px;
+	display: inline-block;
+	text-align: center;
+	margin-right: 10px;
+	vertical-align: top;
+}
+
+.addPic img {
+	width: 80px;
+	height: 80px;
+}
+
+.getCmr .hid {
+	border: 1px solid #999;
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+}
+
+.getCmr span {
+	text-align: center;
+	margin-top: 7px;
+}
+
+.addPic span {
+	text-align: center;
+}
+
+.mui-btn {
+	width: 80%;
+	margin: 30px auto;
+	color: #FFFFFF;
+	background: #8baabb;
+}

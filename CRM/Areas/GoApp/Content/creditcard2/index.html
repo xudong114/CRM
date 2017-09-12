@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">联名信用卡客户收集表</h1>
+		</header>
+		<div class="mui-content">
+			<div class="date"><span>日期：</span><input type="text" /></div>
+			<div class="fr"><span>金融客服：</span><input type="text" /></div>
+			<div class="mesList">
+				<ul class="mui-table-view">
+					<!--一、基本情况-->
+					<li class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#">一、基本情况</a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>姓名：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>身份证号：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>联系电话：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>籍贯：</span><input type="text" value="" />
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+
+				</ul>
+
+				<!--二、经营信息-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">二、经营信息</a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>经营行业：</span>
+										<div class="mui-input-row mui-checkbox">
+											<label>软体</label>
+											<input value="st" type="checkbox">
+										</div>
+										<div class="mui-input-row mui-checkbox">
+											<label>实木</label>
+											<input value="sm" type="checkbox">
+										</div>
+										<div class="mui-input-row mui-checkbox">
+											<label>其他</label>
+											<input value="qt" type="checkbox">
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>经营性质：</span>
+										<div class="mui-input-row mui-checkbox">
+											<label>工厂</label>
+											<input value="gc" type="checkbox">
+										</div>
+										<div class="mui-input-row mui-checkbox zmd">
+											<label>专卖店</label>
+											<input value="zmd" type="checkbox">
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>数量：</span><input placeholder="工厂/专卖店数量" type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell factory">
+									<a class="mui-navigate-right">
+										<span>地址1：</span><input placeholder="工厂/专卖店地址" type="text" value="" />
+									</a>
+								</li>
+								<li class="addFactory">
+									<img src="img/add.jpg" />
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<!--三、信用卡信息-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">三、信用卡信息</a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell xyk">
+									<a class="mui-navigate-right">
+										<span>信用卡1：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>开卡行：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>额度：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="adds">
+									<img src="img/add.jpg" />
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>逾期信息：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>使用额度比：</span><input type="text" value="" />
+									</a>
+								</li>
+
+							</ul>
+						</div>
+					</li>
+				</ul>
+
+				<!--四、固定资产信息-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">四、固定资产信息</a>
+						<div class="mui-collapse-content">
+
+							<ul class="mui-table-view">
+								<p>1、房产信息</p>
+								<li class="mui-table-view-cell house">
+									<a class="mui-navigate-right">
+										<span>小区名称1：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>房产地址：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>面积：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>是否全款：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="addHouse">
+									<img src="img/add.jpg" />
+								</li>
+								<!--车辆-->
+								<p>2、车辆信息</p>
+								<li class="mui-table-view-cell car">
+									<a class="mui-navigate-right">
+										<span>车辆品牌1：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>型号：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>市值：</span><input type="text" value="" />
+									</a>
+								</li>
+
+								<li class="addCar">
+									<img src="img/add.jpg" />
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+
+				<!--五、贷款情况-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">五、贷款情况</a>
+						<div class="mui-collapse-content">
+
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>名下贷款：</span>
+										<div class="mui-input-row mui-radio">
+											<label>没有</label>
+											<input value="no" type="radio" name="dk">
+										</div>
+										<div class="mui-input-row mui-radio">
+											<label>有</label>
+											<input value="yes" type="radio" name="dk">
+										</div>
+										<div id="money">
+											<b>（</b><input type="text" /><b>万元）</b></div>
+
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+
+				<!--六、证件资料-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">六、证件资料</a>
+						<div class="mui-collapse-content mm">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<span>社保编号：</span><input type="text" value="" />
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a>														
+										<div class="pic">
+											<p>上传身份证照片:</p>																																
+											
+											<!--<div class='getCmr'>
+												<div class='hid'>
+													<img src="img/u2410.jpg"/>
+												</div>
+												<span class='data'>删除</span>
+											</div>-->
+											<div class="addPic">
+												<img src="img/jia.jpg" /><br />
+												<span>添加  </span>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<div class="pic">
+											<p>上传结婚证照片:</p>																																
+											
+											<!--<div class='getCmr'>
+												<div class='hid'>
+													<img src="img/u2410.jpg"/>
+												</div>
+												<span class='data'>删除</span>
+											</div>-->
+											<div class="addPic">
+												<img src="img/jia.jpg" /><br />
+												<span>添加  </span>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<div class="pic">
+											<p>上传户口本照片:</p>																																
+											
+											<!--<div class='getCmr'>
+												<div class='hid'>
+													<img src="img/u2410.jpg"/>
+												</div>
+												<span class='data'>删除</span>
+											</div>-->
+											<div class="addPic">
+												<img src="img/jia.jpg" /><br />
+												<span>添加  </span>
+											</div>
+										</div>
+									</a>
+								</li>
+
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<div class="pic">
+											<p>上传房产证照片:</p>																																
+											
+											<!--<div class='getCmr'>
+												<div class='hid'>
+													<img src="img/u2410.jpg"/>
+												</div>
+												<span class='data'>删除</span>
+											</div>-->
+											<div class="addPic">
+												<img src="img/jia.jpg" /><br />
+												<span>添加  </span>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right">
+										<div class="pic">
+											<p>上传行驶证照片:</p>																																
+											
+											<!--<div class='getCmr'>
+												<div class='hid'>
+													<img src="img/u2410.jpg"/>
+												</div>
+												<span class='data'>删除</span>
+											</div>-->
+											<div class="addPic">
+												<img src="img/jia.jpg" /><br />
+												<span>添加  </span>
+											</div>
+										</div>
+									</a>
+								</li>
+							
+
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<a class="mui-btn mui-btn-block">保存</a>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="js/index.js"></script>
+
+</html>

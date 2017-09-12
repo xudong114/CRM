@@ -19,13 +19,40 @@ namespace API.Go.Controllers
         private readonly IF_UserDetailService _IF_UserDetailService;
         private readonly IF_UserService _IF_UserService;
         private readonly IF_BankService _IF_BankService;
+        private readonly IF_BankOptionService _IF_BankOptionService;
         public BankController(IF_UserDetailService iF_UserDetailService,
             IF_UserService iF_UserService,
-            IF_BankService iF_BankService)
+            IF_BankService iF_BankService,
+            IF_BankOptionService iF_BankOptionService)
         {
             this._IF_UserDetailService = iF_UserDetailService;
             this._IF_UserService = iF_UserService;
             this._IF_BankService = iF_BankService;
+            this._IF_BankOptionService = iF_BankOptionService;
+        }
+
+        /// <summary>
+        /// 获取贷款银行列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IHttpActionResult BankOptions()
+        {
+            var list = this._IF_BankOptionService.GetAll();
+            return Json(new MessageResult { Status = true, Data = list });
+        }
+        /// <summary>
+        /// 获取贷款银行
+        /// </summary>
+        /// <param name="bankId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IHttpActionResult BankOption(Guid bankId)
+        {
+            var bankOption = this._IF_BankOptionService.GetBankOptionByBankId(bankId);
+            return Json(new MessageResult { Status = true, Data = bankOption });
         }
 
         /// <summary>
@@ -77,10 +104,11 @@ namespace API.Go.Controllers
         [HttpGet]
         public IHttpActionResult GetClerks()
         {
-            if (this.User.UserType != Ingenious.Infrastructure.Enum.F_UserTypeEnum.BM)
-            {
-                return Json(new MessageResult { Status = false, Message = "对该请求的授权已被拒绝" });
-            }
+            //订单查询功能需要使用，所以去掉角色验证
+            //if (this.User.UserType != Ingenious.Infrastructure.Enum.F_UserTypeEnum.BM)
+            //{
+            //    return Json(new MessageResult { Status = false, Message = "对该请求的授权已被拒绝" });
+            //}
 
             var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
             if (string.IsNullOrWhiteSpace(user.BankCode))
@@ -117,7 +145,7 @@ namespace API.Go.Controllers
         }
 
         /// <summary>
-        /// 设置分配策略
+        /// 设置银行分配策略
         /// 1、自动
         /// 2、手工
         /// </summary>
@@ -126,6 +154,10 @@ namespace API.Go.Controllers
         [HttpGet]
         public IHttpActionResult SetAssignPolicy(bool isauto)
         {
+            if(this.User.UserType!= Ingenious.Infrastructure.Enum.F_UserTypeEnum.BM)
+            {
+                return Json(new MessageResult { Status = false, Message = "系统未授权进行此操作" });
+            }
             var bank = this._IF_BankService.GetBankByUserId(this.User.Id);
             if(bank==null)
             {
@@ -133,7 +165,22 @@ namespace API.Go.Controllers
             }
             bank.IsAssignAuto = isauto;
             this._IF_BankService.Update(new List<F_BankDTO> { bank });
-            return Json(new MessageResult { Status = false, Message = "设置成功" });
+            return Json(new MessageResult { Status = true, Message = "设置成功" });
+        }
+        /// <summary>
+        /// 获取银行分配策略
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetAssignPolicy()
+        {
+            var bank = this._IF_BankService.GetBankByUserId(this.User.Id);
+            if (bank == null)
+            {
+                return Json(new MessageResult { Status = false, Message = "所属银行未设置" });
+            }
+
+            return Json(new MessageResult { Status = true, Data = bank.IsAssignAuto });
         }
     }
 }

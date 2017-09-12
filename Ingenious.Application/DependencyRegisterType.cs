@@ -24,7 +24,16 @@ namespace Ingenious.Application
             container.RegisterType<ICacheProvider, MemoryCacheProvider>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
+            #region 信用卡申请
 
+
+            container.RegisterType<IF_CreditCardApplicationRepository, F_CreditCardApplicationRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_CreditCardApplicationService, F_CreditCardApplicationService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+
+            #endregion
 
             #region Api.Go
 
@@ -79,6 +88,20 @@ namespace Ingenious.Application
             container.RegisterType<IF_ActivityService, F_ActivityService>(new Interceptor<InterfaceInterceptor>(),
               new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
+            container.RegisterType<IF_ADRepository, F_ADRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_ADService, F_ADService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_NewsRepository, F_NewsRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_NewsService, F_NewsService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IF_BankOptionRepository, F_BankOptionRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IF_BankOptionService, F_BankOptionService>(new Interceptor<InterfaceInterceptor>(),
+             new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
             #endregion
 
@@ -154,7 +177,7 @@ namespace Ingenious.Application
             container.RegisterType<IClientContactService, ClientContactService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
-            
+
             //container.RegisterType<IProductRepository, ProductRepository>();
             //container.RegisterType<IProductService, ProductService>(new Interceptor<InterfaceInterceptor>(),
             //    new InterceptionBehavior<Ingenious.Infrastucture.AOP.LoggingBehavior>());

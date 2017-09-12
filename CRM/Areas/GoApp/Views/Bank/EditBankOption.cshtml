@@ -1,0 +1,103 @@
+﻿@model Ingenious.DTO.F_BankOptionDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/app/ad/index"><i class="fa fa-home"></i>银行管理</a></li>
+    <li class="active">银行贷款事项</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">@(Model.F_Bank == null ? "" : Model.F_Bank.Name)-贷款事项</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/app/bank/editbankoption" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="hidden" name="F_BankId" value="@Model.F_BankId" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Rate, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Loan, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Loan, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Loan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Terms, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Terms, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Terms, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Policy, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.TextAreaFor(model => model.Policy, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Policy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Workflow, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.TextAreaFor(model => model.Workflow, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Workflow, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/app/bank" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+@section css{
+    <link href="~/Areas/GoApp/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+}
+@section scripts{
+
+    <script src="~/Areas/GoApp/Content/kindeditor/kindeditor-min.js"></script>
+    <script src="~/Areas/GoApp/Content/kindeditor/lang/zh_CN.js"></script>
+
+    <script>
+
+        KindEditor.ready(function (k) {
+
+            var editor = k.create('textarea[name="Workflow"],textarea[name="Policy"]', {
+                resizeType: 1,
+                allowFileManager: true,
+                allowPreviewEmoticons: false,
+                allowImageUpload: true,
+                uploadJson: '/app/files/upload'
+            });
+
+            k('#btnUpload').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#Logo').val(),
+                        clickFn: function (url) {
+                            k('#Logo').val(url);
+                            k('#previewAD').attr('src', url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+        });
+
+
+    </script>
+}

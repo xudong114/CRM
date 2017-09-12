@@ -492,15 +492,47 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="P:API.Go.Controllers.BaseController.User">
+            <summary>
+            当前用户
+            </summary>
+        </member>
+        <member name="M:API.Go.Controllers.ADController.GetAD(System.String)">
+            <summary>
+            获取广告位
+            </summary>
+            <param name="code">广告位分类</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.ADController.Top">
+            <summary>
+            获取首页轮播图广告位
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.ADController.Home">
+            <summary>
+            获取首页广告位
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:API.Go.Controllers.BankController">
             <summary>
             银行模块服务
             </summary>
         </member>
-        <member name="P:API.Go.Controllers.BaseController.User">
+        <member name="M:API.Go.Controllers.BankController.BankOptions">
             <summary>
-            当前用户
+            获取贷款银行列表
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.BankController.BankOption(System.Guid)">
+            <summary>
+            获取贷款银行
+            </summary>
+            <param name="bankId"></param>
+            <returns></returns>
         </member>
         <member name="M:API.Go.Controllers.BankController.GetBanks">
             <summary>
@@ -542,11 +574,17 @@
         </member>
         <member name="M:API.Go.Controllers.BankController.SetAssignPolicy(System.Boolean)">
             <summary>
-            设置分配策略
+            设置银行分配策略
             1、自动
             2、手工
             </summary>
             <param name="isauto">是否开启自动分配</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.BankController.GetAssignPolicy">
+            <summary>
+            获取银行分配策略
+            </summary>
             <returns></returns>
         </member>
         <member name="T:API.Go.Controllers.FilesController">
@@ -623,6 +661,38 @@
             <param name="id">消息标识</param>
             <returns></returns>
         </member>
+        <member name="M:API.Go.Controllers.NewsController.QAS">
+            <summary>
+            获取QA
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.NewsController.QA(System.Guid)">
+            <summary>
+            获取QA详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.NewsController.About">
+            <summary>
+            关于我们
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.NewsController.News(System.String)">
+            <summary>
+            获取新闻列表
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.NewsController.Details(System.Guid)">
+            <summary>
+            获取新闻列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:API.Go.Controllers.OrderController">
             <summary>
             管理申请单服务
@@ -687,7 +757,7 @@
             <param name="remark">审核备注</param>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetOrders(System.Nullable{Ingenious.Infrastructure.Enum.F_OrderStatusEnum},System.String,System.String,System.String,System.Nullable{System.Guid},System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+        <member name="M:API.Go.Controllers.OrderController.GetOrders(System.Nullable{Ingenious.Infrastructure.Enum.F_OrderStatusEnum},System.String,System.String,System.String,System.Nullable{System.Guid},System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
             <summary>
             获取订单
             </summary>
@@ -722,7 +792,7 @@
             }
             </returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetOrderByBank(System.String)">
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByBank(System.String,System.String,System.String,System.String)">
             <summary>
             根据银行编号获取订单
             返回JSON数据结构
@@ -775,7 +845,7 @@
             }
             </returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetOrderByBankClerk(System.String)">
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByBankClerk(System.String,System.String,System.String)">
             <summary>
             根据客户经理编号获取订单
             返回JSON数据结构
@@ -828,7 +898,7 @@
             }
             </returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetOrderByGojiajuClerk(System.String)">
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByGojiajuClerk(System.String,System.String,System.String)">
             <summary>
             根据Go佳居客服编号获取订单
             返回JSON数据结构
@@ -875,7 +945,7 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetOrderByUserId">
+        <member name="M:API.Go.Controllers.OrderController.GetOrderByUserId(System.String)">
             <summary>
             根据用户Id获取订单
             返回JSON数据结构
@@ -914,13 +984,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetClerkOrders">
+        <member name="M:API.Go.Controllers.OrderController.GetClerkOrders(System.String,System.String,System.String)">
             <summary>
             获取导购分期记录
             </summary>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.GetStoreOrders">
+        <member name="M:API.Go.Controllers.OrderController.GetStoreOrders(System.String,System.String,System.String)">
             <summary>
             店铺模块：获取导购分期记录
             </summary>
@@ -967,6 +1037,12 @@
             2、平台拒绝、银行拒绝时可修改订单
             </summary>
             <param name="order">订单参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.OrderController.GetLatestOrder">
+            <summary>
+            获取最新申请订单
+            </summary>
             <returns></returns>
         </member>
         <member name="T:API.Go.Controllers.StoreController">
@@ -1106,11 +1182,25 @@
             <param name="userDetail"></param>
             <returns></returns>
         </member>
+        <member name="M:API.Go.Controllers.UserController.UpdateBankManager(Ingenious.DTO.F_UserDetailDTO)">
+            <summary>
+            更新银行信贷经理信息
+            </summary>
+            <param name="userDetail">信贷经理信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.UpdateBankClientManager(Ingenious.DTO.F_UserDetailDTO)">
+            <summary>
+            更新银行客户经理信息
+            </summary>
+            <param name="userDetail">客户经理信息</param>
+            <returns></returns>
+        </member>
         <member name="M:API.Go.Controllers.UserController.GetUserDetail(System.Guid)">
             <summary>
             获取个人信息
             </summary>
-            <param name="userId">用户标志(F_UserDetail.Id)</param>
+            <param name="userId">用户标志(F_User.Id)</param>
             <returns></returns>
         </member>
         <member name="M:API.Go.Controllers.UserController.GetUserDetail">

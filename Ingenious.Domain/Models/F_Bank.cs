@@ -9,6 +9,10 @@ namespace Ingenious.Domain.Models
     public class F_Bank : AggregateRoot
     {
         /// <summary>
+        /// 银行Logo
+        /// </summary>
+        public string Logo { get; set; }
+        /// <summary>
         /// 银行名称
         /// </summary>
         public string Name { get; set; }

@@ -62,7 +62,7 @@ namespace API.Go.Controllers
         public IHttpActionResult GetMessage(Guid referenceId)
         {
             var list = this._IF_ActivityService.GetAll(referenceId, null, null);
-            return Json(new MessageResult { Status=true,Data=list});
+            return Json(new MessageResult { Status=true,Data=list.OrderByDescending(item=>item.CreatedDate)});
         }
         /// <summary>
         /// 根据外部标识获取新消息数量，最近7天之内

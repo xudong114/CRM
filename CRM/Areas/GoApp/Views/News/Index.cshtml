@@ -1,0 +1,83 @@
+﻿@model List<Ingenious.DTO.F_NewsDTO>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+        });
+    </script>
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 新闻管理</a></li>
+    @*<li class="active">Workset</li>*@
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 新闻列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/app/news/create"> 新建新闻</a>
+        </div>
+        <form id="userSearchForm" action="/app/news/index">
+            <select id="code" name="code">
+                <option value="">选择分类</option>
+                <option value="新闻">新闻</option>
+                <option value="QA">QA</option>
+                <option value="活动">活动</option>
+                <option value="关于我们">关于我们</option>
+            </select>
+            <div class="col-sm-3 pull-right ">
+                
+                <div class="input-group">
+                    <input type="text" placeholder="标题关键词" id="title" name="title" class="form-control" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th>标题</th>
+                    <th>图片</th>
+                    <th>链接</th>
+                    <th>创建日期</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td>@item.Title</td>
+                            <td><img src="@item.Logo" style="width:50px;" /></td>
+                            <td>@item.Link</td>
+                            <td>
+                                @{
+                                    @Html.Raw(item.CreatedDate.ToString("yyyy-MM-dd"))
+                                }
+                            </td>
+                            <td>
+                                <a href="/app/news/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                <a href="/app/news/delete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>
+

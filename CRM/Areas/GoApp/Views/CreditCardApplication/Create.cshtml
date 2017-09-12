@@ -1,0 +1,523 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta charset="utf-8" />
+    <title>GO佳居联名信用卡客户收集系统</title>
+    <link rel="stylesheet" href="~/Areas/GoApp/Content/creditcard/css/style.css" />
+    <link href="~/Areas/GoApp/Content/creditcard/kindeditor/themes/default/default.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <div class="title">GO佳居联名信用卡客户收集系统</div>
+        <div class="leftCard">
+            <h1>金融热线</h1>
+            <h2>HOTLINE</h2>
+            <span>0512-82277444</span>
+        </div>
+        <div class="rightCard">
+            <h1>日期</h1>
+            <h2>DATES</h2>
+            <span>@DateTime.Now.ToString("yyyy-MM-dd")</span>
+        </div>
+    </header>
+    <div class="messageContent">
+        <!--1.基本情况-->
+        <div class="basicInformation">
+            <div>
+                <a href="#basic">基本情况<img src="~/Areas/GoApp/Content/creditcard/img/u66.png" class="imgRotate" /></a>
+
+            </div>
+            <div id="basic" class="collapse">
+                <div>
+                    <span>姓名：</span><input type="text" placeholder="必填" name="Name" id="Name" />
+
+                </div>
+                <div>
+                    <span>身份证号：</span><input type="text"  name="IDNO" id="IDNO" />
+
+                </div>
+                <div>
+                    <span>联系电话：</span><input type="text" placeholder="必填" name="PersonalPhone" id="PersonalPhone" />
+
+                </div>
+                <div>
+                    <span>籍贯：</span><input type="text" name="NativePlace" id="NativePlace" />
+
+                </div>
+                <div class="pic" btnidnoupload>
+                    <p>上传身份证照片</p>
+                    <div class="addPic">
+                        <a id="btnIDNOUpload">
+                            <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
+                            <span>添加  </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--2.经营信息-->
+        <div class="manageInformation">
+            <div>
+                <a href="#manage">经营信息<img src="~/Areas/GoApp/Content/creditcard/img/u66.png" class="imgRotate" /></a>
+
+            </div>
+            <div id="manage" class="collapse">
+                <div>
+                    <span>经营行业：</span>
+                    <div class="myRadio"><span>软体</span><input name="industry" type="radio" value="软体" /></div>
+                    <div class="myRadio"><span>实木</span><input name="industry" type="radio" value="实木" /></div>
+                    <div class="myRadio"><span>其他</span><input name="industry" type="radio" value="其他" /></div>
+                </div>
+                <div>
+                    <span>经营性质：</span>
+                    <div class="myRadio"><span>工厂</span><input name="category" type="radio" value="工厂" /></div>
+                    <div class="myRadio"><span>专卖店</span><input name="category" type="radio" value="专卖店" /></div>
+                </div>
+                <div>
+                    <span>数量：</span><input type="text" placeholder="工厂/专卖店数量" name="Quantity" id="Quantity" />
+
+                </div>
+                <div class="factory">
+                    <span>地址1：</span><input type="text" placeholder="工厂/专卖店地址" />
+                </div>
+
+                <div class="adds addFactory">
+                    <a><img src="~/Areas/GoApp/Content/creditcard/img/c1.png" /><span>新增地址</span></a>
+                </div>
+
+                <div class="pic" btnbusinesslicenseupload>
+                    <p>上传营业执照</p>
+                    <div class="addPic">
+                        <a id="btnBusinessLicenseUpload">
+                            <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
+                            <span>添加  </span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--3.信用卡信息-->
+        <div class="creditCard">
+            <div>
+                <a href="#card">信用卡信息<img src="~/Areas/GoApp/Content/creditcard/img/u66.png" class="imgRotate" /></a>
+
+            </div>
+            <div id="card" class="collapse">
+                <div class="card">
+                    <span>信用卡1：</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>开卡行：</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>额度：</span><input type="text" />
+
+                </div>
+                <div class="adds addMyCard">
+                    <a><img src="~/Areas/GoApp/Content/creditcard/img/c1.png" /><span>新增信用卡</span></a>
+                </div>
+                <div>
+                    <span>逾期信息：</span>
+                    <div class="myRadio"><span>有</span><input name="pastdue" type="radio" value="有" /></div>
+                    <div class="myRadio"><span>无</span><input name="pastdue" type="radio" value="无" /></div>
+                </div>
+
+                <div>
+                    <span>使用额度比：</span><input type="text" name="UsedRate" id="UsedRate" />
+
+                </div>
+            </div>
+        </div>
+        <!--4.固定资产-->
+        <div class="fixedAssets">
+            <div>
+                <a href="#fixed">固定资产信息<img src="~/Areas/GoApp/Content/creditcard/img/u66.png" class="imgRotate" /></a>
+            </div>
+            <div id="fixed" class="collapse" >
+                <h5>房产信息</h5>
+                <div class="house">
+                    <span>小区名称1：</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>房产地址：</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>面积：</span><input type="text" />
+                </div>
+                <div>
+                    <span>是否全款：</span>
+                    <div class="myRadio"><span>是</span><input name="1houseloan" type="radio" value="是" /></div>
+                    <div class="myRadio"><span>否</span><input name="1houseloan" type="radio" value="否" /></div>
+                </div>
+                <div class="adds addHouse">
+                    <a><img src="~/Areas/GoApp/Content/creditcard/img/c1.png" /><span>新增房产信息</span></a>
+                </div>
+                <div class="pic" btnhouseholdupload>
+                    <p>上传房产证照片</p>
+                    <div class="addPic">
+                        <a id="btnHouseholdUpload">
+                            <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
+                            <span>添加  </span>
+                        </a>
+                    </div>
+                </div>
+                <h5>车辆信息</h5>
+                <div class="car">
+                    <span>车辆品牌1：</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>型号：</span>
+                    <input type="text" />
+                </div>
+                <div>
+                    <span>市值：</span><input type="text" />
+                </div>
+
+                <div class="adds addCar">
+                    <a><img src="~/Areas/GoApp/Content/creditcard/img/c1.png" /><span>新增车辆信息</span></a>
+                </div>
+                <div class="pic" btncarholdregisterupload>
+                    <p>上传驾驶证照片</p>
+                    <div class="addPic">
+                        <a id="btnCarholdRegisterUpload">
+                            <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
+                            <span>添加  </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--5.贷款情况-->
+        <div class="loan">
+            <div>
+                <a href="#loan">贷款情况<img src="~/Areas/GoApp/Content/creditcard/img/u66.png" class="imgRotate" /></a>
+            </div>
+            <div id="loan" class="collapse">
+                <div>
+                    <span>名下贷款：</span>
+                    <div class="myRadio"><span>无</span><input name="hasloan" type="radio" value="false" /></div>
+                    <div class="myRadio"><span>有</span><input name="hasloan" type="radio" value="true" /></div>
+                    <div class="money">
+                        <b>（</b><input type="text"><b>万元）</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--6.证件资料-->
+        <div class="data">
+            <div>
+                <a href="#data">证件资料<img src="~/Areas/GoApp/Content/creditcard/img/u66.png" class="imgRotate" /></a>
+            </div>
+            <div id="data" class="collapse">
+                <div>
+                    <span>社保编号：</span><input type="text" id="SIN" name="SIN" />
+                </div>
+                
+                <div class="pic" btnmrriageupload>
+                    <p>上传结婚证照片</p>
+                    <div class="addPic">
+                        <a id="btnMrriageUpload">
+                            <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
+                            <span>添加  </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="pic" btnhouseholdregister>
+                    <p>上传户口本照片</p>
+                    <div class="addPic">
+                        <a id="btnHouseholdRegister">
+                            <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
+                            <span>添加  </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn" id="btnSave">保存</a>
+    </div>
+
+</body>
+
+</html>
+<script src="~/Areas/GoApp/Content/creditcard/js/jquery-1.11.0.min.js"></script>
+<script src="~/Areas/GoApp/Content/creditcard/kindeditor/kindeditor.js"></script>
+<script src="~/Areas/GoApp/Content/creditcard/kindeditor/lang/zh_CN.js"></script>
+<script src="~/Areas/GoApp/Content/creditcard/js/index.js"></script>
+
+<script>
+    function previewImg(url) {
+        return $("<div class='getCmr'><div class='hid'><img style='width:80px;height:80px;' src='" +
+             url + "'/><input type='hidden' value='" + url + "' /></div><span class='data'>删除</span></div>");
+    }
+
+    KindEditor.ready(function (k) {
+        var editor = k.editor({
+            allowImageUpload: true,
+            allowFileManager: true,
+            uploadJson: '/app/files/creditcard'
+        });
+
+        //身份证
+        k('#btnIDNOUpload').click(function () {
+
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: k('#Image').val(),
+                    clickFn: function (url) {
+                        k('#Image').val(url);
+                        $('#btnIDNOUpload').parent().before(previewImg(url));
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+
+        //结婚证
+        k('#btnMrriageUpload').click(function () {
+
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: k('#Image').val(),
+                    clickFn: function (url) {
+                        k('#Image').val(url);
+                        $('#btnMrriageUpload').parent().before(previewImg(url));
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+
+        //户口本
+        k('#btnHouseholdRegister').click(function () {
+
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: k('#Image').val(),
+                    clickFn: function (url) {
+                        k('#Image').val(url);
+                        $('#btnHouseholdRegister').parent().before(previewImg(url));
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+
+        //房产证
+        k('#btnHouseholdUpload').click(function () {
+
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: k('#Image').val(),
+                    clickFn: function (url) {
+                        k('#Image').val(url);
+                        $('#btnHouseholdUpload').parent().before(previewImg(url));
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+
+        //行驶证
+        k('#btnCarholdRegisterUpload').click(function () {
+
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: k('#Image').val(),
+                    clickFn: function (url) {
+                        k('#Image').val(url);
+                        $('#btnCarholdRegisterUpload').parent().before(previewImg(url));
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+
+        //营业执照
+        k('#btnBusinessLicenseUpload').click(function () {
+
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    showRemote: false,
+                    imageUrl: k('#Image').val(),
+                    clickFn: function (url) {
+                        k('#Image').val(url);
+                        $('#btnBusinessLicenseUpload').parent().before(previewImg(url));
+                        editor.hideDialog();
+                    }
+                });
+            });
+        });
+    });
+
+
+
+    function save() {
+        var data = {
+            Name: $('#Name').val(),
+            IDNO: $('#IDNO').val(),
+            PersonalPhone: $('#PersonalPhone').val(),
+            NativePlace: $('#NativePlace').val(),
+            Industry: $('input[name=industry]:checked').val(),
+            Category: $('input[name=category]:checked').val(),
+            Quantity: $('#Quantity').val(),
+            StoreAddress: '',
+            CreditCard: '',
+            Pastdue: $('input[name=pastdue]:checked').val(),
+            UsedRate: $('#UsedRate').val(),
+            HasLoan: $('input[name=hasloan]:checked').val(),
+            LoanAmount: $('#LoanAmount').val(),
+            SIN: $('#SIN').val()
+        };
+
+        data.Industry = data.Industry ? data.Industry : '';
+        data.Category = data.Category ? data.Category : '';
+
+        var storeAddress = '';
+        $('.factory input').each(function () {
+            if ($(this).val()) {
+                storeAddress += '#' + $(this).val();
+            }
+        });
+
+        data.StoreAddress = storeAddress;//.replace('#', '');
+
+        var creditcard = '';
+        $('.card').each(function () {
+            var data = $(this).find('input').val() + "#";
+            data += $(this).next().find('input').val() + "#",
+            data += $(this).next().next().find('input').val() + "|";
+
+            if (data != '##|') {
+                creditcard += data;
+            }
+        });
+
+        data.CreditCard = creditcard;
+
+        var house = '';
+        $('.house').each(function (i, ele) {
+            var data = $(this).find('input').val() + "#";
+            data += $(this).next().find('input').val() + "#";
+            data += $(this).next().next().find('input').val() + "#";
+            var houseloan = $(this).next().next().next().find('input[name=' + (i + 1) + 'houseloan]:checked').val();
+
+            data += (houseloan ? houseloan : '') + "|";
+
+            if (data != '###|') {
+                house += data;
+            }
+        });
+
+        data.House = house;
+        alert(house);
+        return;
+        var car = '';
+        $('.car').each(function () {
+            var data = $(this).find('input').val() + "#";
+            data += $(this).next().find('input').val() + "#";
+            data += $(this).next().next().find('input').val() + "|";
+
+            if (data != '##|') {
+                car += data;
+            }
+        });
+
+        data.Car = car;
+
+        var btnidnoupload = '';
+        $('div[btnidnoupload] .getCmr img').each(function () {
+            btnidnoupload += "#" + $(this).attr('src');
+        });
+        data.IDNOImage = btnidnoupload;
+
+        var btnmrriageupload = '';
+        $('div[btnmrriageupload] .getCmr img').each(function () {
+            btnmrriageupload += "#" + $(this).attr('src');
+        });
+        data.MrriageImage = btnmrriageupload;
+
+        var btnhouseholdregister = '';
+        $('div[btnhouseholdregister] .getCmr img').each(function () {
+            btnhouseholdregister += "#" + $(this).attr('src');
+        });
+        data.HouseholdRegisterImage = btnhouseholdregister;
+
+        var btnhouseholdupload = '';
+        $('div[btnhouseholdupload] .getCmr img').each(function () {
+            btnhouseholdupload += "#" + $(this).attr('src');
+        });
+        data.HouseholdImage = btnhouseholdupload;
+
+        var btncarholdregisterupload = '';
+        $('div[btncarholdregisterupload] .getCmr img').each(function () {
+            btncarholdregisterupload += "#" + $(this).attr('src');
+        });
+        data.HouseholdImage = btncarholdregisterupload;
+
+        var btncarholdregisterupload = '';
+        $('div[btncarholdregisterupload] .getCmr img').each(function () {
+            btncarholdregisterupload += "#" + $(this).attr('src');
+        });
+        data.CarholdRegisterImage = btncarholdregisterupload;
+
+        var btnbusinesslicenseupload = '';
+        $('div[btnbusinesslicenseupload] .getCmr input[type="hidden"]').each(function () {
+            btnbusinesslicenseupload += "#" + $(this).val();
+        });
+        data.BusinessLicense = btnbusinesslicenseupload;
+
+        $('#btnSave').hide();
+        $.ajax({
+            type: 'post',
+            url: '/goapp/creditcardapplication/create',
+            data: data,
+            success: function (data) {
+
+                if (!data.Status) {
+                    alert(data.Message);
+                    $('#btnSave').show();
+                } else {
+                    alert('恭喜您，提交成功！');
+                    window.location.href = window.location.href;
+                }
+            },
+            error: function (arg1, arg2, arg3) {
+                alert(arg3);
+                $('#btnSave').show();
+            }
+        });
+    }
+
+    function removeImage() {
+        $(this).parent().remove();
+    }
+
+    $().ready(function () {
+
+        $('#btnSave').on('click', save);
+        $(document).on('click', 'span.data', removeImage);
+
+    });
+
+</script>

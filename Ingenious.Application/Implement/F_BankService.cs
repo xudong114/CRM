@@ -38,6 +38,10 @@ namespace Ingenious.Application.Implement
                 Specification<F_Bank>.Eval(item =>
                 isAdmin == null || isAdmin.HasValue || item.IsAdmin.Equals(isAdmin.Value)
                 ));
+
+            spec = new AndSpecification<F_Bank>(spec,
+                Specification<F_Bank>.Eval(item => item.IsActive));
+
             var list = new List<F_BankDTO>();
             this._IF_BankRepository.GetAll(spec).ToList().ForEach(item =>
                 list.Add(Mapper.Map<F_Bank, F_BankDTO>(item))
@@ -103,12 +107,12 @@ namespace Ingenious.Application.Implement
                  , dto => dto.Id
                  , (dto, entity) =>
                  {
+                     entity.Logo = dto.Logo;
                      entity.Code = dto.Code;
                      entity.IsAdmin = dto.IsAdmin;
                      entity.IsAssignAuto = dto.IsAssignAuto;
                      entity.Name = dto.Name;
                      entity.ParentId = dto.ParentId;
-                     entity.IsActive = dto.IsActive;
                      entity.ModifiedBy = dto.ModifiedBy;
                  });
            

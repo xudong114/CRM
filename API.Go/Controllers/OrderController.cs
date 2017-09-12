@@ -117,31 +117,36 @@ namespace API.Go.Controllers
             {
                 return Json(new MessageResult { Status = false, Message = "资料不全" });
             }
-            //var oldCode = APICacheService.Instance.Get(order.PersonalPhone, order.PersonalPhone);
-            //if (oldCode == null)
-            //{
-            //    return Json(new MessageResult { Status = false, Message = "验证码失效" });
-            //}
-            //if (!oldCode.ToString().Equals(code))
-            //{
-            //    return Json(new MessageResult { Status = false, Message = "验证码错误" });
-            //}
 
+            var oldCode = APICacheService.Instance.Get(order.PersonalPhone, order.PersonalPhone);
+            if (oldCode == null)
+            {
+                return Json(new MessageResult { Status = false, Message = "验证码失效" });
+            }
+            if (!oldCode.ToString().Equals(order.Code))
+            {
+                return Json(new MessageResult { Status = false, Message = "验证码错误" });
+            }
+            
             var orderId = order.Id;
             if (order.Id == Guid.Empty)
             {
+                order.Code = string.Empty;
                 order.CreatedBy = order.ModifiedBy = this.User.Id;
                 orderId = this._IF_OrderService.Create(order).Id;
             }
             else
             {
-                order.ModifiedBy = this.User.Id;
-                this._IF_OrderService.Update(new List<F_OrderDTO> { order });
+                var oldOrder = this._IF_OrderService.GetByKey(order.Id);
+                oldOrder.ModifiedBy = this.User.Id;
+                oldOrder.Name = order.Name;
+                oldOrder.IDNo = order.IDNo;
+                order.PersonalPhone = order.PersonalPhone;
+
+                this._IF_OrderService.Update(new List<F_OrderDTO> { oldOrder });
             }
 
             return Json(new MessageResult { Status = true, Message = "个人信息保存成功", Data = orderId });
-
-
         }
 
         /// <summary>
@@ -215,7 +220,7 @@ namespace API.Go.Controllers
             }
 
             var boundStore = this._IF_StorerService.GetStoreByClerkId(order.ClerkCode);
-            if (boundStore==null || boundStore.Code!=order.StoreCode)
+            if (boundStore == null || boundStore.Code != order.StoreCode)
             {
                 return Json(new MessageResult { Status = false, Message = "导购和店铺不匹配" });
             }
@@ -241,7 +246,7 @@ namespace API.Go.Controllers
         [HttpGet]
         public IHttpActionResult Step04(Guid id)
         {
-            var files = this._IF_FileService.GetFilesByReferenceId(id).Where(item=>item.Code.Equals("4"));
+            var files = this._IF_FileService.GetFilesByReferenceId(id).Where(item => item.Code.Equals("4"));
             if (files.Count() == 0)
             {
                 return Json(new MessageResult { Status = false, Message = "请上传征信资料" });
@@ -264,7 +269,7 @@ namespace API.Go.Controllers
             var store = this._IF_StorerService.GetStoreByCode(order.StoreCode);
             //1、分配订单到Gojiaju金融客服
             string gojiajuClerkCode = this._IF_OrderService.AssignOrderClerk(store.WebsiteId);
-            if(string.IsNullOrWhiteSpace(gojiajuClerkCode))
+            if (string.IsNullOrWhiteSpace(gojiajuClerkCode))
             {
                 return Json(new MessageResult { Status = false, Message = "提交失败，当前站点无金融客服" });
             }
@@ -273,7 +278,7 @@ namespace API.Go.Controllers
             order.Status = F_OrderStatusEnum.InProcess;
             this._IF_OrderService.Update(new List<F_OrderDTO> { order });
 
-            this.CreateMessage(order,new F_OrderRecordDTO());
+            this.CreateMessage(order, new F_OrderRecordDTO());
 
             return Json(new MessageResult { Status = true, Message = "订单提交成功" });
         }
@@ -335,12 +340,14 @@ namespace API.Go.Controllers
             string bankManager = "",
             string bankClerkCode = "",
             string gojiajuClerkCode = "",
+                        string keyword = "",
+            string date = "",
             decimal? min = null,
             decimal? max = null)
         {
             var orders = new F_OrderDTOList();
 
-            orders = this._IF_OrderService.GetAll(clerkCode, storeCode, fromBank, userId, status, bankManager, bankClerkCode, gojiajuClerkCode, min, max);
+            orders = this._IF_OrderService.GetAll(clerkCode, storeCode, fromBank, userId, status, bankManager, bankClerkCode, gojiajuClerkCode, keyword, date, min, max);
 
             return Json(orders);
         }
@@ -433,7 +440,7 @@ namespace API.Go.Controllers
         /// </returns>
 
         [HttpGet]
-        public IHttpActionResult GetOrderByBank(string status = "")
+        public IHttpActionResult GetOrderByBank(string status = "", string keyword = "", string date = "", string bankClerk = "")
         {
             var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
 
@@ -445,11 +452,12 @@ namespace API.Go.Controllers
 
             var list = new F_OrderDTOList();
 
-            list = this._IF_OrderService.GetAll(null, null, user.BankCode);
+            list = this._IF_OrderService.GetAll(null, null, user.BankCode, null, null, null, bankClerk, null, keyword, date);
 
-            if (!string.IsNullOrWhiteSpace(status))
+            // 默认返回所有状态订单
+            //if (!string.IsNullOrWhiteSpace(status))
             {
-                switch (status.ToLower())
+                switch ((status ?? "").ToLower())
                 {
                     case "inprocess":
                         {
@@ -482,12 +490,10 @@ namespace API.Go.Controllers
                         }
                     default:
                         {
-                            return Json(new MessageResult { Status = true, Data = new List<F_OrderDTO>() });
+                            return Json(new MessageResult { Status = true, Data = list });
                         }
                 }
-
             }
-
 
             if (list.Count() == 0)
             {
@@ -597,7 +603,7 @@ namespace API.Go.Controllers
         /// }
         /// </returns>
         [HttpGet]
-        public IHttpActionResult GetOrderByBankClerk(string status = "")
+        public IHttpActionResult GetOrderByBankClerk(string status = "", string keyword = "", string date = "")
         {
             var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
 
@@ -607,11 +613,12 @@ namespace API.Go.Controllers
             }
             var list = new F_OrderDTOList();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, user.Code);
+            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, user.Code, null, keyword, date);
 
-            if (!string.IsNullOrWhiteSpace(status))
+            // 默认返回所有状态订单
+            //if (!string.IsNullOrWhiteSpace(status))
             {
-                switch (status.ToLower())
+                switch ((status ?? "").ToLower())
                 {
                     case "inprocess":
                         {
@@ -644,7 +651,7 @@ namespace API.Go.Controllers
                         }
                     default:
                         {
-                            return Json(new MessageResult { Status = true, Data = new List<F_OrderDTO>() });
+                            return Json(new MessageResult { Status = true, Data = list });
                         }
                 }
             }
@@ -705,7 +712,7 @@ namespace API.Go.Controllers
             var result = new { InProcess = 0, Presigned = 0, Prepassed = 0, Passed = 0, Failed = 0 };
             var list = new F_OrderDTOList();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, null,user.Code);
+            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, null, user.Code);
 
             if (list.Count() == 0)
             {
@@ -756,7 +763,7 @@ namespace API.Go.Controllers
         /// }
         /// </returns>
         [HttpGet]
-        public IHttpActionResult GetOrderByGojiajuClerk(string status = "")
+        public IHttpActionResult GetOrderByGojiajuClerk(string status = "", string keyword = "", string date = "")
         {
             var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
 
@@ -766,11 +773,11 @@ namespace API.Go.Controllers
             }
             var list = new F_OrderDTOList();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, null,user.Code);
+            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, null, user.Code, keyword, date);
 
-            if (!string.IsNullOrWhiteSpace(status))
+            //if (!string.IsNullOrWhiteSpace(status))
             {
-                switch (status.ToLower())
+                switch ((status ?? "").ToLower())
                 {
                     case "inprocess":
                         {
@@ -803,7 +810,7 @@ namespace API.Go.Controllers
                         }
                     default:
                         {
-                            return Json(new MessageResult { Status = true, Data = new List<F_OrderDTO>() });
+                            return Json(new MessageResult { Status = true, Data = list });
                         }
                 }
             }
@@ -885,14 +892,14 @@ namespace API.Go.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public IHttpActionResult GetOrderByUserId()
+        public IHttpActionResult GetOrderByUserId(string keyword = "")
         {
-            var list = this._IF_OrderService.GetAll(null, null, null, this.User.Id, null, null, null);
+            var list = this._IF_OrderService.GetAll(null, null, null, this.User.Id, null, null, null, null, keyword);
 
             if (list.Count() == 0)
             {
-                var defaultResult = new { Temp = new List<F_OrderDTO>(), InProcess = new List<F_OrderDTO>(), Passed = new List<F_OrderDTO>(), Failed = new List<F_OrderDTO>() };
-                return Json(new MessageResult { Status = true, Data = defaultResult });
+                var defaultResult = new { Temp = new List<F_OrderDTO>(), InProcess = new List<F_OrderDTO>(), Passed = new List<F_OrderDTO>(), Failed = new List<F_OrderDTO>(), All = new List<F_OrderDTO>() };
+                return Json(new MessageResult { Status = true,Message="0", Data = defaultResult });
             }
 
             var result = new
@@ -904,8 +911,8 @@ namespace API.Go.Controllers
                      && (item.Status != F_OrderStatusEnum.Temp)),
                  Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed),
                  Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
-                 || (item.Status == F_OrderStatusEnum.SignCanceled)
-                 )
+                 || (item.Status == F_OrderStatusEnum.SignCanceled)),
+                 All = list
              };
 
             return Json(new MessageResult { Status = true, Data = result });
@@ -1011,12 +1018,49 @@ namespace API.Go.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult GetClerkOrders()
+        public IHttpActionResult GetClerkOrders(string status = "", string keyword = "", string date = "")
         {
             var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
-            var list = this._IF_OrderService.GetAll(user.Code, null, null, null, null, null, null);
-
-            return Json(new MessageResult { Status = true, Data = list.OrderByDescending(item => item.CreatedDate) });
+            var list = this._IF_OrderService.GetAll(user.Code, null, null, null, null, null, null, null, keyword, date)
+            .Where(item => item.Status != F_OrderStatusEnum.Temp
+                && item.Status != F_OrderStatusEnum.Canceled)
+                .OrderByDescending(item => item.CreatedDate);
+            switch ((status ?? "").ToLower())
+            {
+                case "inprocess":
+                    {
+                        return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.InProcess) });
+                    }
+                case "presigned":
+                    {
+                        return Json(new MessageResult
+                        {
+                            Status = true,
+                            Data = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
+                        });
+                    }
+                case "prepassed":
+                    {
+                        return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
+                    }
+                case "passed":
+                    {
+                        return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.Successed) });
+                    }
+                case "failed":
+                    {
+                        return Json(new MessageResult
+                        {
+                            Status = true,
+                            Data = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                                || (item.Status == F_OrderStatusEnum.SignCanceled))
+                        });
+                    }
+                default:
+                    {
+                        return Json(new MessageResult { Status = true, Data = list });
+                    }
+            }
         }
 
         /// <summary>
@@ -1024,12 +1068,49 @@ namespace API.Go.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult GetStoreOrders()
+        public IHttpActionResult GetStoreOrders(string status = "", string keyword = "", string date = "")
         {
             var store = this._IF_StorerService.GetStoreByEnglishName(this.User.UserName);
-            var list = this._IF_OrderService.GetAll(null, store.Code, null, null, null, null, null);
-
-            return Json(new MessageResult { Status = true, Data = list.OrderByDescending(item => item.CreatedDate) });
+            var list = this._IF_OrderService.GetAll(null, store.Code, null, null, null, null, null, null, keyword, date)
+                .Where(item => item.Status != F_OrderStatusEnum.Temp
+                && item.Status != F_OrderStatusEnum.Canceled)
+                .OrderByDescending(item => item.CreatedDate);
+            switch ((status ?? "").ToLower())
+            {
+                case "inprocess":
+                    {
+                        return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.InProcess) });
+                    }
+                case "presigned":
+                    {
+                        return Json(new MessageResult
+                        {
+                            Status = true,
+                            Data = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
+                        });
+                    }
+                case "prepassed":
+                    {
+                        return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
+                    }
+                case "passed":
+                    {
+                        return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.Successed) });
+                    }
+                case "failed":
+                    {
+                        return Json(new MessageResult
+                        {
+                            Status = true,
+                            Data = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                                || (item.Status == F_OrderStatusEnum.SignCanceled))
+                        });
+                    }
+                default:
+                    {
+                        return Json(new MessageResult { Status = true, Data = list });
+                    }
+            }
         }
 
         /// <summary>
@@ -1146,7 +1227,7 @@ namespace API.Go.Controllers
                 order.BankCode = orderRecord.BankCode;
 
                 var bank = this._IF_BankService.GetBank(orderRecord.BankCode);
-                if(bank==null)
+                if (bank == null)
                 {
                     return Json(new MessageResult { Status = false, Message = "未分配银行" });
                 }
@@ -1176,7 +1257,7 @@ namespace API.Go.Controllers
             this._IF_OrderService.Update(new List<F_OrderDTO> { order });
             this._IF_OrderRecordService.Create(orderRecord);
 
-            this.CreateMessage(order,orderRecord);
+            this.CreateMessage(order, orderRecord);
 
             if (orderRecord.Status == F_OrderStatusEnum.GojiajuPassed)
             {
@@ -1193,7 +1274,7 @@ namespace API.Go.Controllers
         /// <param name="clerkCode">银行客户经理Code(F_User.Code)</param>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult AssignOrder(Guid orderId,string clerkCode)
+        public IHttpActionResult AssignOrder(Guid orderId, string clerkCode)
         {
             if (string.IsNullOrWhiteSpace(clerkCode))
             {
@@ -1288,7 +1369,7 @@ namespace API.Go.Controllers
                 return Json(new MessageResult { Status = false, Message = "贷款金额必须大于零" });
             }
 
-            if(!order.IsInstallment)
+            if (!order.IsInstallment)
             {
                 order.FromBank = string.Empty;
             }
@@ -1325,16 +1406,16 @@ namespace API.Go.Controllers
             //return Json(new MessageResult { Status = true, Message = "订单提交成功" });
         }
 
-        private void CreateMessage(F_OrderDTO order,F_OrderRecordDTO record)
+        private void CreateMessage(F_OrderDTO order, F_OrderRecordDTO record)
         {
             var message = new F_ActivityDTO();
 
-            switch(order.Status)
+            switch (order.Status)
             {
                 case F_OrderStatusEnum.InProcess:
                     {
                         message.Title = "您有一笔新订单提交成功！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：待审核", order.Code);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：待审核",order.Id, order.Code);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = this.User.Id;
@@ -1345,7 +1426,7 @@ namespace API.Go.Controllers
                         if (user != null)
                         {
                             message.Title = "您有一笔新订单待处理！";//平台
-                            message.Content = string.Format("订单号：{0}<br/>状态：待审核", order.Code);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：待审核", order.Id, order.Code);
                             message.ReferenceId = user.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1354,7 +1435,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.GojiajuDenied:
                     {
                         message.Title = "您有一笔订单未通过平台审核！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：平台拒绝<br/>备注：{1}", order.Code, record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：平台拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1362,7 +1443,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您拒绝了一笔订单申请！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：平台拒绝", order.Code);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：平台拒绝", order.Id, order.Code);
                         message.ReferenceId = this.User.Id;
                         this._IF_ActivityService.Create(message);
                     }
@@ -1370,7 +1451,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.GojiajuPassed:
                     {
                         message.Title = "您有一笔订单通过平台审核！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：平台通过<br/>", order.Code);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：平台通过<br/>", order.Id, order.Code);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1378,7 +1459,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您通过了一笔订单申请！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：平台通过", order.Code);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：平台通过", order.Id, order.Code);
                         message.ReferenceId = this.User.Id;//平台
                         this._IF_ActivityService.Create(message);
 
@@ -1386,7 +1467,7 @@ namespace API.Go.Controllers
                         if (bankManager != null)
                         {
                             message.Title = "您有一笔订单待处理！";//银行信贷经理
-                            message.Content = string.Format("订单号：{0}<br/>状态：平台通过", order.Code);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：平台通过", order.Id, order.Code);
                             message.ReferenceId = bankManager.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1395,7 +1476,7 @@ namespace API.Go.Controllers
                         if (bankClient != null)
                         {
                             message.Title = "您有一笔订单待处理！";//银行客户经理
-                            message.Content = string.Format("订单号：{0}<br/>状态：平台通过", order.Code);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：平台通过", order.Id, order.Code);
                             message.ReferenceId = bankManager.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1404,7 +1485,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.BankDenied:
                     {
                         message.Title = "您有一笔订单未通过银行审核！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code,record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1412,7 +1493,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您拒绝了一笔订单申请！";//银行
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.ReferenceId = this.User.Id;
                         this._IF_ActivityService.Create(message);
 
@@ -1420,7 +1501,7 @@ namespace API.Go.Controllers
                         if (user != null)
                         {
                             message.Title = "您有一笔订单未通过银行审核！";//平台
-                            message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                             message.ReferenceId = user.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1429,7 +1510,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.BankPassed:
                     {
                         message.Title = "您有一笔订单通过银行审核！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行通过", order.Code);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行通过", order.Id, order.Code);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1437,7 +1518,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您通过了一笔订单申请！";//银行
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行通过", order.Code);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行通过", order.Id, order.Code);
                         message.ReferenceId = this.User.Id;
                         this._IF_ActivityService.Create(message);
 
@@ -1445,7 +1526,7 @@ namespace API.Go.Controllers
                         if (user != null)
                         {
                             message.Title = "您有一笔订单通过银行审核！";//平台
-                            message.Content = string.Format("订单号：{0}<br/>状态：银行通过", order.Code);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行通过", order.Id, order.Code);
                             message.ReferenceId = user.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1454,7 +1535,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.BankSigned:
                     {
                         message.Title = "您有一笔订单签约成功！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code,record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1462,7 +1543,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您签约了一笔订单申请！";//银行
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.ReferenceId = this.User.Id;
                         this._IF_ActivityService.Create(message);
 
@@ -1470,7 +1551,7 @@ namespace API.Go.Controllers
                         if (user != null)
                         {
                             message.Title = "您有一笔订单签约成功！";//平台
-                            message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                             message.ReferenceId = user.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1479,7 +1560,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.SignCanceled:
                     {
                         message.Title = "您有一笔订单签约取消！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1487,7 +1568,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您取消了一笔订单签约！";//银行
-                        message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                         message.ReferenceId = this.User.Id;
                         this._IF_ActivityService.Create(message);
 
@@ -1495,7 +1576,7 @@ namespace API.Go.Controllers
                         if (user != null)
                         {
                             message.Title = "您有一笔订单签约取消！";//平台
-                            message.Content = string.Format("订单号：{0}<br/>状态：银行拒绝<br/>备注：{1}", order.Code, record.Remark);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：银行拒绝<br/>备注：{2}", order.Id, order.Code, record.Remark);
                             message.ReferenceId = user.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
@@ -1504,7 +1585,7 @@ namespace API.Go.Controllers
                 case F_OrderStatusEnum.Successed:
                     {
                         message.Title = "您有一笔订单放款成功！";
-                        message.Content = string.Format("订单号：{0}<br/>状态：已放款<br/>申请金额：{1}<br/>实际放款：{2}万", order.Code, order.LoanAmount, order.GotLoanAmount);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：已放款<br/>申请金额：{2}<br/>实际放款：{3}万", order.Id, order.Code, order.LoanAmount, order.GotLoanAmount);
                         message.IsGlobal = false;
                         message.IsRead = false;
                         message.ReferenceId = order.CreatedBy;//订单所有人
@@ -1512,7 +1593,7 @@ namespace API.Go.Controllers
                         this._IF_ActivityService.Create(message);
 
                         message.Title = "您有一笔订单放款成功！";//银行
-                        message.Content = string.Format("订单号：{0}<br/>状态：已放款<br/>申请金额：{1}<br/>实际放款：{2}万", order.Code, order.LoanAmount, order.GotLoanAmount);
+                        message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：已放款<br/>申请金额：{2}<br/>实际放款：{3}万", order.Id, order.Code, order.LoanAmount, order.GotLoanAmount);
                         message.ReferenceId = this.User.Id;
                         this._IF_ActivityService.Create(message);
 
@@ -1520,21 +1601,42 @@ namespace API.Go.Controllers
                         if (user != null)
                         {
                             message.Title = "您有一笔订单放款成功！";//平台
-                            message.Content = string.Format("订单号：{0}<br/>状态：已放款<br/>申请金额：{1}<br/>实际放款：{2}万", order.Code, order.LoanAmount,order.GotLoanAmount);
+                            message.Content = string.Format("订单号：<a code='{0}'>{1}</a><br/>状态：已放款<br/>申请金额：{2}<br/>实际放款：{3}万", order.Id, order.Code, order.LoanAmount, order.GotLoanAmount);
                             message.ReferenceId = user.F_UserId;
                             this._IF_ActivityService.Create(message);
                         }
                     }
                     break;
                 case F_OrderStatusEnum.Canceled:
-                    { 
+                    {
                     }
                     break;
 
             }
 
         }
-
         
+        /// <summary>
+        /// 获取最新申请订单
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IHttpActionResult GetLatestOrder()
+        {
+            var list = this._IF_OrderService.GetAll().OrderByDescending(item => item.CreatedDate).Take(5);
+            var result = new F_OrderDTOList();
+            list.ToList().ForEach(item =>
+            {
+                item.City = item.City ?? "";
+                item.Name = item.Name ?? "";
+                item.PersonalPhone = item.PersonalPhone ?? "";
+                item.City = item.City.Length > 3 ? string.Format("{0}**", item.Name.Substring(0, 3)) : item.City;
+                item.Name = string.Format("{0}**", item.Name.Substring(0, 1));
+                item.PersonalPhone = item.PersonalPhone.Length == 11 ? string.Format("{0}***{1}", item.PersonalPhone.Substring(0, 3), item.PersonalPhone.Substring(8, 3)) : item.PersonalPhone;
+                result.Add(item);
+            });
+            return Json(new MessageResult { Status = true, Data = result });
+        }
     }
 }

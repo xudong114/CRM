@@ -138,7 +138,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\cropper\.svn\prop-base\" />
+    <Folder Include="Content\cropper\.svn\props\" />
+    <Folder Include="Content\cropper\.svn\tmp\prop-base\" />
+    <Folder Include="Content\cropper\.svn\tmp\props\" />
+    <Folder Include="Content\cropper\.svn\tmp\text-base\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\AD\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -176,11 +182,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ADController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -195,6 +203,15 @@
     <Content Include="Areas\HelpPage\TestClient.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper\cropper.common.js" />
+    <Content Include="Content\cropper\cropper.css" />
+    <Content Include="Content\cropper\cropper.esm.js" />
+    <Content Include="Content\cropper\cropper.js" />
+    <Content Include="Content\cropper\cropper.min.css" />
+    <Content Include="Content\cropper\cropper.min.js" />
+    <Content Include="Content\cropper\jquery-1.11.0.min.js" />
+    <Content Include="Content\cropper\jquery-3.1.1.slim.min.js" />
+    <Content Include="Content\cropper\picture.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -285,6 +302,15 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientDialogs.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Model.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Details.cshtml" />
+    <Content Include="Content\cropper\.svn\all-wcprops" />
+    <Content Include="Content\cropper\.svn\entries" />
+    <Content Include="Content\cropper\.svn\text-base\cropper.common.js.svn-base" />
+    <Content Include="Content\cropper\.svn\text-base\cropper.css.svn-base" />
+    <Content Include="Content\cropper\.svn\text-base\cropper.esm.js.svn-base" />
+    <Content Include="Content\cropper\.svn\text-base\cropper.js.svn-base" />
+    <Content Include="Content\cropper\.svn\text-base\cropper.min.css.svn-base" />
+    <Content Include="Content\cropper\.svn\text-base\cropper.min.js.svn-base" />
+    <Content Include="Content\cropper\.svn\text-base\jquery-3.1.1.slim.min.js.svn-base" />
     <None Include="Properties\PublishProfiles\api.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -313,6 +339,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\Cropper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ingenious.Application\Ingenious.Application.csproj">

@@ -23,12 +23,12 @@
                 <form id="form1" action="/login" method="post" class="panel-body wrapper-lg">
                     <div class="form-group">
                         <label class="control-label">账号</label>
-                        <input type="text" name="UserName" id="UserName" value="admin" placeholder="请输入您的账号" class="form-control input-lg">
+                        <input type="text" name="UserName" id="UserName" value="" placeholder="请输入您的账号" class="form-control input-lg">
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <label class="control-label">密码</label>
-                        <input type="password" id="Password" name="Password" value="123321" placeholder="请输入您的密码" class="form-control input-lg">
+                        <input type="password" id="Password" name="Password" value="" placeholder="请输入您的密码" class="form-control input-lg">
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
                     @*<div class="checkbox">
@@ -38,7 +38,7 @@
                             </label>
                         </div>*@
                     <a href="#" class="pull-right m-t-xs"><small>忘记密码?</small></a>
-                    <button id="btnLogin" type="submit" class="btn btn-primary">登录系统</button>
+                    <button id="btnLogin" type="submit" class="btn btn-primary">登录</button>
                     
                 </form>
             </section>
@@ -70,6 +70,6 @@
         alert(error);
     }
 
-    btnLogin.click();
+    //btnLogin.click();
 
 </script>

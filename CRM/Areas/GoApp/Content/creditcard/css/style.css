@@ -1,0 +1,354 @@
+body {
+	font-family: Microsoft YaHei;
+	font-family: "微软雅黑";
+}
+
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #666;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+input[type='text'] {
+	border: none;
+	outline: none;
+	font-size: 16px;
+	width: 50%;
+	margin-left: 10px;
+	vertical-align: middle;
+	height: 20px;
+	line-height: 21px;
+}
+input[type='radio'] {
+	margin-left: 5px;
+}
+header {
+	background: #292C37;
+	width: 100%;
+	height: 140px;
+	position: relative;
+}
+
+header .title {
+	height: 44px;
+	line-height: 44px;
+	width: 100%;
+	font-size: 18px;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.leftCard,
+.rightCard {
+	width: 45%;
+	/*height: 100px;*/
+	padding: 5px;
+	border-radius: 7px;
+}
+
+.leftCard {
+	background: -webkit-linear-gradient(left, #CAAD7B, #E5D2A9);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #CAAD7B, #E5D2A9);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #CAAD7B, #E5D2A9);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #CAAD7B, #E5D2A9);
+	/* 标准的语法 */
+	/*width: 40%;*/
+	position: absolute;
+	bottom: -28%;
+	left: 3%;
+	box-shadow: 0 0 3px #E5D2A9;
+}
+
+.rightCard {
+	background: -webkit-linear-gradient(left, #454753, #616470);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #454753, #616470);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #454753, #6164709);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #454753, #616470);
+	/* 标准的语法 */
+	position: absolute;
+	bottom: -28%;
+	right: 3%;
+	box-shadow: 0 0 3px #616470;
+}
+
+header h1 {
+	font-size: 21px;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+
+header h2 {
+	font-size: 14px;
+	font-weight: 400;
+	color: #FFFFFF;
+	margin-bottom: 10px;
+}
+
+header span {
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 400;
+	color: #FFFFFF;
+}
+
+
+/*@media screen and (max-width:320px) {
+	header h2 {
+		font-size: 10px;
+		font-weight: 400;
+	}
+}*/
+
+.messageContent {
+	padding: 50px 3%;
+}
+
+.messageContent>div {
+	margin-bottom: 20px;
+}
+
+.messageContent>div>div {
+	width: 100%;
+	border-radius: 7px;
+	box-shadow: 0 0 8px #ccc;
+	padding: 0 15px;
+}
+
+.messageContent>div>div:first-child img {
+	position: absolute;
+	width: 22px;
+	top: 14px;
+	right: 0;
+}
+
+.collapse {
+	display: none;
+}
+
+.imgRotate {
+	transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	/* IE 9 */
+	-moz-transform: rotate(-90deg);
+	/* Firefox */
+	-webkit-transform: rotate(-90deg);
+	/* Safari 和 Chrome */
+	-o-transform: rotate(-90deg);
+	/* Opera */
+}
+
+.messageContent>div>div>a {
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	color: #333;
+	font-size: 20px;
+	width: 100%;
+	position: relative;
+}
+
+.collapse>div {
+	height: 60px;
+	border-bottom: 1px dashed #E1E1E1;
+}
+
+.collapse>div>span {
+	display: inline-block;
+	height: 100%;
+	line-height: 60px;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.messageContent .pic {
+	height: auto;
+}
+
+.pic {
+	padding-bottom: 20px;
+}
+
+.pic p {
+	margin: 20px 0;
+}
+
+.pic .addPic {
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.pic .getCmr {
+	display: inline-block;
+	width: 80px;
+	text-align: center;
+	vertical-align: top;
+	margin-right: 5px;
+}
+
+
+/*.pic .getCmr:not(:nth-child(3n)){
+	margin-right: 15px;
+}*/
+
+.pic .getCmr span {
+	display: inline-block;
+	margin-top: 5px;
+}
+
+.pic .getCmr .hid {
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+}
+
+.pic a {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+.myRadio {
+	display: inline-block;
+	width: auto;
+	margin-right: 5px;
+}
+
+.myRadio span {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.myRadio input {
+	vertical-align: middle;
+	height: 15px;
+}
+
+.manageInformation div.adds {
+	text-align: center;
+	border: none;
+	padding-top: 20px;
+}
+
+.adds{
+	text-align: center;
+	border: none;
+	padding-top: 20px;
+	border: none;
+}
+
+.adds a {
+	display: inline-block;
+	width: 220px;
+	height: 30px;
+	border-radius: 15px;
+	background: #575965;
+}
+
+.adds a span {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	color: #FFFFFF;
+	vertical-align: middle;
+}
+
+.adds a img {
+	vertical-align: middle;
+	height: 18px;
+	margin-right: 10px;
+}
+.fixedAssets h5{
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	color: #333333;
+	font-size: 18px;
+	font-weight: 400;
+}
+.money{
+	display: inline-block;
+	color: #333333;
+}
+.money input{
+	width: 30px;
+	border-bottom: 1px solid #666;
+	margin: 0;
+}
+.money b{
+	font-weight: 400;
+}
+a.btn{
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background: #464754;
+	text-align: center;
+	color: #FFFFFF;
+	border-radius: 5px;
+}
+/*
+ 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */

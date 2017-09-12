@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace API.Go.Controllers
@@ -63,7 +64,6 @@ namespace API.Go.Controllers
         [HttpPost]
         public IHttpActionResult Create()
         {
-            //return Json(new MessageResult { Status = false, Message = Request.Headers.Authorization.Parameter });
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return Json(new MessageResult { Status = false, Message = "文件格式错误" });
@@ -94,7 +94,7 @@ namespace API.Go.Controllers
                         ReferenceId = referenceId,
                         Code = code,
                         CreatedBy = Guid.NewGuid(),//this.User.Id,
-                        ModifiedBy =Guid.NewGuid(), //this.User.Id,
+                        ModifiedBy = Guid.NewGuid(), //this.User.Id,
                         Path = System.Web.HttpContext.Current.Server.MapPath("~/uploads")
                     };
                     model = this._IF_FileService.Create(model);
@@ -103,11 +103,59 @@ namespace API.Go.Controllers
             }
             catch (Exception e)
             {
-                return Json(new MessageResult { Status = false, Message = e.Message });
+                return Json(new MessageResult { Status = false, Message = e.InnerException.Message });
             }
 
             return Json<dynamic>(new { Status = true, Message = "文件上传成功", File = resultList.Count() > 0 ? resultList[0] : null });
         }
+
+        [HttpPost]
+        public IHttpActionResult Base64()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return Json(new MessageResult { Status = false, Message = "文件格式错误" });
+            }
+            var resultList = new List<object>();
+            var provider = new MultipartFilesMemoryStreamProvider();
+
+            try
+            {
+                var result = Task.Run(async () => await Request.Content.ReadAsMultipartAsync(provider)).Result;
+
+                string refId = result.FormData.GetValues("referenceId").FirstOrDefault();
+                string code = result.FormData.GetValues("code").FirstOrDefault();
+                Guid referenceId = Guid.Empty;
+                Guid.TryParse(refId, out referenceId);
+
+                foreach (var stream in result.Contents)
+                {
+                    var filename = stream.Headers.ContentDisposition.FileName;
+                    if (string.IsNullOrWhiteSpace(filename))
+                        continue;
+                    
+                    var model = new F_FileDTO
+                    {
+                        Name = string.Format("{0}.png", DateTime.Now.Ticks.ToString()),
+                        Data = stream.ReadAsStreamAsync().Result,
+                        ReferenceId = referenceId,
+                        Code = code,
+                        CreatedBy = Guid.NewGuid(),//this.User.Id,
+                        ModifiedBy = Guid.NewGuid(), //this.User.Id,
+                        Path = System.Web.HttpContext.Current.Server.MapPath("~/uploads")
+                    };
+                    model = this._IF_FileService.Create(model);
+                    resultList.Add(new { Id = model.Id, Path = model.Path, Code = model.Code });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new MessageResult { Status = false, Message = e.InnerException.Message });
+            }
+
+            return Json(new MessageResult{ Status = true, Message = "文件上传成功", Data = resultList.Count() > 0 ? resultList[0] : null });
+        }
+
     }
     public class MultipartFilesMemoryStreamProvider : MultipartMemoryStreamProvider
     {

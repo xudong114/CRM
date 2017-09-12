@@ -78,6 +78,10 @@
     <Compile Include="IApplication.cs" />
     <Compile Include="Implement\ClientContactService.cs" />
     <Compile Include="Implement\DictionaryService.cs" />
+    <Compile Include="Implement\F_BankOptionService.cs" />
+    <Compile Include="Implement\F_CreditCardApplicationService.cs" />
+    <Compile Include="Implement\F_NewsService.cs" />
+    <Compile Include="Implement\F_ADService.cs" />
     <Compile Include="Implement\F_ActivityService.cs" />
     <Compile Include="Implement\F_OrderRecordService.cs" />
     <Compile Include="Implement\F_UserDetailService.cs" />
@@ -102,6 +106,10 @@
     <Compile Include="Implement\UserService.cs" />
     <Compile Include="Interface\IClientContactService.cs" />
     <Compile Include="Interface\IDictionaryService.cs" />
+    <Compile Include="Interface\IF_BankOptionService.cs" />
+    <Compile Include="Interface\IF_CreditCardApplicationService.cs" />
+    <Compile Include="Interface\IF_NewsService.cs" />
+    <Compile Include="Interface\IF_ADService.cs" />
     <Compile Include="Interface\IF_ActivityService.cs" />
     <Compile Include="Interface\IF_OrderRecordService.cs" />
     <Compile Include="Interface\IF_UserDetailService.cs" />

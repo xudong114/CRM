@@ -60,7 +60,7 @@ namespace Ingenious.Application.Implement
         public F_FileDTO Create(F_FileDTO dto)
         {
             var url = System.Web.HttpContext.Current.Request.Url;
-            var fullPath = string.Format("{0}:{1}", url.Scheme, url.Authority);
+            var fullPath = string.Format("{0}://{1}", url.Scheme, url.Authority);
 
             var storePath = Path.Combine("/uploads", string.Format("{0}", DateTime.Now.ToString("yyyy-MM-dd")));
             storePath = fullPath + storePath;

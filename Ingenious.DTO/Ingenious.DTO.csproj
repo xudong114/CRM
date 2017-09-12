@@ -49,6 +49,14 @@
     <Compile Include="AccountDTO.cs" />
     <Compile Include="ActivityDTO.cs" />
     <Compile Include="BillDTO.cs" />
+    <Compile Include="F_BankOptionDTO.cs" />
+    <Compile Include="F_CreditCardCarDTO.cs" />
+    <Compile Include="F_CreditCardStoreDTO.cs" />
+    <Compile Include="F_CreditCardHouseDTO.cs" />
+    <Compile Include="F_CreditCardFileDTO.cs" />
+    <Compile Include="F_CreditCardDTO.cs" />
+    <Compile Include="F_NewsDTO.cs" />
+    <Compile Include="F_ADDTO.cs" />
     <Compile Include="F_ActivityDTO.cs" />
     <Compile Include="F_AccountDTO.cs" />
     <Compile Include="F_BankDTO.cs" />
@@ -61,6 +69,7 @@
     <Compile Include="F_OrderDTO.cs" />
     <Compile Include="F_OrderRecordDTO.cs" />
     <Compile Include="F_StoreClerkDTO.cs" />
+    <Compile Include="F_CreditCardApplicationDTO.cs" />
     <Compile Include="F_UserDetailDTO.cs" />
     <Compile Include="F_StoreDTO.cs" />
     <Compile Include="F_UserDTO.cs" />

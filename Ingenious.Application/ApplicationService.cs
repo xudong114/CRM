@@ -24,6 +24,28 @@ namespace Ingenious.Application
             //初始化EF
             Ingenious.Repositories.EntityFramework.IngeniousDbContextInitializer.InitializeDatabase();
 
+            #region 信用卡
+
+            Mapper.CreateMap<F_CreditCardApplication, F_CreditCardApplicationDTO>();
+            Mapper.CreateMap<F_CreditCardApplicationDTO, F_CreditCardApplication>();
+
+            Mapper.CreateMap<F_CreditCard, F_CreditCardDTO>();
+            Mapper.CreateMap<F_CreditCardDTO, F_CreditCard>();
+
+            Mapper.CreateMap<F_CreditCardCar, F_CreditCardCarDTO>();
+            Mapper.CreateMap<F_CreditCardCarDTO, F_CreditCardCar>();
+
+            Mapper.CreateMap<F_CreditCardFile, F_CreditCardFileDTO>();
+            Mapper.CreateMap<F_CreditCardFileDTO, F_CreditCardFile>();
+
+            Mapper.CreateMap<F_CreditCardHouse, F_CreditCardHouseDTO>();
+            Mapper.CreateMap<F_CreditCardHouseDTO, F_CreditCardHouse>();
+
+            Mapper.CreateMap<F_CreditCardStore, F_CreditCardStoreDTO>();
+            Mapper.CreateMap<F_CreditCardStoreDTO, F_CreditCardStore>();
+
+            #endregion
+
             #region Api.Go
 
             Mapper.CreateMap<F_User, F_UserDTO>();
@@ -59,6 +81,15 @@ namespace Ingenious.Application
 
             Mapper.CreateMap<F_Activity, F_ActivityDTO>();
             Mapper.CreateMap<F_ActivityDTO, F_Activity>();
+
+            Mapper.CreateMap<F_AD, F_ADDTO>();
+            Mapper.CreateMap<F_ADDTO, F_AD>();
+
+            Mapper.CreateMap<F_News, F_NewsDTO>();
+            Mapper.CreateMap<F_NewsDTO, F_News>();
+
+            Mapper.CreateMap<F_BankOption, F_BankOptionDTO>();
+            Mapper.CreateMap<F_BankOptionDTO, F_BankOption>();
 
             #endregion
 

@@ -1,0 +1,392 @@
+﻿@model Ingenious.DTO.F_CreditCardApplicationDTO
+@{
+    ViewBag.Title = "Create";
+}
+@section scripts{
+    <script src="~/Areas/GoApp/Content/fancybox/jquery.fancybox.min.js"></script>
+    <script>
+
+        $().ready(function () {
+            $('#chkIsBranch').click(function () {
+                $('#IsBranch').val(this.checked);
+            });
+        });
+
+    </script>
+}
+
+@section css{
+    <link href="~/Areas/GoApp/Content/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <style>
+        .form-group input {
+            border: 0;
+            border-bottom: 1px solid #999;
+            margin-top: -10px;
+        }
+
+        .form-group label {
+            text-align: right;
+        }
+    </style>
+}
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/app/xinyongka"><i class="fa fa-home"></i> 信用卡申请管理</a></li>
+    <li class="active">信用卡申请详情</li>
+</ul>
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">信用卡申请详情 (@Model.CreatedDate.ToString("yyyy-MM-dd"))</header>
+        <div class="panel-body">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDNO, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.IDNO, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IDNOImage, new { @class = "col-lg-2 control-label" })
+                <table>
+                    <tr>
+                        @{
+                            var idno = (Model.IDNOImage ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (idno.Length == 0)
+                            {
+                                <td>-</td>
+                            }
+                            foreach (var item in idno)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    <td>
+                                        <a href="@item" data-fancybox>
+                                            <img src="@item" style="width:100px;" />
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        }
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonalPhone, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.PersonalPhone, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NativePlace, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.NativePlace, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Industry, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.Industry, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StoreAddress, new { @class = "col-lg-2 control-label" })
+                <table>
+
+                    @{
+                        var sa = (Model.StoreAddress ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (sa.Length == 0)
+                        {
+                            <tr>
+                                <td style="line-height:40px;">-</td>
+                            </tr>
+                        }
+                        foreach (var item in sa)
+                        {
+                            if (!string.IsNullOrWhiteSpace(item))
+                            {
+                                <tr>
+                                    <td style="line-height:40px;">
+                                        <input class="form-control form-control-larger" value="(@(sa.ToList().IndexOf(item) + 1)) @item" />
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </table>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BusinessLicense, new { @class = "col-lg-2 control-label" })
+                <table>
+                    <tr>
+
+                        @{
+                            var bls = (Model.BusinessLicense ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (bls.Length == 0)
+                            {
+                                <td>-</td>
+                            }
+                            foreach (var item in bls)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    <td>
+                                        <a href="@item" data-fancybox>
+                                            <img src="@item" style="width:100px;" />
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreditCard, new { @class = "col-lg-2 control-label" })
+                <table>
+                    @{
+                        var cc = (Model.CreditCard ?? "").Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                        if(cc.Length==0)
+                        {
+                            <tr>
+                                <td style="line-height:40px;">-</td>
+                            </tr>
+                        }
+                        foreach (var item in cc)
+                        {
+                            if (!string.IsNullOrWhiteSpace(item))
+                            {
+                                var hd = item.Split(new char[] { '#' });
+                                if (hd.Length == 3)
+                                {
+                                    <tr>
+                                        <td style="line-height:40px;">
+                                            信用卡@(cc.ToList().IndexOf(item) + 1) <input class="form-control form-control-normal" value="@hd[0]" />
+                                        </td>
+
+                                        <td style="line-height:40px;">
+                                            开卡行<input class="form-control form-control-normal" value="@hd[1]" />
+                                        </td>
+                                        <td style="line-height:40px;">
+                                            额度<input class="form-control form-control-normal" value="@hd[2]" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                </table>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Pastdue, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.Pastdue, new { htmlAttributes = new { @class = "form-control form-control-normal" } })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.UsedRate, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.UsedRate, new { htmlAttributes = new { @class = "form-control form-control-normal" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.House, new { @class = "col-lg-2 control-label" })
+                <table>
+                    @{
+                        var hosue = (Model.House ?? "").Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var item in hosue)
+                        {
+                            if (!string.IsNullOrWhiteSpace(item))
+                            {
+                                var hd = item.Split(new char[] { '#' });
+                                if (hd.Length == 4)
+                                {
+                                    <tr>
+                                        <td style="line-height:40px;">
+                                            小区名称@(hosue.ToList().IndexOf(item) + 1) <input class="form-control form-control-normal" value="@hd[0]" />
+                                        </td>
+                                        <td style="line-height:40px;">
+                                            房产地址<input class="form-control form-control-normal" value="@hd[1]" />
+                                        </td>
+                                        <td style="line-height:40px;">
+                                            面积<input class="form-control form-control-normal" value="@hd[2]" />
+                                        </td>
+                                        <td style="line-height:40px;">
+                                            是否全款<input class="form-control form-control-normal" value="@hd[3]" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                </table>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HouseholdImage, new { @class = "col-lg-2 control-label" })
+                <table>
+                    <tr>
+
+                        @{
+                            var hhi = (Model.HouseholdImage ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (hhi.Length == 0)
+                            {
+                                <td>-</td>
+                            }
+                            foreach (var item in hhi)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    <td>
+                                        <a href="@item" data-fancybox>
+                                            <img src="@item" style="width:100px;" />
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Car, new { @class = "col-lg-2 control-label" })
+                <table>
+                    @{
+                        var car = (Model.Car ?? "").Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                        if(car.Length==0)
+                        {
+                            <tr>
+                                <td>-</td>
+                            </tr>
+                        }
+                        foreach (var item in car)
+                        {
+                            if (!string.IsNullOrWhiteSpace(item))
+                            {
+                                var hd = item.Split(new char[] { '#' });
+                                if (hd.Length == 3)
+                                {
+                                    <tr>
+                                        <td style="line-height:40px;">
+                                            车辆品牌@(car.ToList().IndexOf(item) + 1) <input class="form-control form-control-normal" value="@hd[0]" />
+                                        </td>
+                                        <td style="line-height:40px;">
+                                            型号<input class="form-control form-control-normal" value="@hd[1]" />
+                                        </td>
+                                        <td style="line-height:40px;">
+                                            市值<input class="form-control form-control-normal" value="@hd[2]" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                </table>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CarholdRegisterImage, new { @class = "col-lg-2 control-label" })
+                <table>
+                    <tr>
+                        @{
+                            var cri = (Model.CarholdRegisterImage ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (cri.Length == 0)
+                            {
+                                <td>-</td>
+                            }
+                            foreach (var item in cri)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    <td>
+                                        <a href="@item" data-fancybox>
+                                            <img src="@item" style="width:100px;" />
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HasLoan, new { @class = "col-lg-2 control-label" })
+                @Html.EditorFor(model => model.LoanAmount, new { htmlAttributes = new { @class = "form-control form-control-normal" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreatedDate, new { @class = "col-lg-2 control-label" })
+
+                <input class="form-control form-control-normal" value="@Model.CreatedDate.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MrriageImage, new { @class = "col-lg-2 control-label" })
+                <table>
+                    <tr>
+                        @{
+                            var mi = (Model.MrriageImage ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (mi.Length == 0)
+                            {
+                                <td>-</td>
+                            }
+                            foreach (var item in mi)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    <td>
+                                        <a href="@item" data-fancybox>
+                                            <img src="@item" style="width:100px;" />
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HouseholdRegisterImage, new { @class = "col-lg-2 control-label" })
+                <table>
+                    <tr>
+                        @{
+                            var hhr = (Model.HouseholdRegisterImage ?? "").Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (hhr.Length == 0)
+                            {
+                                <td>-</td>
+                            }
+                            foreach (var item in hhr)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    <td>
+                                        <a href="@item" data-fancybox>
+                                            <img src="@item" style="width:100px;" />
+                                        </a>
+                                    </td>
+                                }
+                            }
+                        }
+                    </tr>
+                </table>
+            </div>
+            <hr />
+            <div class="form-group pull-left">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <a href="/app/xinyongka" class="btn btn-sm btn-default">返回</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

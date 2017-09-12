@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/style.css" />
+		<title></title>
+	</head>
+
+	<body>
+		<header>
+			<div class="title">GO佳居联名信用卡客户收集系统</div>
+			<div class="leftCard">
+				<h1>金融热线</h1>
+				<h2>HOTLINE</h2>
+				<span>0512-82277444</span>
+			</div>
+			<div class="rightCard">
+				<h1>日期</h1>
+				<h2>DATES</h2>
+				<span>2017-09-07</span>
+			</div>
+		</header>
+		<div class="messageContent">
+			<!--1.基本情况-->
+			<div class="basicInformation">
+				<div>
+					<a href="#basic">基本情况<img src="img/u66.png" class="imgRotate" /></a>
+
+				</div>
+				<div id="basic" class="collapse">
+					<div>
+						<span>姓名：</span><input type="text" placeholder="必填" />
+
+					</div>
+					<div>
+						<span>身份证号：</span><input type="text" placeholder="必填" />
+
+					</div>
+					<div>
+						<span>联系电话：</span><input type="text" placeholder="必填" />
+
+					</div>
+					<div>
+						<span>籍贯：</span><input type="text" placeholder="必填" />
+
+					</div>
+
+					<div class="pic">
+						<p>上传身份证照片</p>
+						<div class='getCmr'>
+							<div class='hid'>
+								<img src="img/u2410.jpg" />
+							</div>
+							<span class='data'>删除</span>
+						</div>
+						<div class='getCmr'>
+							<div class='hid'>
+								<img src="img/u2410.jpg" />
+							</div>
+							<span class='data'>删除</span>
+						</div>
+						<div class='getCmr'>
+							<div class='hid'>
+								<img src="img/u2410.jpg" />
+							</div>
+							<span class='data'>删除</span>
+						</div>
+						<div class="addPic">
+							<img src="img/addpic.png" /><br />
+							<span>添加  </span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!--2.经营信息-->
+			<div class="manageInformation">
+				<div>
+					<a href="#manage">经营信息<img src="img/u66.png" class="imgRotate" /></a>
+
+				</div>
+				<div id="manage" class="collapse">
+					<div>
+						<span>经营行业：</span>
+						<div class="myRadio"><span>软体</span><input name="industry" type="radio" /></div>
+						<div class="myRadio"><span>实木</span><input name="industry" type="radio" /></div>
+						<div class="myRadio"><span>其他</span><input name="industry" type="radio" /></div>
+					</div>
+					<div>
+						<span>经营性质：</span>
+						<div class="myRadio"><span>工厂</span><input name="nature" type="radio" /></div>
+						<div class="myRadio"><span>专卖店</span><input name="nature" type="radio" /></div>
+					</div>
+					<div>
+						<span>数量：</span><input type="text" placeholder="工厂/专卖店数量" />
+
+					</div>
+					<div class="factory">
+						<span>地址1：</span><input type="text" placeholder="工厂/专卖店地址" />
+					</div>
+
+					<div class="adds addFactory">
+						<a><img src="img/c1.png" /><span>新增地址</span></a>
+					</div>
+
+					<div class="pic">
+						<p>上传营业执照</p>
+						<div class="addPic">
+							<a>
+								<img src="img/addpic.png" /><br />
+								<span>添加  </span>
+							</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!--3.信用卡信息-->
+			<div class="creditCard">
+				<div>
+					<a href="#card">信用卡信息<img src="img/u66.png" class="imgRotate" /></a>
+
+				</div>
+				<div id="card" class="collapse">
+					<div class="card">
+						<span>信用卡1：</span>
+						<input type="text" />
+					</div>
+					<div>
+						<span>开卡行：</span>
+						<input type="text"/>
+					</div>
+					<div>
+						<span>额度：</span><input type="text"/>
+
+					</div>
+					<div class="adds addMyCard">
+						<a><img src="img/c1.png" /><span>新增信用卡</span></a>
+					</div>
+					<div>
+						<span>逾期信息：</span>
+						<div class="myRadio"><span>有</span><input name="overdue" type="radio" /></div>
+						<div class="myRadio"><span>无</span><input name="overdue" type="radio" /></div>
+					</div>
+
+					<div>
+						<span>使用额度比：</span><input type="text" />
+
+					</div>
+				</div>
+			</div>
+			<!--4.固定资产-->
+			<div class="fixedAssets">
+				<div>
+					<a href="#fixed">固定资产信息<img src="img/u66.png" class="imgRotate" /></a>
+				</div>
+				<div id="fixed" class="collapse">
+					<h5>房产信息</h5>
+					<div class="house">
+						<span>小区名称1：</span>
+						<input type="text" />
+					</div>
+					<div>
+						<span>房产地址：</span>
+						<input type="text" />
+					</div>
+					<div>
+						<span>面积：</span><input type="text" />
+					</div>
+					<div>
+						<span>是否全款：</span>
+						<div class="myRadio"><span>是</span><input name="allMoney" type="radio" /></div>
+						<div class="myRadio"><span>否</span><input name="allMoney" type="radio" /></div>
+					</div>
+					<div class="adds addHouse">
+						<a><img src="img/c1.png" /><span>新增房产信息</span></a>
+					</div>
+					<div class="pic">
+						<p>上传房产证照片</p>
+						<div class="addPic">
+							<a>
+								<img src="img/addpic.png" /><br />
+								<span>添加  </span>
+							</a>
+						</div>
+					</div>
+					<h5>车辆信息</h5>
+					<div class="car">
+						<span>车辆品牌1：</span>
+						<input type="text" />
+					</div>
+					<div>
+						<span>型号：</span>
+						<input type="text" />
+					</div>
+					<div>
+						<span>市值：</span><input type="text" />
+					</div>
+
+					<div class="adds addCar">
+						<a><img src="img/c1.png" /><span>新增车辆信息</span></a>
+					</div>
+					<div class="pic">
+						<p>上传驾驶证照片</p>
+						<div class="addPic">
+							<a>
+								<img src="img/addpic.png" /><br />
+								<span>添加  </span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--5.贷款情况-->
+			<div class="loan">
+				<div>
+					<a href="#loan">贷款情况<img src="img/u66.png" class="imgRotate" /></a>
+				</div>
+				<div id="loan" class="collapse">
+					<div>
+						<span>逾期信息：</span>
+						<div class="myRadio"><span>有</span><input name="overdue" type="radio" /></div>
+						<div class="myRadio"><span>无</span><input name="overdue" type="radio" /></div>
+					</div>
+				</div>
+			</div>
+
+			<!--6.证件资料-->
+			<div class="data">
+				<div>
+					<a href="#data">证件资料<img src="img/u66.png" class="imgRotate" /></a>
+				</div>								
+				<div id="data" class="collapse">
+					<div>
+						<span>社保编号：</span><input type="text" />
+					</div>
+					<div class="pic">
+						<p>上传身份证照片</p>
+						<div class="addPic">
+							<a>
+								<img src="img/addpic.png" /><br />
+								<span>添加  </span>
+							</a>
+						</div>
+					</div>
+					<div class="pic">
+						<p>上传户口本照片</p>
+						<div class="addPic">
+							<a>
+								<img src="img/addpic.png" /><br />
+								<span>添加  </span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery-1.11.0.min.js"></script>
+		<script src="js/index.js"></script>
+	</body>
+
+</html>
