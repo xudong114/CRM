@@ -26,10 +26,22 @@ namespace Ingenious.Repositories.Implement
                 && item.Password.Equals(user.Password)).FirstOrDefault();
         }
 
-        public IQueryable<F_User> GetAll(ISpecification<F_User> spec)
+        public IQueryable<F_User> GetAll(ISpecification<F_User> spec, string sort = "createddate_desc")
         {
             var context = this.EFContext.Context as IngeniousDbContext;
-            return context.F_Users.Where(spec.GetExpression());
+            var query = context.F_Users.Where(spec.GetExpression());
+            switch (sort)
+            {
+                case "createddate_desc":
+                    {
+                        query = query.OrderByDescending(item => item.CreatedDate);
+                    } break;
+                case "createddate":
+                    {
+                        query = query.OrderBy(item => item.CreatedDate);
+                    } break;
+            }
+            return query;
         }
 
         public IQueryable<F_User> GetUserByBankCode(string bankCode)

@@ -32,5 +32,13 @@ namespace Ingenious.Domain.Models
         /// 店铺logo
         /// </summary>
         public string Logo { get; set; }
+        /// <summary>
+        /// 开始日期
+        /// </summary>
+        public DateTime BeginDate { get; set; }
+        /// <summary>
+        /// 结束日期
+        /// </summary>
+        public DateTime EndDate { get; set; }
     }
 }

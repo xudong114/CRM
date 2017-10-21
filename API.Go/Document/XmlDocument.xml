@@ -534,7 +534,7 @@
             <param name="bankId"></param>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.BankController.GetBanks">
+        <member name="M:API.Go.Controllers.BankController.GetBanks(System.Nullable{System.Boolean})">
             <summary>
             获取贷款银行
             总行
@@ -734,7 +734,7 @@
             <param name="order">订单参数</param>
             <returns></returns>
         </member>
-        <member name="M:API.Go.Controllers.OrderController.Step04(System.Guid)">
+        <member name="M:API.Go.Controllers.OrderController.Step04(System.Guid,System.Boolean)">
             <summary>
             04：填写征信信息
             </summary>
@@ -1050,6 +1050,13 @@
             店铺管理
             </summary>
         </member>
+        <member name="M:API.Go.Controllers.StoreController.GetStore(System.String)">
+            <summary>
+            根据店铺编号获取店铺信息
+            </summary>
+            <param name="code">店铺编号</param>
+            <returns></returns>
+        </member>
         <member name="M:API.Go.Controllers.StoreController.BindStore(System.String)">
             <summary>
             绑定店员和店铺
@@ -1178,6 +1185,13 @@
         <member name="M:API.Go.Controllers.UserController.EditUserDetail(Ingenious.DTO.F_UserDetailDTO)">
             <summary>
             编辑个人信息
+            </summary>
+            <param name="userDetail"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Go.Controllers.UserController.EditClientManager(Ingenious.DTO.F_UserDetailDTO)">
+            <summary>
+            编辑金融客服个人信息
             </summary>
             <param name="userDetail"></param>
             <returns></returns>

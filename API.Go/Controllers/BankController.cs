@@ -39,7 +39,7 @@ namespace API.Go.Controllers
         [AllowAnonymous]
         public IHttpActionResult BankOptions()
         {
-            var list = this._IF_BankOptionService.GetAll();
+            var list = this._IF_BankOptionService.GetAll(true,"order");
             return Json(new MessageResult { Status = true, Data = list });
         }
         /// <summary>
@@ -70,10 +70,10 @@ namespace API.Go.Controllers
         /// }
         /// </returns>
         [HttpGet]
-        public IHttpActionResult GetBanks()
+        public IHttpActionResult GetBanks(bool? isAdmin = true)
         {
-           var list = this._IF_BankService.GetBanks(null, true);
-           return Json(new MessageResult { Status = true, Data = list });
+            var list = this._IF_BankService.GetBanks(null, isAdmin);
+            return Json(new MessageResult { Status = true, Data = list });
         }
 
         /// <summary>

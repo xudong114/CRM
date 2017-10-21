@@ -24,6 +24,56 @@ namespace Ingenious.Application
             container.RegisterType<ICacheProvider, MemoryCacheProvider>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
+            #region 佳居贷
+
+            container.RegisterType<IG_UserRepository, G_UserRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_UserService, G_UserService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+
+            container.RegisterType<IG_UserDetailRepository, G_UserDetailRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_UserDetailService, G_UserDetailService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_OrderRepository, G_OrderRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_OrderService, G_OrderService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_OrderRecordRepository, G_OrderRecordRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_OrderRecordService, G_OrderRecordService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_BankRepository, G_BankRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_BankService, G_BankService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_StoreRepository, G_StoreRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_StoreService, G_StoreService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_ADRepository, G_ADRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_ADService, G_ADService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_NewsRepository, G_NewsRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_NewsService, G_NewsService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IG_LoanProductRepository, G_LoanProductRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IG_LoanProductService, G_LoanProductService>(new Interceptor<InterfaceInterceptor>(),
+              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            #endregion
+
             #region 信用卡申请
 
 

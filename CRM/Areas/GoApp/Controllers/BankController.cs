@@ -14,11 +14,17 @@ namespace CRM.Areas.GoApp.Controllers
 
         private readonly IF_BankOptionService _IF_BankOptionService;
         private readonly IF_BankService _IF_BankService;
+        private readonly IF_UserService _IF_UserService;
+        private readonly IF_UserDetailService _IF_UserDetailService;
         public BankController(IF_BankOptionService iF_BankOptionService,
-            IF_BankService iF_BankService)
+            IF_BankService iF_BankService, 
+            IF_UserService iF_UserService,
+            IF_UserDetailService iF_UserDetailService)
         {
             this._IF_BankOptionService = iF_BankOptionService;
             this._IF_BankService = iF_BankService;
+            this._IF_UserService = iF_UserService;
+            this._IF_UserDetailService = iF_UserDetailService;
         }
 
 
@@ -37,7 +43,7 @@ namespace CRM.Areas.GoApp.Controllers
         [HttpPost]
         public ActionResult Create(F_BankDTO bank)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 bank.CreatedBy = bank.ModifiedBy = this.User.Id;
                 this._IF_BankService.Create(bank);
@@ -83,15 +89,21 @@ namespace CRM.Areas.GoApp.Controllers
             return RedirectToAction("index");
         }
 
-        public ActionResult Delete(string [] ids)
+        public ActionResult Delete(string[] ids)
         {
             var list = new List<F_BankDTO>();
-            foreach(var item in ids)
+            foreach (var item in ids)
             {
                 list.Add(new F_BankDTO { Id = Guid.Parse(item) });
             }
             this._IF_BankService.Delete(list);
             return RedirectToAction("index");
+        }
+
+        public ActionResult BankUser()
+        {
+            var list = this._IF_UserService.GetBankUser();
+            return View(list);
         }
 
     }

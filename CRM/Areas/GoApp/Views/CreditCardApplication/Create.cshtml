@@ -191,7 +191,7 @@
                     <a><img src="~/Areas/GoApp/Content/creditcard/img/c1.png" /><span>新增车辆信息</span></a>
                 </div>
                 <div class="pic" btncarholdregisterupload>
-                    <p>上传驾驶证照片</p>
+                    <p>上传行驶证证照片</p>
                     <div class="addPic">
                         <a id="btnCarholdRegisterUpload">
                             <img src="~/Areas/GoApp/Content/creditcard/img/addpic.png" /><br />
@@ -430,8 +430,6 @@
         });
 
         data.House = house;
-        alert(house);
-        return;
         var car = '';
         $('.car').each(function () {
             var data = $(this).find('input').val() + "#";
@@ -468,12 +466,6 @@
             btnhouseholdupload += "#" + $(this).attr('src');
         });
         data.HouseholdImage = btnhouseholdupload;
-
-        var btncarholdregisterupload = '';
-        $('div[btncarholdregisterupload] .getCmr img').each(function () {
-            btncarholdregisterupload += "#" + $(this).attr('src');
-        });
-        data.HouseholdImage = btncarholdregisterupload;
 
         var btncarholdregisterupload = '';
         $('div[btncarholdregisterupload] .getCmr img').each(function () {

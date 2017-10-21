@@ -48,8 +48,23 @@ namespace Ingenious.Repositories.EntityFramework
 
         #region Models
 
+        #region 佳居贷
+
+        public DbSet<G_User> G_Users { get; set; }
+        public DbSet<G_UserDetail> G_UserDetails { get; set; }
+        public DbSet<G_Store> G_Stores { get; set; }
+        public DbSet<G_Order> G_Orders { get; set; }
+        public DbSet<G_OrderRecord> G_OrderRecords { get; set; }
+        public DbSet<G_News> G_News { get; set; }
+        public DbSet<G_AD> G_ADs { get; set; }
+        public DbSet<G_Bank> G_Banks { get; set; }
+        public DbSet<G_Factory> G_Factorys { get; set; }
+        public DbSet<G_LoanProduct> G_LoanProducts { get; set; }
+
+        #endregion
+
         #region 信用卡
-        
+
         public DbSet<F_CreditCardApplication> F_CreditCardApplications { get; set; }
         public DbSet<F_CreditCard> F_CreditCards { get; set; }
         public DbSet<F_CreditCardCar> F_CreditCardCars { get; set; }

@@ -24,6 +24,39 @@ namespace Ingenious.Application
             //初始化EF
             Ingenious.Repositories.EntityFramework.IngeniousDbContextInitializer.InitializeDatabase();
 
+            #region 佳居贷
+            Mapper.CreateMap<G_AD, G_ADDTO>();
+            Mapper.CreateMap<G_ADDTO, G_AD>();
+
+            Mapper.CreateMap<G_Bank, G_BankDTO>();
+            Mapper.CreateMap<G_BankDTO, G_Bank>();
+
+            Mapper.CreateMap<G_Factory, G_FactoryDTO>();
+            Mapper.CreateMap<G_FactoryDTO, G_Factory>();
+
+            Mapper.CreateMap<G_LoanProduct, G_LoanProductDTO>();
+            Mapper.CreateMap<G_LoanProductDTO, G_LoanProduct>();
+
+            Mapper.CreateMap<G_News, G_NewsDTO>();
+            Mapper.CreateMap<G_NewsDTO, G_News>();
+
+            Mapper.CreateMap<G_Order, G_OrderDTO>();
+            Mapper.CreateMap<G_OrderDTO, G_Order>();
+
+            Mapper.CreateMap<G_OrderRecord, G_OrderRecordDTO>();
+            Mapper.CreateMap<G_OrderRecordDTO, G_OrderRecord>();
+
+            Mapper.CreateMap<G_Store, G_StoreDTO>();
+            Mapper.CreateMap<G_StoreDTO, G_Store>();
+
+            Mapper.CreateMap<G_User, G_UserDTO>();
+            Mapper.CreateMap<G_UserDTO, G_User>();
+
+            Mapper.CreateMap<G_UserDetail, G_UserDetailDTO>();
+            Mapper.CreateMap<G_UserDetailDTO, G_UserDetail>();
+
+            #endregion
+
             #region 信用卡
 
             Mapper.CreateMap<F_CreditCardApplication, F_CreditCardApplicationDTO>();

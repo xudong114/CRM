@@ -12,6 +12,7 @@ namespace Ingenious.Application.Interface
     {
         F_UserDTO Login(F_UserDTO user);
         F_UserDTO GetUserByUserName(string userName);
-        F_UserDTOList GetUsers(bool? isActive = true, string keywords = "", string order = "createddate_desc");
+        F_UserDTOList GetUsers(bool? isActive = true, string keywords = "", F_UserTypeEnum? userType = null, string order = "createddate_desc");
+        F_UserDTOList GetBankUser(string bankcode = "", bool? isactive = null);
     }
 }

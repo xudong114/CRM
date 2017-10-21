@@ -40,6 +40,16 @@ namespace Ingenious.DTO
         /// </summary>
         [DisplayName("logo")]
         public string Logo { get; set; }
+        /// <summary>
+        /// 开始日期
+        /// </summary>
+        [DisplayName("开始日期")]
+        public DateTime BeginDate { get; set; }
+        /// <summary>
+        /// 结束日期
+        /// </summary>
+        [DisplayName("结束日期")]
+        public DateTime EndDate { get; set; }
     }
 
     public class F_StoreDTOList : List<F_StoreDTO>

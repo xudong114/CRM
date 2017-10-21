@@ -57,7 +57,8 @@ namespace API.Go.Controllers
         public IHttpActionResult GetOrder(Guid id)
         {
             var order = this._IF_OrderService.GetByKey(id);
-            return Json(order);
+            //return Json(order);
+            return Json(new MessageResult { Status = true, Data = order });
         }
 
         /// <summary>
@@ -200,7 +201,7 @@ namespace API.Go.Controllers
         public IHttpActionResult Step03(F_OrderDTO order)
         {
             if (string.IsNullOrWhiteSpace(order.StoreCode)
-                    || string.IsNullOrWhiteSpace(order.ClerkCode)
+                    //|| string.IsNullOrWhiteSpace(order.ClerkCode)
                 )
             {
                 return Json(new MessageResult { Status = false, Message = "资料不全" });
@@ -218,12 +219,16 @@ namespace API.Go.Controllers
             {
                 return Json(new MessageResult { Status = false, Message = "店铺无效" });
             }
-
-            var boundStore = this._IF_StorerService.GetStoreByClerkId(order.ClerkCode);
-            if (boundStore == null || boundStore.Code != order.StoreCode)
+            //如果导购工号未填写，则不需要校验导购和商铺的从属关系
+            if(!string.IsNullOrWhiteSpace(order.ClerkCode))
             {
-                return Json(new MessageResult { Status = false, Message = "导购和店铺不匹配" });
+                var boundStore = this._IF_StorerService.GetStoreByClerkId(order.ClerkCode);
+                if (boundStore == null || boundStore.Code != order.StoreCode)
+                {
+                    return Json(new MessageResult { Status = false, Message = "导购和店铺不匹配" });
+                }
             }
+            
             model.StoreCode = order.StoreCode;
             model.ClerkCode = order.ClerkCode;
 
@@ -244,14 +249,16 @@ namespace API.Go.Controllers
         /// <param name="id">订单Id</param>
         /// <returns></returns>
         [HttpGet]
-        public IHttpActionResult Step04(Guid id)
+        public IHttpActionResult Step04(Guid id, bool submit = true)
         {
             var files = this._IF_FileService.GetFilesByReferenceId(id).Where(item => item.Code.Equals("4"));
             if (files.Count() == 0)
             {
                 return Json(new MessageResult { Status = false, Message = "请上传征信资料" });
             }
-            return this.Submit(id);
+            if (submit)
+                return this.Submit(id);
+            return Json(new MessageResult { Status = true, Message = "订单保存成功" });
         }
 
         /// <summary>
@@ -852,10 +859,12 @@ namespace API.Go.Controllers
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
         public IHttpActionResult GetOrderCountByUserId()
         {
-            var list = this._IF_OrderService.GetAll(null, null, null, this.User.Id, null, null, null);
-
+            var list = this._IF_OrderService.GetAll(null, null, null, this.User.Id);
+            //var list = this._IF_OrderService.GetAll(null, null, null, new Guid("6f7ed9a1-f762-e711-8127-0019b93d4f5e"));
             var result = new { Temp = 0, InProcess = 0, Passed = 0, Failed = 0 };
             if (list.Count() == 0)
             {

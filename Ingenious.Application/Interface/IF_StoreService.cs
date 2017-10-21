@@ -38,5 +38,16 @@ namespace Ingenious.Application.Interface
         /// <param name="storeCode">店铺编号</param>
         /// <returns></returns>
         List<F_UserDetailDTO> GetClerks(string storeCode);
+
+        /// <summary>
+        /// 获取店铺
+        /// </summary>
+        /// <param name="isActive"></param>
+        /// <param name="websiteId"></param>
+        /// <param name="beginDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        List<F_StoreDTO> GetStores(bool? isActive = null, string websiteId = "", DateTime? beginDate = null, DateTime? endDate = null, string sort = "code_desc");
     }
 }

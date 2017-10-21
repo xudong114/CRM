@@ -192,7 +192,57 @@ namespace Ingenious.Infrastructure.Message
             return message;
         }
 
+        /// <summary>
+        /// 检验发送次数
+        /// </summary>
+        /// <param name="requestIP"></param>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        //public static bool CheckSendNum(string requestIP, string phoneNumber)
+        //{
+        //    //验证方式
+        //    string verifiedManner = BLL.SysManage.ConfigSystem.GetValueByCache("Emay_SMS_FrequentVerifiedManner");
+        //    //文件
+        //    if (!String.IsNullOrWhiteSpace(verifiedManner) && verifiedManner.ToLower() == "file")
+        //    {
+        //        string strText = ReadText();
+        //        if (String.IsNullOrWhiteSpace(strText))
+        //        {
+        //            return true;
+        //        }
+        //        string[] lines = strText.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+        //        if (lines == null || lines.Length == 0)
+        //        {
+        //            return true;
+        //        }
+        //        int phonecount = lines.Where(o => o.Contains(phoneNumber)).Count();
+        //        if (phonecount >= 5)
+        //        {
+        //            return false;
+        //        }
+        //        int ipcount = lines.Where(o => o.Contains(requestIP)).Count();
+        //        if (ipcount > 20)
+        //        {
+        //            return false;
+        //        }
+        //    }//缓存
+        //    else
+        //    {
+        //        //一个手机号码24小时内最多获取短信验证码5次
+        //        string PhoneCacheKey = "YSWL.GetMsgCode_Phone" + phoneNumber;
+        //        int count = YSWL.Common.Globals.SafeInt(YSWL.Common.DataCache.GetCache(PhoneCacheKey), 0);
+        //        if (count >= 5)
+        //        {
+        //            return false;
+        //        }
 
+        //        //一个IP24小时最多获取20次验证码
+        //        string IPCacheKey = "YSWL.GetMsgCode_IP" + requestIP;
+        //        count = YSWL.Common.Globals.SafeInt(YSWL.Common.DataCache.GetCache(IPCacheKey), 0);
+        //        if (count >= 20) { return false; }
+        //    }
+        //    return true;
+        //}
        
     }
 

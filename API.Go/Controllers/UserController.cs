@@ -366,6 +366,42 @@ namespace API.Go.Controllers
         }
 
         /// <summary>
+        /// 编辑金融客服个人信息
+        /// </summary>
+        /// <param name="userDetail"></param>
+        /// <returns></returns>
+        [System.Web.Http.HttpPost]
+        public IHttpActionResult EditClientManager(F_UserDetailDTO userDetail)
+        {
+            var user = this._IF_UserDetailService.GetUserDetailByUserId(userDetail.F_UserId);
+            var isExists = user != null;
+            if (isExists)
+            {
+                if (string.IsNullOrWhiteSpace(userDetail.Name))
+                {
+                    return Json(new MessageResult { Status = false, Message = "真实姓名必填" });
+                }
+
+                user.Name = userDetail.Name;
+                user.NickName = userDetail.NickName;
+                user.Gender = userDetail.Gender;
+                user.Province = userDetail.Province;
+                user.City = userDetail.City;
+                user.Country = userDetail.Country;
+                user.Street = userDetail.Street;
+                user.Email = userDetail.Email;
+                user.Face = userDetail.Face;
+                
+                this._IF_UserDetailService.Update(new List<F_UserDetailDTO> { user });
+            }
+            else
+            {
+                this._IF_UserDetailService.Create(userDetail);
+            }
+            return Json(new MessageResult { Status = true, Message = "保存成功" });
+        }
+
+        /// <summary>
         /// 更新银行信贷经理信息
         /// </summary>
         /// <param name="userDetail">信贷经理信息</param>

@@ -12,7 +12,7 @@ namespace Ingenious.Application.Interface
 {
     public interface IF_BankOptionService : IApplication<F_BankOptionDTO>
     {
-        List<F_BankOptionDTO> GetAll();
+        List<F_BankOptionDTO> GetAll(bool? isAdmin = null, string sort = "order_desc");
         F_BankOptionDTO GetBankOptionByBankId(Guid bankId);
     }
 }

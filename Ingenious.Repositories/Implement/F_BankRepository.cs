@@ -18,10 +18,34 @@ namespace Ingenious.Repositories.Implement
             
         }
 
-        public IQueryable<F_Bank> GetAll(ISpecification<F_Bank> spec)
+        public IQueryable<F_Bank> GetAll(ISpecification<F_Bank> spec, string sort = "order")
         {
             var context = this.EFContext.Context as IngeniousDbContext;
-            return context.F_Banks.Where(spec.GetExpression());
+            var query = context.F_Banks.Where(spec.GetExpression());
+            switch (sort)
+            {
+                case "order_desc":
+                    {
+                        query = query.OrderByDescending(item => item.Order);
+                    }
+                    break;
+                case "order":
+                    {
+                        query = query.OrderBy(item => item.Order);
+                    }
+                    break;
+                case "createddate_desc":
+                    {
+                        query = query.OrderByDescending(item => item.CreatedDate);
+                    }
+                    break;
+                case "createddate":
+                    {
+                        query = query.OrderBy(item => item.CreatedDate);
+                    }
+                    break;
+            }
+            return query;
         }
 
         public F_Bank GetBankByUserId(Guid id)

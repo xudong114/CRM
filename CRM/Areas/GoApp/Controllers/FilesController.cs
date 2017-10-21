@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -25,6 +26,12 @@ namespace CRM.Areas.GoApp.Controllers
             return Upload("app");
         }
 
+        public ActionResult JJD()
+        {
+            return Upload("jiajudai");
+        }
+
+        [AllowAnonymous]
         public ActionResult Creditcard()
         {
             return Upload("creditcard");
@@ -32,8 +39,7 @@ namespace CRM.Areas.GoApp.Controllers
 
         public ActionResult Upload(string floder = "crm")
         {
-            string domain = "http://crm.gojiaju.cn/";
-
+            string domain = ConfigurationManager.AppSettings.Get("domain");// "http://crm.gojiaju.cn/";
             const int maxSize = 3 * 1024 * 1024; //3M
             var hash = new Hashtable();
             //HttpPostedFileBase file = Request.Files[0];

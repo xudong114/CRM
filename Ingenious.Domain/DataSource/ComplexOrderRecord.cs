@@ -36,7 +36,7 @@ namespace Ingenious.Domain.DataSource
         /// <summary>
         /// 状态
         /// </summary>
-        public F_OrderStatusEnum Status { get; set; }
+        public G_OrderStatusEnum Status { get; set; }
 
         /// <summary>
         /// 订单阶段
@@ -48,25 +48,25 @@ namespace Ingenious.Domain.DataSource
                 string name = string.Empty;
                 switch(this.Status)
                 {
-                    case F_OrderStatusEnum.GojiajuPassed:
-                    case F_OrderStatusEnum.GojiajuDenied:
+                    case G_OrderStatusEnum.GojiajuPassed:
+                    case G_OrderStatusEnum.GojiajuDenied:
                         {
                             name = "平台受理";
                         }
                         break;
-                    case F_OrderStatusEnum.BankDenied:
-                    case F_OrderStatusEnum.BankPassed:
+                    case G_OrderStatusEnum.BankDenied:
+                    case G_OrderStatusEnum.BankPassed:
                         {
                             name = "银行受理";
                         }
                         break;
-                    case F_OrderStatusEnum.BankSigned:
-                    case F_OrderStatusEnum.SignCanceled:
+                    case G_OrderStatusEnum.BankSigned:
+                    case G_OrderStatusEnum.SignCanceled:
                         {
                             name = "银行签约";
                         }
                         break;
-                    case F_OrderStatusEnum.Successed:
+                    case G_OrderStatusEnum.Successed:
                         {
                             name = "银行放款";
                         }

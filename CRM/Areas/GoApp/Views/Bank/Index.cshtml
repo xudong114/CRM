@@ -33,12 +33,14 @@
             <thead>
                 <tr>
                     <th width="20"><input type="checkbox"></th>
+                    <th>排序</th>
                     <th>Logo</th>
                     <th>名称</th>
                     <th>编码</th>
                     <th>总行</th>
                     <th>自动分配订单</th>
                     <th>创建日期</th>
+                    <th>状态</th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,6 +50,7 @@
                     {
                         <tr>
                             <td><input type="checkbox" bank value="@item.Id"></td>
+                            <td>@item.Order</td>
                             <td><img src="@item.Logo" /> </td>
                             <td>@item.Name</td>
                             <td>@item.Code</td>
@@ -59,7 +62,11 @@
                                 }
                             </td>
                             <td>
+                                @(item.IsActive?"":"已删除")
+                            </td>
+                            <td>
                                 <a href="/app/bank/editbankoption/@item.Id">银行贷款事项</a>
+                                <a href="/app/user/bankuser/@item.Code" style="margin-left:30px;">用户管理</a>
                                 <a href="/app/bank/edit/@item.Id" style="margin-left:30px;"><i class="fa fa-edit"></i></a>
                                 <a href="/app/bank/delete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
                             </td>

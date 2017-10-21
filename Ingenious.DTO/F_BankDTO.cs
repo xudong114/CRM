@@ -43,5 +43,10 @@ namespace Ingenious.DTO
         [DisplayName("是否开启自动分配订单")]
         public bool IsAssignAuto { get; set; }
 
+        /// <summary>
+        /// 排序
+        /// </summary>
+        [DisplayName("排序")]
+        public int Order { get; set; }
     }
 }

@@ -90,7 +90,10 @@ namespace Ingenious.Domain.DataSource
         /// 客服工号
         /// </summary>
         public string GoJiajuClerkCode { get; set; }
-
+        /// <summary>
+        /// 客服电话
+        /// </summary>
+        public string GoJiajuClerkOfficePhone { get; set; }
         /// <summary>
         /// 客服姓名
         /// </summary>

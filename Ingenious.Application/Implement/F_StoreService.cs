@@ -93,6 +93,31 @@ namespace Ingenious.Application.Implement
             return userDTO;
         }
 
+        public List<F_StoreDTO> GetStores(bool? isActive = null,string websiteId="",DateTime? beginDate=null,DateTime? endDate=null,string sort="code_desc")
+        {
+            var list = new List<F_StoreDTO>();
+            ISpecification<F_Store> spec = Specification<F_Store>.Eval(item => true);
+            spec = new AndSpecification<F_Store>(spec,
+                Specification<F_Store>.Eval(item =>
+                isActive==null || item.IsActive == isActive.Value));
+
+            spec = new AndSpecification<F_Store>(spec,
+                Specification<F_Store>.Eval(item =>
+                websiteId == "" || item.WebsiteId.ToString().ToLower() == websiteId.ToString().ToLower()));
+
+            spec = new AndSpecification<F_Store>(spec,
+                Specification<F_Store>.Eval(item =>
+                beginDate == null || item.BeginDate >= beginDate.Value ));
+
+            spec = new AndSpecification<F_Store>(spec,
+                Specification<F_Store>.Eval(item =>
+                endDate == null || item.EndDate < endDate.Value));
+
+            this._IF_StoreRepository.GetAll(spec, sort);
+
+            return list;
+        }
+
         public F_StoreDTO Create(F_StoreDTO dto)
         {
             return base.F_Create<F_StoreDTO, F_Store>(dto

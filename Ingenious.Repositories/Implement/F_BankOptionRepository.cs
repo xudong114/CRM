@@ -12,16 +12,39 @@ namespace Ingenious.Repositories.Implement
 {
     public class F_BankOptionRepository : EntityFrameworkRepository<F_BankOption>, IF_BankOptionRepository
     {
-        public F_BankOptionRepository(IRepositoryContext context) 
-            : base(context) 
+        public F_BankOptionRepository(IRepositoryContext context)
+            : base(context)
         {
-            
+
         }
 
-        public IQueryable<F_BankOption> GetAll(ISpecification<F_BankOption> spec)
+        public IQueryable<F_BankOption> GetAll(ISpecification<F_BankOption> spec, string sort = "order_desc")
         {
             var context = this.EFContext.Context as IngeniousDbContext;
-            return context.F_BankOptions.Where(spec.GetExpression());
+
+            var query = context.F_BankOptions.Where(spec.GetExpression());
+
+            switch (sort)
+            {
+                case "order_desc":
+                    {
+                        query = query.OrderByDescending(item => item.F_Bank.Order);
+                    } break;
+                case "order":
+                    {
+                        query = query.OrderBy(item => item.F_Bank.Order);
+                    } break;
+                case "createddate_desc":
+                    {
+                        query = query.OrderByDescending(item => item.F_Bank.CreatedDate);
+                    } break;
+                case "createddate":
+                    {
+                        query = query.OrderBy(item => item.F_Bank.CreatedDate);
+                    } break;
+            }
+
+            return query;
         }
 
         public F_BankOption GetBankOptionByBankId(Guid bankId)

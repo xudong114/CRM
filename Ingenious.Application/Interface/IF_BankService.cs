@@ -13,7 +13,7 @@ namespace Ingenious.Application.Interface
     {
         F_BankDTO GetBankByUserId(Guid id);
         F_BankDTO GetBank(string bankCode);
-        List<F_BankDTO> GetBanks(string bankCode = "", bool? isAdmin = null);
+        List<F_BankDTO> GetBanks(string bankCode = "", bool? isAdmin = null, string sort = "order");
         string AssignOrderToClerk(string bankCode);
     }
 }

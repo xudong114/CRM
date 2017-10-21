@@ -28,8 +28,8 @@ namespace Ingenious.Repositories.Implement
         public IQueryable<ComplexOrderRecord> GetOrderRecordByOrderId(Guid orderId)
         {
             var context = this.EFContext.Context as IngeniousDbContext;
-            var query = from or in context.F_OrderRecords
-                        join u in context.F_UserDetails on or.UserId equals u.F_UserId
+            var query = from or in context.G_OrderRecords
+                        join u in context.G_UserDetails on or.UserId equals u.G_UserId
                         where or.OrderId == orderId
                         select new ComplexOrderRecord
                         {

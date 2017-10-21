@@ -27,7 +27,7 @@ namespace Ingenious.Application.Implement
             this._IF_OrderService = iF_OrderService;
         }
 
-        public List<F_BankDTO> GetBanks(string bankCode = "", bool? isAdmin = null)
+        public List<F_BankDTO> GetBanks(string bankCode = "", bool? isAdmin = null,string sort = "order")
         {
             ISpecification<F_Bank> spec = Specification<F_Bank>.Eval(item => true);
             spec = new AndSpecification<F_Bank>(spec,
@@ -36,18 +36,19 @@ namespace Ingenious.Application.Implement
                 ));
             spec = new AndSpecification<F_Bank>(spec,
                 Specification<F_Bank>.Eval(item =>
-                isAdmin == null || isAdmin.HasValue || item.IsAdmin.Equals(isAdmin.Value)
+                isAdmin == null || item.IsAdmin.Equals(isAdmin.Value)
                 ));
 
             spec = new AndSpecification<F_Bank>(spec,
                 Specification<F_Bank>.Eval(item => item.IsActive));
 
             var list = new List<F_BankDTO>();
-            this._IF_BankRepository.GetAll(spec).ToList().ForEach(item =>
+            this._IF_BankRepository.GetAll(spec,sort).ToList().ForEach(item =>
                 list.Add(Mapper.Map<F_Bank, F_BankDTO>(item))
                 );
             return list;
         }
+
 
         public F_BankDTO GetBank(string bankCode)
         {
@@ -92,6 +93,8 @@ namespace Ingenious.Application.Implement
 
         public F_BankDTO Create(F_BankDTO dto)
         {
+            int maxOrder = this._IF_BankRepository.Data.Max(item => item.Order);
+            dto.Order = maxOrder + 1;
             var user= base.F_Create<F_BankDTO, F_Bank>(dto
                 , _IF_BankRepository
                 , dtoAction => { });
@@ -107,6 +110,7 @@ namespace Ingenious.Application.Implement
                  , dto => dto.Id
                  , (dto, entity) =>
                  {
+                     entity.Order = dto.Order;
                      entity.Logo = dto.Logo;
                      entity.Code = dto.Code;
                      entity.IsAdmin = dto.IsAdmin;

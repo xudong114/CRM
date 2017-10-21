@@ -18,10 +18,30 @@ namespace Ingenious.Repositories.Implement
             
         }
 
-        public IQueryable<F_Store> GetAll(ISpecification<F_Store> spec)
+        public IQueryable<F_Store> GetAll(ISpecification<F_Store> spec, string sort = "code_desc")
         {
             var context = this.EFContext.Context as IngeniousDbContext;
-            return context.F_Stores.Where(spec.GetExpression());
+            var query = context.F_Stores.Where(spec.GetExpression());
+            switch (sort)
+            {
+                case "code_desc":
+                    {
+                        query = query.OrderByDescending(item => item.Code);
+                    } break;
+                case "code":
+                    {
+                        query = query.OrderBy(item => item.Code);
+                    } break;
+                case "createddate_desc":
+                    {
+                        query = query.OrderByDescending(item => item.CreatedDate);
+                    } break;
+                case "createddate":
+                    {
+                        query = query.OrderBy(item => item.CreatedDate);
+                    } break;
+            }
+            return query;
         }
 
         public bool BindStore(string storeCode, string userCode)

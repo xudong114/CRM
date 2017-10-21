@@ -21,14 +21,8 @@
         <div class="col-sm-3 m-b-xs">
             <a class="btn btn-sm btn-primary" href="/app/news/create"> 新建新闻</a>
         </div>
-        <form id="userSearchForm" action="/app/news/index">
-            <select id="code" name="code">
-                <option value="">选择分类</option>
-                <option value="新闻">新闻</option>
-                <option value="QA">QA</option>
-                <option value="活动">活动</option>
-                <option value="关于我们">关于我们</option>
-            </select>
+        <form id="userSearchForm" action="/app/news/index" >
+            
             <div class="col-sm-3 pull-right ">
                 
                 <div class="input-group">
@@ -37,8 +31,14 @@
                         <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
                     </span>
                 </div>
-
             </div>
+            <select id="code" name="code" class="form-control form-control-normal pull-right">
+                <option value="">选择分类</option>
+                <option value="新闻">新闻</option>
+                <option value="QA">QA</option>
+                <option value="活动">活动</option>
+                <option value="关于我们">关于我们</option>
+            </select>
         </form>
     </div>
     <div class="table-responsive">

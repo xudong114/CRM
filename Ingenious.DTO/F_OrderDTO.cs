@@ -111,6 +111,12 @@ namespace Ingenious.DTO
         public string GoJiajuClerkCode { get; set; }
 
         /// <summary>
+        /// 客服电话
+        /// </summary>
+        [DisplayName("客服电话")]
+        public string GoJiajuClerkOfficePhone { get; set; }
+
+        /// <summary>
         /// 客服姓名
         /// </summary>
         [DisplayName("客服姓名")]
@@ -211,6 +217,7 @@ namespace Ingenious.DTO
         /// </summary>
         public List<F_FileDTO> Files { get; set; }
     }
+
     [DisplayName("贷款申请单List")]
     public class F_OrderDTOList : List<F_OrderDTO>
     { }

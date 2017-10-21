@@ -90,6 +90,8 @@
     <Compile Include="Cache\APIMemoryCacheProvider.cs" />
     <Compile Include="Cache\MemoryCacheProvider.cs" />
     <Compile Include="Enum\ContractStatusEnum.cs" />
+    <Compile Include="Enum\G_UserTypeEnum.cs" />
+    <Compile Include="Enum\G_OrderStatusEnum.cs" />
     <Compile Include="Enum\F_OrderStatusEnum.cs" />
     <Compile Include="Enum\F_UserTypeEnum.cs" />
     <Compile Include="Enum\PaymentMethodEnum.cs" />

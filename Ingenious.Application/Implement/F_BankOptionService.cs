@@ -24,19 +24,21 @@ namespace Ingenious.Application.Implement
             this._IF_BankOptionRepository = iF_BankOptionRepository;
         }
 
-        public List<F_BankOptionDTO> GetAll()
+        public List<F_BankOptionDTO> GetAll(bool? isAdmin = null, string sort = "order_desc")
         {
             ISpecification<F_BankOption> spec = Specification<F_BankOption>.Eval(item => true);
-            //spec = new AndSpecification<F_BankOption>(spec,
-            //    Specification<F_BankOption>.Eval(item =>
-            //    bankCode == null || bankCode == "" || item.Code.Equals(bankCode)
-            //    ));
-            //spec = new AndSpecification<F_BankOption>(spec,
-            //    Specification<F_BankOption>.Eval(item =>
-            //    isAdmin == null || isAdmin.HasValue || item.IsAdmin.Equals(isAdmin.Value)
-            //    ));
+            spec = new AndSpecification<F_BankOption>(spec,
+                Specification<F_BankOption>.Eval(item => item.F_Bank.IsActive));
+            if (isAdmin != null)
+            {
+                spec = new AndSpecification<F_BankOption>(spec,
+                Specification<F_BankOption>.Eval(item =>
+                    isAdmin == null || isAdmin.HasValue || item.F_Bank.IsAdmin.Equals(isAdmin.Value)
+                ));
+            }
+            
             var list = new List<F_BankOptionDTO>();
-            this._IF_BankOptionRepository.GetAll(spec).ToList().ForEach(item =>
+            this._IF_BankOptionRepository.GetAll(spec,sort).ToList().ForEach(item =>
                 list.Add(Mapper.Map<F_BankOption, F_BankOptionDTO>(item))
                 );
             return list;

@@ -46,6 +46,8 @@ namespace Ingenious.Repositories.Implement
                         {
                             GoJiajuClerkCode = o.GoJiajuClerkCode,
                             GoJiajuClerkName = g.Name,
+                            GoJiajuClerkOfficePhone = g.OfficePhone,
+
                             BankCode = o.BankCode,
 
                             BankClerk = o.BankClerk,

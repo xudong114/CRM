@@ -27,6 +27,18 @@ namespace API.Go.Controllers
         }
 
         /// <summary>
+        /// 根据店铺编号获取店铺信息
+        /// </summary>
+        /// <param name="code">店铺编号</param>
+        /// <returns></returns>
+        [HttpGet]
+        public IHttpActionResult GetStore(string code)
+        {
+           var store = this._IF_StorerService.GetStoreByCode(code);
+           return Json(new MessageResult { Status = true, Data = store });
+        }
+
+        /// <summary>
         /// 绑定店员和店铺
         /// </summary>
         /// <param name="storeId">店铺Id</param>

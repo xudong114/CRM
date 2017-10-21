@@ -33,5 +33,9 @@ namespace Ingenious.Domain.Models
         /// </summary>
         public bool IsAssignAuto { get; set; }
 
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Order { get; set; }
     }
 }
