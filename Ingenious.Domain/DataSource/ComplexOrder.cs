@@ -27,6 +27,7 @@ namespace Ingenious.Domain.DataSource
         /// 身份证号码
         /// </summary>
         public string IDNo { get; set; }
+
         /// <summary>
         /// 手机号码
         /// </summary>

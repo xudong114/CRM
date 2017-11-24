@@ -1,0 +1,114 @@
+﻿@model Ingenious.DTO.F_UserDTO
+@using Ingenious.Infrastructure.Extensions;
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/app/user/index"><i class="fa fa-home"></i>用户管理</a></li>
+    <li class="active">新建用户</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建用户</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/app/user/create" method="post">
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserType, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @{
+                            @Html.EnumDropDownList(typeof(Ingenious.Infrastructure.Enum.F_UserTypeEnum), "", " id = 'UserType' name='UserType' class='form-control form-control-normal' ", "用户类型")
+                        }
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" id="BankCodeContainer" style="display:none;">
+                    <label class="col-lg-2 control-label" for="F_UserDetail_BankCode">所属银行</label>
+                    <div class="col-lg-10 required">
+                        @{
+                            @Html.DropDownListFor(item => item.F_UserDetail.BankCode, ViewBag.Banks as SelectList, "请选择", new { @class = "form-control form-control-normal" })
+                        }
+
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.BankCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.F_UserDetail.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.F_UserDetail.Name, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.F_UserDetail.Email, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.F_UserDetail.Email, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.F_UserDetail.Title, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.F_UserDetail.Title, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.F_UserDetail.OfficePhone, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.F_UserDetail.OfficePhone, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.OfficePhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.F_UserDetail.Wechat, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.F_UserDetail.Wechat, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.Wechat, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.F_UserDetail.QQ, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.F_UserDetail.QQ, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.F_UserDetail.QQ, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/app/user" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+@section scripts{
+
+    <script>
+
+        $().ready(function () {
+            $('#UserType').click(function () {
+                var code = $(this).val();
+                if (code == 8 || code == 16) {
+                    $('#BankCodeContainer').show();
+                } else {
+                    $('#BankCodeContainer').hide();
+                }
+            });
+        });
+
+    </script>
+}

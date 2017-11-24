@@ -1,0 +1,64 @@
+﻿@model CRM.Areas.JJD.Models.ClientServiceComplexModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/css/ClientService/index.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="check" style="display: none" class="a4"></div>
+    <div class='heads'>
+        <img id="Face" src="~/Areas/JJD/Content/images/01.index/touxiang.png" />
+        <a id="Name"></a>
+        <h5>@Model.User.UserName</h5>
+        <h6>金融客服</h6>
+    </div>
+    <div class='applys' id='applys'>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell ">
+                <a id="btnInProcess" href="/jiajudai/clientservice/orders?pageIndex=1&status=@Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum.PreProcess" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/sq1.png" />待受理<span id="InProcess">@Model.PreProcessCount</span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a id="btnPresigned" href="/jiajudai/clientservice/orders?pageIndex=1&status=@Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum.PreSign" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/sq2.png" />待签约<span id="Presigned">@Model.PreSignCount</span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a id="btnPrepassed" href="/jiajudai/clientservice/orders?pageIndex=1&status=@Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum.PreSuccess" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/sq3.png" />待放款 <span id="Prepassed">@Model.PreSuccessedCount</span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a id="btnPassed" href="/jiajudai/clientservice/orders?pageIndex=1&status=@Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum.Successed" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/sq2.png" />已放款<span id="Passed">@Model.SuccessedCount</span></a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a id="btnFailed" href="/jiajudai/clientservice/orders?pageIndex=1&status=@Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum.Canceled" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/sq3.png" />已失效 <span id="Failed">@Model.PassedCount</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class='applys' id='sets'>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a id="btnMyClerk" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/xiaoxi2.png" />消息中心<span style="float: right;margin-right: 21px;color: #999;">@Model.MessageCount</span> </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a id="btnQA" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/bangzhu.png" />帮助与反馈</a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a id="btnSettings" href="/jiajudai/setting/index/@Model.User.Id" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/shezhi.png" />设置中心</a>
+            </li>
+        </ul>
+    </div>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/ClientService/index.js"></script>
+
+    <!--底部-->
+    @Html.Action("Navbar", "Partial")
+</body>
+</html>

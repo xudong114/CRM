@@ -1,0 +1,102 @@
+﻿@model Ingenious.DTO.G_BankDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/jiajudai/sys/bank/index"><i class="fa fa-home"></i>银行管理</a></li>
+    <li class="active">编辑银行</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">编辑银行</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal " action="/jiajudai/sys/bank/edit" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Order, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control form-control-small" } })
+                        @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsAdmin, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.CheckBoxFor(model => model.IsAdmin, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.IsAdmin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Logo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="Logo" name="Logo" value="@Model.Logo" />
+                        <a id="btnUpload" class="btn btn-default">上传图片</a>(640*X)
+                        <img id="previewAD" src="@Model.Logo" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/jiajudai/sys/bank" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+@section css{
+    <link href="~/Areas/GoApp/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+}
+@section scripts{
+
+    <script src="~/Areas/GoApp/Content/kindeditor/kindeditor-min.js"></script>
+    <script src="~/Areas/GoApp/Content/kindeditor/lang/zh_CN.js"></script>
+
+    <script>
+
+        KindEditor.ready(function (k) {
+            var editor = k.editor({
+                allowImageUpload: true,
+                allowFileManager: true,
+                formatUploadUrl:false,
+                uploadJson: '/jiajudai/sys/files/jiajudai/sys'
+            });
+
+            k('#btnUpload').click(function () {
+
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#Logo').val(),
+                        clickFn: function (url) {
+                            console.log(url);
+                            k('#Logo').val(url);
+                            k('#previewAD').attr('src', url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,148 @@
+﻿@model  Ingenious.DTO.G_OrderDTO
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/order/personalIfmion.css" />
+    <link href="~/Areas/JJD/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+    <style>
+        .ke-dialog-footer {
+            text-align: center;
+        }
+
+        .upload {
+            display: inline-block;
+            position: relative;
+        }
+
+        input[type="file"] {
+            width: 100px;
+            height: 63px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            opacity: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">填写个人信息</h1>
+    </header>
+
+    <div class='mui-content'>
+        <form id="form1" action="/jiajudai/order/step02" method="post">
+
+            <input type="hidden" value="@ViewBag.orderId" id="Id" name="Id"/>
+
+            <div class='nameNum'>
+                <div class='name'>
+                    <label for="names">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label><input placeholder="您的中文全名(必填)" type="text" name="Name" id="Name" value="@Model.Name" />
+                </div>
+                <div class='num'>
+                    <label for="phoneNum">手&nbsp;号&nbsp;机</label><input placeholder="请输入您的手机号(必填)" type="text" name="PersonalPhone" id="PersonalPhone" value="@Model.PersonalPhone" />
+                </div>
+                @{
+                    if (string.IsNullOrWhiteSpace(Model.PersonalPhone))
+                    {
+                        <div class="getCode degist">
+                            <label for="codes">验&nbsp;证&nbsp;码</label><input placeholder="验证码" type="text" name="SecurityCode" id="codes" value="" />
+                            <span>获取验证码</span>
+                        </div>
+                    }
+                }
+                
+            </div>
+            <div class="idPic">
+                <p>上传身份证</p>
+                @{
+                    var imgs = new string[] { };
+                    if (!string.IsNullOrWhiteSpace(Model.IDImg))
+                    {
+                        imgs = Model.IDImg.Split(new string[] { "|" }, StringSplitOptions.None);
+                    }
+
+                    <div class="upload">
+                        <input type="file" id="fileIDNoFaceImg" />
+
+                        <div id="getCmrOrder" class="addImg getCmrOrder">
+                            @if (imgs.Count() > 0)
+                            {
+                                <img id="facePreview" src="@imgs[0]" class='add' />
+                                <span id="btnFaceUpload">身份证正面 </span>
+                                <input type="hidden" name="IDNoFaceImg" id="IDNoFaceImg" value="@imgs[0]" />
+                            }
+                            else
+                            {
+                                <img id="facePreview" src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                <span id="btnFaceUpload">身份证正面 </span>
+                                <input type="hidden" name="IDNoFaceImg" id="IDNoFaceImg" />
+                            }
+
+                        </div>
+                    </div>
+                    <div class="upload">
+                        <input type="file" id="fileIDNoBackImg" />
+                        <div id="getCmrOrder" class="addImg getCmrOrder">
+                            @if (imgs.Count() > 1)
+                            {
+                                <img id="backPreview" src="@imgs[1]" class='add' />
+                                <span id="btnBackUpload">身份证反面 </span>
+                                <input type="hidden" name="IDNoBackImg" id="IDNoBackImg" value="@imgs[1]" />
+                            }
+                            else
+                            {
+                                <img id="backPreview" src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                <span id="btnBackUpload">身份证反面 </span>
+                                <input type="hidden" name="IDNoBackImg" id="IDNoBackImg" />
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div>
+                <div style="border-radius:2px;">
+                    <label for="IDNo">身份证号</label><input type="text" id="IDNo" name="IDNo" value="@Model.IDNo" placeholder="必填（自动识别）" />
+                </div>
+            </div>
+            <input type="hidden" name="IDImg" id="IDImg" />
+            <input type="file" id="fileUpload" />
+            @{
+                if (!string.IsNullOrWhiteSpace(Model.PersonalPhone))
+                {
+                    <a id="btnNext" class='mui-btn mui-btn-block fixBott' style="background-color:#8763f7;">下一步</a>
+                }
+                else
+                {
+                    <a id="btnNext" class='mui-btn mui-btn-block fixBott'>下一步</a>
+                }
+            }
+
+        </form>
+    </div>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/kit.js"></script>
+    <script src="~/Areas/JJD/Content/js/order/step02.js"></script>
+    <script src="~/Areas/JJD/Content/kindeditor/kindeditor.js"></script>
+    <script src="~/Areas/JJD/Content/kindeditor/lang/zh_CN.js"></script>
+
+    <script src="~/Areas/JJD/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+    <script src="~/Areas/JJD/Content/js/img-tool/upload.js"></script>
+
+</body>
+
+</html>

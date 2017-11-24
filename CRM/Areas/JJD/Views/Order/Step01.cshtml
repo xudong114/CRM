@@ -1,0 +1,174 @@
+﻿@model  Ingenious.DTO.G_OrderDTO
+
+@{
+    Layout = null;
+    var products = ViewBag.products as List<Ingenious.DTO.G_LoanProductDTO>;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/order/choiceMoney.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">贷款金额</h1>
+    </header>
+
+    <div class='mui-content'>
+        <form id="form1" action="/jiajudai/order/step01" method="post">
+            <input type="hidden" value="@ViewBag.orderId" id="Id" name="Id" />
+            <div class="money">
+                <p>
+                    <b>@(Model.LoanAmount == 0 ? "1" : Model.LoanAmount.ToString("0"))</b><span>万元</span>
+                </p>
+            </div>
+            <div class="text">滑动选择所需贷款金额</div>
+            <div>
+                <div class="mui-input-row mui-input-range">
+                    <input type="range" min="1" max="100" value="@Model.LoanAmount" oninput="change()" onchange="change()">
+                    <span class='left'>1万元</span>
+                    @*<b>@(Model.LoanAmount == 0 ? "1" : Model.LoanAmount.ToString("0"))万元</b>*@
+                    <span class='right'>100万元</span>
+                </div>
+            </div>
+            <div class="progress kind">
+                <span>贷款类型</span>
+                <ul>
+                    @{
+                        foreach (var item in products)
+                        {
+                            if (@Model.ProductCode == item.Code)
+                            {
+                                <li code="@item.Code" class="active">@item.Name</li>
+                            }
+                            else
+                            {
+                                if (ViewBag.product == item.Code)
+                                {
+                                    <li code="@item.Code" class="active">@item.Name</li>
+                                }
+                                else
+                                {
+                                    <li code="@item.Code">@item.Name</li>
+                                }
+                            }
+                        }
+}
+                </ul>
+                @if (!string.IsNullOrWhiteSpace(ViewBag.product))
+                {
+                    <input type="hidden" name="ProductCode" id="ProductCode" value="@ViewBag.product" />
+                }
+                else
+                {
+                    <input type="hidden" name="ProductCode" id="ProductCode" value="@Model.ProductCode" />
+                }
+            </div>
+            <!--推广码-->
+            <div class="code">
+                <p>推广码</p>
+                <div>
+                    <input placeholder="请填写销售人员账号(非必填)" type="text" name="ReferenceCode" id="ReferenceCode" value="@Model.ReferenceCode" />@*<img src="~/Areas/JJD/Content/images/04.apply/u60.png" />*@
+                </div>
+            </div>
+            <input type="hidden" name="LoanAmount" id="LoanAmount" value="@(Model.LoanAmount == 0 ? 1 : Model.LoanAmount)" />
+        </form>
+    </div>
+
+    <a class="next" id="btnNext">下一步</a>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script>
+
+        function change() {
+            var money = $('.mui-input-range input').val();
+            $('.money p b').html(money);
+            $('#LoanAmount').val(money);
+        }
+
+        function beforeSave() {
+            var product = $('#ProductCode').val();
+            if (product == '') {
+                mui.toast('请选择贷款类型');
+                return false;
+            }
+
+            return true;
+        }
+
+        function save() {
+            $.ajax({
+                type:'post',
+                url: '/jiajudai/order/step01',
+                data: $('#form1').serialize(),
+                success: function (data) {
+                    if (data.Status) {
+
+                        if (!$('#Id').val()) {
+                            $('#Id').val(data.Data);
+                        }
+                        window.location.href = '/jiajudai/order/step02?orderId='+data.Data;
+                    } else {
+                        mui.toast(data.Message);
+                    }
+                },
+                error: function (arg1, arg2, arg3) {
+                    console.log(arg3);
+                }
+            });
+        }
+
+        $().ready(function () {
+            $('#btnNext').click(function () {
+                var referenceCode = $('#ReferenceCode').val();
+                if (referenceCode !== '') {
+                    $.ajax({
+                        url: '/jiajudai/user/hasusername',
+                        data: { userName: referenceCode },
+                        success: function (data) {
+                            console.log(data);
+                            if (data == 'False') {
+                                mui.toast('推广码账号不已存在');
+                            } else {
+                                if (beforeSave()) {
+                                    save();
+                                }
+                            }
+                            console.log(data);
+                        },
+                        error: function (arg1, arg2, arg3) {
+                            console.log(arg1);
+                        }
+
+                    });
+                } else {
+                    if (beforeSave()) {
+                        save();
+                    }
+                }
+
+            });
+
+            $('.progress ul li').on('tap', function () {
+                $(this).siblings('li').removeClass('active');
+                $(this).toggleClass('active');
+                if ($(this).hasClass('active')) {
+                    $('#ProductCode').val($(this).attr('code'));
+                } else {
+                    $('#ProductCode').val('');
+                }
+            });
+
+
+        });
+    </script>
+</body>
+
+</html>

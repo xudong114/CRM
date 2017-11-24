@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Ingenious.Infrastructure.Helper
 {
@@ -15,6 +17,18 @@ namespace Ingenious.Infrastructure.Helper
                 return (attrs[0] as DescriptionAttribute).Description;
             }
             return string.Empty;
+        }
+
+        public static List<T> ToList<T>(this System.Enum enumType)
+        {
+            var list = new List<T>();
+
+            var enumerator = System.Enum.GetValues(typeof(T)).GetEnumerator();
+            while(enumerator.MoveNext())
+            {
+                list.Add((T)(enumerator.Current));
+            }
+            return list;
         }
 
     }

@@ -1,0 +1,71 @@
+
+#navBar div {
+    height: 50px;
+    width: 100%;
+    background: #FFFFff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+    #navBar div a {
+        display: inline-block;
+        width: 25%;
+        height: 100%;
+        text-align: center;
+        font-size: 0;
+    }
+
+        #navBar div a span:nth-child(2n) {
+            color: #999;
+            height: 20px;
+            display: inline-block;
+            width: 100%;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        #navBar div a span:nth-child(2n-1) {
+            color: #999;
+            height: 24px;
+            display: inline-block;
+            width: 24px;
+            font-size: 16px;
+            line-height: 26px;
+        }
+
+#navBar .a1 span:first-child {
+    background: url("/areas/jjd/content/images/navBar/a1.png");
+    background-size: 100% 100%;
+}
+
+#navBar .a2 span:first-child {
+    background: url("/areas/jjd/content/images/navBar/a2.png");
+    background-size: 100% 100%;
+}
+
+#navBar .a3 span:first-child {
+    background: url("/areas/jjd/content/images/navBar/a3.png");
+    background-size: 100% 100%;
+}
+
+#navBar .a4 span:first-child {
+    background: url("/areas/jjd/content/images/navBar/a4.png");
+    background-size: 100% 100%;
+}
+
+#navBar .mui-bar-tab {
+    padding-top: 4px;
+    background: #FFFFFF;
+}
+
+
+
+#navBar {
+	position: fixed;
+	bottom: -10px;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+	border-top: 1px solid #e4e4e4;
+}

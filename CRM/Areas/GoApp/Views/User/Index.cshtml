@@ -1,0 +1,155 @@
+﻿@model Ingenious.DTO.F_UserDTOList
+@using Ingenious.Infrastructure.Helper;
+@using Ingenious.Infrastructure.Extensions;
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 用户管理</a></li>
+    @*<li class="active">Workset</li>*@
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 用户列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/app/user/create"> 新建用户</a>
+            <a class="btn btn-sm btn-danger" id="btnDelete"> 停用</a>
+
+        </div>
+        <form id="userSearchForm" action="/app/user/index">
+            <div class="col-sm-3 pull-right">
+
+                <div class="input-group">
+
+                    <input type="text" placeholder="关键词" id="keywords" name="keywords" class="form-control" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            @{
+                @Html.EnumDropDownList(typeof(Ingenious.Infrastructure.Enum.F_UserTypeEnum), "", " id = 'UserType' name='UserType' class='form-control form-control-normal pull-right' ", "用户类型")
+            }
+            <select name="isActive" class='form-control form-control-normal pull-right' style="margin-right:15px;">
+                <option>状态</option>
+                <option value="true">正常</option>
+                <option value="false">停用</option>
+            </select>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th>账号</th>
+                    <th>类型</th>
+                    <th>状态</th>
+                    <th>创建日期</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                        if (item.IsActive)
+                        {
+                            <input type="checkbox" user value="@item.Id">
+                        }
+                                }
+
+                            </td>
+                            <td><a href="/app/user/details/@item.Id">@item.UserName</a> </td>
+                            <td>@item.UserType.Discription()</td>
+                            <td>@item.IsActiveName</td>
+                            <td>
+                                @{
+                                    @Html.Raw(item.CreatedDate.ToString("yyyy-MM-dd"))
+                                }
+                            </td>
+                            <td>
+                                <a href="/app/user/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                @{
+                        if (item.IsActive)
+                        {
+                            <a value="@item.Id" btnSingleDelete code='disable' style="margin-left:30px;" title="停用"><i class="fa fa-pause"></i></a>
+                        }
+                        else
+                        {
+                            <a value="@item.Id" btnSingleDelete code='enable' style="margin-left:30px;" title="恢复"><i class="fa fa-play"></i></a>
+                        }
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+@section scripts{
+    <script>
+        $().ready(function () {
+            $('#btnDelete').click(function () {
+                if (!confirm('您确定要删除选中的项目吗？')) {
+                    return false;
+                }
+                var ids = [];
+                $('input[user]:checked').each(function (i, ele) {
+                    ids.push($(this).val());
+                });
+                $.ajax({
+                    url: '/goapp/user/delete',
+                    data: { ids: ids },
+                    traditional: true,
+                    success: function (data) {
+                        window.location.href = window.location.href;
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        alert(arg3);
+                    }
+                });
+            });
+
+            $('a[btnSingleDelete]').click(function () {
+                var ids = [];
+                ids.push($(this).attr("value"));
+
+                var code = $(this).attr('code');
+                var url = '/app/user/delete';
+                var data = { ids: ids };
+                var tip = '您确定要删除选中的项目吗？';
+                if (code == 'enable') {
+                    tip = '您确定要恢复此账号吗？';
+                    url = '/app/user/renew';
+                    data = { id: $(this).attr("value") };
+                }
+                if (!confirm(tip)) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: url,
+                    data: data,
+                    traditional: true,
+                    success: function (data) {
+                        alert('操作成功');
+                        window.location.href = window.location.href;
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        alert(arg3);
+                    }
+                });
+            });
+        });
+    </script>
+}

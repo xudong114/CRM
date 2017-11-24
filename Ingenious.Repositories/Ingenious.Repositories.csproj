@@ -56,8 +56,10 @@
     <Compile Include="EntityFramework\IngeniousDbContext.cs" />
     <Compile Include="EntityFramework\IngeniousDbContextInitializer.cs" />
     <Compile Include="EntityFramework\IngeniousDbMigrationsConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\Base_CarTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\ClientContactTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\DictionaryTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\G_ActivityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_ADTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\F_BankOptionTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_BankTypeConfiguration.cs" />
@@ -74,9 +76,11 @@
     <Compile Include="EntityFramework\ModelConfigurations\F_CreditCardTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_OrderRecordTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_OrderTypeConfiguration.cs" />
-    <Compile Include="EntityFramework\ModelConfigurations\G_FactoryTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\Base_FactoryTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\G_EntityTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_StoreTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_UserDetailTypeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\Base_ProfileTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\G_UserTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\F_WithdrawDepositRecordTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\F_AccountTypeConfiguration.cs" />
@@ -100,8 +104,12 @@
     <Compile Include="EntityFramework\ModelConfigurations\F_UserTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\F_BankTypeConfiguration.cs" />
     <Compile Include="EntityFramework\ModelConfigurations\UserTypeConfiguration.cs" />
+    <Compile Include="Implement\Base_CarRepository.cs" />
     <Compile Include="Implement\ClientContactRepository.cs" />
     <Compile Include="Implement\DictionaryRepository.cs" />
+    <Compile Include="Implement\Base_ProfileRepository.cs" />
+    <Compile Include="Implement\G_ActivityRepository.cs" />
+    <Compile Include="Implement\G_FileRepository.cs" />
     <Compile Include="Implement\G_ADRepository.cs" />
     <Compile Include="Implement\F_BankOptionRepository.cs" />
     <Compile Include="Implement\G_BankRepository.cs" />
@@ -121,6 +129,7 @@
     <Compile Include="Implement\F_CreditCardApplicationRepository.cs" />
     <Compile Include="Implement\G_OrderRepository.cs" />
     <Compile Include="Implement\G_FactoryRepository.cs" />
+    <Compile Include="Implement\G_EntityRepository.cs" />
     <Compile Include="Implement\G_StoreRepository.cs" />
     <Compile Include="Implement\G_UserDetailRepository.cs" />
     <Compile Include="Implement\F_UserDetailRepository.cs" />
@@ -143,8 +152,12 @@
     <Compile Include="Implement\UserDetailRepository.cs" />
     <Compile Include="Implement\F_UserRepository.cs" />
     <Compile Include="Implement\UserRepository.cs" />
+    <Compile Include="Interface\IBase_CarRepository.cs" />
     <Compile Include="Interface\IClientContactRepository.cs" />
     <Compile Include="Interface\IDictionaryRepository.cs" />
+    <Compile Include="Interface\IBase_ProfileRepository.cs" />
+    <Compile Include="Interface\IG_ActivityRepository.cs" />
+    <Compile Include="Interface\IG_FileRepository.cs" />
     <Compile Include="Interface\IG_ADRepository.cs" />
     <Compile Include="Interface\IF_BankOptionRepository.cs" />
     <Compile Include="Interface\IG_BankRepository.cs" />
@@ -164,6 +177,7 @@
     <Compile Include="Interface\IF_OrderRepository.cs" />
     <Compile Include="Interface\IF_CreditCardApplicationRepository.cs" />
     <Compile Include="Interface\IG_FactoryRepository.cs" />
+    <Compile Include="Interface\IG_EntityRepository.cs" />
     <Compile Include="Interface\IG_StoreRepository.cs" />
     <Compile Include="Interface\IG_UserDetailRepository.cs" />
     <Compile Include="Interface\IF_UserDetailRepository.cs" />

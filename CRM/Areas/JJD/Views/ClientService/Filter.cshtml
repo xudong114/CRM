@@ -1,0 +1,90 @@
+﻿@model CRM.Areas.JJD.Models.OrderFilterModel
+@using Ingenious.Infrastructure.Extensions;
+@using Ingenious.Infrastructure.Helper;
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.poppicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/05.bankManager/orderSelect.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">申请记录</h1>
+        <a  id="btnOk"> <span>确定</span></a>
+    </header>
+    <div class=mui-content>
+        <form id="form1" action="/jiajudai/clientservice/orders">
+            <input type="hidden" name="IsFilter" value="True"/>
+            <input type="hidden" name="pageIndex" value="1"/>
+            <div class="search">
+                <div>
+                    <input type="text" name="keyword" id="keyword" value="" placeholder="输入订单相关信息" />
+                    <span id="btnSearch">搜索</span>
+                </div>
+            </div>
+            <div class="progress">
+                <span>根据进度</span>
+                <ul>
+                    @{
+                    var list = System.Enum.GetValues(typeof(Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum)).Cast<System.Enum>().ToList();
+                    foreach (var item in list)
+                    {
+                <li code="@item">@item.Discription()</li>
+                    }
+                    }
+                </ul>
+                <input type="hidden" id="status" name="status" value="@Ingenious.Infrastructure.Enum.G_OrderBusinessStatusEnum.Other" />
+            </div>
+            <div class="progress kind">
+                <span>贷款类型</span>
+                <ul>
+                    @{
+                    foreach(var item in Model.Products)
+                    {
+                <li code="@item.Code">@item.Name</li>
+                    }
+                    }
+                </ul>
+                <input type="hidden" id="productcode" name="productcode" value="" />
+            </div>
+            <div class='dates'>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right">按时间选择<span></span></a>
+                    </li>
+                </ul>
+                <input type="hidden" id="Month" name="Month" />
+            </div>
+            @*<div class='manager'>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a id="btnBankClerk" class="mui-navigate-right">按客户经理选择<span></span></a>
+                        <input type="hidden" id="bankClerk" />
+                    </li>
+                </ul>
+            </div>*@
+
+
+
+        </form>
+
+        <div class="last">佳居贷-家具行业专业金融服务</div>
+    </div>
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src='~/Areas/JJD/Content/js/mui.picker.min.js'></script>
+    <script src="~/Areas/JJD/Content/js/mui.poppicker.js"></script>
+    <script src="~/Areas/JJD/Content/js/ClientManager/orderfilter.js"></script>
+    <script>
+    </script>
+</body>
+</html>

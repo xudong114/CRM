@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/04.user/record.css" />
+	</head>
+
+	<body>
+		<div id="check" style="display: none" class="a4"></div>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">申请记录</h1>
+			<a id="btnFilter"> <span>筛选</span></a>
+		</header>
+		<div class='mui-content'>
+			<div class='color' style="padding: 10px 10px;">
+				<div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
+
+					<a class="mui-control-item" href="#item1">正在申请</a>
+					<a class="mui-control-item" href="#item2">已经通过</a>
+					<a class="mui-control-item" href="#item3">已经失效</a>
+					<a class="mui-control-item" href="#item4">未提交</a>
+				</div>
+			</div>
+			<div>
+				<div id="item1" class="mui-control-content">
+					<div id="scroll" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view" code="item1">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item2" class="mui-control-content">
+					<ul class="mui-table-view" code="item2">
+
+					</ul>
+				</div>
+				<div id="item3" class="mui-control-content">
+					<ul class="mui-table-view" code="item3">
+					</ul>
+
+				</div>
+				<div id="item4" class="mui-control-content">
+					<ul class="mui-table-view" code="item4">
+					</ul>
+
+				</div>
+				<div id="item5" class="mui-control-content">
+					<ul class="mui-table-view" code="item4">
+					</ul>
+
+				</div>
+			</div>
+		</div>
+
+		<div id='navBar'>
+			<iframe src="../navBar.html" width="100%" height="50px"></iframe>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.11.0.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/mui.plugin.files.js"></script>
+		<script src='../js/img-tool/common.js'></script>
+		<script src="../js/img-tool/image-new.js"></script>
+		<script src="../js/juicer-min.js"></script>
+		<script src="../js/04.user/orders.js"></script>
+		<script id="tplMyOrder" type="text/template">
+
+			{@each Data as item,index}
+
+			<li class="mui-table-view-cell" data-orderId='${item.Id}' status='${item.Status}'>
+
+				{@if item.Status == 4}
+				<img src="../images/pttg.png" /> {@else if item.Status == 8}
+				<img src="../images/ptjj.png" /> {@else if item.Status == 16}
+				<img src="../images/yhtg.png" /> {@else if item.Status == 32}
+				<img src="../images/yhjj.png" /> {@/if}
+				<div class='masg'>
+					{@if item.StoreName}
+					<h2>所购商家：${item.StoreName}</h2> {@else}
+					<h2>所购商家：--</h2> {@/if}
+					<span>订单编号：${item.Code}</span>
+					<p>申请时间: ${item.CreatedDateLabel}</p>
+				</div>
+				<div class='counts'>
+					<span>申请金额</span>
+					<h1>${item.LoanAmount}万</h1>
+				</div>
+			</li>
+
+			{@/each}
+
+		</script>
+	</body>
+
+</html>

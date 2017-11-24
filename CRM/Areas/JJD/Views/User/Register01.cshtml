@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/02.register&login/phoneNum.css" />
+
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    </header>
+    <form id="form1" action="/jiajudai/user/checksecuritycode" method="get">
+        <div class='mui-content' style=" margin-top: 50px;">
+            <p>请输入您的手机号</p>
+            <div class="num">
+                <img src="~/Areas/JJD/Content/images/02.register&login/u363.png" />
+                <input id="txtPhoneNo" type="text" name="phoneNo" placeholder="请输入您的手机号" />
+            </div>
+            <div class="degist">
+                <img src="~/Areas/JJD/Content/images/02.register&login/u365.png" />
+                <input type="text" id="txtPhoneNo" name="code" placeholder="请输入验证码" />
+                <span>获取验证码</span>
+            </div>
+            <a class='mui-btn mui-btn-block'>下一步</a>
+            <a class='login' id="btnLogin" href="/jiajudai/login">已有账号 立即登录  &gt;</a>
+            <h6 class="bot">
+                <p>点击下一步，表示您已同意</p>
+                <a>《GO分期用户协议》</a>
+            </h6>
+        </div>
+    </form>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/02.register&login/initAccount.js"></script>
+    <script>
+        $().ready(function () {
+            var error = '@ViewBag.error';
+            if (error !== '') {
+                alert(error);
+            }
+        });
+    </script>
+</body>
+</html>

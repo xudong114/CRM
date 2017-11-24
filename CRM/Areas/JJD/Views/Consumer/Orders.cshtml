@@ -1,0 +1,151 @@
+﻿@model Ingenious.DTO.G_OrderDTOListWithPagination
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/03.personalCenter/record.css" />
+</head>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">申请记录</h1>
+</header>
+<body>
+    <div id="check" style="display: none" class="a4"></div>
+    <div class='mui-content'>
+        <div class='color' style="padding: 10px 10px;">
+            <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
+                <a class="mui-control-item @(ViewBag.status == "inprocess" ? "mui-active" : "") " href="#item1">正在申请</a>
+                <a class="mui-control-item @(ViewBag.status == "successed" ? "mui-active" : "") " href="#item2">已经通过</a>
+                <a class="mui-control-item @(ViewBag.status == "passed" ? "mui-active" : "") " href="#item3">已经失效</a>
+                <a class="mui-control-item @(ViewBag.status == "temp" ? "mui-active" : "") " href="#item4">未提交</a>
+            </div>
+        </div>
+        <div>
+
+            <div id="item1" class="mui-control-content">
+                <div id="scroll" class="mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <ul class="mui-table-view">
+                            @{
+                                foreach (var item in Model.Data.Where(i => i.Status != Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Temp
+                                    && i.Status != Ingenious.Infrastructure.Enum.G_OrderStatusEnum.SignCanceled
+                                    && i.Status != Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Canceled
+                                    && i.Status != Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Successed
+                                    && i.Status != Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankSigned))
+                                {
+                            <li class="mui-table-view-cell">
+                                <div>
+                                    <a href="/jiajudai/consumer/details/@item.Id">
+                                        <div class='masg'>
+                                            <h2>贷款类型：租金贷</h2>
+                                            <span>订单编号：@item.Code</span>
+                                            <p>申请时间：@item.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                        </div>
+                                        <div class='counts'>
+                                            <span>申请金额</span>
+                                            <h1>@item.LoanAmount.ToString("0")万</h1>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="item2" class="mui-control-content">
+                <ul class="mui-table-view">
+                    @{
+                        foreach (var item in Model.Data.Where(i => i.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Successed))
+                        {
+                    <li class="mui-table-view-cell">
+                        <div>
+                            <a href="/jiajudai/consumer/details/@item.Id">
+                                <div class='masg'>
+                                    <h2>贷款类型：租金贷</h2>
+                                    <span>订单编号：@item.Code</span>
+                                    <p>申请时间：@item.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                </div>
+                                <div class='counts'>
+                                    <span>申请金额</span>
+                                    <h1>@item.LoanAmount.ToString("0")万</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                        }
+                    }
+
+                </ul>
+            </div>
+            <div id="item3" class="mui-control-content">
+                <ul class="mui-table-view">
+                    @{
+                        foreach (var item in Model.Data.Where(i => i.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Canceled
+                            || i.Status== Ingenious.Infrastructure.Enum.G_OrderStatusEnum.SignCanceled))
+                        {
+                    <li class="mui-table-view-cell">
+                        <div>
+                            <a href="/jiajudai/consumer/details/@item.Id">
+                                <div class='masg'>
+                                    <h2>贷款类型：租金贷</h2>
+                                    <span>订单编号：@item.Code</span>
+                                    <p>申请时间：@item.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                </div>
+                                <div class='counts'>
+                                    <span>申请金额</span>
+                                    <h1>@item.LoanAmount.ToString("0")万</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div id="item4" class="mui-control-content">
+                <ul class="mui-table-view">
+                    @{
+                        foreach (var item in Model.Data.Where(i => i.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Temp))
+                        {
+                    <li class="mui-table-view-cell">
+                        <div>
+                            <a href="/jiajudai/order/step01?orderId=@item.Id">
+                                <div class='masg'>
+                                    <h2>贷款类型：@item.ProductName</h2>
+                                    <span>订单编号：@item.Code</span>
+                                    <p>申请时间：@item.CreatedDate.ToString("yyyy-MM-dd")</p>
+                                </div>
+                                <div class='counts'>
+                                    <span>申请金额</span>
+                                    <h1>@item.LoanAmount.ToString("0")万</h1>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--底部-->
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script>
+        $().ready(function () {
+            var index = $('#segmentedControl a.mui-active').index();
+            $('#item' + (index + 1)).addClass('mui-active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,668 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+p,
+blockquote,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	background: #FFFFFF;
+}
+
+body {
+	font-size: 14px;
+	background: #FFFFFF;
+	font-family: Microsoft YaHei;
+	line-height: 2;
+}
+
+* {
+	box-sizing: border-box
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 100%;
+}
+
+a {
+	text-decoration: none
+}
+
+
+.indexContent {
+	background: #FFFFFF;
+	padding-bottom: 60px;
+}
+
+.indexContent .swiper-container img {
+	width: 100%;
+}
+
+.indexContent .swiper-container .swiper-pagination-bullet {
+	width: 10px;
+	height: 10px;
+	opacity: 1;
+	background: #DAD6F9;
+}
+
+.indexContent .swiper-container .swiper-pagination-bullet.swiper-pagination-bullet-active {
+	background: #FFFFFF;
+}
+
+.indexContent .login .swiper-container {
+	position: relative;
+}
+
+.indexContent .login {
+	position: absolute;
+	top: 30px;
+	right: 15px;
+	z-index: 3;
+}
+
+.indexContent .login img {
+	width: 20px;
+	vertical-align: middle;
+}
+
+.indexContent .login span {
+	color: #FFFFFF;
+	font-size: 14px;
+}
+
+.indexContent .loanList {
+	font-size: 0;
+}
+
+.indexContent .loanList li {
+	display: inline-block;
+	width: 25%;
+	padding: 15px;
+	text-align: center;
+}
+
+.indexContent .loanList li span {
+	font-size: 15px;
+	color: #333333;
+}
+
+.indexContent .loanList li img {
+	width: 80%;
+}
+
+.blackTitle {
+	padding: 15px;
+}
+
+.newApply .blackTitle {
+	background: #F2F2F2;
+}
+
+.blackTitle span {
+	display: inline-block;
+	width: 6px;
+	height: 20px;
+	background: #8763F7;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.blackTitle b {
+	display: inline-block;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 18px;
+	height: 20px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.blackTitle a {
+	color: #999999;
+	float: right;
+	font-size: 18px;
+	height: 20px;
+	line-height: 20px;
+}
+
+.newApply ul {
+	padding: 0 15px;
+	height: 324px;
+}
+
+.newApply ul li {
+	height: 81px;
+	padding: 15px 0;
+	border-bottom: 1px solid #d7d7d7;
+}
+
+.newApply ul li img {
+	/*padding: 15px 0;*/
+	width: 50px;
+	border-radius: 50%;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.newApply ul li div {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.newApply ul li div h1 {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 17px;
+	color: #333333;
+}
+
+.newApply ul li div span {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 14px;
+	color: #999999;
+}
+
+.newApply ul li b {
+	font-size: 25px;
+	color: #8763F7;
+	float: right;
+	/*height: 50px;*/
+	line-height: 50px;
+}
+
+.newApply ul li b span {
+	font-size: 18px;
+	color: #8763F7;
+}
+
+.indexContent .gg {
+	border-bottom: 13px solid #F2F2F2;
+	border-top: 13px solid #F2F2F2;
+}
+
+.indexContent .gg img {
+	width: 100%;
+}
+
+.bankList {
+	padding: 15px 0;
+}
+
+
+/*贷款产品*/
+
+header.violet.mui-bar {
+	background: #8662F6;
+	box-shadow: none;
+}
+
+header.violet.mui-bar a {
+	color: #fff;
+}
+
+header.violet.mui-bar .mui-title {
+	color: #fff;
+}
+
+.proLoanList {
+	background: #FFFFFF;
+}
+
+.proLoanList li {
+	border-top: 4px solid #F2F2F2;
+	border-bottom: 4px solid #F2F2F2;
+	padding-bottom: 15px;
+}
+
+.proLoanList li .loanTitle {
+	padding: 15px;
+}
+
+.proLoanList li .loanTitle img {
+	width: 30px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.proLoanList li .loanTitle span {
+	height: 20px;
+	line-height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 20px;
+	color: #333333;
+}
+
+.mui-content {
+	padding-bottom: 50px;
+}
+.detailsContent.mui-content{
+	padding-bottom: 0;
+}
+.proLoanList li .loanTitle h6 {
+	/*height: 20px;
+	line-height: 20px;*/
+	display: inline-block;
+	float: right;
+	font-weight: 400;
+	color: #BEAAFB;
+	border: 1px solid #BEAAFB;
+	border-radius: 3px;
+	padding: 5px;
+	margin-top: 3px;
+}
+
+.proLoanList li .mes {
+	padding: 0 15px;
+	font-size: 0;
+	text-align: center;
+}
+
+.proLoanList li .mes>div {
+	display: inline-block;
+	width: 33%;
+	height: 80px;
+}
+
+.proLoanList li .mes>div:not(:nth-child(1)) {
+	border-left: 1px solid #d4d4d4;
+}
+
+.proLoanList li .mes>div b {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 33px;
+	color: #F96065;
+}
+
+.proLoanList li .mes>div h5 {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+}
+
+.proLoanList li .mes>div b span {
+	font-size: 22px;
+}
+
+.proLoanList li .mes>div p {
+	height: 60px;
+	line-height: 60px;
+	color: #333;
+	font-size: 20px;
+}
+
+
+/*租金贷 （贷款种类）*/
+
+.loanKind {
+	padding-bottom: 0;
+}
+
+.loanKind .loanKindHeader {
+	padding: 10px 0 50px;
+	text-align: center;
+	background: url(../../images/01.index/banner3.jpg);
+	background-size: 100% 100%;
+}
+
+.loanKind .loanKindHeader p {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 18px;
+	color: #FFFFFF;
+}
+
+.loanKind .loanKindHeader span {
+	display: inline-block;
+	line-height: 40px;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 50px;
+	color: #FFFFFF;
+}
+
+.loanKind .loanDetail {
+	padding: 15px;
+}
+
+.loanKind .loanDetail .loanDetailHead {
+	padding: 15px;
+	font-size: 0;
+	background: #FFFFFF;
+	border-radius: 5px;
+	margin-top: -50px;
+	position: relative;
+}
+
+.loanKind .loanDetail .loanDetailHead div {
+	display: inline-block;
+	width: 50%;
+	text-align: center;
+}
+
+.loanKind .loanDetail .loanDetailHead div:first-child {
+	border-right: 1px solid #D4D4D4;
+}
+
+.loanKind .loanDetail .loanDetailHead p {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+	line-height: 24px;
+}
+
+.loanKind .loanDetail .loanDetailHead span {
+	display: inline-block;
+	line-height: 30px;
+	font-weight: 400;
+	font-style: normal;
+	color: #8763F7;
+	font-size: 20px;
+}
+
+.loanKind .loanDetail .loanText {
+	background: #fff;
+	border-radius: 5px;
+	padding: 70px 15px 30px;
+	margin-top: 20px;
+	box-shadow: 0 0 10px #E4E4E4;
+}
+
+.loanKind .loanDetail .loanText h1 {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 20px;
+	color: #333333;
+	margin-bottom: 10px;
+}
+
+.loanKind .loanDetail .loanText p {
+	font-size: 18px;
+	color: #999999;
+	line-height: 26px;
+}
+
+.loanKind .loanDetail .loanText a {
+	width: 90%;
+	display: block;
+	margin: 0 auto;
+	height: 45px;
+	line-height: 45px;
+	border-radius: 22px;
+	background: url(../../images/01.index/shenqing.png);
+	text-align: center;
+	background-size: 100% 100%;
+	color: #fff;
+	font-size: 24px;
+	margin-top: 30px;
+}
+
+.loanDetailHead .l {
+	position: absolute;
+	bottom: -74px;
+	left: 8px;
+}
+
+.loanDetailHead .r {
+	position: absolute;
+	bottom: -74px;
+	right: 8px;
+}
+
+
+/*发现*/
+
+.findsContent .tab {
+	font-size: 0;
+	background: #FFFFFF;
+}
+
+.findsContent .tab a {
+	display: inline-block;
+	width: 50%;
+	font-weight: 400;
+	font-style: normal;
+	color: #666666;
+	font-size: 18px;
+	padding: 8px 0;
+	text-align: center;
+}
+
+.findsContent .tab a.active {
+	color: #8763F7;
+}
+
+.findsContent .tab a:first-child {
+	border-right: 1px solid #D4D4D4;
+}
+
+.findsContent #team1 {
+	padding: 10px 0;
+}
+
+.findsContent #team1 a {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+.findsContent #team1 li {
+	font-size: 0;
+	background: #FFFFFF;
+	margin-bottom: 15px;
+}
+
+.findsContent #team1 img {
+	width: 100%;
+}
+
+.findsContent #team1 div span {
+	display: inline-block;
+	padding: 0 15px;
+    font-size: 18px;
+    color: #666666;
+}
+.findsContent #team1 div b {
+	float: right;
+	padding: 0 15px;
+    font-size: 18px;
+    color: #666666;
+}
+
+.findsContent #team2 .contents {
+	/*float: right;*/
+	padding: 0 15px;
+    font-size: 18px;
+    color: #666666;
+}
+.findsContent #team2 .contents{
+    height: 100px;
+    padding: 10px;
+    margin-top: 15px;
+    background: #ffffff;
+        /*border-top: 13px solid #E4E4E4;*/
+        overflow: hidden;
+
+}
+.findsContent #team2 .contents img{
+    height:80px;
+    float: right;
+    /*margin-top:5px;*/
+    width: 100px;
+    vertical-align: middle;
+}
+.findsContent #team2 .contents>a>div{
+    display: inline-block;
+    width: 57%;
+
+}
+.findsContent #team2 .contents span{
+    display: inline-block;
+    width: 100%;
+}
+.findsContent #team2 .contents  span:first-child{
+    font-weight: 400;
+    font-style: normal;
+    font-size:15px;
+    color: #666666;
+    line-height: 25px;
+}
+.findsContent #team2 .contents  span:last-child{
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    color: #666666;
+    line-height: 45px;
+}
+
+#team2{
+	display: none;
+}
+
+header.newsDetail span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+header.newsDetail {
+text-align: right;
+}
+
+header.newsDetail img{
+  height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/*新闻详情*/
+.detailsContent .contents div{
+    font-size: 14px;
+    color: #999999;
+    font-weight: 400;
+    font-style: normal;
+    padding: 20px;
+}
+.detailsContent .contents img{
+    width: 100%;
+}
+
+.detailsContent .share{
+    padding: 10px;
+    border-top: 1px solid #e4e4e4;
+    margin-top: 30px;
+}
+.detailsContent .share ul li{
+    width: 17%;
+    display: inline-block;
+}
+.detailsContent .share ul li img{
+    width: 100%;
+}
+.detailsContent .actives{
+    border-top: 10px solid #e4e4e4;
+    margin-top: 20px;
+    padding-top: 15px;
+
+}
+.detailsContent .actives p{
+    background-size: 100% 100%;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+    padding-left: 40px;
+    background: url("../img/hotEvents/u899.png") no-repeat 16px 2px;
+}
+.detailsContent .actives>ul>li{
+    list-style-type:square;
+    padding:10px 20px 10px 20px;
+    font-style: normal;
+    font-size: 17px;
+    color: #666666;
+    line-height: 40px;
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.detailsContent .last{
+    margin-top: 20px;
+    font-style: normal;
+    font-size: 16px;
+    color: #999999;
+    text-align: center;
+    padding: 20px 0;
+    background: #F2F2F2;
+}
+.detailsContent .mui-content>h1{
+    padding: 10px;
+    font-size: 18px;
+    line-height: 30px;
+    color: #666666;
+}
+.detailsContent .mui-content>span{
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #999;
+}
+
+.detailsContent{
+	background: #FFFFFF;
+}
+
+
+.detailsContent>h1 {
+    padding: 10px;
+    font-size: 18px;
+    line-height: 30px;
+    color: #666666;
+}
+.detailsContent>span {
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #999;
+}
+
+
+
+

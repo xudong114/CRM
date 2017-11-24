@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/02.register&login/setPass.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    </header>
+    <form id="form1" action="/jiajudai/user/register" method="post">
+        <div class='mui-content' style=" margin-top: 50px;">
+            <p>请设置您的登录密码</p>
+            <div class="ps">
+                <img src="~/Areas/JJD/Content/images/02.register&login/u455.png" />
+                <input autofocus type="password" name="password" value="" placeholder="设置密码（6-18位数字或字母）" />
+                <input name="UserName" type="hidden" value="@ViewBag.phoneNo" />
+            </div>
+            <div class="psag">
+                <img src="~/Areas/JJD/Content/images/02.register&login/u365.png" />
+                <input type="password" value="" placeholder="再次输入密码" />
+            </div>
+            <a class='mui-btn mui-btn-block'>完成注册</a>
+        </div>
+    </form>
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/02.register&login/initPassword.js"></script>
+</body>
+</html>

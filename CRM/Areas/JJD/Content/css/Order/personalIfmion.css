@@ -1,0 +1,106 @@
+body {font-family: Microsoft YaHei;}
+fieldset, img { border:0; }
+a{text-decoration: none}
+*{margin: 0;padding: 0;}
+fieldset, img { border:0; }
+ol, ul { list-style:none; }
+a{text-decoration: none}
+*{margin: 0;padding: 0;}
+
+body,.mui-content{
+    background: #ffffff;
+}
+.mui-bar{
+    background:#FFF;
+}
+.mui-bar-nav{
+    box-shadow: none;
+}
+header a{
+    color: #333;
+}
+.mui-content label{
+	display: inline-block;
+	width:23%;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    color: #666666;
+}
+.mui-content input{
+	width:75%;
+    border: none;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    color: #666666;
+}
+.nameNum{
+    padding:0 20px;
+    border-top: 15px solid #f2f2f2;
+}
+.nameNum div{
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #f2f2f2;
+}
+.getCode input{
+    width:30%;
+}
+.getCode span{
+    float: right;
+    font-size: 15px;
+    color: #F96065;
+}
+.mui-content h1{
+    text-align: center;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+    margin-top: 100px;
+}
+.mui-content h2{
+    text-align: center;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #999999;
+}
+.mui-content .mui-btn{
+    width:100%;
+    background: #D7D7D7;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color:#fff;
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.idPic{
+	padding: 30px 15px 10px;
+}
+.idPic p{
+	font-size: 16px;
+    color: #666666
+}
+.idPic .getCmrOrder{
+	width: 100px;
+	height: 63px;
+	display: inline-block;
+	text-align: center;
+	margin-right: 15px;
+	
+}
+.idPic .getCmrOrder img{
+	width: 100%;
+	height: 100%;
+}
+.idPic .getCmrOrder span{
+	display: inline-block;
+	margin-top: 15px;
+}
+.idPic+div {
+    padding: 0 15px;
+}

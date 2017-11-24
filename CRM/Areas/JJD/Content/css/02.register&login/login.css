@@ -1,0 +1,168 @@
+body {
+	font-family: Microsoft YaHei;
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+.mui-content {
+	background: #F2F2F2;
+}
+
+.mui-bar {
+	background: #FFF;
+}
+
+.mui-bar-nav {
+	box-shadow: none;
+}
+
+header a {
+	color: #333;
+}
+
+.logo {
+	text-align: center;
+	background: #8763F7;
+	padding: 50px 0 80px 0;
+}
+
+.logo>img {
+	width: 30%;
+	/*display: block;*/
+	/*  margin: 15px auto;*/
+}
+
+.logContent div div.num,
+.logContent div div.pass {
+	width: 90%;
+	height: 45px;
+	line-height: 40px;
+	border-radius: 3px;
+	font-size: 18px;
+	color: #999999;
+	border-bottom: 1px solid rgba(215, 215, 215, 1);
+	text-align: left;
+	margin: 8px auto;
+}
+
+.logContent div input {
+	border: none;
+	margin: 0;
+	width: 85%;
+	padding: 5px;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+}
+.logContent div#team2 input{
+	width: 55%;
+	
+}
+.logContent .mui-btn {
+	width: 90%;
+	background: #8763F7;
+	margin: 0 auto;
+	color: #fff;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.logContent div img {
+	width: 6%;
+	vertical-align: middle;
+}
+
+.logContent div span {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 12px;
+	color: #8763F7;
+	text-align: right;
+	float: right;
+}
+
+.login {
+	float: right;
+	margin-right: 5%;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 14px;
+	color: #999999;
+}
+
+h5 {
+	text-align: center;
+	margin-top: 40px;
+}
+
+h5 a {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #8763F7;
+}
+
+.loginMethod {
+	margin: 15px;
+	margin-top: -50px;
+	padding: 30px 0;
+	background: #FFFFFF;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #E4E4E4;
+}
+
+.loginMethod .tab {
+	font-size: 0;
+}
+
+.loginMethod .tab a {
+	display: inline-block;
+	width: 50%;
+	font-size: 18px;
+	color: #666666;
+	text-align: center;
+}
+
+#team2{
+	display: none;
+}
+.tab{
+	padding: 0 15px;
+}
+.tab a.active{
+	color: #8763F7;
+	border-bottom: 1px solid #8763F7;
+	padding: 0 0 10px;
+}

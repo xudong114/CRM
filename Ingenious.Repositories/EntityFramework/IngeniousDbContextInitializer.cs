@@ -16,6 +16,11 @@ namespace Ingenious.Repositories.EntityFramework
             }
         }
 
+        protected override void Seed(IngeniousDbContext context)
+        {
+            base.Seed(context);
+        }
+
     }
 
 }

@@ -27,24 +27,44 @@ namespace CRM.Areas.JJD.Controllers
         {
             var allowAnonymous = false;
 
-            var attributes = filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), false);
+            //var attributes = new List<dynamic>();
 
-            attributes.ToList().AddRange(filterContext.ActionDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), false));
+            object[] controllerAttrs = filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), true);
 
-            var enumerator = attributes.GetEnumerator();
-            while (enumerator.MoveNext())
+            if (controllerAttrs != null)
             {
-                if (enumerator.Current is AllowAnonymousAttribute)
-                    allowAnonymous = true;
+                controllerAttrs.ToList().ForEach(item =>
+                {
+                    if (item is AllowAnonymousAttribute)
+                        allowAnonymous = true;
+                });
             }
+
+            object[] actionAttrs = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), true);
+            if (actionAttrs != null)
+            {
+                actionAttrs.ToList().ForEach(item =>
+                {
+                    if (item is AllowAnonymousAttribute)
+                        allowAnonymous = true;
+                });
+            }
+
+            //var enumerator = attributes.GetEnumerator();
+
+            //while (enumerator.MoveNext())
+            //{
+            //    if (enumerator.Current is AllowAnonymousAttribute)
+            //        allowAnonymous = true;
+            //}
 
             var user = System.Web.HttpContext.Current.Session["User"] as G_UserDTO;
             if (user == null && !allowAnonymous)
             {
-                System.Web.HttpContext.Current.Response.Redirect("/jiajudai", true);
+                System.Web.HttpContext.Current.Response.Redirect("/jiajudai/login", true);
             }
-
-            if(user!=null)
+            //user = new G_UserDTO();
+            if (user != null)
             {
                 this.User = user;
                 ViewBag.User = user;

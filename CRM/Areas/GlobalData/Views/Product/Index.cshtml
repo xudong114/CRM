@@ -1,0 +1,58 @@
+﻿@model List<Ingenious.DTO.G_LoanProductDTO>
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+        });
+    </script>
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="#"><i class="fa fa-home"></i> 产品管理</a></li>
+    @*<li class="active">Workset</li>*@
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 产品列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/jiajudai/sys/product/create"> 新建产品</a>
+        </div>
+        
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th>名称</th>
+                    <th>编码</th>
+                    <th>Logo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                            <td><img src="@item.Logo" style="width:50px;" /></td>
+                            <td>
+                                <a href="/jiajudai/sys/product/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                <a href="/jiajudai/sys/product/delete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</section>

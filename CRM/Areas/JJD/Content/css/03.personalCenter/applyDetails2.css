@@ -1,0 +1,307 @@
+body {
+	font-family: Microsoft YaHei;
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+.mui-content {
+	background: #FFFFFF;
+}
+
+#navBar {
+	position: fixed;
+	bottom: -10px;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+#navBar iframe {
+	border: none;
+}
+
+header.mui-bar {
+	background: #8763F7;
+	-webkit-box-shadow: none;
+	;
+	box-shadow: none;
+	z-index: 100;
+}
+
+header .mui-title {
+	color: #ffffff;
+}
+
+header .mui-title,
+header .mui-pull-left {
+	color: #ffffff;
+}
+
+.progressBar {
+	width: 100%;
+	height: 70px;
+	line-height: 100px;
+	background: #FFFFFF;
+	padding-top: 20px;
+}
+
+.progressBar ul {
+	width: 90%;
+	margin: 0 auto;
+	height: 10px;
+	/*background: #8763f7;*/
+	background: #E4E4E4;
+	border-radius: 5px;
+	line-height: 10px;
+}
+
+.progressBar ul li {
+	display: inline-block;
+	height: 10px;
+	border-radius: 5px;
+	width: 25%;
+	text-align: center;
+	background: #E4E4E4;
+	line-height: 10px;
+	float: left;
+}
+
+.progressBar ul li span {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #E4E4E4;
+	/*float: right;*/
+	font-size: 0;
+	margin-top: -5px;
+	position: relative;
+	z-index: 10;
+}
+
+.progressBar ul li:nth-child(1) {
+	background: #8763f7;
+}
+
+.progressBar ul li:nth-child(1) span {
+	background: #8763f7;
+}
+
+.progressBar ul li p {
+	margin-top: 10px;
+	color: #666666;
+}
+
+.mui-collapse>.mui-navigate-right {
+	text-align: center;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #666666;
+}
+
+#order .mui-active {
+	background: #FFFFFF;
+}
+
+.mui-table-view {
+	border-top: 13px solid #F2F2F2;
+}
+
+.mui-table-view-cell>a:not(.mui-btn) {
+	padding-left: 14px;
+}
+
+.mui-table-view-cell>a.call {
+	display: inline-block;
+	float: right;
+}
+
+.mui-collapse li>span:not(.remark span) {
+	font-size: 16px;
+	display: inline-block;
+	margin-left: 20px;
+	color: #999;
+}
+
+.remark span {
+	color: #999;
+}
+
+#order li.orderMoney>span {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 25px;
+	color: #F96065;
+	display: inline-block;
+	margin-left: 25px;
+}
+
+#personal p {
+	display: inline-block;
+	width: 64px;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #666666;
+	text-align-last: justify;
+}
+
+#order p,
+#house p,
+#shops p {
+	display: inline-block;
+	/*text-align: justify;*/
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #666666;
+}
+
+#house span,
+#shops span {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.pic{
+	width: 70px;
+	height: 70px;
+	margin-right: 15px;
+	display:inline-block;
+	overflow: hidden;
+	margin-top: 15px;
+}
+
+.last {
+	margin-top: 130px;
+	margin-bottom: 60px;
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+	text-align: center;
+	padding: 20px 0;
+	background: #F2F2F2;
+}
+
+
+/*!!!!!!动态添加内容!!!!!!!!!*/
+
+.details p {
+	display: inline-block;
+	font-size: 16px;
+	color: #666666;
+}
+
+.details b {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 14px;
+	color: #999999;
+	display: inline-block;
+	float: right;
+	margin-right: 15px;
+}
+
+.details img {
+	float: right;
+	width: 30px;
+	margin: -6x 0
+}
+
+.remark span {
+	display: inline-block;
+	margin-top: 10px;
+	padding-bottom: 20px;
+	height: 20px;
+	line-height: 26px;
+}
+
+a.dBtn {
+	width: 90%;
+	margin: 30px auto;
+	display: block;
+	color: #FFF;
+	background: #F96065;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 5px;
+}
+span#warning {
+	color: #F96065;
+}
+
+/*.mui-table-view-cell span{
+	
+}*/
+.mui-collapse li>span:not(.remark span):not(.details span){
+	width: 58%;
+	display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #999999;
+    display: inline-block;
+    margin-left: 20px;
+}
+#creditImg{
+	padding-left: 15px;
+}
+.pic img{
+	width: 150%;
+	margin-left:-17px ;
+}
+#bigImg{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 200;
+	display: none;
+	text-align: center;
+	background: rgba(0,0,0,0.5);
+	
+}
+#bigImg img{
+	width: 90%;
+	vertical-align: middle;
+}
+#bigImg span{
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+.mui-table-view-cell span{
+	display: inline-block;
+	color: #666666;vertical-align: middle;
+	margin-left: 5px;
+	white-space: nowrap;overflow:hidden; text-overflow:ellipsis;
+}

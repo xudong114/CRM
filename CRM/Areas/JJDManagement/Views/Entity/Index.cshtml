@@ -1,0 +1,90 @@
+﻿@model Ingenious.DTO.G_EntityDTOListWithPagination
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+        });
+    </script>
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 机构管理</a></li>
+    @*<li class="active">Workset</li>*@
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 机构列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/jiajudai/sys/entity/create"> 新建机构</a>
+        </div>
+        <form id="userSearchForm" action="/jiajudai/sys/entity/index">
+
+            <div class="col-sm-3 pull-right ">
+                <div class="input-group">
+                    <input type="text" placeholder="关键词" id="keyword" name="keyword" class="form-control" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+
+            <select id="code" name="code" class="form-control form-control-normal pull-right">
+                <option value="">选择省份</option>
+            </select>
+            <select id="code" name="code" class="form-control form-control-normal pull-right">
+                <option value="">选择城市</option>
+            </select>
+            <select id="code" name="code" class="form-control form-control-normal pull-right">
+                <option value="">选择县区</option>
+            </select>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th>机构名称</th>
+                    <th>负责人</th>
+                    <th>编号</th>
+                    <th>手机号码</th>
+                    <th>办公电话</th>
+                    <th>地区</th>
+                    <th>创建日期</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model.Data)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="post[]" value="3"></td>
+                            <td><a href="/jiajudai/sys/entity/edit/@item.Id"> @item.EntityName</a></td>
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                            <td>@item.PersonalPhone</td>
+                            <td>@item.OfficePhone</td>
+                            <td>@item.Province @item.City @item.Country</td>
+                            <td>
+                                @{
+                                    @Html.Raw(item.CreatedDate.ToString("yyyy-MM-dd"))
+                                }
+                            </td>
+                            <td>
+                                <a href="/jiajudai/sys/entity/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                <a href="/jiajudai/sys/entity/delete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                                <a href="/jiajudai/sys/user/create/@item.Id" style="margin-left:30px;"><i class="fa fa-plus"></i>添加管理员</a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</section>

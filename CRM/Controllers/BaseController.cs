@@ -36,9 +36,17 @@ namespace CRM.Controllers
                 System.Web.HttpContext.Current.Response.Redirect("/login", true);
             }
 
-            this.User = user;
-            ViewBag.User = user;
-            ViewBag.UserName = user.UserName;
+            if(user!=null)
+            {
+                this.User = user;
+                ViewBag.User = user;
+                ViewBag.UserName = user.UserName;
+                if (user.UserName == "globaldata")
+                {
+                    System.Web.HttpContext.Current.Response.Redirect("/globaldata", true);
+                }
+            }
+
             base.OnAuthentication(filterContext);
         }
     }

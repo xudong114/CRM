@@ -1,0 +1,368 @@
+﻿@model CRM.Areas.JJD.Models.OrderComplexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.poppicker.css" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/order/step03.css" />
+    <link href="~/Areas/JJD/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <style>
+        .ke-dialog-footer {
+            text-align: center;
+        }
+
+        .upload {
+            display: inline-block;
+            position: relative;
+        }
+
+        input[type="file"] {
+            width: 100px;
+            height: 63px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            opacity: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">填写经营信息</h1>
+    </header>
+
+    <input type="hidden" value="@ViewBag.orderId" id="Id" name="Id" />
+    <div class='mui-content'>
+        <div class="houseBtn">
+            <span>经营性质</span>
+            <div>
+                @{
+                    var isFactory = Model.Order.IsFactory || (Model.Stores.Count == 0 && !string.IsNullOrWhiteSpace(Model.Factory.Name));
+                }
+                <a class="@(isFactory ? "active" : "")" href="#factory">工厂</a>
+                <a class="@(!isFactory ? "active" : "")" href="#dealer">经销商</a>
+
+            </div>
+        </div>
+
+        <div class="storeList">
+            <!--工厂-->
+            <div class='nameNum factory' id="factory">
+                <form id="formFactory">
+
+                    <input type="hidden" name="Name" id="Name" value="@Model.Order.Name" />
+                    <input type="hidden" name="PersonalPhone" id="PersonalPhone" value="@Model.Order.PersonalPhone" />
+                    <input type="hidden" name="IDNo" id="IDNo" value="@Model.Order.IDNo" />
+                    <input type="hidden" name="OrderId" id="OrderId" value="@Model.Order.Id" />
+                    <input type="hidden" name="Id" id="Id" value="@Model.Factory.Id" />
+
+                    <div class="facName">
+                        <label for="facName">工厂名称</label><input placeholder="填写工厂名称" type="text" name="EntityName" id="EntityName" value="@Model.Factory.EntityName" /><span style="float: right;"> &gt;</span>
+                    </div>
+                    <div class="saleList">
+                        <label for="saleList">经营行业</label><input placeholder="选择经营行业" type="text" code="Industry" name="Industry" id="Industry" value="@Model.Factory.Industry" readonly="readonly" /><span style="float: right;"> &gt;</span>
+                    </div>
+                    <div class="prov ">
+                        <label for="provfactory">所在地区</label><input type="text" value="@Model.Factory.Province @Model.Factory.City @Model.Factory.Country" placeholder="请选择所在区域" id='provfactory' class="provfactory" readonly="readonly" /><span style="float: right;"> &gt;</span>
+                        <input type="hidden" class='province' name="Province" value="@Model.Factory.Province" />
+                        <input type="hidden" class='city' name="City" value="@Model.Factory.City" />
+                        <input type="hidden" class='country' name="Country" value="@Model.Factory.Country" />
+                    </div>
+                    <div class="community">
+                        <label for="phoneNum">街道地址</label><input type="text" name="Street" id="Street" value="@Model.Factory.Street" /><span style="float: right;"> &gt;</span>
+                    </div>
+                    <div class="adds landlord">
+                        <label for="codes">工厂面积</label><input type="text" name="Area" id="Area" value="@Model.Factory.Area" /><span style="float: right;">m2</span>
+                    </div>
+                    <div class="adds landlord">
+                        <label for="codes">年产值</label><input type="text" name="TotalAmount" id="TotalAmount" value="@Model.Factory.TotalAmount" /><span style="float: right;">万元</span>
+                    </div>
+                    <div class="adds landlord">
+                        <label for="codes">经销商数量</label><input type="text" name="SubEntity" id="SubEntity" value="@Model.Factory.SubEntity" /><span style="float: right;">家</span>
+                    </div>
+
+                    <div class="pic">
+                        <p>上传营业执照</p>
+
+                        <div class='getCmr'>
+                            <div class='hid'>
+                                @{
+                                    if (!string.IsNullOrWhiteSpace(Model.Factory.BusinessLicenseImg))
+                                    {
+                                        <a data-fancybox href="@Model.Factory.BusinessLicenseImg">
+                                            <img preview style="width:75px;height:75px;" src='@Model.Factory.BusinessLicenseImg' />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a data-fancybox href="~/Areas/JJD/Content/images/01.index/u454.png">
+                                            <img preview style="width:75px;height:75px;" src='~/Areas/JJD/Content/images/01.index/u454.png' />
+                                        </a>
+                                    }
+                                }
+
+                            </div>
+                            <span class='data'></span>
+                        </div>
+                        <div class="upload">
+                            <input type="file" id="fileBusinessLicenseImg" />
+                            <input type="hidden" name="BusinessLicenseImg" code="BusinessLicenseImg" id="BusinessLicenseImg" value="@Model.Factory.BusinessLicenseImg" />
+                            <div id="getCmrOrder" class="addImg getCmrOrder">
+                                <img upload src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                <span>添加</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="adds landlord">
+                        <label for="codes">注册号</label><input type="text" name="BusinessLicenseNo" id="BusinessLicenseNo" value="@Model.Factory.BusinessLicenseNo" placeholder="注册号/统一社会信用代码" />
+                    </div>
+                </form>
+
+            </div>
+            <!--经销商-->
+            <div class="dealer" id="dealer">
+                <form id="formStore">
+                    @*<input type="hidden" name="Order.Name" id="Name" value="@Model.Order.Name" />
+                    <input type="hidden" name="Order.PersonalPhone" id="PersonalPhone" value="@Model.Order.PersonalPhone" />
+                    <input type="hidden" name="Order.IDNo" id="IDNo" value="@Model.Order.IDNo" />*@
+                    <input type="hidden" name="OrderId" value="@Model.Order.Id" />
+                    <ul class="mui-table-view">
+                        
+                        @{
+                            if (Model.Stores.Count > 0)
+                            {
+                                foreach (var item in Model.Stores)
+                                {
+                                    var index = Model.Stores.FindIndex(i => i.Id == item.Id);
+                                    <li class="mui-table-view-cell mui-collapse">
+                                        <a class="mui-navigate-right" href="#" storename id="@item.Id">门店@(index + 1) </a>
+                                        @*<span id="@item.Id" code="storeremove" style="float:right;margin-right:40px;">删除</span>*@
+                                        <div class="mui-collapse-content">
+                                            <!--经销商门店-->
+                                            <input type="hidden" name="Stores[@index].Id" code="Id" value="@item.Id" />
+                                            <div class="facName">
+                                                <label for="facName">经营品牌</label><input placeholder="填写所经营的品牌" type="text" name="Stores[@index].Brand" code="Brand" id="Stores[@index].Brand" value="@item.Brand" /><span style="float: right;"> &gt;</span>
+                                            </div>
+                                            <div class="saleList">
+                                                <label for="saleList">经营行业</label><input placeholder="选择经营行业" type="text" name="Stores[@index].Industry" code="Industry" id="Stores[@index].Industry" value="@item.Industry" /><span style="float: right;"> &gt;</span>
+                                            </div>
+                                            <div class="prov ">
+                                                <label for="provstore">所在地区</label><input type="text" value="@item.Province @item.City @item.Country" placeholder="请选择所在区域" id='provstore' class="provstore" /><span style="float: right;"> &gt;</span>
+                                                <input type="hidden" class='province' name="Stores[@index].Province" code="Province" value="@item.Province" />
+                                                <input type="hidden" class='city' name="Stores[@index].City" code="City" value="@item.City" />
+                                                <input type="hidden" class='country' name="Stores[@index].Country" code="Country" value="@item.Country" />
+                                            </div>
+                                            <div class="saleList">
+                                                <label for="saleList">所属商场</label><input placeholder="选择门店所属商场" type="text" name="Stores[@index].Mall" code="Mall" id="Stores[@index].Mall" value="@item.Mall" /><span style="float: right;"> &gt;</span>
+                                            </div>
+                                            <div class="adds landlord">
+                                                <label for="codes">门店面积</label><input type="text" name="Stores[@index].StoreArea" code="StoreArea" id="Stores[@index].StoreArea" value="@item.StoreArea" /><span style="float: right;">m2</span>
+                                            </div>
+                                            @*<div class="pic">
+                                                <p>上传门店照片</p>
+                                                <div class='getCmr'>
+                                                    <div class='hid'>
+                                                        <a data-fancybox href='~/Areas/JJD/Content/images/01.index/u454.png'>
+                                                            <img preview style="width:75px;height:75px;" src='~/Areas/JJD/Content/images/01.index/u454.png' />
+                                                        </a>
+                                                    </div>
+                                                    <span class='data'></span>
+                                                </div>
+                                                <div class="upload">
+                                                    <input type="file" code="storeImg" />
+
+                                                    <div id="getCmrOrder" class="addImg getCmrOrder">
+                                                        <img upload src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                                        <input type="hidden" code="StoreImg" name="Stores[@index].StoreImg" />
+                                                        <span>添加  </span>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="pic">
+                                                <p>上传营业执照</p>
+                                                <div class='getCmr'>
+                                                    <div class='hid'>
+                                                        @{
+                                    if (!string.IsNullOrWhiteSpace(item.BusinessLicenseImg))
+                                    {
+                                        <a data-fancybox href='@item.BusinessLicenseImg'>
+                                            <img preview style="width:75px;height:75px;" src='@item.BusinessLicenseImg' />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a data-fancybox href='~/Areas/JJD/Content/images/01.index/u454.png'>
+                                            <img preview style="width:75px;height:75px;" src='~/Areas/JJD/Content/images/01.index/u454.png' />
+                                        </a>
+                                    }
+                                                        }
+
+                                                    </div>
+                                                    <span class='data'></span>
+                                                </div>
+                                                <div class="upload">
+                                                    <input type="file" code="fileBusinessLicenseImg" />
+                                                    <div id="getCmrOrder" class="addImg getCmrOrder">
+                                                        <img upload src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                                        <input type="hidden" code="BusinessLicenseImg" name="Stores[@index].BusinessLicenseImg" />
+                                                        <span>添加  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label for="facName">注册号</label><input placeholder="注册号/统一社会信用代码" type="text" name="Stores[@index].BusinessLicenseNo" code="BusinessLicenseNo" id="Stores[@index].BusinessLicenseNo" value="@item.BusinessLicenseNo" /><span style="float: right;"> &gt;</span>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            else
+                            {
+                                <li class="mui-table-view-cell mui-collapse">
+                                    <a class="mui-navigate-right" href="#" storename>门店1</a>
+                                    <div class="mui-collapse-content">
+                                        <!--经销商门店-->
+                                        <input type="hidden" name="Stores[0].Id" code="Id" value="@Guid.Empty" />
+                                        <div class="facName">
+                                            <label for="facName">经营品牌</label><input placeholder="填写所经营的品牌" type="text" name="Stores[0].Brand" code="Brand" id="Stores[0].Brand" value="" /><span style="float: right;"> &gt;</span>
+                                        </div>
+                                        <div class="saleList">
+                                            <label for="saleList">经营行业</label><input placeholder="选择经营行业" type="text" name="Stores[0].Industry" code="Industry" id="Stores[0].Industry" value="" /><span style="float: right;"> &gt;</span>
+                                        </div>
+                                        <div class="prov">
+                                            <label for="provstore">所在地区</label><input type="text" value="" placeholder="请选择所在区域" id='provstore' class="provstore" /><span style="float: right;"> &gt;</span>
+                                            <input type="hidden" class='province' name="Stores[0].Province" code="Province" value="" />
+                                            <input type="hidden" class='city' name="Stores[0].City" code="City" value="City" />
+                                            <input type="hidden" class='country' name="Stores[0].Country" code="Country" value="" />
+                                        </div>
+                                        <div class="saleList">
+                                            <label for="saleList">所属商场</label><input placeholder="选择门店所属商场" type="text" name="Stores[0].Mall" code="Mall" id="Stores[0].Mall" value="" /><span style="float: right;"> &gt;</span>
+                                        </div>
+                                        <div class="adds landlord">
+                                            <label for="codes">门店面积</label><input type="text" name="Stores[0].StoreArea" code="StoreArea" id="Stores[0].StoreArea" value="" /><span style="float: right;">m2</span>
+                                        </div>
+                                        @*<div class="pic">
+                                            <p>上传门店照片</p>
+                                            <div class='getCmr'>
+                                                <div class='hid'>
+                                                    <a data-fancybox href='~/Areas/JJD/Content/images/01.index/u454.png'>
+                                                        <img preview style="width:75px;height:75px;" src='~/Areas/JJD/Content/images/01.index/u454.png' />
+                                                    </a>
+                                                </div>
+                                                <span class='data'></span>
+                                            </div>
+                                            <div class="upload">
+                                                <input type="file" code="storeImg" />
+
+                                                <div id="getCmrOrder" class="addImg getCmrOrder">
+                                                    <img upload src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                                    <input type="hidden" code="StoreImg" name="Stores[0].StoreImg" />
+                                                    <span>添加  </span>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        <div class="pic">
+                                            <p>上传营业执照</p>
+                                            <div class='getCmr'>
+                                                <div class='hid'>
+                                                    <a data-fancybox href='~/Areas/JJD/Content/images/01.index/u454.png'>
+                                                        <img preview style="width:75px;height:75px;" src='~/Areas/JJD/Content/images/01.index/u454.png' />
+                                                    </a>
+                                                </div>
+                                                <span class='data'></span>
+                                            </div>
+                                            <div class="upload">
+                                                <input type="file" code="fileBusinessLicenseImg" />
+
+                                                <div id="getCmrOrder" class="addImg getCmrOrder">
+                                                    <img upload src="~/Areas/JJD/Content/images/03.personalCenter/jia.jpg" class='add' />
+                                                    <input type="hidden" code="BusinessLicenseImg" name="Stores[0].BusinessLicenseImg" />
+                                                    <span>添加  </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label for="facName">营业执照编号</label><input placeholder="注册号/统一社会信用代码" type="text" name="Stores[0].BusinessLicenseNo" code="BusinessLicenseNo" id="Stores[0].BusinessLicenseNo" value="" /><span style="float: right;"> &gt;</span>
+                                    </div>
+                                </li>
+                            }
+
+                        }
+                    </ul>
+
+                    <!--添加按钮-->
+                    <div class="addStore">
+                        <img src="~/Areas/JJD/Content/images/04.apply/mall.png" alt="" />
+                        <div>
+                            <p>添加门店信息</p>
+                            <span>仅限所在城市门店</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <a id="btnNext" class='mui-btn mui-btn-block fixBott'>下一步</a>
+
+    </div>
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery.district.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.picker.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.poppicker.js"></script>
+    <script src="~/Areas/JJD/Content/js/order/step04.js"></script>
+    <script src="~/Areas/JJD/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Areas/JJD/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+    <script src="~/Areas/JJD/Content/js/img-tool/upload.js"></script>
+    <script>
+        $().ready(function () {
+
+            $(document).on('click','span[code="storeremove"]',function () {
+                alert('aafdadsf');
+                console.log('span click...');
+
+                var thisObj = this;
+
+                mui.confirm('您确定要删除店铺吗?', '删除提示', function (e) {
+                    if (e.index == 1) {
+                        var id = $(thisObj).attr('id');
+                        if (id) {
+                            $.ajax({
+                                url: '/jiajudai/order/removestore',
+                                data: { id: $(thisObj).attr('id') },
+                                success: function (data) {
+                                    if (data.Status) {
+                                        $(thisObj).parents('.mui-table-view-cell').remove();
+                                    }
+                                },
+                                error: function (arg1, arg2, arg3) {
+                                    console.log(arg3);
+                                }
+                            });
+                        } else {
+                            $(thisObj).parents('.mui-table-view-cell').remove();
+                        }
+                    }
+                });
+
+                e.preventDefault();
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

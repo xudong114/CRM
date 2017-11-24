@@ -1,0 +1,224 @@
+﻿@model Ingenious.DTO.G_EntityDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/jiajudai/sys/entity/index"><i class="fa fa-home"></i>机构管理</a></li>
+    <li class="active">新建机构</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建机构</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/jiajudai/sys/entity/create" method="post">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EntityName, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.EntityName, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.EntityName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PersonalPhone, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.PersonalPhone, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.PersonalPhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OfficePhone, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.OfficePhone, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.OfficePhone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Province, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <select id="Province" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Province" id="hidProvince" />
+                        <select id="City" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="City" id="hidCity" />
+                        <select id="Country" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Country" id="hidCountry" />
+                        @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Street, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Industry, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.DropDownListFor(model => model.Industry, ViewBag.Industries as IEnumerable<SelectListItem>, null, new { @class = "input-sm form-control input-s-sm inline" })
+                        @Html.ValidationMessageFor(model => model.Industry, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IDImg, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="IDImg" name="IDImg" />
+                        <input type="hidden" id="IDImgFace" name="IDImgFace" />
+                        <input type="hidden" id="IDImgBack" name="IDImgBack" />
+                        <a id="btnIDImgFaceUpload" class="btn btn-default">身份证正面<span class="fa-upload"></span> </a>
+                        <a id="btnIDImgBackUpload" class="btn btn-default">身份证背面</a>
+                        <img id="previewIDImgFace" style="width:100px;" />
+                        <img id="previewIDImgBack" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.IDImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IDNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.IDNo, new { htmlAttributes = new { @class = "form-control form-control-larger" ,@placeholder="身份证号码（自动识别）"} })
+                        @Html.ValidationMessageFor(model => model.IDNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BusinessLicenseImg, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="BusinessLicenseImg" name="BusinessLicenseImg" />
+                        <a id="btnBusinessLicenseImgUpload" class="btn btn-default">上传图片</a>
+                        <img id="previewBusinessLicenseImg" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.BusinessLicenseImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BusinessLicenseNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.BusinessLicenseNo, new { htmlAttributes = new { @class = "form-control form-control-larger", @placeholder = "营业执照号码（自动识别）" } })
+                        @Html.ValidationMessageFor(model => model.BusinessLicenseNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Remark, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.TextAreaFor(model => model.Remark, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/jiajudai/sys/news" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</div>
+
+@section css{
+    <link href="~/Areas/JJDManagement/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+}
+
+@section scripts{
+
+    <script src="~/Areas/JJDManagement/Content/kindeditor/kindeditor-min.js"></script>
+    <script src="~/Areas/JJDManagement/Content/kindeditor/lang/zh_CN.js"></script>
+    <script src="~/Areas/JJDManagement/Content/js/jquery.district.js"></script>
+
+    <script>
+        var result = '@ViewBag.error';
+        if (result != '') {
+            alert(result);
+        }
+        $().ready(function(){
+            $.provinces({ id: 'Province', selected: '', defaultOption: '请选择' });
+            $('#Province').change(function () {
+
+                $.cities({ id: 'City', code: $(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidProvince').val($(this).find("option:selected").text());
+            });
+
+            $('#City').change(function () {
+
+                $.countries({ id: 'Country', code: $(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidCity').val($(this).find("option:selected").text());
+            });
+
+            $('#Country').change(function () {
+                $('#hidCountry').val($(this).find("option:selected").text());
+            });
+
+        });
+
+        KindEditor.ready(function (k) {
+
+            var editor = k.editor({
+                resizeType: 1,
+                allowFileManager: true,
+                allowPreviewEmoticons: false,
+                allowImageUpload: true,
+                urlType: 'domain',
+                formatUploadUrl: false,
+                uploadJson: '/app/files/jjd'
+            });
+
+            k('#btnIDImgFaceUpload').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#IDImgFace').val(),
+                        clickFn: function (url) {
+                            k('#IDImgFace').val(url);
+                            k('#previewIDImgFace').attr('src', url);
+                            $('#IDImg').val($('#IDImgFace').val() + '|' + $('#IDImgBack').val());
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+            k('#btnIDImgBackUpload').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#IDImgBack').val(),
+                        clickFn: function (url) {
+                            k('#IDImgBack').val(url);
+                            k('#previewIDImgBack').attr('src', url);
+                            $('#IDImg').val($('#IDImgFace').val() + '|' + $('#IDImgBack').val());
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+            k('#btnBusinessLicenseImgUpload').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#BusinessLicenseImg').val(),
+                        clickFn: function (url) {
+                            k('#BusinessLicenseImg').val(url);
+                            k('#previewBusinessLicenseImg').attr('src', url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+    </script>
+}

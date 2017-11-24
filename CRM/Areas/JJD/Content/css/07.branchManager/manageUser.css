@@ -1,0 +1,71 @@
+body {font-family: Microsoft YaHei;background: #F2F2F2;}
+fieldset, img { border:0; }
+ol, ul { list-style:none; }
+a{text-decoration: none}
+*{margin: 0;padding: 0;}
+
+header.mui-bar{
+    background: #8763F7;
+    -webkit-box-shadow: none;;
+    box-shadow: none;
+}
+header .mui-title,header .mui-pull-left{
+    color: #fff;
+}
+header span{
+	float: right;
+	color:#fff;
+	height: 44px;
+	line-height: 44px;
+}
+
+.mui-media{
+	border-bottom: 8px solid #F2F2F2;
+}
+.mui-table-view .mui-media-object{
+	width:45px;
+	height: 45px;
+	max-width: 100px;
+	
+}
+.mui-table-view .mui-media-object.mui-pull-left{
+	margin:0 20px 0 15px; 
+	border-radius: 50%;
+		
+}
+.mui-media span{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #666666;
+}
+.mui-table-view-cell p{
+	margin-top: 5px;
+}
+.mui-content>.mui-table-view:first-child{
+	margin-top: 6px;
+}
+{
+	vertical-align: middle;
+}
+#adds .mui-media-body{
+	margin-top: 4%;
+}
+#adds{
+	border-bottom: 0;
+}
+#adds img{
+	width: 50px;
+	height: 50px;
+}
+h5{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    color: #999999;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 30px;
+    width: 100%;
+}

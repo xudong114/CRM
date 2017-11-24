@@ -1,0 +1,67 @@
+﻿@model  Ingenious.DTO.G_OrderDTO
+
+@{
+    Layout = null;
+    bool status = false;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.poppicker.css" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/order/houses.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">填写房产信息</h1>
+    </header>
+
+    <div class='mui-content'>
+        <form id="form1" action="/jiajudai/order/step03" method="post">
+
+            <input type="hidden" value="@ViewBag.orderId" id="Id" name="Id"/>
+
+            <div class="houseBtn">
+                <span>是否有房产</span>
+                <div><a class="@(Model.HasHouse ? "active" : "")" href="#yes">是</a><a href="#no" class="@(!Model.HasHouse ? "active" : "")">否</a></div>
+                <input type="hidden" name="HasHouse" id="HasHouse" value="@(Model.HasHouse ? "True" : "False")" />
+            </div>
+            <div class='nameNum'>
+                <div class="prov">
+                    <label for="area">所在区域</label><input type="text" value="@Model.Province @Model.City @Model.Country" placeholder="请选择所在区域" /><span> &gt;</span>
+                    <input type="hidden" class='province' name="Province" value="@Model.Province" />
+                    <input type="hidden" class='city' name="City" value="@Model.City" />
+                    <input type="hidden" class='country' name="Country" value="@Model.Country" />
+                </div>
+                <div class="community">
+                    <label for="phoneNum">小区名称</label><input placeholder="填写住宅所在小区名称" type="text" name="Community" id="Community" value="@Model.Community" />
+                </div>
+                <div class="adds landlord">
+                    <label for="codes">房产面积</label><input type="text" name="Area" id="Area" value="@Model.Area" /><span style="float: right;">m2</span>
+                </div>
+            </div>
+            
+            <a id="btnNext" class='mui-btn mui-btn-block fixBott'>下一步</a>
+        </form>
+    </div>
+
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery.district.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.picker.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.poppicker.js"></script>
+    <script src="~/Areas/JJD/Content/js/order/step03.js"></script>
+    <script>
+        $().ready(function () {
+            $('.houseBtn a.active').click();
+        });
+    </script>
+</body>
+
+</html>

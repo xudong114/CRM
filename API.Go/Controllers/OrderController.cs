@@ -293,7 +293,7 @@ namespace API.Go.Controllers
         /// <summary>
         /// 订单审核
         /// </summary>
-        /// <param name="id">订单标准（F_Order.Id）</param>
+        /// <param name="id">订单标识（F_Order.Id）</param>
         /// <param name="status">订单状态：F_OrderStatusEnum</param>
         /// <param name="remark">审核备注</param>
         /// <returns></returns>

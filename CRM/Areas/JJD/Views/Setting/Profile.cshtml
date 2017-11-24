@@ -1,0 +1,177 @@
+﻿@model Ingenious.DTO.G_UserDetailDTO
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.poppicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/03.personalCenter/personal.css" />
+    <link href="~/Areas/JJD/Content/cropper/cropper.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">个人信息</h1>
+        <span>保存</span>
+    </header>
+
+    <div class='mui-content'>
+        <form id="form1" action="/jiajudai/setting/profile" method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="G_UserId" value="@Model.G_UserId" />
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" id='btnUserFace'>
+                        <img id="previewImg" />
+                        <p>头像</p><b class="rf">
+                            @{
+                                if (!string.IsNullOrWhiteSpace(Model.Face))
+                                {
+                                    <img id="Face" class='cmr' src="@Model.Face" />
+                                }
+                                else
+                                {
+                                    <img id="Face" class='cmr' src="~/Areas/JJD/Content/images/01.index/touxiang.png" />
+                                }
+                            }
+                        </b>
+                        <input type="hidden" id="Face" name="Face" value="@Model.Face" />
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <p>昵称</p><input id="NickName" name="NickName" placeholder="请输入昵称" class="nickName" type="text" value="@Model.NickName" />
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a>
+                        <p>性别</p>
+                        <div class="mui-input-row mui-radio mui-left nv">
+                            <label>男</label>
+                            <input class='male' name="genderchk" type="radio" @(Model.Gender ? "checked=\"checked\"" : "")>
+                        </div>
+                        <div class="mui-input-row mui-radio mui-left">
+                            <label>女</label>
+                            <input class='female' name="genderchk" type="radio" @(!Model.Gender ? "checked=\"checked\"" : "")>
+                        </div>
+                    </a>
+                    <input type="hidden" id="Gender" name="Gender" value="@Model.Gender.ToString()" />
+                </li>
+                <li class="mui-table-view-cell prov">
+                    <a class="mui-navigate-right">
+                        <p>地区</p><input placeholder="请选择所在区域" class="area" type="text" value="@(Model.Province) @Model.City @Model.Country" />
+                        <input type="hidden" class='province' name="Province" value="@(Model.Province)" />
+                        <input type="hidden" class='city' name="City" value="@Model.City" />
+                        <input type="hidden" class='country' name="Country" value="@Model.Country" />
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <p>街道</p><input placeholder="请输入所在街道" class='street' type="text" name="Street" value="@Model.Street" />
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <p>真实姓名</p><input placeholder="请输入您的真实姓名" class='realName' type="text" name="Name" value="@Model.Name" />
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a>
+                        <p>手机号码</p><input id="G_UserDetail.PersonalPhone" type="text" readonly="readonly" name="PersonalPhone" value="@Model.PersonalPhone" />
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <p>邮箱账号</p><input class="mail" type="text" value="@Model.Email" id="Email" name="Email" />
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <p>身份证号</p><input placeholder="请输入您的身份证号码" type="text" class="idCard" value="@Model.IDNo" id="IDNo" name="IDNo" />
+                    </a>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.picker.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.poppicker.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery.district.js"></script>
+    <script src="~/Areas/JJD/Content/cropper/cropper.js"></script>
+    <script src="~/Areas/JJD/Content/js/Setting/profile.js"></script>
+    <script>
+
+        //function getRoundedCanvas(sourceCanvas) {
+        //    var canvas = document.createElement('canvas');
+        //    var context = canvas.getContext('2d');
+        //    var width = sourceCanvas.width;
+        //    var height = sourceCanvas.height;
+
+        //    canvas.width = width;
+        //    canvas.height = height;
+        //    context.beginPath();
+        //    context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+        //    context.strokeStyle = 'rgba(0,0,0,0)';
+        //    context.stroke();
+        //    context.clip();
+        //    context.drawImage(sourceCanvas, 0, 0, width, height);
+
+        //    return canvas;
+        //}
+
+        //$().ready(function () {
+        //    var $image = $('#previewImg');
+        //    var $button = $('#button');
+        //    var $result = $('#result');
+        //    var croppable = false;
+
+        //    $image.cropper({
+        //        aspectRatio: 1,
+        //        viewMode: 1,
+        //        ready: function () {
+        //            croppable = true;
+        //        }
+        //    });
+
+        //    $button.on('click', function () {
+        //        var croppedCanvas;
+        //        var roundedCanvas;
+
+        //        if (!croppable) {
+        //            return;
+        //        }
+
+        //        // Crop
+        //        croppedCanvas = $image.cropper('getCroppedCanvas');
+
+        //        // Round
+        //        roundedCanvas = getRoundedCanvas(croppedCanvas);
+
+        //        // Show
+        //        $('#Face').attr("src", roundedCanvas.toDataURL());
+
+        //    });
+
+
+        //    $('#Face').click(function () {
+
+        //    });
+
+        });
+    </script>
+</body>
+</html>

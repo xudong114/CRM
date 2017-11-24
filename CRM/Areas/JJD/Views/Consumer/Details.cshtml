@@ -1,0 +1,474 @@
+﻿@model Ingenious.DTO.G_OrderDTO
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/css/Consumer/applyDetails.css" rel="stylesheet" />
+    <style>
+        #order p,
+        #house p,
+        #shops p,
+        .mui-table-view-cell p {
+            display: inline-block;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 16px;
+            color: #666666;
+            vertical-align: middle;
+            width: 64px;
+        }
+
+        .mui-collapse-content > p {
+            text-align: center;
+            width: 100%;
+            background: #F2F2F2;
+            height: 44px;
+            line-height: 44px;
+            color: #333333;
+        }
+
+        .idCard p {
+            margin-bottom: 10px;
+            width: 100% !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">申请详情</h1>
+    </header>
+    <div class='mui-content'>
+        <!--进度条-->
+        <div class='progressBar'>
+            <ul>
+                <li>
+                    <span></span>
+                    <p>平台受理</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>分配银行</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>银行受理</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>银行签约</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>银行放款</p>
+                </li>
+            </ul>
+        </div>
+
+        @{
+        var platform = Model.OrderStepRecordList.Where(item => item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PreDenied
+        || item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PrePassed
+        || item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PreProcess).FirstOrDefault();
+
+        var platformManager = Model.OrderStepRecordList.Where(item => item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.GojiajuDenied
+        || item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.GojiajuPassed
+        || item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.InProcess).FirstOrDefault();
+
+        var bankSite = Model.OrderStepRecordList.Where(item => item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankDenied
+        || item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankPassed).FirstOrDefault();
+
+        var bankSiteManager = Model.OrderStepRecordList.Where(item => item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankSigned
+        || item.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.SignCanceled).FirstOrDefault();
+
+        }
+
+        <!--受理详情-->
+        <div class='details'>
+            @{
+            if (platform != null &&
+            (Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PreDenied
+            || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PrePassed
+            || ((int)(Model.Status) > 8)))
+            {
+            <!--平台受理-->
+            <ul class="mui-table-view terrace">
+                <li class="mui-table-view-cell mui-collapse">
+                    <a class="mui-navigate-right" href="#">平台受理</a>
+                    <div class="mui-collapse-content">
+                        <ul class="mui-table-view">
+                            <li class="mui-table-view-cell">
+                                <p>受理状态</p><span>@platform.StatusLabel</span><b>@platform.CreatedDate.ToString("yyyy.MM.dd hh:mm")</b>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <p>专属客服</p>
+                                <span>@platform.OfficePhone</span>
+                                <a href="tel:@platform.OfficePhone"><img src="~/Areas/JJD/Content/images/05.bankManager/u3639.png" /></a>
+                            </li>
+                            <li class="mui-table-view-cell remark">
+                                <p>备注信息</p><br />
+                                <span>@platform.Remark</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            }
+
+            if (platformManager != null &&
+            (Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.InProcess
+            || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.GojiajuDenied
+            || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.GojiajuPassed
+            || ((int)(Model.Status) >= 64)))
+            {
+            <!--分配银行-->
+            <ul class='mui-table-view bank'>
+                <li class='mui-table-view-cell mui-collapse'>
+                    <a class='mui-navigate-right'>分配银行</a>
+                    <div class='mui-collapse-content'>
+                        <ul class='mui-table-view'>
+                            <li class='mui-table-view-cell'>
+                                <p>受理状态</p><span>@platformManager.StatusLabel</span>
+                            </li>
+                            <li class='mui-table-view-cell'>
+                                <p>金融客服</p><span>@platformManager.UserName</span>
+                                <a href="tel:@platformManager.OfficePhone"><img src="~/Areas/JJD/Content/images/05.bankManager/u3639.png" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            }
+
+            if (bankSite != null &&
+            (Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankDenied
+            || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankPassed
+            || ((int)(Model.Status) >= 512)))
+            {
+            <!--银行受理-->
+            <ul class='mui-table-view bank'>
+                <li class='mui-table-view-cell mui-collapse'>
+                    <a class='mui-navigate-right'>银行受理</a>
+                    <div class='mui-collapse-content'>
+                        <ul class='mui-table-view'>
+                            <li class='mui-table-view-cell'>
+                                <p>受理状态</p><span class='warning'>@bankSite.StatusLabel</span>
+                            </li>
+
+                            <li class='mui-table-view-cell'>
+                                <p>受理银行</p><span>@bankSite.BankName</span>
+                            </li>
+
+                            <li class='mui-table-view-cell remark'>
+                                <p>备注信息</p><br /><span>@bankSite.Remark</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            }
+
+            if (bankSiteManager != null &&
+            (Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankSigned
+            || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.SignCanceled
+            || ((int)(Model.Status) >= 512)))
+            {
+            <!--银行签约-->
+            <ul class='mui-table-view bank'>
+                <li class='mui-table-view-cell mui-collapse'>
+                    <a class='mui-navigate-right'>银行签约</a>
+                    <div class='mui-collapse-content'>
+                        <ul class='mui-table-view'>
+                            <li class='mui-table-view-cell'>
+                                <p>签约状态</p><span class='warning'>@bankSiteManager.StatusLabel</span>
+                            </li>
+
+                            <li class='mui-table-view-cell'>
+                                <p>受理银行</p><span>@bankSiteManager.BankName</span>
+                            </li>
+
+                            <li class='mui-table-view-cell remark'>
+                                <p>备注信息</p><br /><span>@bankSiteManager.Remark</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            }
+
+            }
+        </div>
+
+        <!--折叠面板-->
+        <!--个人基础信息-->
+        <!--房产信息-->
+        <!--家具购物信息-->
+        <!--经营信息-->
+        <!--个人征信-->
+        <ul id="OrderDetail" class="mui-table-view">
+            <li class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#">订单详情</a>
+                <div class="mui-collapse-content">
+                    <ul class="mui-table-view" id='order'>
+                        <li class="mui-table-view-cell">
+                            <p>申请编号</p><span id="OrderCode">@Model.Code</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>申请时间</p><span id="OrderDate">@Model.CreatedDate.ToString("yyyy-MM-dd")</span>
+                        </li>
+                        <li class="mui-table-view-cell orderMoney">
+                            <p>申请金额</p><span id="OrderLoanAmount">@(Model.LoanAmount.ToString("0"))万</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>申请类型</p><span id="OrderDate">@(Model.ProductName)</span>
+                        </li>
+                        @*<li class="mui-table-view-cell">
+                            <p>手续费</p><span id="OrderDate">-</span>
+                        </li>*@
+                        <li class="mui-table-view-cell">
+                            <p>金融专员</p><span>@(Model.GoJiajuClerkName)</span>
+                            @{
+                            if (!string.IsNullOrWhiteSpace(Model.GoJiajuClerkOfficePhone))
+                            {
+                            <a href="tel:@Model.GoJiajuClerkOfficePhone" class="call"><img src="~/Areas/JJD/Content/images/05.bankManager/u3639.png" /></a>
+                            }
+                            }
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-collapse-content">
+                    <p>个人信息</p>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <p>姓名</p><span>@Model.Name</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>手机号</p><span>@Model.PersonalPhone</span>
+                            <a href="tel:@Model.PersonalPhone" class="call"><img src="~/Areas/JJD/Content/images/05.bankManager/u3639.png" /></a>
+                        </li>
+                        <li class="mui-table-view-cell idCard">
+                            <p>身份证照片</p>
+
+                            @{
+                            var imgs = new string[] { };
+                            if (!string.IsNullOrWhiteSpace(Model.IDImg))
+                            {
+                            imgs = Model.IDImg.Split(new string[] { "|" }, StringSplitOptions.None);
+                            }
+
+                            <div>
+                                @if (imgs.Count() > 0)
+                                {
+                                <div>
+                                    <a data-fancybox href="@imgs[0]">
+                                        <img preview style="width:100px;" src='@imgs[0]' />
+                                    </a>
+                                    <span>正面</span>
+                                </div>
+                                }
+                                @if (imgs.Count() > 1)
+                                {
+                                <div>
+                                    <a data-fancybox href="@imgs[1]">
+                                        <img preview style="width:100px;" src='@imgs[1]' />
+                                    </a>
+                                    <span>反面</span>
+                                </div>
+                                }
+                            </div>
+                            }
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-collapse-content">
+                    <p>房产信息</p>
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <p>小区名称</p><span>@Model.Community</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>所在区域</p><span>@Model.HouseAddress</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>房产面积</p><span>
+                                @if (string.IsNullOrWhiteSpace(Model.Area))
+                                {
+                                @Html.Raw("-")
+                                }
+                                else
+                                {
+                                @Model.Area @Html.Raw("m<sup>2</sup>")
+                                }
+
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mui-collapse-content">
+                    <p>经营信息</p>
+
+                    @{
+                    if (Model.IsFactory && Model.Base_Factory != null)
+                    {
+                    <a class="hideFactory"><b>工厂</b>  <span>收起 &gt;</span></a>
+                    <ul class="mui-table-view" id='shops'>
+                        <li class="mui-table-view-cell">
+                            <p>经营性质</p><span>工厂</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>工厂名称</p><span>@Model.Base_Factory.EntityName</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>经营行业</p><span>@Model.Base_Factory.Industry</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>所在地区</p><span>@Model.Base_Factory.FactoryAddress</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>所在街道</p><span>@Model.Base_Factory.Street</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>工厂面积</p><span>@(Model.Base_Factory.Area == 0 ? "-" : Model.Base_Factory.Area.ToString("0"))m2</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>年产值</p><span>@(Model.Base_Factory.TotalAmount == 0 ? "-" : Model.Base_Factory.TotalAmount.ToString("0"))万元</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>经销商数量</p><span>@(Model.Base_Factory.SubEntity == 0 ? "-" : Model.Base_Factory.SubEntity.ToString())家</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>营业执照</p><br />
+                            @if (!string.IsNullOrWhiteSpace(Model.Base_Factory.BusinessLicenseImg))
+                            {
+                            <a data-fancybox href="@Model.Base_Factory.BusinessLicenseImg">
+                                <img preview style="width:100px;" src='@Model.Base_Factory.BusinessLicenseImg' />
+                            </a>
+                            }
+                        </li>
+                    </ul>
+                    }
+                    else
+                    {
+                    foreach (var item in Model.Stores)
+                    {
+                    <a class="hideFactory"><b>@string.Format("门店{0}(点击查看)", @Model.Stores.IndexOf(item) + 1)</b>  <span>收起 &gt;</span></a>
+                    <ul class="mui-table-view" id='shops'>
+                        <li class="mui-table-view-cell">
+                            <p>经营品牌</p><span>@item.Brand</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>经营行业</p><span>@item.Industry</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>所在地区</p><span>@item.Province @item.City @item.Country</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>所属商场</p><span>@item.Mall</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>门店面积</p><span>@(item.StoreArea)m2</span>
+                        </li>
+
+                        <li class="mui-table-view-cell">
+                            <p>营业执照</p><br />
+                            @if (!string.IsNullOrWhiteSpace(item.BusinessLicenseImg))
+                            {
+                            <a data-fancybox href="@item.BusinessLicenseImg">
+                                <img preview style="width:100px;" src='@item.BusinessLicenseImg' />
+                            </a>
+                            }
+
+                        </li>
+                    </ul>
+                    }
+                    }
+                    }
+                </div>
+            </li>
+        </ul>
+    </div>
+    @if (Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.GojiajuDenied
+    || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PreDenied
+    || Model.Status == Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankDenied)
+    {
+    <!--审核和分配订单 按钮-->
+    <div class='orderBtn'>
+
+        <div class="check" style="width:100%;">
+            <a href="/jiajudai/order/step01?orderid=@Model.Id">修改</a>
+        </div>
+    </div>
+    }
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.picker.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.poppicker.js"></script>
+    <script src="~/Areas/JJD/Content/js/progressBar.js"></script>
+    <script src="~/Areas/JJD/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+
+    <script>
+        $('.hideFactory+ul').hide();
+        $('.hideFactory').on('click', function (e) {
+            e.preventDefault();
+            $(this).next('ul').slideToggle();
+        })
+    </script>
+    <script>
+        @{
+            int index = 1;
+            switch(Model.Status)
+            {
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PreProcess:
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PreDenied:
+                    {
+                        index = 1;
+                    }
+                    break;
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.PrePassed:
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.InProcess:
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.GojiajuDenied:
+                    {
+                        index = 2;
+                    }
+                    break;
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankDenied:
+                    {
+                        index = 3;
+                    }
+                    break;
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankPassed:
+                    {
+                        index = 4;
+                    }
+                    break;
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.BankSigned:
+                case Ingenious.Infrastructure.Enum.G_OrderStatusEnum.SignCanceled:
+                case  Ingenious.Infrastructure.Enum.G_OrderStatusEnum.Successed:
+                    {
+                        index = 5;
+                    }
+                    break;
+
+            }
+        }
+    $().ready(function () {
+
+        progressBar(@index);
+    });
+    </script>
+
+</body>
+</html>

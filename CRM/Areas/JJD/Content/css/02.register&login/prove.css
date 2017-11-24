@@ -1,0 +1,76 @@
+body {font-family: Microsoft YaHei;}
+fieldset, img { border:0; }
+a{text-decoration: none}
+*{margin: 0;padding: 0;}
+fieldset, img { border:0; }
+ol, ul { list-style:none; }
+a{text-decoration: none}
+*{margin: 0;padding: 0;}
+
+body,.mui-content{
+    background: #ffffff;
+}
+.mui-bar{
+	background:#FFF;
+}
+.mui-bar-nav{
+	box-shadow: none;
+}
+header a{
+	color: #333;
+}
+.mui-content>p{
+	margin-top: 20px;
+	font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 40px;
+    
+}
+.mui-content div{
+    width: 90%;
+    height: 45px;
+    line-height: 40px;
+    border-radius: 3px;
+    font-size: 18px;
+    color: #999999;
+    border-bottom: 1px solid rgba(215, 215, 215, 1);
+    text-align: left;
+    margin: 8px auto;
+}
+.mui-content div input{
+	border: none;
+	margin: 0;
+	width: 50%;
+	padding: 5px;
+	  font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+.mui-content div.num input{
+	width: 85%;
+}
+.mui-content .mui-btn{
+	width:90%;
+	background: #d7d7d7;
+	margin:0 auto;
+	color:#fff;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.mui-content div img{
+	width: 6%;
+	vertical-align: middle;	
+}
+.mui-content div span{
+	  font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #F96065;
+    text-align: right;
+    display: inline-block;
+    width: 40%;
+    float: right;
+}

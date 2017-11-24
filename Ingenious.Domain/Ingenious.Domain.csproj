@@ -41,18 +41,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AggregateRoot.cs" />
+    <Compile Include="DataSource\G_ComplexOrderRecord.cs" />
+    <Compile Include="DataSource\G_ComplexOrder.cs" />
     <Compile Include="DataSource\ComplexOrder.cs" />
     <Compile Include="DataSource\ComplexOrderRecord.cs" />
+    <Compile Include="DataSource\ComplexStatusCount.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Base_Car.cs" />
+    <Compile Include="Models\Base_Factory.cs" />
+    <Compile Include="Models\Base_Profile.cs" />
+    <Compile Include="Models\Base_Realestate.cs" />
+    <Compile Include="Models\Base_Store.cs" />
+    <Compile Include="Models\G_Activity.cs" />
+    <Compile Include="Models\G_File.cs" />
     <Compile Include="Models\G_OrderRecord.cs" />
+    <Compile Include="Models\G_Entity.cs" />
     <Compile Include="Models\G_User.cs" />
     <Compile Include="Models\G_UserDetail.cs" />
     <Compile Include="Models\G_Bank.cs" />
-    <Compile Include="Models\G_Factory.cs" />
-    <Compile Include="Models\G_Store.cs" />
     <Compile Include="Models\G_Order.cs" />
     <Compile Include="Models\G_News.cs" />
     <Compile Include="Models\G_AD.cs" />

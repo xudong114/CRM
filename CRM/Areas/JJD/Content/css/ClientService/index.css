@@ -1,0 +1,147 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td { margin:0; padding:0; }
+body { font-size:14px; color:#FFFFFF; background:#FFFFFF;font-family: Microsoft YaHei;line-height: 2;}
+*{box-sizing: border-box}
+fieldset, img { border:0; }
+ol, ul { list-style:none; }
+h1, h2, h3, h4, h5, h6{ font-size:100%; }
+a{text-decoration: none}
+body,.mui-content{
+    background: #ffffff;
+}
+#navBar{
+    position: fixed;
+    bottom: -10px;
+    left:0;
+    z-index: 100;
+    width:100%;
+    
+}
+#navBar iframe{
+    border: none;
+}
+.heads{
+	height: 168px;
+	background: url('../../images/01.index/banner3.jpg');
+	background-size: 100% 100%;
+	text-align: center;
+	padding-top: 7%;
+	
+	
+}
+.heads img{
+	width:64px;
+	height: 64px;
+	margin:0 auto;
+	display: block;
+	background: url("../../images/10.bankManager/u8361.png");
+	background-size: 100% 100%;
+	padding:5px;
+	border-radius: 50%;
+}
+.heads a{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    text-decoration: underline;
+    color: #FFFFFF;
+}
+.heads h6{
+	border: 1px solid #C8E0FF;
+	width:70px;
+	margin:0 auto;
+	padding:2px 5px;
+	/*box-sizing: border-box;*/
+	font-size: 14px;
+    color: #C8E0FF;
+    margin-top:10px;
+    border-radius: 2px;
+}
+
+.heads h5{
+    color: #fff;
+    font-size: 18px;
+}
+.btns{
+	padding: 15px 0;
+	border-bottom: 13px solid #F2F2F2;
+}
+.btns ul{
+	width:100%;
+}
+.btns ul li{
+	width:32%;
+	display: inline-block;
+	text-align: center;
+}
+.btns ul li p{
+	width:37px;
+	height: 37px;
+	margin: 0 auto;
+		position: relative;
+}
+.btns ul li p img{
+	width: 100%;
+}
+.btns ul li span{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    color: #666666;
+}
+.btns ul li b{
+	position: absolute;
+	top:0px;
+	right: -5px;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	background: #F96065;
+	font-size: 12px;
+	border-radius: 50% 50%;
+	text-align: center;
+	color:#FFFFFF
+}
+.btns ul li:not(:last-child){
+	border-right: 1px solid #e4e4e4;
+}
+.mui-navigate-right{
+	
+}
+.mui-table-view-cell>a:not(.mui-btn){
+	color:#333333;
+	font-size: 16px;
+}
+.applys{
+	border-bottom: 13px solid #F2F2F2;
+}
+#applys img{
+	width: 25px;
+	vertical-align: middle;
+	margin-right:10px;
+}
+#applys span{
+	float: right;
+	margin-right: 21px;
+	color: #999999;
+	
+}
+
+#sets img{
+	width: 25px;
+	vertical-align: middle;
+	margin-right:10px;
+}
+#sefs span{
+	float: right;
+	margin-right: 21px;
+	color: #999999;
+}
+#sets{
+	margin-bottom: 50px;
+}
+#applys li:first-child span{
+	color: #8763f7;
+}
+
+
+

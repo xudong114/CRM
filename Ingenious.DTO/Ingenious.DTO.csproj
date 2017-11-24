@@ -48,7 +48,12 @@
   <ItemGroup>
     <Compile Include="AccountDTO.cs" />
     <Compile Include="ActivityDTO.cs" />
+    <Compile Include="Base_CarDTO.cs" />
+    <Compile Include="Base_ProfileDTO.cs" />
     <Compile Include="BillDTO.cs" />
+    <Compile Include="G_ActivityDTO.cs" />
+    <Compile Include="G_EntityDTO.cs" />
+    <Compile Include="G_FileDTO.cs" />
     <Compile Include="G_ADDTO.cs" />
     <Compile Include="G_BankDTO.cs" />
     <Compile Include="F_BankOptionDTO.cs" />
@@ -84,9 +89,9 @@
     <Compile Include="F_UserDTO.cs" />
     <Compile Include="F_ModelRoot.cs" />
     <Compile Include="F_WithdrawDepositRecordDTO.cs" />
-    <Compile Include="G_FactoryDTO.cs" />
+    <Compile Include="Base_FactoryDTO.cs" />
     <Compile Include="G_LoanProductDTO.cs" />
-    <Compile Include="G_StoreDTO.cs" />
+    <Compile Include="Base_StoreDTO.cs" />
     <Compile Include="ModelRoot.cs" />
     <Compile Include="PriceStrategyDetailDTO.cs" />
     <Compile Include="PriceStrategyDTO.cs" />

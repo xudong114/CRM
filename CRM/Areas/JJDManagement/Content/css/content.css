@@ -1,0 +1,61 @@
+﻿.tree_top h5 {
+	font-size: 12px;
+	line-height: 28px;
+	height: 28px;
+	margin: 8px 8px 0 8px;
+	color: #777;
+	background: #eee;
+}
+
+.tree_top h5 span {
+	margin-left: 8px;
+}
+
+.right_title {
+	height: 48px;
+	border-bottom: 1px solid #e6eef2;
+	border-radius: 4px 4px 0 0;
+	/*  background: #eee;*/
+}
+
+.right_title h5 {
+	font-size: 15px;
+	font-weight: normal;
+	float: left;
+	margin: 12px 0 0 20px;
+	color: #3d5266;
+}
+
+.right_title .header_help {
+	margin: 20px 20px 0 0;
+	padding-left: 18px;
+	color: #6b8299;
+	background: url(../img/header_help_ico.png) 0 0 no-repeat;
+}
+
+.right_title .header_help:hover {
+	text-decoration: none;
+	color: #00aaef;
+	background: url(../img/header_help_ico.png) 0 -16px no-repeat;
+}
+
+.right_title a.help {
+	display: block;
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-top: 16px;
+	margin-left: 16px;
+	cursor: pointer;
+	background: url(../img/help_gray.png);
+}
+
+.right_title a.green_button {
+	line-height: 26px;
+	display: block;
+	float: right;
+	height: 26px;
+	margin-top: 7px;
+	margin-right: 20px;
+	padding: 0 16px;
+}

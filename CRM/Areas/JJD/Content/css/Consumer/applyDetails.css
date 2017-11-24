@@ -1,0 +1,604 @@
+body {font-family: Microsoft YaHei;}
+fieldset, img { border:0; }
+ol, ul { list-style:none; }
+a{text-decoration: none}
+*{margin: 0;padding: 0;}
+
+body,.mui-content{
+    background: #FFFFFF;
+}
+.mui-content{
+	margin-bottom: 160px;
+}
+header.mui-bar.mui-bar-nav {
+    z-index: 11;
+}
+header.mui-bar{
+    background: #8763F7;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+header .mui-title{
+    color: #ffffff;
+}
+header .mui-title,header .mui-pull-left{
+    color: #ffffff;
+}
+.progressBar{
+	width:100%;
+	height: 70px;
+	line-height: 100px;
+	background: #FFFFFF;
+	padding-top: 20px;
+}
+.progressBar ul{
+	width: 90%;
+	margin:0 auto;
+	height:10px;
+	/*background: #8763F7;*/
+	background: #E4E4E4;
+	border-radius: 5px;
+	line-height: 10px;
+	display: flex;
+}
+.progressBar ul li{
+	display: inline-block;
+	height: 10px;
+	border-radius: 5px;
+	width:25%;
+	text-align: center;
+	background: #E4E4E4;
+	line-height: 10px;
+	float: left;
+}
+.progressBar ul li span{
+	display: inline-block;
+	width:20px;
+	height:20px;
+	border-radius: 50%;
+	background: #E4E4E4;
+	/*float: right;*/
+	font-size: 0;
+	margin-top: -5px;
+	position: relative;
+		z-index: 10;
+}
+.progressBar ul li:nth-child(1){
+	background: #8763F7;
+}
+.progressBar ul li:nth-child(1) span{
+	background: #8763F7;
+}
+.progressBar ul li p{
+	margin-top: 10px;
+	color: #666666;
+    font-size: 12px;
+}
+.mui-collapse>.mui-navigate-right{
+	text-align: center;
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+}
+#order .mui-active{
+	background: #FFFFFF;
+}
+.mui-table-view{
+	border-top: 13px solid #F2F2F2;
+}
+/*.mui-table-view-cell>a:not(.mui-btn){
+	padding-left: 14px;
+}*/
+.mui-table-view-cell>a.call {
+	display: inline-block;
+	float: right;
+    height:45px;
+    padding:0 10px;
+}
+.mui-table-view-cell>a.call img{
+	height:40px;
+    width:40px;
+}
+.mui-collapse li>span{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #999999;
+    display: inline-block;
+    margin-left: 20px;
+}
+#order li.orderMoney>span{
+	    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: #F96065;
+    text-align: center;
+        display: inline-block;
+    margin-left: 25px;
+}
+#personal p{
+	display: inline-block;
+	width: 80px;
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+     text-align-last:justify;
+}
+#order p,#house p,#shops p{
+	display: inline-block;
+	/*text-align: justify;*/
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+    width: 80px;
+}
+#house span,#shops span{
+	    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #999999;
+    display: inline-block;
+    margin-left: 20px;
+}
+#shops img{
+	width:80px;
+	height: 80px;
+	margin:20px;
+	margin-left: 0;
+}
+.last{
+    margin-top:43px;
+    font-style: normal;
+    font-size: 16px;
+    color: #999999;
+    text-align: center;
+    padding: 20px 0;
+    background: #F2F2F2;
+}
+.details p{
+	display: inline-block;
+	font-size: 16px;
+	color:#666666;
+}
+.details b{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #999999;
+    display: inline-block;
+    float: right;
+}
+.details img{
+	float: right;
+	width: 30px;
+	margin:-6x 0
+}
+.remark span{
+	display: inline-block;
+	margin-top: 10px;
+	padding-bottom: 20px;
+	height: 20px;
+	line-height: 26px;
+}
+a.dBtn{
+	width:90%;
+	margin: 30px auto;
+	display: block;
+	color: #FFF;
+	background: #F96065;
+	height:50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 3px;
+}
+.mui-collapse li>span.warning{
+	color:#F96065;
+}
+
+.checkBtn,.orderBtn{
+	height: 50px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	/*display: none;*/
+}
+
+.checkBtn .checkBlock{
+	 height: 100%;
+	 text-align: center;
+	 line-height: 50px;
+	 background: #8763F7;
+}
+.checkBtn{
+	/*display: none;*/
+}
+.checkBtn .checkBlock a{
+color: #FFFFFF;
+}
+.orderBtn .allot,.orderBtn .check{
+	float: left;
+	width: 50%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 18px;
+	color: #fff;
+}
+.orderBtn .allot a,.orderBtn .check a{
+	color: #FFFFFF;
+	display: inline-block;
+	width: 100%;
+	height: 50px;
+}
+.orderBtn .allot{
+	background: #F96065;
+}
+.orderBtn .check{
+	background: #8763F7;
+}
+/*确定签约*/
+.signBtn{
+	height: 50px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width:100%;
+	margin-top: 50px;
+	display: none;
+}
+.signBtn .stops,.signBtn .decide{
+	float: left;
+	width: 50%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 18px;
+	color: #fff;
+}
+.signBtn .stops a,.signBtn .decide a{
+	color: #FFFFFF;
+	display: inline-block;
+	width: 100%;
+	height: 50px;
+}
+.signBtn .stops{
+	background: #F96065;
+}
+.signBtn .decide{
+	background: #8763F7;
+}
+/*分配订单*/
+.allotOrder div p{
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	border-bottom: 1px solid #bcbcbc;
+    font-size: 16px;
+    color: #8763F7;
+}
+.allotOrder div ul{
+	width:85%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.allotOrder div ul li{
+	display: inline-block;
+	text-align: center;
+	width: 45%;
+	border: 1px solid #bcbcbc;
+	height: 35px;
+	line-height: 35px;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	
+}
+.allotOrder div ul li:nth-child(2n){
+	margin-left: 5%;
+}
+.allotOrder div ul li.active{
+	color: #8763F7;
+	background: url('../img/u9974.png') no-repeat 100% 0;
+	border: 1px solid #8763F7;
+}
+.alert div h1{
+	position: absolute;
+	bottom: 0;
+	left:0;
+	height: 50px;
+	width:100%;
+	font-size:0;
+	border-top: 1px solid #BCBCBC;
+	margin: 0;
+}
+h1 a{
+	display: inline-block;
+	width:50%;
+	font-size: 16px;
+	text-align: center;
+	height: 100%;
+	line-height: 50px;
+	color:#FA6368;
+}
+h1 a:first-child{
+	border-right: 1px solid #BCBCBC;
+	color: #999999;
+}
+/*审核订单*/
+.alert{
+	position: fixed;
+	background: rgba(0,0,0,0.7);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+	padding: 15px;
+	display: none;
+	    z-index: 13;
+}
+.alert div p{
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+    font-size: 16px;
+    color: #8763F7;
+    margin: 0;
+}
+.alert>div{
+	background: #fff;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.stopSign div ul,.checkOrder div ul{
+	width:85%;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.stopSign div ul li,.checkOrder div ul li{
+	display: inline-block;
+	text-align: center;
+	width: 45%;
+	border: 1px solid #bcbcbc;
+	height: 35px;
+	line-height: 35px;
+	margin-bottom: 10px;
+	border-radius: 3px;	
+}
+.stopSign div ul li:nth-child(2n),.checkOrder div ul li:nth-child(2n){
+	margin-left: 5%;
+}
+
+.refuse.act ul li.active,.stopSign div ul li.active{
+	color: #8763F7;
+	border: 1px solid #8763F7;
+}
+.checkOrder .choose ul li.active{
+	color: #8763F7;
+	background: url('../../images/05.bankManager/xuanding.png') no-repeat 100% 0;
+	border: 1px solid #8763F7;
+}
+.checkOrder div h1{
+	position: absolute;
+	bottom: 0;
+	left:0;
+	height: 50px;
+	width:100%;
+	font-size:0;
+	border-top: 1px solid #BCBCBC;
+	margin: 0;
+}
+
+.allotOrder div ul{
+	height: 350px;
+	overflow: auto;
+}
+.checkOrder .choose ul{
+	height: 250px;
+	overflow: auto;
+}
+.agree{
+	padding-left: 7%;
+	height: 45px;
+	line-height: 45px;
+	border-top: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+}
+.agree span{
+	color: #666666;
+	display: inline-block;
+	height: 45px;
+	line-height: 45px;
+	vertical-align: top;
+}
+.agree a{
+	float: right;
+	height: 45px;
+	width: 45px;
+	border-left: 1px solid #EBEBEB;
+	text-align: center;
+	color: #666;
+}
+.agree .yes.act{
+	background: #8763F7;
+	color: #fff;
+}
+.agree .no.act{
+	background: #F96065;
+	color: #FFFFFF;
+}
+.alert h2{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+    width: 85%;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 53px;
+    text-align: left;
+}
+.choose li{
+	color: #666666;
+}
+.choose{
+	/*display: none;*/
+}
+.refuse{
+	text-align: center;
+	display: none;
+}
+.refuse textarea{
+	width:85%;
+	/*height:250px;*/
+	margin-top: 10px;
+}
+.warning{
+	color: #F96065;
+}
+/*确定签约*/
+.decideSign h2{
+	    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: #666666;
+    width: 85%;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 53px;
+    text-align: left;
+}
+.decideSign div h1{	
+	position: absolute;
+	bottom: 0;
+	left:0;
+	height: 50px;
+	width:100%;
+	font-size:0;
+	border-top: 1px solid #BCBCBC;
+	margin: 0;
+}
+.decideSign .agree b{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    color: #F96065;
+    display: inline-block;
+    margin-left: 10px;
+}
+#money{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    color: #F96065;
+    display: inline-block;
+    margin-left: 10px;
+    border: none;
+    width: 40%;
+}
+.decideSign .agree h4{
+	font-weight: 400;
+    font-style: normal;
+    font-size: 17px;
+    height: 45px;
+    line-height: 45px;
+	float: right;
+	margin: 0;
+	margin-right: 7%;
+}
+.codes img{
+    width: 42%;
+    vertical-align: middle;
+}
+.money span{
+	float: right;
+	color: #F96065;
+}
+.pic{
+    width: 100%;
+    padding: 20px;
+}
+.pic div{
+    width: 29%;
+    display: inline-block;
+    padding: 2px;
+    text-align: center;
+    vertical-align: bottom;
+    margin-left: 3%;
+}
+.pic div img{
+    width: 100%;
+    height: 100%;
+    /*vertical-align: bottom;*/
+}
+#getCmr{
+    width:29%;
+    /*margin-bottom: 30px;*/
+   vertical-align: top;
+}
+.getCmr{
+	vertical-align: top;
+}
+/*终止签约*/
+/*.stopSign.alert{
+	display: block;
+}*/
+.stopSign .refuse{
+	display: block;
+}
+.stops.disable{
+	background: #c9c9c9;
+}
+.decide.disable{
+	background: #999;
+}
+.mui-btn{
+	position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #FFFFFF;
+    background: #8763F7;
+    margin-bottom: 0;
+    display: none;
+    margin: 0;
+}
+.idCard p{
+margin-bottom: 10px;
+}
+.idCard>div>div{
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.hideFactory {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	background: #FaFaFa;
+	margin-top: 15px;
+}
+
+.hideFactory span {
+	float: right;
+	margin-right: 15px;
+	color: #8763F7;
+}
+
+.hideFactory b {
+	font-weight: 400;
+	margin-right: 15px;
+	color: #666;
+	margin-left: 15%;
+}

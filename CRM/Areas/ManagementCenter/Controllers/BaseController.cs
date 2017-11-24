@@ -30,7 +30,10 @@ namespace CRM.Areas.ManagementCenter.Controllers
             {
                 System.Web.HttpContext.Current.Response.Redirect("/home", true);
             }
-
+            if (user.UserName == "globaldata")
+            {
+                System.Web.HttpContext.Current.Response.Redirect("/globaldata", true);
+            }
             this.User = user;
             ViewBag.User = user;
             ViewBag.UserName = user.UserName;

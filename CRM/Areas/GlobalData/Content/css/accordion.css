@@ -1,0 +1,282 @@
+﻿/*accordion style*/
+
+.accordion {
+	/*  margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;*/
+}
+
+.accordion h5 a {
+	font-size: 13px!important;
+	font-weight: normal;
+	color: #525252;
+}
+
+
+ul.accordion_set_list li {
+	line-height: 32px;
+	/* padding-left: 8px;*/
+	position: relative;
+	height: 32px;
+}
+
+ul.accordion_set_list li a {
+	margin-left: 27px;
+	color: #6b8299;
+}
+
+ul.accordion_set_list li.hover a {
+	color: #00aaef;
+}
+
+ul.accordion_set_list li.hover:before {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	display: inline-block;
+	width: 9px;
+	height: 9px;
+	content: url(../img/select_original.png);
+}
+
+ul.accordion_set_list li.hover a {
+	cursor: default;
+}
+
+ul.accordion_set_list li.hover a:hover {
+	text-decoration: none;
+}
+
+ul.accordion_set_list li a:hover {
+	text-decoration: none;
+	color: #00aaef;
+}
+
+
+.ui-accordion {
+	width: 100%;
+}
+
+.ui-accordion .ui-accordion-header {
+	position: relative;
+	zoom: 1;
+	margin-top: 1px;
+	padding: 0;
+	cursor: pointer;
+	outline: none;
+}
+
+.ui-accordion .ui-accordion-header a:after {
+	display: inline-block;
+	float: right;
+	width: 8px;
+	height: 8px;
+	/*margin-top: 8px;*/
+	content: url(../img/ui-accordion_left_arrow.png);
+}
+
+.ui-accordion .ui-accordion-header.ui-state-active a:after {
+	display: inline-block;
+	float: right;
+	width: 9px;
+	height: 8px;
+	/*margin-top: 10px;*/
+	content: url(../img/ui-accordion_down_arrow.png);
+}
+
+.ui-accordion .ui-accordion-li-fix {
+	display: inline;
+}
+
+.ui-accordion .ui-accordion-header-active {
+	border-bottom: 0 !important;
+}
+
+.ui-accordion .ui-accordion-header a {
+	font-size: 1em;
+	display: block;
+	padding: .6em .5em .6em 5px;
+	color: #3d5266;
+}
+
+.ui-accordion .ui-accordion-header a:hover {
+	text-decoration: none;
+	color: #00aaef;
+}
+
+.ui-accordion .ui-accordion-header a.ico i {
+	display: inline-block;
+	float: left;
+	width: 20px;
+	height: 15px;
+	margin-top: 4px;
+	margin-right: 4px;
+	background: url(../img/left_nav_normal_ico.png) no-repeat;
+}
+
+.ui-accordion .ui-accordion-header a.ico_1 i {
+	background-position: 0 0;
+}
+
+.ui-accordion .ui-accordion-header a.ico_2 i {
+	background-position: 0 -14px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_3 i {
+	background-position: 0 -29px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_4 i {
+	background-position: 0 -44px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_5 i {
+	background-position: 0 -59px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_6 i {
+	background-position: 0 -73px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_7 i {
+	background-position: 0 -89px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_8 i {
+	background-position: 0 -103px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_9 i {
+	background-position: 0 -118px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_10 i {
+	background-position: 0 -133px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_11 i {
+	background-position: 0 -148px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_12 i {
+	background-position: 0 -163px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_13 i {
+	background-position: 0 -178px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_14 i {
+	background-position: 0 -194px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_15 i {
+	background-position: 0 -210px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_16 i {
+	background-position: 0 -225px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_17 i {
+	background-position: 0 -240px;
+}
+
+.ui-accordion-icons .ui-accordion-header a {
+	padding-left: 25px;
+}
+
+.ui-accordion .ui-accordion-header a.ico:hover i {
+	background: url(../img/left_nav_hover_ico.png) no-repeat;
+}
+
+.ui-accordion .ui-accordion-header a.ico_1:hover i {
+	background-position: 0 0;
+}
+
+.ui-accordion .ui-accordion-header a.ico_2:hover i {
+	background-position: 0 -14px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_3:hover i {
+	background-position: 0 -29px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_4:hover i {
+	background-position: 0 -44px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_5:hover i {
+	background-position: 0 -59px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_6:hover i {
+	background-position: 0 -73px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_7:hover i {
+	background-position: 0 -89px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_8:hover i {
+	background-position: 0 -103px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_9:hover i {
+	background-position: 0 -118px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_10:hover i {
+	background-position: 0 -133px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_11:hover i {
+	background-position: 0 -148px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_12:hover i {
+	background-position: 0 -163px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_13:hover i {
+	background-position: 0 -178px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_14:hover i {
+	background-position: 0 -194px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_15:hover i {
+	background-position: 0 -209px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_16:hover i {
+	background-position: 0 -224px;
+}
+
+.ui-accordion .ui-accordion-header a.ico_17:hover i {
+	background-position: 0 -240px;
+}
+
+.ui-accordion .ui-accordion-header .ui-icon {
+	position: absolute;
+	top: 50%;
+	left: .5em;
+	margin-top: -8px;
+}
+
+.ui-accordion .ui-accordion-content {
+	position: relative;
+	top: 1px;
+	display: none;
+	overflow: auto;
+	zoom: 1;
+	margin-top: -2px;
+	margin-bottom: 2px;
+	padding: .2em 1.5em .2em 0;
+	border-top: 0;
+}
+
+.ui-accordion .ui-accordion-content-active {
+	display: block;
+}

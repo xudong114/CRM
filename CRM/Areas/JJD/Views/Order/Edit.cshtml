@@ -1,0 +1,279 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.poppicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/03.personalCenter/applyDetails.css" />
+</head>
+<body>
+    <div id="check" style="display: none" class="a3"></div>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">申请详情</h1><span>提交</span>
+    </header>
+    <div class='mui-content'>
+        <!--进度条-->
+        <div class='progressBar'>
+            <ul>
+                <li>
+                    <i></i>
+                    <span></span>
+                    <p>平台受理</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>银行受理</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>银行签约</p>
+                </li>
+                <li>
+                    <span></span>
+                    <p>银行放款</p>
+                </li>
+            </ul>
+        </div>
+        <p id="tempTip">请填写完整资料并提交审核</p>
+        <!--审核记录-->
+        <ul id="OrderAuditRecord" class="mui-table-view checks">
+            <li class="mui-table-view-cell mui-collapse ">
+                <a class="mui-navigate-right" style="color:#DD524D">审核记录</a>
+                <div class="mui-collapse-content">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell pro">
+                            <p class="titles">平台审核</p>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>状态</p><span class='applyDate' id="OrderGojiajuStatus"></span><span id="OrderGojiajuDate"></span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>专属客服</p><span id="OrderGojiajuOfficePhone"></span>
+                            <a class="call">
+                                <img src="../images/12.bankClientManager/u3639.png" />
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell remark">
+                            <p>备注信息</p><br />
+                            <span id="OrderGojiajuRemark">
+                            </span>
+                        </li>
+                        <li class="mui-table-view-cell pro">
+                            <p class="titles">银行审核</p>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>状态</p><span class='applyDate' id="OrderBankStatus"></span><span id="OrderBankDate"></span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>受理银行</p><span class='applyDate' id="OrderBankName"></span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>电话</p><span id="OrderBankOfficePhone"></span>
+                            <a class="call">
+                                <img src="../images/12.bankClientManager/u3639.png" />
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell remark">
+                            <p>备注信息</p><br />
+                            <span id="OrderBankRemark">
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!--折叠面板-->
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-collapse ">
+                <a class="mui-navigate-right">订单详情</a>
+                <div class="mui-collapse-content">
+                    <ul class="mui-table-view" id='order'>
+                        <li class="mui-table-view-cell">
+                            <p>申请编号</p><span class='orderId'></span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>申请时间</p><span class='applyDate'>666</span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right" id='oneMone'>
+                                <p>申请金额</p><span class='applyMony'>0</span><b>万</b>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!--个人基础信息-->
+        <ul class="mui-table-view" id='personal'>
+            <li class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right">个人信息</a>
+                <div class="mui-collapse-content">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>姓名<span></span></p><input type="text" class='userName' value="">
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p>手机号<span></span></p><span class="phone"></span>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="pic orderImg">
+                                <p>身份证照片</p>
+                                <div id="getCmrOrder" class="addImg getCmrOrder">
+                                    <img src="../images/03.personalCenter/jia.jpg" class='add' />
+                                    <span>修改 </span>
+                                </div>
+                                <div id="getCmrOrder" class="addImg getCmrOrder">
+                                    <img src="../images/03.personalCenter/jia.jpg" class='add' />
+                                    <span>修改 </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!--房产信息-->
+        <ul class="mui-table-view" id='house'>
+            <li class="mui-table-view-cell mui-collapse ">
+                <a class="mui-navigate-right">房产信息</a>
+                <div class="mui-collapse-content">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>小区名称</p><input type="text" name="community" id="community" value="" />
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell prov" id="province">
+                            <a class="mui-navigate-right">
+                                <p>所在区域</p>
+                                <span class="province"></span>
+                                <span class='city'></span>
+                                <span class="country"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>房产面积</p><input type="text" name="houseRatio" id="houseRatio" value="" />
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>已购时间</p><input type="text" name="houseRatio" id="houseRatio" value="" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <!--家具购物信息-->
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-collapse ">
+                <a class="mui-navigate-right">经营信息</a>
+                <div class="mui-collapse-content">
+                    <ul class="mui-table-view" id='shops'>
+                        <li class="mui-table-view-cell">
+                            <a>
+                                <p>经营性质</p><div class="mui-input-row mui-radio mui-left nv">
+                                    <label>经销商</label>
+                                    <input class='fac' name="nature" type="radio">
+                                </div>
+                                <div class="mui-input-row mui-radio mui-left">
+                                    <label>工厂</label>
+                                    <input class='dealer' name="nature" type="radio">
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>工厂名称</p><input type="text" name="downpaymentAmount" id="downpaymentAmount" value="">
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>经营行业</p><input type="text" name="downpaymentAmount" id="downpaymentAmount" value="">
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell facProv" id="facProvince">
+                            <a class="mui-navigate-right">
+                                <p>所在地区</p>
+                                <span class="facProvince"></span>
+                                <span class='facCity'></span>
+                                <span class="facCountry"></span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right">
+                                <p>街道地址</p><input type="text">
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a>
+                                <p>工厂面积</p><input type="text"><span class="right">m2</span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a>
+                                <p>年产值</p><input type="text"><span class="right">万元</span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <a>
+                                <p>经销商数量</p><input type="text"><span class="right">家</span>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="pic orderImg">
+                                <p>上传营业执照</p>
+                                <div id="getFacPic" class="addImg getCmrOrder">
+                                    <img src="../images/03.personalCenter/jia.jpg" class='add' />
+                                    <span>添加  </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="last">佳居贷-家具行业专业金融服务</div>
+    <!--贷款金额选择弹窗-->
+    <div class='alert'>
+        <div>
+            <p>选择贷款金额</p>
+            <h1><b>0</b><span>万元</span></h1>
+            <div class="mui-input-row mui-input-range">
+                <input type="range" min="0" max="50" value="0" oninput="change()" onchange="change()">
+                <span class='left'>0万元</span>
+                <span class='right'>50万元</span>
+            </div>
+            <a class='mui-btn mui-btn-block'>确定金额</a>
+        </div>
+    </div>
+    <div id="alertPic">
+        <img src="" />
+        <span></span>
+    </div>
+    <div id='scan'>
+        <div id='bcid'>
+        </div>
+        <div class='close'>
+            <a>取 消</a>
+        </div>
+    </div>
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/03.personalCenter/jquery.district.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.picker.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/mui.poppicker.js"></script>
+
+    <script src="~/Areas/JJD/Content/js/progressBar.js"></script>
+    <script src="~/Areas/JJD/Content/js/03.personalCenter/editorder.js"></script>
+
+</body>
+</html>

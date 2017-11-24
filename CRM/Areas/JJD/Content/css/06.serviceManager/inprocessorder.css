@@ -1,0 +1,240 @@
+body {
+	font-family: Microsoft YaHei;
+	background: #FFFFFF;
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.mui-content {
+	background: #fff;
+}
+
+#navBar {
+	position: fixed;
+	bottom: -10px;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+#navBar iframe {
+	border: none;
+}
+
+header.mui-bar {
+	background: #8763f7;
+	-webkit-box-shadow: none;
+	;
+	box-shadow: none;
+}
+
+header .mui-title,
+header .mui-pull-left {
+	color: #fff;
+}
+
+header span {
+	float: right;
+	color: #fff;
+	height: 44px;
+	line-height: 44px;
+}
+
+.list>li {
+	padding: 20px 0 0;
+	border-bottom: 8px solid #F2F2F2;
+	font-size: 0;
+}
+.list>li:last-child {
+	padding: 20px 0 0;
+	border-bottom: none;
+	font-size: 0;
+}
+.list>li a{
+	display: inline-block;
+	width: 100%;
+	padding: 0 15px;
+}
+.list>li .message {
+	width: 60%;
+	display: inline-block;
+	vertical-align: top;
+	    line-height: 18px;
+}
+
+.list>li .money {
+	width: 40%;
+	display: inline-block;
+	vertical-align: top;
+	text-align: right;
+}
+
+.list>li .message p span {
+	width: 23px;
+	height: 23px;
+	line-height: 23px;
+	text-align: center;
+	display: inline-block;
+	border-radius: 50%;
+	color: #FFF;
+	margin-right: 5px;
+}
+
+.list>li .message p b {
+	display: inline-block;
+	color: #333;
+	font-weight: 400;
+}
+
+.list>li .message>span {
+	display: inline-block;
+	color: #999;
+	font-weight: 400;
+	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.list>li .message p b {
+	display: inline-block;
+	color: #333;
+	font-weight: 400;
+}
+.list li .message p span.zu {
+	background: #8763F7;
+}
+.list li .message p span.xin{
+	background: #7292F8;
+}
+.list li .message p span.yuan{
+	background: #FF944C;
+}
+.list li .message p span.bao{
+	background: #FDB137;
+}
+.last {
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+	text-align: center;
+	padding: 20px 0;
+	background: #F2F2F2;
+}
+
+.list li .money b{
+font-size: 34px;
+color: #FA6165;
+font-weight: 500;
+}
+.list li .money span{
+font-size: 14px;
+margin-bottom: 15px;
+display: block;
+color: #999;
+}
+
+.list ul{
+	font-size: 0;
+	border-top: 1px solid #D7D7D7;
+	text-align: center;
+}
+.list ul li{
+	display: inline-block;
+	width: 25%;
+	height: 64px;
+	vertical-align: top;
+}
+.list ul li:not(:nth-child(4)){
+	border-right: 1px solid #D7D7D7;
+}
+.list ul li span{
+	display: inline-block;
+	font-size: 14px;
+	color: #ccc;
+	height: 30px;
+	line-height: 30px;
+}
+
+.list ul li p{
+	font-size: 16px;
+	color: #333;
+}
+
+.list ul li a{
+	font-size: 16px;
+	color: #8763F7;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+﻿@model Ingenious.DTO.G_NewsDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/jiajudai/sys/ad/index"><i class="fa fa-home"></i>新闻管理</a></li>
+    <li class="active">新建新闻</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建新闻</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/jiajudai/sys/news/edit" method="post">
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        <select id="Code" name="Code">
+                            <option value="">选择分类</option>
+                            <option value="新闻">新闻</option>
+                            <option value="QA">QA</option>
+                            <option value="活动">活动</option>
+                            <option value="关于我们">关于我们</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Logo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="Logo" name="Logo" value="@Model.Logo" />
+                        <a id="btnUpload" class="btn btn-default">上传图片</a>(640*X)
+                        <img id="previewAD" style="width:100px;" src="@Model.Logo" />
+                        @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Link, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Link, new { htmlAttributes = new { @class = "form-control form-control-larger" } })
+                        @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Source, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Source, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/jiajudai/sys/news" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+@section css{
+    <link href="~/Areas/JJDManagement/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+}
+@section scripts{
+
+    <script src="~/Areas/JJDManagement/Content/kindeditor/kindeditor-min.js"></script>
+    <script src="~/Areas/JJDManagement/Content/kindeditor/lang/zh_CN.js"></script>
+
+    <script>
+
+        KindEditor.ready(function (k) {
+
+            var editor = k.create('textarea[name="Content"]', {
+                resizeType: 1,
+                allowFileManager: true,
+                allowPreviewEmoticons: false,
+                allowImageUpload: true,
+                uploadJson: '/app/files/jjd'
+            });
+
+            k('#btnUpload').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#Logo').val(),
+                        clickFn: function (url) {
+                            k('#Logo').val(url);
+                            k('#previewAD').attr('src', url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+        });
+
+        $().ready(function(){
+            $('#Code').val('@Model.Code');
+        });
+    </script>
+}

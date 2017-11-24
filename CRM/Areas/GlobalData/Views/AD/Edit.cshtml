@@ -1,0 +1,124 @@
+﻿@model Ingenious.DTO.G_ADDTO
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/jiajudai/sys/ad/index"><i class="fa fa-home"></i>广告管理</a></li>
+    <li class="active">新建广告</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建广告</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/jiajudai/sys/ad/edit" method="post">
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <select id="Code" name="Code">
+                            <option value="首页轮播图">首页轮播图</option>
+                            <option value="中间">中间</option>
+                            <option value="底部">底部</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Url, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Image, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="Image" name="Image" value="@Model.Image" />
+                        <a id="btnUpload" class="btn btn-default">上传图片</a>
+                        <img id="previewAD" src="@Model.Image" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BeginDate, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.BeginDate, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Remark, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.TextAreaFor(model => model.Remark, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/jiajudai/sys/ad" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+@section css{
+    <link href="~/Areas/jiajudai/sys/Content/kindeditor/themes/default/default.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+}
+@section scripts{
+
+    <script src="~/Areas/jiajudai/sys/Content/kindeditor/kindeditor-min.js"></script>
+    <script src="~/Areas/jiajudai/sys/Content/kindeditor/lang/zh_CN.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/lang/datepicker-zh-CN.js"></script>
+    <script src="~/Content/jquery-ui-1.12.1.custom/default/datepicker-option-default.js"></script>
+
+    <script>
+
+        $().ready(function () {
+            $('#BeginDate').datepicker();
+            $('#EndDate').datepicker();
+
+            $('#Code').val('@Model.Code');
+        });
+        KindEditor.ready(function (k) {
+            var editor = k.editor({
+                allowFileManager: true,
+                uploadJson: '/app/files/jjd'
+            });
+
+            k('#btnUpload').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        showRemote: false,
+                        imageUrl: k('#Image').val(),
+                        clickFn: function (url) {
+                            k('#Image').val(url);
+                            k('#previewAD').attr('src', url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+    </script>
+}
+

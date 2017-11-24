@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Ingenious.Infrastructure
 {
+    /// <summary>
+    /// 分页基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class PagedResult<T> : ICollection<T>
     {
         public static readonly PagedResult<T> Empty = new PagedResult<T>(0, 0, 0, 0, new List<T>());
@@ -13,6 +17,7 @@ namespace Ingenious.Infrastructure
         public PagedResult()
         {
             this.Rows = new List<T>();
+            this.Data = new List<T>();
         }
 
         public PagedResult(int pageSize, int pageIndex, int totalRecords, int totalPages, List<T> rows)
@@ -22,7 +27,13 @@ namespace Ingenious.Infrastructure
             this.TotalRecords = totalRecords;
             this.TotalPages = totalPages;
             this.Rows = rows;
+            this.Data = rows;
         }
+
+        /// <summary>
+        /// 当前页面数据
+        /// </summary>
+        public List<T> Data { get; set; }
 
         /// <summary>
         /// 当前页面数据
@@ -44,8 +55,6 @@ namespace Ingenious.Infrastructure
         /// 记录总页数
         /// </summary>
         public int TotalPages { get; set; }
-
-
 
 
         public void Add(T item)

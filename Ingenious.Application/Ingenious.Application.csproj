@@ -76,8 +76,12 @@
     <Compile Include="DependencyRegisterType.cs" />
     <Compile Include="FileService.cs" />
     <Compile Include="IApplication.cs" />
+    <Compile Include="Implement\Base_CarService.cs" />
     <Compile Include="Implement\ClientContactService.cs" />
     <Compile Include="Implement\DictionaryService.cs" />
+    <Compile Include="Implement\Base_ProfileService.cs" />
+    <Compile Include="Implement\G_ActivityService.cs" />
+    <Compile Include="Implement\G_FileService.cs" />
     <Compile Include="Implement\G_ADService.cs" />
     <Compile Include="Implement\F_BankOptionService.cs" />
     <Compile Include="Implement\G_BankService.cs" />
@@ -90,7 +94,9 @@
     <Compile Include="Implement\F_OrderRecordService.cs" />
     <Compile Include="Implement\G_OrderService.cs" />
     <Compile Include="Implement\G_LoanProductService.cs" />
-    <Compile Include="Implement\G_StoreService.cs" />
+    <Compile Include="Implement\Base_FactoryService.cs" />
+    <Compile Include="Implement\G_EntityService.cs" />
+    <Compile Include="Implement\Base_StoreService.cs" />
     <Compile Include="Implement\G_UserDetailService.cs" />
     <Compile Include="Implement\F_UserDetailService.cs" />
     <Compile Include="Implement\F_OrderService.cs" />
@@ -113,8 +119,12 @@
     <Compile Include="Implement\UserDetailService.cs" />
     <Compile Include="Implement\F_UserService.cs" />
     <Compile Include="Implement\UserService.cs" />
+    <Compile Include="Interface\IBase_CarService.cs" />
     <Compile Include="Interface\IClientContactService.cs" />
     <Compile Include="Interface\IDictionaryService.cs" />
+    <Compile Include="Interface\IBase_ProfileService.cs" />
+    <Compile Include="Interface\IG_ActivityService.cs" />
+    <Compile Include="Interface\IG_FileService.cs" />
     <Compile Include="Interface\IG_ADService.cs" />
     <Compile Include="Interface\IF_BankOptionService.cs" />
     <Compile Include="Interface\IG_BankService.cs" />
@@ -127,6 +137,8 @@
     <Compile Include="Interface\IF_OrderRecordService.cs" />
     <Compile Include="Interface\IG_OrderService.cs" />
     <Compile Include="Interface\IG_LoanProductService.cs" />
+    <Compile Include="Interface\IG_FactoryService.cs" />
+    <Compile Include="Interface\IG_EntityService.cs" />
     <Compile Include="Interface\IG_StoreService.cs" />
     <Compile Include="Interface\IG_UserDetailService.cs" />
     <Compile Include="Interface\IF_UserDetailService.cs" />

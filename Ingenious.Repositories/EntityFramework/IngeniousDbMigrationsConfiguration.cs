@@ -18,6 +18,16 @@ namespace Ingenious.Repositories.EntityFramework
         {
             var isInit = bool.Parse(ConfigurationManager.AppSettings["IsInit"].ToString());
             this.Init(context, isInit);
+
+            string indexFormat = "IF NOT EXISTS( SELECT 1 FROM sys.indexes WHERE object_id = OBJECT_ID('{0}', N'U') and NAME='{1}') ";
+
+            //佳居贷，银行编码唯一性索引。
+            context.Database.ExecuteSqlCommand(string.Format(indexFormat, "G_Bank", "IX_G_Bank_Code") + " CREATE UNIQUE INDEX IX_G_Bank_Code ON G_Bank(Code)");
+            //GO佳居基础数据：个人信息，身份证编码唯一性索引。
+            context.Database.ExecuteSqlCommand(string.Format(indexFormat, "Base_Profile", "IX_Base_Profile_IDNO") + " CREATE UNIQUE INDEX IX_Base_Profile_IDNO ON Base_Profile(IDNO)");
+            //GO佳居基础数据：个人信息，手机号码唯一性索引。
+            context.Database.ExecuteSqlCommand(string.Format(indexFormat, "Base_Profile", "IX_Base_Profile_PersonalPhone") + " CREATE UNIQUE INDEX IX_Base_Profile_PersonalPhone ON Base_Profile(PersonalPhone)");
+
             base.Seed(context);
         }
 

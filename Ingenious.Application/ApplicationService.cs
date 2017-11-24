@@ -24,6 +24,14 @@ namespace Ingenious.Application
             //初始化EF
             Ingenious.Repositories.EntityFramework.IngeniousDbContextInitializer.InitializeDatabase();
 
+            #region GO佳居基础数据
+            Mapper.CreateMap<Base_Profile, Base_ProfileDTO>();
+            Mapper.CreateMap<Base_ProfileDTO, Base_Profile>();
+
+            Mapper.CreateMap<Base_Car, Base_CarDTO>();
+            Mapper.CreateMap<Base_CarDTO, Base_Car>();
+            #endregion
+
             #region 佳居贷
             Mapper.CreateMap<G_AD, G_ADDTO>();
             Mapper.CreateMap<G_ADDTO, G_AD>();
@@ -31,8 +39,8 @@ namespace Ingenious.Application
             Mapper.CreateMap<G_Bank, G_BankDTO>();
             Mapper.CreateMap<G_BankDTO, G_Bank>();
 
-            Mapper.CreateMap<G_Factory, G_FactoryDTO>();
-            Mapper.CreateMap<G_FactoryDTO, G_Factory>();
+            Mapper.CreateMap<Base_Factory, Base_FactoryDTO>();
+            Mapper.CreateMap<Base_FactoryDTO, Base_Factory>();
 
             Mapper.CreateMap<G_LoanProduct, G_LoanProductDTO>();
             Mapper.CreateMap<G_LoanProductDTO, G_LoanProduct>();
@@ -46,8 +54,8 @@ namespace Ingenious.Application
             Mapper.CreateMap<G_OrderRecord, G_OrderRecordDTO>();
             Mapper.CreateMap<G_OrderRecordDTO, G_OrderRecord>();
 
-            Mapper.CreateMap<G_Store, G_StoreDTO>();
-            Mapper.CreateMap<G_StoreDTO, G_Store>();
+            Mapper.CreateMap<Base_Store, Base_StoreDTO>();
+            Mapper.CreateMap<Base_StoreDTO, Base_Store>();
 
             Mapper.CreateMap<G_User, G_UserDTO>();
             Mapper.CreateMap<G_UserDTO, G_User>();
@@ -55,6 +63,14 @@ namespace Ingenious.Application
             Mapper.CreateMap<G_UserDetail, G_UserDetailDTO>();
             Mapper.CreateMap<G_UserDetailDTO, G_UserDetail>();
 
+            Mapper.CreateMap<G_ComplexOrder, G_OrderDTO>();
+            Mapper.CreateMap<G_ComplexOrderRecord, G_OrderRecordDTO>();
+
+            Mapper.CreateMap<G_Entity, G_EntityDTO>();
+            Mapper.CreateMap<G_EntityDTO, G_Entity>();
+
+            Mapper.CreateMap<G_Activity, G_ActivityDTO>();
+            Mapper.CreateMap<G_ActivityDTO, G_Activity>();
             #endregion
 
             #region 信用卡

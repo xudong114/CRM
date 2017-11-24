@@ -1,0 +1,240 @@
+body {
+	font-family: Microsoft YaHei;
+	min-height: 100%;
+}
+html{
+	height: 100%;
+}
+fieldset,
+img {
+	border: 0;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+.mui-content {
+	background: #ffffff;
+}
+
+.mui-bar {
+	background: #FFF;
+}
+
+.mui-bar-nav {
+	box-shadow: none;
+}
+
+header a {
+	color: #333;
+}
+
+.nameNum {
+	padding: 0 20px;
+	/*border-top: 15px solid #f2f2f2;*/
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #666666;
+}
+
+.nameNum span {
+	float: right;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #666666;
+}
+
+.nameNum>div {
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.getCode input {
+	width: 30%;
+}
+
+.getCode span {
+	float: right;
+	font-size: 15px;
+	color: #F96065;
+}
+
+.mui-content h1 {
+	text-align: center;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #666666;
+	margin-top: 100px;
+}
+
+.mui-content h2 {
+	text-align: center;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 14px;
+	color: #999999;
+}
+
+.mui-content .mui-btn {
+	width: 100%;
+	background: #8763f7;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	color: #fff;
+	font-size: 18px;
+	margin-top: 30px;
+	margin-bottom: 0;
+}
+
+.mui-content label {
+	display: inline-block;
+	width: 23%;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #666666;
+}
+
+.mui-content input {
+	margin-left: 15px;
+	border: none;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #999;
+	width: 50%;
+	padding: 0;
+}
+
+.mui-content span {
+	color: #999;
+}
+
+.prov input {
+	margin-left: 15px;
+}
+
+.chose>div {
+	float: right;
+	margin-top: 11px;
+}
+
+.chose p {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #666666;
+}
+
+.prov a {
+	display: inline-block;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #666666;
+}
+
+.banks b,
+.prov b {
+	width: 75%;
+	border: none;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #666666;
+	padding: 10px 15px;
+}
+
+.banks a {
+	display: inline-block;
+	width: 23%;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 15px;
+	color: #999;
+}
+
+.banks input,
+.prov input {
+	margin-left: 15px;
+}
+
+.mui-switch:before {
+	top: -11px;
+	content: '否';
+}
+
+.mui-switch.mui-active:before {
+	content: '是';
+}
+
+.mui-navigate-right p {
+	width: 69px;
+	display: inline-block;
+}
+
+.houseBtn {
+	padding-left: 15px;
+	border-top:13px solid #F2F2F2;
+	border-bottom:13px solid #F2F2F2;
+}
+
+.houseBtn span {
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	color: #666666;
+}
+
+.houseBtn div {
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	float: right;
+}
+.houseBtn div a{
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #E4E4E4;
+	color:#333333
+}
+
+.houseBtn div a.active{
+background: #8763F7;
+color: #FFFFFF;
+}

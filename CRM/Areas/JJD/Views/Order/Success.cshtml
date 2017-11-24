@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+    var user = Session["User"] == null ? null : Session["User"] as Ingenious.DTO.G_UserDTO;
+    var url = "/jiajudai/consumer";
+    switch (user.UserType)
+    {
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.BC:
+            { }
+            break;
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.BM:
+            { }
+            break;
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.CL:
+            { }
+            break;
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.CS:
+            { }
+            break;
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.SS:
+            { }
+            break;
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.ST:
+            { }
+            break;
+        case Ingenious.Infrastructure.Enum.G_UserTypeEnum.US:
+            {
+                url = "/jiajudai/consumer";
+            }
+            break;
+    }
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/css/order/success.css" rel="stylesheet" />
+</head>
+<body>
+    <div class='mui-content'>
+        <!--进度条-->
+        <div class='success'>
+            <img src="~/Areas/JJD/Content/images/05.bankManager/u2667.png" />
+            <p>您的申请已经成功提交 请耐心等待平台审核</p>
+        </div>
+        <a href="@url" class='mui-btn mui-btn-block posion'>个人中心</a>
+        <a href="/jiajudai" class='index mui-btn mui-btn-block'>返回首页</a>
+    </div>
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+</body>
+</html>

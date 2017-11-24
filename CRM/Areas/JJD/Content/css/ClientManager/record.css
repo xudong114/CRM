@@ -1,0 +1,157 @@
+body {
+	font-family: Microsoft YaHei;
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body,
+.mui-content {
+	background: #F2F2F2;
+}
+
+#navBar {
+	position: fixed;
+	bottom: -5px;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+ul.mui-table-view li:last-child {
+	/*margin-bottom: 50px;*/
+	vertical-align: bottom;
+}
+
+#navBar iframe {
+	border: none;
+}
+
+header.mui-bar {
+	background: #8763F7;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+header .mui-title {
+	color: #ffffff;
+}
+
+header .mui-title,
+header .mui-pull-left {
+	color: #ffffff;
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    color: #8763f7;
+    border-bottom: 2px solid #8763f7;
+    background: none;
+}
+.mui-card .mui-control-content {
+	padding: 10px;
+}
+
+.mui-control-content {
+	height: auto;
+}
+
+.mui-table-view-cell div.masg {
+	width: 65%;
+	display: inline-block;
+}
+
+.mui-table-view-cell div.counts {
+	width: 30%;
+	display: inline-block;
+	text-align: right;
+	vertical-align: bottom;
+}
+
+.mui-table-view-cell div.counts span {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+}
+
+.mui-table-view-cell div.counts h1 {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 28px;
+	color: #F96065;
+	text-align: right;
+}
+
+.masg h2 {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #8763F7;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	width: 100%
+}
+
+.masg span,
+.masg p {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 12px;
+	color: #999999;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	width: 100%;
+}
+
+.mui-table-view-cell {
+	border-top: 13px solid #F2F2F2;
+}
+
+.color {
+	background: #fff;
+}
+
+#item3 h1 {
+	color: #999999
+}
+
+.zw {
+	height: 30px;
+}
+
+.mui-scroll-wrapper {
+	position: static;
+}
+.mui-table-view-cell{
+	position: relative;
+}
+.mui-table-view-cell>img{
+	position: absolute;
+	top: 20px;
+	left: 40%;
+}
+#btnFilter{
+	 float: right;
+    color: #fff;
+    height: 44px;
+    line-height: 44px;
+}

@@ -1,0 +1,72 @@
+﻿@model CRM.Areas.JJD.Models.BackgroundIndexComplexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/03.personalCenter/mine.css" />
+</head>
+
+<body>
+    <div id="check" style="display: none" class="a4"></div>
+    <div class="homeContent">
+
+        <div class='heads'>
+            @{
+                if (string.IsNullOrWhiteSpace(Model.User.G_UserDetail.Face))
+                {
+                    <img id="Face" src="~/Areas/JJD/Content/images/01.index/touxiang.png" />
+                }
+                else
+                {
+                    <img id="Face" src="@Model.User.G_UserDetail.Face" />
+                }
+            }
+            <a id="Name" href="/jiajudai/setting/profile/@Model.User.Id">@Model.User.UserName</a>
+        </div>
+        <div class='applys' id='applys'>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a href="/jiajudai/consumer/orders?status=temp" class="mui-navigate-right" data-active='#item1'><img src="~/Areas/JJD/Content/images/03.personalCenter/sq1.png" />未提交 <span id="txtInProcess">@Model.TempCount</span></a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a href="/jiajudai/consumer/orders?status=inprocess" class="mui-navigate-right" data-active='#item1'><img src="~/Areas/JJD/Content/images/03.personalCenter/sq1.png" />正在申请 <span id="txtInProcess">@Model.InProcessCount</span></a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a href="/jiajudai/consumer/orders?status=successed" class="mui-navigate-right" data-active='#item2'><img src="~/Areas/JJD/Content/images/03.personalCenter/sq2.png" />已通过 <span id="txtPassed">@Model.SuccessedCount</span></a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a href="/jiajudai/consumer/orders?status=passed" class="mui-navigate-right" data-active='#item3'><img src="~/Areas/JJD/Content/images/03.personalCenter/sq3.png" />已失效 <span id="txtFailed">@Model.PassedCount</span></a>
+                </li>
+            </ul>
+        </div>
+        <div class='applys' id='sets'>
+            <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/xiaoxi2.png" />消息中心<span>0</span> </a>
+                </li>
+                <li class="mui-table-view-cell" id="btnQA">
+                    <a class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/bangzhu.png" />帮助与反馈</a>
+                </li>
+                <li class="mui-table-view-cell" id="btnSettings">
+                    <a href="/jiajudai/setting/index/@Model.User.Id" class="mui-navigate-right"><img src="~/Areas/JJD/Content/images/03.personalCenter/shezhi.png" />设置中心</a>
+                </li>
+            </ul>
+        </div>
+
+        <a class="want" href="/jiajudai/order/step01">我要贷款</a>
+    </div>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+
+    <!--底部-->
+    @Html.Action("Navbar", "Partial")
+</body>
+</html>

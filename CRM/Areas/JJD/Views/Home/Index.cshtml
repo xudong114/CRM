@@ -1,0 +1,213 @@
+﻿@model CRM.Areas.JJD.Models.IndexComplexModel
+@{
+    Layout = null;
+    var user = Session["User"] == null ? null : Session["User"] as Ingenious.DTO.G_UserDTO;
+
+    var url = "/jiajudai";
+    if (user != null)
+    {
+
+
+        switch (user.UserType)
+        {
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.BC:
+                {
+                    url = "/jiajudai/bankclerk"; 
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.BM:
+                {
+                    url = "/jiajudai/bankmanager"; 
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.CL:
+                {
+                    url = "/jiajudai/clientmanager";
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.CS:
+                {
+                    url = "/jiajudai/clientservice"; 
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.SS:
+                { }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.ST:
+                { }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.US:
+                {
+                    url = "/jiajudai/consumer";
+                }
+                break;
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.css" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/swiper-3.4.2.min.css" />
+    <link rel="stylesheet" href="~/Areas/JJD/Content/css/01.index/index.css" />
+
+    <title></title>
+</head>
+<body>
+    <div id="check" style="display: none" class="a1"></div>
+    <div class="indexContent">
+        <div class="swiper-container heads">
+            @{
+                if (user != null)
+                {
+                    <a class="login" href="@url">
+                        @if (string.IsNullOrWhiteSpace(user.G_UserDetail.Face))
+                        {
+                            <img src="~/Areas/JJD/Content/images/01.index/touxiang.png" />
+                        }
+                        else
+                        {
+                            <img src="@user.G_UserDetail.Face" />
+                        }
+                        <span>@user.UserName</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="login" href="/jiajudai/login">
+                        <img src="~/Areas/JJD/Content/images/01.index/touxiang.png" />
+                        <span>登录/注册</span>
+                    </a>
+                }
+            }
+
+            <div class="swiper-wrapper">
+                @{
+                    foreach (var item in Model.ADs.Where(i => i.Code == "首页轮播图"))
+                    {
+                        <div class="swiper-slide">
+                            @if (!string.IsNullOrWhiteSpace(item.Url))
+                            {
+                                <a href="@item.Url">
+                                    <img src="@item.Image" alt="@item.Name" />
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="@item.Image" alt="@item.Name" />
+                            }
+
+                        </div>
+                    }
+                }
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!--四大-->
+        <ul class="loanList">
+            @{
+                foreach (var item in Model.Products)
+                {
+                    <li>
+                        <a href="/jiajudai/product/@item.Id.ToString().ToLower()">
+                            <img src="@item.Logo" />
+                            <span>@item.Name</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+        <div class="newApply">
+            <div class="blackTitle">
+                <span></span><b>最新申请</b>
+                <a>MORE &gt;</a>
+            </div>
+            <ul>
+                @{
+                    foreach (var item in Model.LatestOrders.Data.Take(4))
+                    {
+                        <li>
+                            <a>
+                                
+                                <img src="~/Areas/JJD/Content/images/01.index/touxiang.png" alt="" />
+                                <div>
+                                    <h1>@item.Name</h1>
+                                    @if (!string.IsNullOrWhiteSpace(@item.PersonalPhone))
+                                    {
+                                        <span> @System.Text.RegularExpressions.Regex.Replace(@item.PersonalPhone, "(\\d{3})\\d{4}(\\d{4})", "$1****$2")</span>
+                                    }
+                                    else
+                                    {
+                                        <span></span>
+                                    }
+                                </div>
+                                <b>@item.LoanAmount.ToString("0") <span>万</span></b>
+                            </a>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </div>
+
+
+        @{
+            foreach (var item in Model.ADs.Where(i => i.Code == "中间").Take(1))
+            {
+                <div class='gg'>
+                    <img src="@item.Image" alt="@item.Name" />
+                </div>
+            }
+        }
+        <div class="bankShow">
+            <div class="blackTitle">
+                <span></span><b>合作银行</b>
+                <div class="bankList">
+                    <div class="swiper-container">
+
+                        <div class="swiper-wrapper">
+                            @{
+                                foreach (var item in Model.ADs.Where(i => i.Code == "底部"))
+                                {
+                                    <div class="swiper-slide">
+                                        <img src="@item.Image" alt="@item.Name" />
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src='~/Areas/JJD/Content/js/swiper-3.4.2.jquery.min.js'></script>
+    <script>
+        var mySwiper1 = new Swiper('.heads.swiper-container', {
+            //  direction: 'vertical',
+            loop: true,
+            // 如果需要分页器
+            pagination: '.heads .swiper-pagination'
+        });
+
+        var mySwiper2 = new Swiper('.bankShow .swiper-container', {
+
+            slidesPerView: 3.5,
+            paginationClickable: true,
+            spaceBetween: 10
+        });
+    </script>
+    <!--底部-->
+    @Html.Action("Navbar", "Partial")
+
+</body>
+
+</html>

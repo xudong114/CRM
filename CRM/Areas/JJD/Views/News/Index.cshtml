@@ -1,0 +1,95 @@
+﻿@model List<Ingenious.DTO.G_NewsDTO>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/JJD/Content/css/mui.css" />
+    <link href="~/Areas/JJD/Content/css/01.index/index.css" rel="stylesheet" />
+    <title></title>
+</head>
+
+<body>
+    <div id="check" style="display: none" class="a3"></div>
+    <header class="mui-bar mui-bar-nav violet">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">发现</h1>
+    </header>
+    <div class="mui-content findsContent">
+        <div class="tab">
+            <a class="active" href="#team1">热门活动</a>
+            <a href="#team2">最新资讯</a>
+        </div>
+        <div>
+            <div id="team1">
+                <ul>
+
+                    @{
+                        foreach (var item in Model.Where(item => item.Code == "活动"))
+                        {
+                            <li>
+                                <a href="/jiajudai/news/@item.Id.ToString("N")">
+                                    @if (string.IsNullOrWhiteSpace(item.Logo))
+                                    {
+                                        <img src="~/Areas/JJD/Content/images/01.index/u454.png" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@item.Logo" />
+                                    }
+                                    <div>
+                                        <span>@item.Title</span>
+                                        <b>&gt;</b>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div id="team2">
+                @{
+                    foreach (var item in Model.Where(item => item.Code == "新闻"))
+                    {
+                        <a href="/jiajudai/news/@item.Id.ToString("N")">
+                            <div class="contents">
+                                <div>
+                                    <span>@item.Title</span>
+                                    <span>@item.CreatedDate.ToString("yyyy-MM-dd")</span>
+                                </div>
+                                @if (string.IsNullOrWhiteSpace(item.Logo))
+                                {
+                                    <img src="~/Areas/JJD/Content/images/01.index/u454.png" />
+                                }
+                                else
+                                {
+                                    <img src="@item.Logo" />
+                                }
+                            </div>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script>
+        $('.findsContent .tab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).siblings('a').removeClass('active');
+            $(this).addClass('active');
+            var showId = $(this).attr('href');
+            $(showId).show().siblings().hide();
+        });
+    </script>
+    <!--底部-->
+    @Html.Action("Navbar", "Partial")
+</body>
+
+</html>

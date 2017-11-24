@@ -1,0 +1,87 @@
+﻿@model Ingenious.DTO.G_UserDTO
+@using Ingenious.Infrastructure.Extensions;
+@{
+    ViewBag.Title = "Edit";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/jiajudai/sys/user/index"><i class="fa fa-home"></i>用户管理</a></li>
+    <li class="active">编辑用户</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">编辑用户</header>
+        <div class="panel-body">
+            <form class="bs-example form-horizontal" action="/jiajudai/sys/user/edit" method="post">
+                @Html.ValidationSummary(true)
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control form-control-normal", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @{
+                    if (Model.UserType == Ingenious.Infrastructure.Enum.G_UserTypeEnum.CL
+                        || Model.UserType == Ingenious.Infrastructure.Enum.G_UserTypeEnum.CS
+                        || Model.UserType == Ingenious.Infrastructure.Enum.G_UserTypeEnum.SS)
+                    {
+
+                        <div class="form-group" id="containerEntity">
+                            @Html.LabelFor(model => model.G_EntityId, new { @class = "col-lg-2 control-label" })
+                            <div class="col-lg-10">
+                                @{
+                                    @Html.DropDownListFor(item => item.G_EntityId, ViewBag.entities as SelectList, "所属机构", new { @class = "form-control form-control-larger" })
+                                }
+                                @Html.ValidationMessageFor(model => model.G_EntityId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    }
+                    
+                    if(Model.UserType == Ingenious.Infrastructure.Enum.G_UserTypeEnum.BC
+                        || Model.UserType == Ingenious.Infrastructure.Enum.G_UserTypeEnum.BM)
+                    {
+                        
+                    <div class="form-group" id="BankCodeContainer">
+                        <label class="col-lg-2 control-label" for="G_UserDetail_BankCode">所属银行</label>
+                        <div class="col-lg-10 required">
+                            @{
+                                @Html.DropDownListFor(item => item.G_UserDetail.BankCode, ViewBag.Banks as SelectList, "请选择", new { @class = "form-control form-control-larger" })
+                            }
+
+                            @Html.ValidationMessageFor(model => model.G_UserDetail.BankCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    }
+                    
+                    }
+
+                <hr />
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" class="btn btn-sm btn-primary" value="保存" />
+                        <a href="/jiajudai/sys/user" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </section>
+</div>
+
+@section scripts{
+
+    <script>
+
+        $().ready(function () {
+            $('#chkIsAdmin').click(function () {
+                var status = $(this).prop("checked");
+
+                $('#admin').val(status ? 'True' : 'False');
+            });
+        });
+
+    </script>
+}

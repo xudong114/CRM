@@ -1,0 +1,68 @@
+﻿@{
+    var user = Session["User"] == null ? null : Session["User"] as Ingenious.DTO.G_UserDTO;
+    var url = "/jiajudai/login";
+    if (user != null)
+    {
+        switch (user.UserType)
+        {
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.BC:
+                {
+                    url = "/jiajudai/bankclerk";
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.BM:
+                {
+                    url = "/jiajudai/bankmanager";
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.CL:
+                {
+                    url = "/jiajudai/clientmanager"; 
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.CS:
+                {
+                    url = "/jiajudai/clientservice"; 
+                }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.SS:
+                { }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.ST:
+                { }
+                break;
+            case Ingenious.Infrastructure.Enum.G_UserTypeEnum.US:
+                {
+                    url = "/jiajudai/consumer";
+                }
+                break;
+        }
+    }
+}
+
+<link href="~/Areas/JJD/Content/css/navBar.css" rel="stylesheet" />
+<div id='navBar' style="width:100%;height:50px;">
+    <div id="check" style="display: none" class="a1"></div>
+
+    <div class="mui-bar mui-bar-tab">
+        <a class="a1" id="btnHomePage" href="/jiajudai">
+            <span></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="a2" id='stages' href="/jiajudai/product">
+            <span></span>
+            <span>贷款</span>
+        </a>
+        <a class="a3" id='finds' href="/jiajudai/news">
+            <span class="a3"></span>
+            <span class="mui-tab-label">发现</span>
+        </a>
+        <a class="a4" href="@url">
+            <span class="a4"></span>
+            <span>我的</span>
+        </a>
+    </div>
+    <div id='contents'></div>
+    <script src="~/Areas/JJD/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/JJD/Content/js/navBar.js"></script>
+</div>

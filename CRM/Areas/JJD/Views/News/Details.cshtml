@@ -1,0 +1,50 @@
+﻿@model Ingenious.DTO.G_NewsDTO
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="~/Areas/JJD/Content/css/mui.css" rel="stylesheet" />
+    <link href="~/Areas/JJD/Content/css/01.index/index.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav violet newsDetail">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <span></span>
+        <img src="~/Areas/JJD/Content/images/01.index/u981.png" />
+        <img src="~/Areas/JJD/Content/images/01.index/u983.png" />
+    </header>
+    <div class="mui-content detailsContent">
+        <h1>@Model.Title</h1>
+        <span>@Model.CreatedDate.ToString("yyyy-MM-dd")</span>
+        <div class="contents">
+            @Html.Raw(Model.Content)
+        </div>
+        <div class="share">
+            <p>我要分享</p>
+            <ul>
+                <li><img src="~/Areas/JJD/Content/images/01.index/kongjian.png" /></li>
+                <li><img src="~/Areas/JJD/Content/images/01.index/pengyouquan.png" /></li>
+                <li><img src="~/Areas/JJD/Content/images/01.index/QQ.png" /></li>
+                <li><img src="~/Areas/JJD/Content/images/01.index/weibo.png" /></li>
+                <li><img src="~/Areas/JJD/Content/images/01.index/weixin.png" /></li>
+            </ul>
+        </div>
+        <div class="actives">
+            <p>相关活动</p>
+            <ul>
+                <li>•GO分期与泰隆银行达成战略合作伙伴</li>
+                <li>•GO分期与泰隆银行达成战略合作伙伴</li>
+                <li>•GO分期与泰隆银行达成战略合作伙伴</li>
+            </ul>
+        </div>
+        <div class="last">佳居贷-家具行业专业金融服务</div>
+    </div>
+
+    <script src="~/Areas/JJD/Content/js/mui.js"></script>
+</body>
+</html>

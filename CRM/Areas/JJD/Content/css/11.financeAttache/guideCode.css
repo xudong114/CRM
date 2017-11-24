@@ -1,0 +1,176 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+p,
+blockquote,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 14px;
+	color: #FFFFFF;
+	background: #FFFFFF;
+	font-family: Microsoft YaHei;
+	line-height: 2;
+}
+
+* {
+	box-sizing: border-box
+}
+
+fieldset,
+img {
+	border: 0;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 100%;
+}
+
+a {
+	text-decoration: none
+}
+
+body {
+	background: #F2F2F2;
+}
+
+.mui-content {
+	background: none;
+}
+
+#navBar {
+	position: fixed;
+	bottom: -10px;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+#navBar iframe {
+	border: none;
+}
+
+header {
+	height: 44px;
+}
+
+.heads {
+	height: 168px;
+	background: url('../../images/01.index/banner3.jpg');
+	background-size: 100% 100%;
+	text-align: left;
+	color: #fff;
+	width: 100%;
+}
+
+.mui-bar {
+	padding: 0;
+	background: none;
+	-webkit-box-shadow: none;
+	background: #8763F7;
+	box-shadow: none;
+}
+
+.mui-bar-nav.mui-bar .mui-icon {
+	display: inline-block;
+	color: #fff;
+	padding-left: 20px;
+}
+
+.mui-content {
+	margin: 20px;
+	min-height: 350px;
+	margin-top: -50px;
+	background: #fff;
+	border: none;
+	text-align: center;
+	box-shadow: 0 0 6px #888888;
+	margin-bottom: 40px;
+}
+
+.mui-content>img {
+	width:126px;
+	height: 126px;
+	background: url('../../images/01.index/u6800.png');
+	background-size: 100% 100%;
+	padding: 5px;
+	margin-top: -23%;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.mui-content>span {
+	display: inline-block;
+	font-size: 20px;
+	color: #666666;
+	border-left: 1px solid #E4E4E4;
+	border-right: 1px solid #E4E4E4;
+	margin: 0 auto;
+	margin-top: 10px;
+	line-height: 2px;
+	height: 30px;
+	padding: 0 20px;
+}
+
+.code {
+	padding: 0px;
+	border: 1px solid #E4E4E4;
+	width: 70%;
+	margin: 0 auto;
+}
+
+.code img {
+	width: 100%;
+}
+
+.mui-content>h1 {
+	font-weight: 400;
+	font-style: normal;
+	font-size: 16px;
+	color: #999999;
+	margin: 20px 0
+}
+.mui-content>b{
+color: #8763F7;
+font-size: 16px;
+font-weight: 500;
+}
+.mui-content a {
+	margin: 0 auto;
+	width: 65%;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+.bot {
+	width: 100%;
+}
