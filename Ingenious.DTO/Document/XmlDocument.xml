@@ -1,0 +1,908 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ingenious.DTO</name>
+    </assembly>
+    <members>
+        <member name="T:Ingenious.DTO.AccountDTO">
+            <summary>
+            公司账号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.CreatedDate">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.CreatedBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.ModifiedDate">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.ModifiedBy">
+            <summary>
+            最后修改人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.IsActive">
+            <summary>
+            数据状态
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ModelRoot.IsActiveName">
+            <summary>
+            数据状态名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.AccountDTO.DepartmentId">
+            <summary>
+            所属部门标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.AccountDTO.Department">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.AccountDTO.Balance">
+            <summary>
+            可用余额
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.ActivityDTO">
+            <summary>
+            活动记录
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.ReferenceId">
+            <summary>
+            关联记录目标标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.Content">
+            <summary>
+            记录内容
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.ActivityCategoryId">
+            <summary>
+            记录类型
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.ActivityCategory">
+            <summary>
+            记录类型
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.ActivityCategoryName">
+            <summary>
+            记录类型名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.TimeLabel">
+            <summary>
+            留言时间标签
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.ParentId">
+            <summary>
+            评论主体标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.Parent">
+            <summary>
+            评论主体
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.UserId">
+            <summary>
+            评论人标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ActivityDTO.UserName">
+            <summary>
+            评论人姓名
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.BillDTO">
+            <summary>
+            经销商账单
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.BillDTO.AccountId">
+            <summary>
+            关联账号标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.BillDTO.Account">
+            <summary>
+            关联账号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.BillDTO.ContractId">
+            <summary>
+            关联合同标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.BillDTO.Contract">
+            <summary>
+            关联合同
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.BillDTO.Money">
+            <summary>
+            消费金额
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.CreatedDate">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.CreatedBy">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.ModifiedDate">
+            <summary>
+            最后修改时间
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.ModifiedBy">
+            <summary>
+            最后修改人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.IsActive">
+            <summary>
+            数据状态
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_ModelRoot.IsActiveName">
+            <summary>
+            数据状态名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_BrankDTO.Name">
+            <summary>
+            银行名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_BrankDTO.ParentId">
+            <summary>
+            上级银行
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_BrankDTO.IsAdmin">
+            <summary>
+            是否总行
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.ClientId">
+            <summary>
+            公司名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.Title">
+            <summary>
+            职务
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.OfficePhone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.Phone">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.Email">
+            <summary>
+            电子邮件
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.Wechat">
+            <summary>
+            微信
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientContactDTO.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.ClientDTO">
+            <summary>
+            客户
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Name">
+            <summary>
+            客户名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.UserId">
+            <summary>
+            所属账号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Country">
+            <summary>
+            县区
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.District">
+            <summary>
+            省 市 区
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Address">
+            <summary>
+            省 市 区 街道
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Street">
+            <summary>
+            街道
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.OfficePhone">
+            <summary>
+            联系电话
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.DepartmentId">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.DepartmentFullName">
+            <summary>
+            部门全称(一级名称 二级名称)
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.BelongTo">
+            <summary>
+            所属人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.GradeId">
+            <summary>
+            等级
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.IndustryId">
+            <summary>
+            行业
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Postcode">
+            <summary>
+            邮政编码
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Fax">
+            <summary>
+            传真
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Website">
+            <summary>
+            公司网址
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Weibo">
+            <summary>
+            微博
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Wechat">
+            <summary>
+            微信公众号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Headcount">
+            <summary>
+            总人数
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Saleroom">
+            <summary>
+            销售额
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.ContractDTOList">
+            <summary>
+            合同列表
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.Activities">
+            <summary>
+            活动记录
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ClientDTO.ClientContacts">
+            <summary>
+            联系人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Code">
+            <summary>
+            合同编号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Title">
+            <summary>
+            主题
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.ClientId">
+            <summary>
+            关联客户标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Client">
+            <summary>
+            关联客户
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.TotalAmount">
+            <summary>
+            总金额(元)
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.BeginDate">
+            <summary>
+            开始日期
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.BeginDateString">
+            <summary>
+            开始日期(格式化：yyyy-MM-dd)
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.EndDate">
+            <summary>
+            结束日期
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.EndDateString">
+            <summary>
+            结束日期(格式化：yyyy-MM-dd)
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.OwnerId">
+            <summary>
+            合同所有人标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Owner">
+            <summary>
+            合同所有人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.DepartmentId">
+            <summary>
+            所属部门标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Department">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Status">
+            <summary>
+            合同状态
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.StatusLabel">
+            <summary>
+            合同状态名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Payment">
+            <summary>
+            付款方式
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.PaymentLabel">
+            <summary>
+            付款方式名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.ProductId">
+            <summary>
+            产品标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Product">
+            <summary>
+            产品
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Quantity">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Content">
+            <summary>
+            合同正文
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.ClientPrincipal">
+            <summary>
+            客户方签约人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.PrincipalId">
+            <summary>
+            我方签约人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.ContractedDate">
+            <summary>
+            签约日期
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ContractDTO.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.DepartmentDTO">
+            <summary>
+            部门（包括公司和经销商都作为部门来处理，可设置多级部门）
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.IsBranch">
+            <summary>
+            分支机构
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Name">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.ParentId">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Parent">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Principal">
+            <summary>
+            部门负责人
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Phone">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.OfficePhone">
+            <summary>
+            办公电话
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Address">
+            <summary>
+            办公地址
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Website">
+            <summary>
+            Go佳居站点
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Users">
+            <summary>
+            系统用户
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.Children">
+            <summary>
+            Go佳居站点
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.PriceStrategyId">
+            <summary>
+            价格策略标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DepartmentDTO.PriceStrategy">
+            <summary>
+            价格策略
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.DictionaryDTO">
+            <summary>
+            数据字典
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DictionaryDTO.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DictionaryDTO.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DictionaryDTO.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DictionaryDTO.Category">
+            <summary>
+            分类
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.DictionaryDTO.Description">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.F_UserId">
+            <summary>
+            关联账户
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Face">
+            <summary>
+            头像路径
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.BrankId">
+            <summary>
+            所在银行
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Title">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.OfficePhone">
+            <summary>
+            办公电话
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Birthdate">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.PersonalPhone">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.Wechat">
+            <summary>
+            微信
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.F_UserDetailDTO.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.PriceStrategyId">
+            <summary>
+            策略标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.PriceStrategy">
+            <summary>
+            价格策略
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.ProductId">
+            <summary>
+            产品标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.Product">
+            <summary>
+            产品
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.Minimum">
+            <summary>
+            最小购买量
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.Price">
+            <summary>
+            执行价格
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.RenewPrice">
+            <summary>
+            续费价格
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDetailDTO.DiscountRate">
+            <summary>
+            折扣率
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.Name">
+            <summary>
+            策略名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.BeginDate">
+            <summary>
+            生效时间
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.EndDate">
+            <summary>
+            终止时间
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.IsDefault">
+            <summary>
+            标准价格
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.IsAgent">
+            <summary>
+            经销商标准价格
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.PriceStrategyDTO.PriceStrategyDetailList">
+            <summary>
+            价格明细
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.Name">
+            <summary>
+            产品名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.Code">
+            <summary>
+            产品编号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.Comment">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.IsSettlement">
+            <summary>
+            在线结算
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.Minimum">
+            <summary>
+            最小购买量
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.Price">
+            <summary>
+            执行价格
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.RenewPrice">
+            <summary>
+            续费价格
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.ProductDTO.DiscountRate">
+            <summary>
+            折扣率
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.RechargeDTO">
+            <summary>
+            经销商账单
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.RechargeDTO.AccountId">
+            <summary>
+            关联账号标识
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.RechargeDTO.Account">
+            <summary>
+            关联账号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.RechargeDTO.Money">
+            <summary>
+            消费金额
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Logo">
+            <summary>
+            头像路径
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Title">
+            <summary>
+            职位
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Birthdate">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.OfficePhone">
+            <summary>
+            办公电话
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.PersonalPhone">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Wechat">
+            <summary>
+            微信
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Hiredate">
+            <summary>
+            入职日期
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDetailDTO.Termdate">
+            <summary>
+            离职日期
+            </summary>
+        </member>
+        <member name="T:Ingenious.DTO.UserDTO">
+            <summary>
+            系统账号
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.UserName">
+            <summary>
+            账户名称
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.Password">
+            <summary>
+            账户密码
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.Status">
+            <summary>
+            账户状态
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.StatusName">
+            <summary>
+            账户状态描述
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.IsAdmin">
+            <summary>
+            部门管理员
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.IsSupper">
+            <summary>
+            系统管理员
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.DepartmentId">
+            <summary>
+            所属部门
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.BranchId">
+            <summary>
+            所属机构
+            </summary>
+        </member>
+        <member name="P:Ingenious.DTO.UserDTO.DepartmentName">
+            <summary>
+            部门标签
+            </summary>
+        </member>
+    </members>
+</doc>
