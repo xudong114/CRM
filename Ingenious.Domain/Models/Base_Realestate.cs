@@ -19,7 +19,7 @@ namespace Ingenious.Domain.Models
         /// <summary>
         /// 房产证照片
         /// </summary>
-        public string RealestateImg { get; set; }
+        public string LicenseImg { get; set; }
 
         /// <summary>
         /// 小区名称
@@ -28,7 +28,7 @@ namespace Ingenious.Domain.Models
         /// <summary>
         /// 面积
         /// </summary>
-        public string Area { get; set; }
+        public int Area { get; set; }
         /// <summary>
         /// 房产类型
         /// 高层、洋房、别墅、学区房
@@ -52,7 +52,13 @@ namespace Ingenious.Domain.Models
         /// 所在县区
         /// </summary>
         public string Country { get; set; }
-
-
+        /// <summary>
+        /// 街道
+        /// </summary>
+        public string Street { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark { get; set; }
     }
 }

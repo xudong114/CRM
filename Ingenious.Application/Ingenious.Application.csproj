@@ -60,6 +60,9 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -76,6 +79,8 @@
     <Compile Include="DependencyRegisterType.cs" />
     <Compile Include="FileService.cs" />
     <Compile Include="IApplication.cs" />
+    <Compile Include="Implement\Base_AccountService.cs" />
+    <Compile Include="Implement\Base_RealestateService.cs" />
     <Compile Include="Implement\Base_CarService.cs" />
     <Compile Include="Implement\ClientContactService.cs" />
     <Compile Include="Implement\DictionaryService.cs" />
@@ -119,6 +124,9 @@
     <Compile Include="Implement\UserDetailService.cs" />
     <Compile Include="Implement\F_UserService.cs" />
     <Compile Include="Implement\UserService.cs" />
+    <Compile Include="Interface\IBase_AccountService.cs" />
+    <Compile Include="Interface\IBase_BankService.cs" />
+    <Compile Include="Interface\IBase_RealestateService.cs" />
     <Compile Include="Interface\IBase_CarService.cs" />
     <Compile Include="Interface\IClientContactService.cs" />
     <Compile Include="Interface\IDictionaryService.cs" />
@@ -137,9 +145,9 @@
     <Compile Include="Interface\IF_OrderRecordService.cs" />
     <Compile Include="Interface\IG_OrderService.cs" />
     <Compile Include="Interface\IG_LoanProductService.cs" />
-    <Compile Include="Interface\IG_FactoryService.cs" />
+    <Compile Include="Interface\IBase_FactoryService.cs" />
     <Compile Include="Interface\IG_EntityService.cs" />
-    <Compile Include="Interface\IG_StoreService.cs" />
+    <Compile Include="Interface\IBase_StoreService.cs" />
     <Compile Include="Interface\IG_UserDetailService.cs" />
     <Compile Include="Interface\IF_UserDetailService.cs" />
     <Compile Include="Interface\IF_OrderService.cs" />

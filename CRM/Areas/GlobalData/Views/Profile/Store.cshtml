@@ -57,11 +57,11 @@
                     @Html.LabelFor(model => model.Store.City, new { @class = "col-lg-2 control-label" })
                     <div class="col-lg-10">
                         <select id="Province" class="input-sm form-control input-s-sm inline"></select>
-                        <input type="hidden" name="Store_Province" id="hidProvince" />
+                        <input type="hidden" name="Store.Province" id="hidProvince" />
                         <select id="City" class="input-sm form-control input-s-sm inline"></select>
-                        <input type="hidden" name="Store_City" id="hidCity" />
+                        <input type="hidden" name="Store.City" id="hidCity" />
                         <select id="Country" class="input-sm form-control input-s-sm inline"></select>
-                        <input type="hidden" name="Store_Country" id="hidCountry" />
+                        <input type="hidden" name="Store.Country" id="hidCountry" />
                         @Html.ValidationMessageFor(model => model.Store.Street, "", new { @class = "text-danger" })
                     </div>
                 </div>

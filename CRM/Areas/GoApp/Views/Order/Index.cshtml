@@ -1,7 +1,116 @@
-﻿
+﻿@model Ingenious.DTO.F_OrderDTOListWithPagination
 @{
     ViewBag.Title = "Index";
 }
+@using PagedList
+@using PagedList.Mvc
 
-<h2>Index</h2>
 
+@section scripts{
+
+    <script>
+        $().ready(function () {
+
+            $('a[delete]').click(function () {
+                var id = $(this).attr("id");
+                if (confirm("您确定要删除吗？")) {
+                    $.ajax({
+                        url: '/app/order/delete',
+                        data: { id: id },
+                        success: function (data) {
+                            alert(data.Message);
+                            window.location.reload();
+                        },
+                        error: function (arg1, arg2, arg3) {
+                            console.log(arg3);
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="index.html"><i class="fa fa-home"></i> 订单管理</a></li>
+    @*<li class="active">Workset</li>*@
+</ul>
+<section class="panel panel-default">
+    <header class="panel-heading"> 订单列表 </header>
+    <div class="row text-sm wrapper">
+        <div class="col-sm-3 m-b-xs">
+            <a class="btn btn-sm btn-primary" href="/app/store/create"> 新建订单</a>
+        </div>
+        <form id="userSearchForm" action="/app/news/index">
+
+            <div class="col-sm-3 pull-right ">
+
+                <div class="input-group">
+                    <input type="text" placeholder="标题关键词" id="title" name="title" class="form-control" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-icon"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <select id="code" name="code" class="form-control form-control-normal pull-right"></select>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light text-sm">
+            <thead>
+                <tr>
+                    <th width="20"><input type="checkbox"></th>
+                    <th>订单编号</th>
+                    <th>姓名</th>
+                    <th>手机号码</th>
+                    <th>店铺名称</th>
+                    <th>交易总额</th>
+                    <th>首付金额</th>
+                    <th>贷款金额</th>
+                    <th>发放金额</th>
+                    <th>审批银行</th>
+                    <th>申请日期</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in @Model.Rows)
+                    {
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>@item.Code</td>
+                            <td>@item.Name</td>
+                            <td>@item.PersonalPhone</td>
+                            <td>@item.StoreName</td>
+                            <td>@(item.TotalAmount)（万）</td>
+                            <td>@(item.DownpaymentAmount)（万）</td>
+                            <td>@(item.LoanAmount)（万）</td>
+                            <td>@(item.GotLoanAmount)（万）</td>
+                            <td>@item.BankName</td>
+
+                            <td>
+                                @{
+                                    @Html.Raw(item.CreatedDate.ToString("yyyy-MM-dd"))
+                                }
+                            </td>
+                            <td>
+                                <a href="/app/store/edit/@item.Id"><i class="fa fa-edit"></i></a>
+                                <a id="@item.Id" delete style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+        <div>
+            <div style="width:100%;text-align:center">每页 @Model.PageSize 条记录，共 @Model.TotalPages 页，当前第 @Model.PageIndex 页，合计 @Model.TotalRecords 条记录</div>
+            <div style="width:100%;text-align:center" id="pager">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    </div>
+
+</section>

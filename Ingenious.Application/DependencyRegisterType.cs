@@ -36,6 +36,32 @@ namespace Ingenious.Application
             container.RegisterType<IBase_CarService, Base_CarService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
+            container.RegisterType<IBase_StoreRepository, Base_StoreRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IBase_StoreService, Base_StoreService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IBase_FactoryRepository, Base_FactoryRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IBase_FactoryService, Base_FactoryService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IBase_AccountRepository, Base_AccountRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IBase_AccountService, Base_AccountService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            //container.RegisterType<IBase_BankRepository, Base_BankRepository>(new Interceptor<InterfaceInterceptor>(),
+            //   new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            //container.RegisterType<IBase_BankService, Base_BankService>(new Interceptor<InterfaceInterceptor>(),
+            //    new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+            container.RegisterType<IBase_RealestateRepository, Base_RealestateRepository>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+            container.RegisterType<IBase_RealestateService, Base_RealestateService>(new Interceptor<InterfaceInterceptor>(),
+                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
+
+
             #endregion
 
             #region 佳居贷
@@ -65,10 +91,6 @@ namespace Ingenious.Application
             container.RegisterType<IG_BankService, G_BankService>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
-            container.RegisterType<IBase_StoreRepository, Base_StoreRepository>(new Interceptor<InterfaceInterceptor>(),
-                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
-            container.RegisterType<IBase_StoreService, Base_StoreService>(new Interceptor<InterfaceInterceptor>(),
-                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
             container.RegisterType<IG_ADRepository, G_ADRepository>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
@@ -85,10 +107,6 @@ namespace Ingenious.Application
             container.RegisterType<IG_LoanProductService, G_LoanProductService>(new Interceptor<InterfaceInterceptor>(),
               new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
-            container.RegisterType<IBase_FactoryRepository, Base_FactoryRepository>(new Interceptor<InterfaceInterceptor>(),
-                new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
-            container.RegisterType<IBase_FactoryService, Base_FactoryService>(new Interceptor<InterfaceInterceptor>(),
-              new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());
 
             container.RegisterType<IG_EntityRepository, G_EntityRepository>(new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<Ingenious.Infrastructure.AOP.LoggingBehavior>());

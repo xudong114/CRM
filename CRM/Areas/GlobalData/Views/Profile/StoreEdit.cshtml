@@ -1,0 +1,326 @@
+﻿@model CRM.Areas.GlobalData.Models.ProfileComplexModel
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/globaldata/profile/index"><i class="fa fa-home"></i>门店管理</a></li>
+    <li class="active">编辑门店</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">编辑门店</header>
+
+        <div class="panel-body">
+
+            <form id="form1" class="bs-example form-horizontal" action="/globaldata/profile/car" method="post">
+                <input type="hidden" id="Store_Id" name="Store.Id" value="@Model.Store.Id" />
+                <input type="hidden" id="Store_IDNo" name="Store.IDNo" value="@Model.Store.IDNo" />
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Store.IDNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        <input type="text" value="@ViewBag.idno" readonly="readonly" class="form-control form-control-large" />
+                        @Html.ValidationMessageFor(model => model.Store.IDNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.BusinessLicenseImg, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        <input type="hidden" id="Store_BusinessLicenseImg" name="Store.BusinessLicenseImg" value="@Model.Store.BusinessLicenseImg"/>
+                        <a id="btnfileStore_BusinessLicenseImg" class="btn btn-default">营业执照<input type="file" id="fileStore_BusinessLicenseImg" /></a>
+                        <img id="store_BusinessLicenseImgPreview" style="width:100px;" src="@Model.Store.BusinessLicenseImg" />
+                        @Html.ValidationMessageFor(model => model.Store.BusinessLicenseImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.BusinessLicenseNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Store.BusinessLicenseNo, new { htmlAttributes = new { @class = "form-control form-control-large", @placeholder = "注册号/统一社会信用代码（自动识别）" } })
+                        @Html.ValidationMessageFor(model => model.Store.BusinessLicenseNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.Code, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Store.Code, new { htmlAttributes = new { @class = "form-control form-control-large", @placeholder = "" } })
+                        @Html.ValidationMessageFor(model => model.Store.Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.StoreName, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Store.StoreName, new { htmlAttributes = new { @class = "form-control form-control-large", @placeholder = "" } })
+                        @Html.ValidationMessageFor(model => model.Store.StoreName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.City, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <select id="Province" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Store.Province" id="hidProvince" value="@Model.Store.Province" />
+                        <select id="City" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Store.City" id="hidCity" value="@Model.Store.City" />
+                        <select id="Country" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Store.Country" id="hidCountry" value="@Model.Store.Country" />
+                        @Html.ValidationMessageFor(model => model.Store.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.Street, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Store.Street, new { htmlAttributes = new { @class = "form-control form-control-large", @placeholder = "" } })
+                        @Html.ValidationMessageFor(model => model.Store.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.Industry, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Store.Industry, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Store.Industry, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.Area, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Store.Area, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Store.Area, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.Remark, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.TextAreaFor(model => model.Store.Remark, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Store.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <a id="btnSave" class="btn btn-sm btn-primary">保存</a>
+                        <a href="/globaldata/profile/" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</div>
+
+@section css{
+
+    <link href="~/Areas/GlobalData/Content/css/mui.toast.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/js/datepicker/datepicker.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+
+    <script src="~/Areas/GlobalData/Content/js/jquery-1.11.0.min.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/mui.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/mui.picker.min.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/mui.poppicker.js"></script>
+
+
+    <script src="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/img-tool/upload.js"></script>
+    <script src="~/Areas/GlobalData/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/jquery.district.js"></script>
+    <script>
+
+        $().ready(function () {
+
+            $.provinces({ id: 'Province', selected: '', defaultOption: '请选择' });
+            $('#Province').change(function () {
+
+                $.cities({ id: 'City', code: $(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidProvince').val($(this).find("option:selected").text());
+            });
+
+            $('#City').change(function () {
+
+                $.countries({ id: 'Country', code: $(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidCity').val($(this).find("option:selected").text());
+            });
+
+            $('#Country').change(function () {
+                $('#hidCountry').val($(this).find("option:selected").text());
+            });
+
+            $('#Factory_Industry').click(function () {
+                selectIndustry(this);
+            });
+
+            for (var i = 0 ; i < $("#Province option").length; i++) {
+                if ($("#Province option")[i].text == '@Model.Store.Province') {
+                    $("#Province option")[i].selected = true;
+                }
+            }
+            $('#Province').change();
+            for (var i = 0 ; i < $("#City option").length; i++) {
+                if ($("#City option")[i].text == '@Model.Store.City') {
+                    $("#City option")[i].selected = true;
+                }
+            }
+            $('#City').change();
+            for (var i = 0 ; i < $("#Country option").length; i++) {
+                if ($("#Country option")[i].text == '@Model.Store.Country') {
+                    $("#Country option")[i].selected = true;
+                }
+            }
+
+            $('#btnSave').click(function () {
+
+                $.ajax({
+                    type: 'post',
+                    url: "/globaldata/profile/storeedit",
+                    data: $('#form1').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+
+                        mui.toast(data.Message);
+                        console.log(data.Message);
+                        if (data.Status) {
+                            window.location.href = '/globaldata/profile/details/@Model.Store.IDNo';
+                        }
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        console.log(arg3);
+                    }
+                });
+            });
+
+        });
+
+        //选择经营行业
+        function selectIndustry(target) {
+            var kindList = [{
+                value: '进口家具',
+                text: '进口家具'
+            }, {
+                value: '北欧',
+                text: '北欧'
+            }, {
+                value: '欧式红木',
+                text: '欧式红木'
+            }, {
+                value: '定制家具',
+                text: '定制家具'
+            }, {
+                value: '实木',
+                text: '实木'
+            }, {
+                value: '板式',
+                text: '板式'
+            }, {
+                value: '软体',
+                text: '软体'
+            }, {
+                value: '户外',
+                text: '户外'
+            }, {
+                value: '儿童',
+                text: '儿童'
+            }, {
+                value: '办公',
+                text: '办公'
+            }, {
+                value: '酒店工程',
+                text: '酒店工程'
+            }, {
+                value: '欧美',
+                text: '欧美'
+            }, {
+                value: '红木',
+                text: '红木'
+            }, {
+                value: '藤竹',
+                text: '藤竹'
+            }, {
+                value: '客厅五金',
+                text: '客厅五金'
+            }]
+            var pickerKind = new mui.PopPicker({
+                layer: 1
+            });
+            pickerKind.setData(kindList);
+            pickerKind.show(function (s) {
+                $(target).val(s[0].text);
+            });
+        }
+
+        $('#fileStore_BusinessLicenseImg').change(function () {
+
+            var file = $(this)[0].files[0];
+            if (!file) {
+                mui.toast('未选择任何文件');
+                return;
+            }
+            dialog.hide();
+            dialog.show({ title: '正在上传文件...' });
+            $('#store_BusinessLicenseImgPreview').attr('src', File.getObjectURL(file));
+
+            var option = {
+                file: file,
+                width: 1000,
+                callback: function (data) {
+                    if (!data.url) {
+                        return;
+                    }
+
+                    $('#Store_BusinessLicenseImg').val(data.url);
+
+                    dialog.hide();
+                    dialog.show({ title: '正在识别营业执照...' });
+                    console.log(data.url);
+                    $.ajax({
+                        url: '/globaldata/ocr/getbusinesslicenseinfo',
+                        data: { filename: data.url },
+                        dataType: "json",
+                        success: function (data) {
+                            dialog.hide();
+                            var result = 'kOtherError:Algorithm run failed  - face results are all empty';
+                            if (data == result) {
+                                return mui.toast('无法识别图片，请重新上传');
+                            }
+                           console.log(data);
+                            data = JSON.parse(data);
+                            var cardinfo = JSON.parse(data.outputs[0].outputValue.dataValue);
+
+                            console.log(cardinfo.success);
+                            if (cardinfo.success) {
+                                if (cardinfo.reg_num == '') {
+                                    mui.toast('自动识别失败，请填写注册号/统一社会信用代码！');
+                                } else {
+                                    mui.toast('营业执照识别成功');
+                                    $('#Store_BusinessLicenseNo').val(cardinfo.reg_num);
+                                    $('#Store_EntityName').val(cardinfo.name);
+                                }
+                            } else {
+                                mui.toast('自动识别失败，请填写注册号/统一社会信用代码！');
+                            }
+                            dialog.hide();
+
+                        },
+                        error: function (arg1, arg2, arg3) {
+                            dialog.hide();
+                        }
+                    });
+
+                },
+                error: function (arg1, arg2, arg3) { }
+            };
+
+            File.send(option);
+
+        });
+
+    </script>
+}
+

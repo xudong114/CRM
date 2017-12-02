@@ -65,6 +65,14 @@ namespace Ingenious.Application.Implement
              , dto => dto.Id
              , (dto, entity) =>
              {
+                 entity.Brand = dto.Brand;
+                 entity.IDNo = dto.IDNo;
+                 entity.IsSecondHand = dto.IsSecondHand;
+                 entity.LicenseImg = dto.LicenseImg;
+                 entity.PurchasedDate = dto.PurchasedDate;
+                 entity.Remark = dto.Remark;
+                 entity.Valuation = dto.Valuation;
+                 entity.VMT = dto.VMT;
                  entity.IsActive = dto.IsActive;
                  entity.ModifiedBy = dto.ModifiedBy;
              });

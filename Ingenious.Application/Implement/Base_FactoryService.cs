@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace Ingenious.Application.Implement
 {
-    public class Base_FactoryService : ApplicationService, IBase_FactoryService 
+    public class Base_FactoryService : ApplicationService, IBase_FactoryService
     {
         private readonly IBase_FactoryRepository _IBase_FactoryRepository;
         private readonly IF_UserRepository _IF_UserRepository;
@@ -41,9 +41,9 @@ namespace Ingenious.Application.Implement
             ISpecification<Base_Factory> spec = Specification<Base_Factory>.Eval(item => true);
 
             spec = new AndSpecification<Base_Factory>(spec,
-                Specification<Base_Factory>.Eval(item => idno == "" || item.IDNo.Equals(idno)));
-            spec = new AndSpecification<Base_Factory>(spec,
-                Specification<Base_Factory>.Eval(item => idno == "" || item.BusinessLicenseNo.Equals(idno)));
+                Specification<Base_Factory>.Eval(item => (idno == "") || (idno == item.IDNo)));
+            spec = new OrSpecification<Base_Factory>(spec,
+                Specification<Base_Factory>.Eval(item => (idno == "") || (item.BusinessLicenseNo == idno)));
 
             this._IBase_FactoryRepository.GetAll(spec).ToList().ForEach(item =>
                 list.Add(Mapper.Map<Base_Factory, Base_FactoryDTO>(item))
@@ -60,7 +60,7 @@ namespace Ingenious.Application.Implement
         public Base_FactoryDTO GetFactoryByCode(string code)
         {
             ISpecification<Base_Factory> spec = Specification<Base_Factory>.Eval(item => true);
-            
+
             spec = new AndSpecification<Base_Factory>(spec,
                 Specification<Base_Factory>.Eval(item => code == "" || item.IDNo.Equals(code)));
 
@@ -83,7 +83,7 @@ namespace Ingenious.Application.Implement
         {
             return base.F_Create<Base_FactoryDTO, Base_Factory>(dto
                 , _IBase_FactoryRepository
-                , dtoAction => { }); 
+                , dtoAction => { });
         }
 
         public List<Base_FactoryDTO> Update(System.Collections.Generic.List<Base_FactoryDTO> dtoList)
@@ -101,7 +101,7 @@ namespace Ingenious.Application.Implement
                     entity.EntityName = dto.EntityName;
                     entity.IDNo = dto.IDNo;
                     entity.Industry = dto.Industry;
-                    
+
                     entity.Province = dto.Province;
                     entity.Street = dto.Street;
                     entity.SubEntity = dto.SubEntity;

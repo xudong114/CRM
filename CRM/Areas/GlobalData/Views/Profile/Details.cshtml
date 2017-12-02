@@ -9,7 +9,7 @@
 
 <div>
     <section class="panel panel-default">
-        <header class="panel-heading font-bold">浏览数据 <span class="pull-right" > @Model.Profile.IDNo</span></header>
+        <header class="panel-heading font-bold">浏览数据 <span class="pull-right"> @Model.Profile.IDNo</span></header>
         <div class="panel-body">
             <table class="table table-responsive">
                 <tr>
@@ -23,7 +23,7 @@
                             if (imgs.Count() > 0)
                             {
                                 <a data-fancybox href="@imgs[0]">
-                                    <img src="@imgs[0]" style="width:150px;height:100px;"/>
+                                    <img src="@imgs[0]" style="width:150px;height:100px;" />
                                 </a>
                             }
                             if (imgs.Count() > 1)
@@ -33,14 +33,14 @@
                                 </a>
                             }
                         }
-                       
+
                     </td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>
-                       
+
                         <p>
                             姓名: <strong>@Model.Profile.Name</strong> （@(Model.Profile.Gender == "男" ? "先生" : "女士")）
                         </p>
@@ -56,9 +56,7 @@
                             办公电话: <strong>@Model.Profile.OfficePhone</strong>
                         </p>
                     </td>
-                    <td>
-                      
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -76,7 +74,7 @@
                             微博: <strong>@Model.Profile.Weibo</strong>
                         </p>
                     </td>
-                    
+
                 </tr>
                 <tr>
                     <td colspan="3">
@@ -86,155 +84,427 @@
                     </td>
                 </tr>
             </table>
+            <section class="panel panel-default">
+                <header class="panel-heading font-bold">账号信息</header>
+                <div class="panel-body">
 
+                    <table class="table mui-table-responsive">
+                        <thead>
+                            <tr>
+                                <th>关联账号</th>
+                                <th>虚拟账号</th>
+                                <th>闪付识别码</th>
+                                <th>闪付二维码</th>
+                                <th>开户行</th>
+                                <th>默认</th>
+                                <th>备注</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model.AccountList)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.InlineNo
+                                            @if (!string.IsNullOrWhiteSpace(@item.CardImg))
+                                            {
+                                                <a data-fancybox href="@item.CardImg">
+                                                    <img src="@item.CardImg" style="width:50px;height:50px;" />
+                                                </a>
+                                            }
+                                        </td>
+                                        <td>@item.VirtualNo</td>
+                                        <td>@item.PayCode</td>
+                                        <td>
+                                            @if (!string.IsNullOrWhiteSpace(@item.QRCode))
+                                            {
+                                                <a data-fancybox href="@item.QRCode">
+                                                    <img src="@item.QRCode" style="width:50px;height:50px;" />
+                                                </a>
+                                            }
+                                        </td>
+                                        
+                                        <td>@item.BankCode</td>
+                                        <td>@Html.Raw(item.IsDefault ? "√" : "")</td>
+                                        <td>@item.Remark</td>
+                                        <td>
+                                            <a href="/globaldata/profile/accountedit/@item.Id"><i class="fa fa-edit"></i></a>
+                                            <a href="/globaldata/profile/accountdelete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
 
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading font-bold">工厂信息</header>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>营业执照</th>
+                                <th>营业执照编号</th>
+                                <th>行业</th>
+                                <th>地区</th>
+                                <th>街道</th>
+                                <th>面积</th>
+                                <th>年产值</th>
+                                <th>人数</th>
+                                <th>经销商数量</th>
+                                <th>备注</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model.FactoryList)
+                                {
+                                    <tr>
+                                        <td>@item.EntityName</td>
+                                        <td>
+                                            @if (!string.IsNullOrWhiteSpace(@item.BusinessLicenseImg))
+                                            {
+                                                <a data-fancybox href="@item.BusinessLicenseImg">
+                                                    <img src="@item.BusinessLicenseImg" style="width:50px;height:50px;" />
+                                                </a>
+                                            }
+                                        </td>
+                                        <td>@item.BusinessLicenseNo</td>
+                                        <td>@item.Industry</td>
+                                        <td>@item.Province @item.City @item.Country</td>
+                                        <td>@item.Street</td>
+                                        <td>@item.Area</td>
+                                        <td>@item.TotalAmount</td>
+                                        <td>@item.HeadCount</td>
+                                        <td>@item.SubEntity</td>
+                                        <td>@item.Remark</td>
+                                        <td>
+                                            <a href="/globaldata/profile/factoryedit/@item.Id"><i class="fa fa-edit"></i></a>
+                                            <a href="/globaldata/profile/factorydelete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading font-bold">门店信息</header>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>编码</th>
+                                <th>营业执照</th>
+                                <th>营业执照编号</th>
+                                <th>品牌</th>
+                                <th>商城</th>
+                                <th>行业</th>
+                                <th>地区</th>
+                                <th>街道</th>
+                                <th>面积</th>
+                                <th>备注</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model.StoreList)
+                                {
+                                    <tr>
+                                        <td>@item.StoreName</td>
+                                        <td>@item.Code</td>
+                                        <td>
+                                            @if (!string.IsNullOrWhiteSpace(@item.BusinessLicenseImg))
+                                            {
+                                                <a data-fancybox href="@item.BusinessLicenseImg">
+                                                    <img src="@item.BusinessLicenseImg" style="width:50px;height:50px;" />
+                                                </a>
+                                            }
+                                        </td>
+                                        <td>@item.BusinessLicenseNo</td>
+                                        <td>@item.Brand</td>
+                                        <td>@item.Mall</td>
+                                        <td>@item.Industry</td>
+                                        <td>@item.Province @item.City @item.Country</td>
+                                        <td>@item.Street</td>
+                                        <td>@item.Area</td>
+                                        <td>@item.Remark</td>
+                                        <td>
+                                            <a href="/globaldata/profile/storeedit/@item.Id"><i class="fa fa-edit"></i></a>
+                                            <a href="/globaldata/profile/storedelete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading font-bold">房产信息</header>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>房产证</th>
+                                <th>小区名称</th>
+                                <th>面积</th>
+                                <th>房产类型</th>
+                                <th>估值</th>
+                                <th>城市</th>
+                                <th>备注</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model.RealestateList)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (!string.IsNullOrWhiteSpace(@item.LicenseImg))
+                                            {
+                                                <a data-fancybox href="@item.LicenseImg">
+                                                    <img src="@item.LicenseImg" style="width:50px;height:50px;" />
+                                                </a>
+                                            }
+                                        </td>
+                                        <td>@item.Community</td>
+                                        <td>@item.Area</td>
+                                        <td>@item.Category</td>
+                                        <td>@item.Valuation（元）</td>
+                                        <td>@item.Province @item.City @item.Country</td>
+                                       
+                                        <td>@item.Remark</td>
+                                        <td>
+                                            <a href="/globaldata/profile/realestateedit/@item.Id"><i class="fa fa-edit"></i></a>
+                                            <a href="/globaldata/profile/realestatedelete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading font-bold">车辆信息</header>
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>行驶证</th>
+                                <th>品牌</th>
+                                <th>二手车</th>
+                                <th>购买时间</th>
+                                <th>行驶里程</th>
+                                <th>估值</th>
+                                <th>备注</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model.CarList)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (!string.IsNullOrWhiteSpace(@item.LicenseImg))
+                                            {
+                                                <a data-fancybox href="@item.LicenseImg">
+                                                    <img src="@item.LicenseImg" style="width:50px;height:50px;" />
+                                                </a>
+                                            }
+                                        </td>
+                                        <td>@item.Brand</td>
+                                        <td>@(item.IsSecondHand ? "√" : "")</td>
+                                        <td>@item.PurchasedDate.ToString("yyyy")</td>
+                                        <td>@item.VMT（公里）</td>
+                                        <td>@item.Valuation（元）</td>
+                                        <td>@item.Remark</td>
+                                        <td>
+                                            <a href="/globaldata/profile/caredit/@item.Id"><i class="fa fa-edit"></i></a>
+                                            <a href="/globaldata/profile/cardelete/@item.Id" style="margin-left:30px;"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading font-bold">...</header>
+                <div class="panel-body">
+                </div>
+            </section>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <a href="/globaldata/profile/" class="btn btn-sm btn-default">取消</a>
+                </div>
+            </div>
         </div>
 
     </section>
 </div>
 
-@section css{
 
-    <link href="~/Areas/GlobalData/Content/css/mui.toast.css" rel="stylesheet" />
-    <link href="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
-    <style>
-        td {
-            height: 20px !important;
-        }
-    </style>
-}
 
-@section scripts{
-    <script src="~/Areas/GlobalData/Content/js/mui.js"></script>
-    <script src="~/Areas/GlobalData/Content/js/jquery-1.11.0.min.js"></script>
+        @section css{
 
-    <script src="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
-    <script src="~/Areas/GlobalData/Content/js/img-tool/upload.js"></script>
-    <script src="~/Areas/GlobalData/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
-
-    <script>
-
-        $().ready(function () {
-
-            $('#btnSave').click(function () {
-                var idImg = $('#IDNoFaceImg').val() + '|' + $('#IDNoBackImg').val();
-                $('#IDImg').val(idImg);
-
-                if ($('#IDImg').val() == ''
-                    || $('#IDImg').val() == '|') {
-                    return mui.toast('请上传身份证照片');
+            <link href="~/Areas/GlobalData/Content/css/mui.toast.css" rel="stylesheet" />
+            <link href="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+            <style>
+                td {
+                    height: 20px !important;
                 }
+            </style>
+        }
 
-                $.ajax({
-                    type: 'post',
-                    url: "/globaldata/profile/create",
-                    data: $('#form1').serialize(),
-                    dataType: 'json',
-                    success: function (data) {
+        @section scripts{
+            <script src="~/Areas/GlobalData/Content/js/mui.js"></script>
+            <script src="~/Areas/GlobalData/Content/js/jquery-1.11.0.min.js"></script>
 
-                        mui.toast(data.Message);
-                        console.log(data.Message);
-                        if (data.Status) {
-                            window.location.href = '/globaldata/profile';
+            <script src="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+            <script src="~/Areas/GlobalData/Content/js/img-tool/upload.js"></script>
+            <script src="~/Areas/GlobalData/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+
+            <script>
+
+                $().ready(function () {
+
+                    $('#btnSave').click(function () {
+                        var idImg = $('#IDNoFaceImg').val() + '|' + $('#IDNoBackImg').val();
+                        $('#IDImg').val(idImg);
+
+                        if ($('#IDImg').val() == ''
+                            || $('#IDImg').val() == '|') {
+                            return mui.toast('请上传身份证照片');
                         }
-                    },
-                    error: function (arg1, arg2, arg3) {
-                        console.log(arg3);
-                    }
-                });
-            });
 
-        });
+                        $.ajax({
+                            type: 'post',
+                            url: "/globaldata/profile/create",
+                            data: $('#form1').serialize(),
+                            dataType: 'json',
+                            success: function (data) {
 
-        $('#fileIDNoFaceImg').change(function () {
-
-            var file = $(this)[0].files[0];
-            if (!file) {
-                mui.toast('未选择任何文件');
-                return;
-            }
-            dialog.hide();
-            dialog.show({ title: '正在上传文件...' });
-            $('#facePreview').attr('src', File.getObjectURL(file));
-
-            var option = {
-                file: file,
-                width: 500,
-                callback: function (data) {
-                    if (!data.url) {
-                        return;
-                    }
-
-                    $('#IDNoFaceImg').val(data.url);
-
-                    dialog.hide();
-                    dialog.show({ title: '正在识别身份证...' });
-                    console.log(data.url);
-                    $.ajax({
-                        url: '/globaldata/ocr/getidcardinfo',
-                        data: { filename: data.url },
-                        dataType: "json",
-                        success: function (data) {
-
-                            dialog.hide();
-                            var result = 'kOtherError:Algorithm run failed  - face results are all empty';
-                            if (data == result) {
-                                return mui.toast('无法识别图片，请重新上传');
+                                mui.toast(data.Message);
+                                console.log(data.Message);
+                                if (data.Status) {
+                                    window.location.href = '/globaldata/profile';
+                                }
+                            },
+                            error: function (arg1, arg2, arg3) {
+                                console.log(arg3);
                             }
-
-                            data = JSON.parse(data);
-                            var cardinfo = JSON.parse(data.outputs[0].outputValue.dataValue);
-
-                            if (cardinfo.num == '') {
-                                mui.toast('自动识别失败，请填写身份证号码');
-                            } else {
-                                mui.toast('身份证识别成功');
-                                $('#Profile_IDNO').val(cardinfo.num);
-                            }
-
-                        },
-                        error: function (arg1, arg2, arg3) {
-                            console.log(arg1.responseText);
-                            dialog.hide();
-                        }
+                        });
                     });
 
-                },
-                error: function (arg1, arg2, arg3) { }
-            };
+                });
 
-            File.send(option);
+                $('#fileIDNoFaceImg').change(function () {
 
-        });
-
-        $('#fileIDNoBackImg').change(function () {
-
-            var file = $(this)[0].files[0];
-            if (!file) {
-                mui.toast('未选择任何文件');
-                return;
-            }
-            dialog.hide();
-            dialog.show({ title: '正在上传文件...' });
-            $('#backPreview').attr('src', File.getObjectURL(file));
-
-            var option = {
-                file: file,
-                width: 500,
-                callback: function (data) {
-
-                    if (data.url) {
-                        $('#IDNoBackImg').val(data.url);
+                    var file = $(this)[0].files[0];
+                    if (!file) {
+                        mui.toast('未选择任何文件');
+                        return;
                     }
                     dialog.hide();
+                    dialog.show({ title: '正在上传文件...' });
+                    $('#facePreview').attr('src', File.getObjectURL(file));
 
-                }, error: function (arg1, arg2, arg3) {
+                    var option = {
+                        file: file,
+                        width: 500,
+                        callback: function (data) {
+                            if (!data.url) {
+                                return;
+                            }
+
+                            $('#IDNoFaceImg').val(data.url);
+
+                            dialog.hide();
+                            dialog.show({ title: '正在识别身份证...' });
+                            console.log(data.url);
+                            $.ajax({
+                                url: '/globaldata/ocr/getidcardinfo',
+                                data: { filename: data.url },
+                                dataType: "json",
+                                success: function (data) {
+
+                                    dialog.hide();
+                                    var result = 'kOtherError:Algorithm run failed  - face results are all empty';
+                                    if (data == result) {
+                                        return mui.toast('无法识别图片，请重新上传');
+                                    }
+
+                                    data = JSON.parse(data);
+                                    var cardinfo = JSON.parse(data.outputs[0].outputValue.dataValue);
+
+                                    if (cardinfo.num == '') {
+                                        mui.toast('自动识别失败，请填写身份证号码');
+                                    } else {
+                                        mui.toast('身份证识别成功');
+                                        $('#Profile_IDNO').val(cardinfo.num);
+                                    }
+
+                                },
+                                error: function (arg1, arg2, arg3) {
+                                    console.log(arg1.responseText);
+                                    dialog.hide();
+                                }
+                            });
+
+                        },
+                        error: function (arg1, arg2, arg3) { }
+                    };
+
+                    File.send(option);
+
+                });
+
+                $('#fileIDNoBackImg').change(function () {
+
+                    var file = $(this)[0].files[0];
+                    if (!file) {
+                        mui.toast('未选择任何文件');
+                        return;
+                    }
                     dialog.hide();
-                }
-            };
+                    dialog.show({ title: '正在上传文件...' });
+                    $('#backPreview').attr('src', File.getObjectURL(file));
 
-            File.send(option);
-        });
+                    var option = {
+                        file: file,
+                        width: 500,
+                        callback: function (data) {
 
-    </script>
-}
+                            if (data.url) {
+                                $('#IDNoBackImg').val(data.url);
+                            }
+                            dialog.hide();
+
+                        }, error: function (arg1, arg2, arg3) {
+                            dialog.hide();
+                        }
+                    };
+
+                    File.send(option);
+                });
+
+            </script>
+        }

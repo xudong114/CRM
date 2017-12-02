@@ -81,6 +81,10 @@ namespace Ingenious.Application.Implement
             spec = new AndSpecification<Base_Profile>(spec,
                 Specification<Base_Profile>.Eval(item =>
                 officePhone == null || officePhone == "" || item.OfficePhone.Equals(officePhone)));
+            //未删除
+            spec = new AndSpecification<Base_Profile>(spec,
+                Specification<Base_Profile>.Eval(item =>item.IsActive));
+
 
             var list = new Base_ProfileDTOList();
 
@@ -136,6 +140,19 @@ namespace Ingenious.Application.Implement
              , dto => dto.Id
              , (dto, entity) =>
              {
+                 entity.Code = dto.Code;
+                 entity.Email = dto.Email;
+                 entity.Gender = dto.Gender;
+                 entity.IDImg = dto.IDImg;
+                 entity.IDNo = dto.IDNo;
+                 entity.Name = dto.Name;
+                 entity.NativePlace = dto.NativePlace;
+                 entity.OfficePhone = dto.OfficePhone;
+                 entity.PersonalPhone = dto.PersonalPhone;
+                 entity.QQ = dto.QQ;
+                 entity.Remark = dto.Remark;
+                 entity.Wechat = dto.Wechat;
+                 entity.Weibo = dto.Wechat;
                  entity.IsActive = dto.IsActive;
                  entity.ModifiedBy = dto.ModifiedBy;
              });
@@ -151,7 +168,7 @@ namespace Ingenious.Application.Implement
                 , dto => dto.Id
                 , (dto, entity) =>
                 {
-                    entity.IsActive = false;
+                    entity.IsActive = dto.IsActive;
                     entity.ModifiedBy = dto.ModifiedBy;
                 });
         }

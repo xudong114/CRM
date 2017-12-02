@@ -88,10 +88,10 @@ namespace Ingenious.Application.Implement
         {
             ISpecification<Base_Store> spec = Specification<Base_Store>.Eval(item => true);
             spec = new AndSpecification<Base_Store>(spec,
-                Specification<Base_Store>.Eval(item => code == "" || item.Code == code));
-            spec = new AndSpecification<Base_Store>(spec,
                 Specification<Base_Store>.Eval(item => code == "" || item.IDNo == code));
-            spec = new AndSpecification<Base_Store>(spec,
+            spec = new OrSpecification<Base_Store>(spec,
+                Specification<Base_Store>.Eval(item => code == "" || item.Code == code));
+            spec = new OrSpecification<Base_Store>(spec,
                 Specification<Base_Store>.Eval(item => code == "" || item.BusinessLicenseNo == code));
             var list = new List<Base_StoreDTO>();
             this._IBase_StoreRepository.GetAll(spec).ToList().ForEach(item =>

@@ -1,0 +1,118 @@
+﻿@model CRM.Areas.GlobalData.Models.ProfileComplexModel
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/globaldata/profile/index"><i class="fa fa-home"></i>账户管理</a></li>
+    <li class="active">编辑账户</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">编辑账户</header>
+
+        <div class="panel-body">
+
+            <form id="form1" class="bs-example form-horizontal" action="/globaldata/profile/account" method="post">
+                <input type="hidden" id="Account_Id" name="Account.Id" value="@Model.Account.Id" />
+                <input type="hidden" id="Account_IDNo" name="Account.IDNo" value="@Model.Account.IDNo" />
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.InlineNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Account.InlineNo, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.InlineNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.VirtualNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.VirtualNo, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.VirtualNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Account.BankCode, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.BankCode, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.BankCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.IsDefault, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.IsDefault, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.IsDefault, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.Remark, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.TextAreaFor(model => model.Account.Remark, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Account.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <a id="btnSave" class="btn btn-sm btn-primary">保存</a>
+                        <a href="/globaldata/profile/" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</div>
+
+@section css{
+
+    <link href="~/Areas/GlobalData/Content/css/mui.toast.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/js/datepicker/datepicker.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+    <script src="~/Areas/GlobalData/Content/js/mui.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/jquery-1.11.0.min.js"></script>
+
+    <script src="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/img-tool/upload.js"></script>
+    <script src="~/Areas/GlobalData/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/datepicker/bootstrap-datepicker.js"></script>
+    <script>
+
+        $().ready(function () {
+
+            $('#btnSave').click(function () {
+                var inlineNo = $('#Account_InlineNo').val();
+                if (inlineNo == '') {
+                    return mui.toast('关联账号是必填项');
+                }
+                $.ajax({
+                    type: 'post',
+                    url: "/globaldata/profile/accountedit",
+                    data: $('#form1').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+
+                        mui.toast(data.Message);
+                        console.log(data.Message);
+                        if (data.Status) {
+                            window.location.href = '/globaldata/profile/details/@Model.Account.IDNo';
+                        }
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        console.log(arg3);
+
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}
+

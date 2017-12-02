@@ -47,7 +47,8 @@ namespace Ingenious.DTO
         public string IDNo { get; set; }
         /// <summary>
         /// 身份证照片
-        /// 格式：正面|反面，使用“|”分割。
+        /// 格式：正面|反面|手持身份证，使用“|”分割。
+        /// 增加手持身份证照片
         /// </summary>
         [DisplayName("身份证照片")]
         [Required(ErrorMessage = "身份证照片为必填项")]

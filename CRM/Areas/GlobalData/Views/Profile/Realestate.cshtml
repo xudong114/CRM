@@ -1,0 +1,196 @@
+﻿@model CRM.Areas.GlobalData.Models.ProfileComplexModel
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/globaldata/profile/index"><i class="fa fa-home"></i>不动产管理</a></li>
+    <li class="active">新建不动产</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建不动产</header>
+
+        <div class="panel-body">
+
+            <form id="form1" class="bs-example form-horizontal" action="/globaldata/profile/car" method="post">
+                <input type="hidden" id="Realestate_IDNo" name="Realestate.IDNo" value="@ViewBag.idno" />
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Car.IDNo, new { @class = "col-lg-2 control-label" })
+                        <div class="col-lg-10 required">
+                            <input type="text" value="@ViewBag.idno" readonly="readonly" class="form-control form-control-large" />
+                            @Html.ValidationMessageFor(model => model.Car.IDNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.LicenseImg, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        <input type="hidden" id="Realestate_LicenseImg" name="Realestate.LicenseImg" />
+                        <a id="btnfileRealestate_LicenseImg" class="btn btn-default">房产证<input type="file" id="fileRealestate_LicenseImg" /></a>
+                        <img id="Realestate_LicenseImgPreview" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.Car.LicenseImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.Community, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.Realestate.Community, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Realestate.Community, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.Area, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.Realestate.Area, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Realestate.Area, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.Category, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.Realestate.Category, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Realestate.Category, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.Valuation, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.EditorFor(model => model.Realestate.Valuation, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Realestate.Valuation, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.City, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <select id="Province" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Realestate.Province" id="hidProvince" />
+                        <select id="City" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Realestate.City" id="hidCity" />
+                        <select id="Country" class="input-sm form-control input-s-sm inline"></select>
+                        <input type="hidden" name="Realestate.Country" id="hidCountry" />
+                        @Html.ValidationMessageFor(model => model.Factory.FactoryAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.Street, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Realestate.Street, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Realestate.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Realestate.Remark, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.TextAreaFor(model => model.Realestate.Remark, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Realestate.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <a id="btnSave" class="btn btn-sm btn-primary">保存</a>
+                        <a href="/globaldata/profile/" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</div>
+
+@section css{
+
+    <link href="~/Areas/GlobalData/Content/css/mui.toast.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/js/datepicker/datepicker.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+    <script src="~/Areas/GlobalData/Content/js/mui.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/jquery-1.11.0.min.js"></script>
+
+    <script src="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/img-tool/upload.js"></script>
+    <script src="~/Areas/GlobalData/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/jquery.district.js"></script>
+    <script>
+
+        $().ready(function () {
+
+            $.provinces({ id: 'Province', selected: '', defaultOption: '请选择' });
+            $('#Province').change(function () {
+
+                $.cities({ id: 'City', code: $(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidProvince').val($(this).find("option:selected").text());
+            });
+
+            $('#City').change(function () {
+
+                $.countries({ id: 'Country', code: $(this).val(), selected: '', defaultOption: '请选择' });
+                $('#hidCity').val($(this).find("option:selected").text());
+            });
+
+            $('#Country').change(function () {
+                $('#hidCountry').val($(this).find("option:selected").text());
+            });
+
+            $('#btnSave').click(function () {
+
+                $.ajax({
+                    type: 'post',
+                    url: "/globaldata/profile/realestate",
+                    data: $('#form1').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+
+                        mui.toast(data.Message);
+                        console.log(data.Message);
+                        if (data.Status) {
+                            window.location.href = '/globaldata/profile';
+                        }
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        console.log(arg3);
+                    }
+                });
+            });
+
+        });
+
+        $('#fileRealestate_LicenseImg').change(function () {
+
+            var file = $(this)[0].files[0];
+            if (!file) {
+                mui.toast('未选择任何文件');
+                return;
+            }
+            dialog.hide();
+            dialog.show({ title: '正在上传文件...' });
+            $('#Realestate_LicenseImgPreview').attr('src', File.getObjectURL(file));
+
+            var option = {
+                file: file,
+                width: 1000,
+                callback: function (data) {
+
+                    if (data.url) {
+                        $('#Realestate_LicenseImg').val(data.url);
+                    }
+                    dialog.hide();
+
+                }, error: function (arg1, arg2, arg3) {
+                    dialog.hide();
+                }
+            };
+
+            File.send(option);
+        });
+
+    </script>
+}
+

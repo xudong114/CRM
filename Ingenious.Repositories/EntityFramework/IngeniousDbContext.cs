@@ -52,6 +52,11 @@ namespace Ingenious.Repositories.EntityFramework
 
         public DbSet<Base_Profile> Base_Profile { get; set; }
         public DbSet<Base_Car> Base_Car { get; set; }
+        public DbSet<Base_Factory> Base_Factorys { get; set; }
+        public DbSet<Base_Store> Base_Stores { get; set; }
+        public DbSet<Base_Account> Base_Accounts { get; set; }
+        public DbSet<Base_Bank> Base_Banks { get; set; }
+        public DbSet<Base_Realestate> Base_Realestates { get; set; }
 
         #endregion
 
@@ -59,13 +64,13 @@ namespace Ingenious.Repositories.EntityFramework
 
         public DbSet<G_User> G_Users { get; set; }
         public DbSet<G_UserDetail> G_UserDetails { get; set; }
-        public DbSet<Base_Store> Base_Stores { get; set; }
+        
         public DbSet<G_Order> G_Orders { get; set; }
         public DbSet<G_OrderRecord> G_OrderRecords { get; set; }
         public DbSet<G_News> G_News { get; set; }
         public DbSet<G_AD> G_ADs { get; set; }
         public DbSet<G_Bank> G_Banks { get; set; }
-        public DbSet<Base_Factory> Base_Factorys { get; set; }
+       
         public DbSet<G_LoanProduct> G_LoanProducts { get; set; }
         public DbSet<G_File> G_Files { get; set; }
         public DbSet<G_Entity> G_Entities { get; set; }

@@ -101,6 +101,7 @@ namespace Ingenious.Application.Implement
                 QRHelper.MakeWithLogo(model.Code);
             }
 
+
             return user;
         }
 

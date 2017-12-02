@@ -39,7 +39,7 @@ namespace Ingenious.Application.Implement
             this._IF_FileService = iF_FileService;
         }
 
-        public F_OrderDTOList GetAll(
+        public F_OrderDTOListWithPagination GetAll(int pageIndex,int pageSize,
             string clerkCode = "",
             string storeCode = "",
             string bankCode = null,
@@ -51,7 +51,9 @@ namespace Ingenious.Application.Implement
             string keyword = "",
             string date = "",
             decimal? min = null,
-            decimal? max = null)
+            decimal? max = null,
+            bool? isActive = null,
+            string sort = "createddate_desc")
         {
             ISpecification<F_Order> spec = Specification<F_Order>.Eval(item => true);
             spec = new AndSpecification<F_Order>(spec,
@@ -118,14 +120,34 @@ namespace Ingenious.Application.Implement
             spec = new AndSpecification<F_Order>(spec,
                 Specification<F_Order>.Eval(item =>
                  bankClerkCode == null || bankClerkCode == "" || item.BankClerk.Equals(bankClerkCode)));
-            
+            //未删除
+            spec = new AndSpecification<F_Order>(spec,
+                Specification<F_Order>.Eval(item =>
+                    isActive == null || item.IsActive == isActive.Value));
+
             var list = new F_OrderDTOList();
 
-            this._IF_OrderRepository.GetAll(spec).OrderByDescending(item=>item.CreatedDate).ToList().ForEach(item =>
-                {
-                    list.Add(Mapper.Map<ComplexOrder, F_OrderDTO>(item));
-                });
-            return list;
+            var result = this._IF_OrderRepository.GetAll(pageIndex, pageSize, spec, sort);
+
+            int totalPages = 0;
+            int totalRecords = 0;
+            if (result != null)
+            {
+                result.Data.ForEach(item =>
+                   list.Add(Mapper.Map<ComplexOrder, F_OrderDTO>(item))
+                );
+                totalPages = result.TotalPages;
+                totalRecords = result.TotalRecords;
+            }
+
+            return new F_OrderDTOListWithPagination
+            {
+                TotalRecords = totalRecords,
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                TotalPages = totalPages,
+                Rows = list
+            };
         }
         /// <summary>
         /// 获取最新成交订单
@@ -134,7 +156,7 @@ namespace Ingenious.Application.Implement
         /// <returns></returns>
         public F_OrderDTO GetLastSuccessOrder(string clerkCode)
         {
-            var list = this.GetAll(clerkCode, null, null, null, F_OrderStatusEnum.Successed, null, null);
+            var list = this.GetAll(1, int.MaxValue, clerkCode, null, null, null, F_OrderStatusEnum.Successed, null, null);
             return list.OrderByDescending(item => item.ModifiedDate).FirstOrDefault() ?? new F_OrderDTO();
         }
 
@@ -145,7 +167,7 @@ namespace Ingenious.Application.Implement
                 Specification<F_Order>.Eval(item =>
                  item.Id.Equals(id)));
 
-            var order = this._IF_OrderRepository.GetAll(spec).ToList().FirstOrDefault();
+            var order = this._IF_OrderRepository.GetAll(1, int.MaxValue, spec).ToList().FirstOrDefault();
             if (order == null)
                 return null;
             var result = Mapper.Map<ComplexOrder, F_OrderDTO>(order);

@@ -30,6 +30,22 @@ namespace Ingenious.Application
 
             Mapper.CreateMap<Base_Car, Base_CarDTO>();
             Mapper.CreateMap<Base_CarDTO, Base_Car>();
+
+            Mapper.CreateMap<Base_Factory, Base_FactoryDTO>();
+            Mapper.CreateMap<Base_FactoryDTO, Base_Factory>();
+
+            Mapper.CreateMap<Base_Store, Base_StoreDTO>();
+            Mapper.CreateMap<Base_StoreDTO, Base_Store>();
+
+            Mapper.CreateMap<Base_Account, Base_AccountDTO>();
+            Mapper.CreateMap<Base_AccountDTO, Base_Account>();
+
+            Mapper.CreateMap<Base_Bank, Base_BankDTO>();
+            Mapper.CreateMap<Base_BankDTO, Base_Bank>();
+
+            Mapper.CreateMap<Base_Realestate, Base_RealestateDTO>();
+            Mapper.CreateMap<Base_RealestateDTO, Base_Realestate>();
+
             #endregion
 
             #region 佳居贷
@@ -38,9 +54,6 @@ namespace Ingenious.Application
 
             Mapper.CreateMap<G_Bank, G_BankDTO>();
             Mapper.CreateMap<G_BankDTO, G_Bank>();
-
-            Mapper.CreateMap<Base_Factory, Base_FactoryDTO>();
-            Mapper.CreateMap<Base_FactoryDTO, Base_Factory>();
 
             Mapper.CreateMap<G_LoanProduct, G_LoanProductDTO>();
             Mapper.CreateMap<G_LoanProductDTO, G_LoanProduct>();
@@ -53,9 +66,6 @@ namespace Ingenious.Application
 
             Mapper.CreateMap<G_OrderRecord, G_OrderRecordDTO>();
             Mapper.CreateMap<G_OrderRecordDTO, G_OrderRecord>();
-
-            Mapper.CreateMap<Base_Store, Base_StoreDTO>();
-            Mapper.CreateMap<Base_StoreDTO, Base_Store>();
 
             Mapper.CreateMap<G_User, G_UserDTO>();
             Mapper.CreateMap<G_UserDTO, G_User>();

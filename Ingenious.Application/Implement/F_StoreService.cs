@@ -78,10 +78,24 @@ namespace Ingenious.Application.Implement
 
         public F_StoreDTO GetStoreByCode(string code)
         {
-            var user = this._IF_StoreRepository.Data.Where(item => item.Code.ToLower().Equals(code.ToLower())).FirstOrDefault();
-            if (user == null)
+            //var user = this._IF_StoreRepository.Data.Where(item => item.Code.ToLower().Equals(code.ToLower())).FirstOrDefault();
+            //if (user == null)
+            //    return null;
+            //return Mapper.Map<F_Store, F_StoreDTO>(user);
+            if (string.IsNullOrEmpty(code))
                 return null;
-            return Mapper.Map<F_Store, F_StoreDTO>(user);
+            if (code.IndexOf("http://m.gojiaju.com/") == 0)
+            {
+                code = code.Substring(code.LastIndexOf("/") + 1);
+            }
+            code = code.ToLower();
+            var store = this._IF_StoreRepository.Data.Where(item =>
+                item.Code.ToLower().Equals(code)
+                || item.EnglishName.ToLower().Equals(code)
+                || item.Name.Contains(code)).FirstOrDefault();
+            if (store == null)
+                return null;
+            return Mapper.Map<F_Store, F_StoreDTO>(store);
         }
 
         public DTO.F_StoreDTO GetByKey(System.Guid id)

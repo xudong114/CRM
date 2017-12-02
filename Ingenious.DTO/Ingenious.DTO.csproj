@@ -35,6 +35,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -48,10 +51,13 @@
   <ItemGroup>
     <Compile Include="AccountDTO.cs" />
     <Compile Include="ActivityDTO.cs" />
+    <Compile Include="Base_RealestateDTO.cs" />
     <Compile Include="Base_CarDTO.cs" />
+    <Compile Include="Base_AccountDTO.cs" />
     <Compile Include="Base_ProfileDTO.cs" />
     <Compile Include="BillDTO.cs" />
     <Compile Include="G_ActivityDTO.cs" />
+    <Compile Include="Base_BankDTO.cs" />
     <Compile Include="G_EntityDTO.cs" />
     <Compile Include="G_FileDTO.cs" />
     <Compile Include="G_ADDTO.cs" />

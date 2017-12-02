@@ -23,6 +23,15 @@
                     </div>
                 </div>*@
                 <div class="form-group">
+                    @Html.LabelFor(model => model.Car.LicenseImg, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="Car_LicenseImg" name="Car.LicenseImg" />
+                        <a id="btnfileCar_LicenseImg" class="btn btn-default">行驶证<input type="file" id="fileCar_LicenseImg" /></a>
+                        <img id="Car_LicenseImgPreview" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.Car.LicenseImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(model => model.Car.Brand, new { @class = "col-lg-2 control-label" })
                     <div class="col-lg-10">
                         @Html.EditorFor(model => model.Car.Brand, new { htmlAttributes = new { @class = "form-control form-control-large" } })
@@ -31,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Car.PurchasedDate, new { @class = "col-lg-2 control-label" })
-                    <div class="col-lg-10 required">
+                    <div class="col-lg-10">
                         @Html.EditorFor(model => model.Car.PurchasedDate, new { htmlAttributes = new { @class = "form-control form-control-large" } })
                         @Html.ValidationMessageFor(model => model.Car.PurchasedDate, "", new { @class = "text-danger" })
                     </div>
@@ -57,15 +66,7 @@
                         @Html.ValidationMessageFor(model => model.Car.Valuation, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Car.LicenseImg, new { @class = "col-lg-2 control-label" })
-                    <div class="col-lg-10">
-                        <input type="hidden" id="Car.LicenseImg" name="Car_LicenseImg" />
-                        <a id="btnfileCar_LicenseImg" class="btn btn-default">行驶证<input type="file" id="fileCar_LicenseImg" /></a>
-                        <img id="Car_LicenseImgPreview" style="width:100px;" />
-                        @Html.ValidationMessageFor(model => model.Car.LicenseImg, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+               
                 <div class="form-group">
                     @Html.LabelFor(model => model.Car.Remark, new { @class = "col-lg-2 control-label" })
                     <div class="col-lg-10 ">

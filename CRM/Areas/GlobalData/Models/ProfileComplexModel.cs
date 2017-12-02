@@ -36,5 +36,21 @@ namespace CRM.Areas.GlobalData.Models
         /// 店铺信息
         /// </summary>
         public List<Base_StoreDTO> StoreList { get; set; }
+        /// <summary>
+        /// 账户信息
+        /// </summary>
+        public Base_AccountDTO Account { get; set; }
+        /// <summary>
+        /// 账户信息
+        /// </summary>
+        public Base_AccountDTOList AccountList { get; set; }
+        /// <summary>
+        /// 不动产信息
+        /// </summary>
+        public Base_RealestateDTO Realestate { get; set; }
+        /// <summary>
+        /// 不动产信息
+        /// </summary>
+        public Base_RealestateDTOList RealestateList { get; set; }
     }
 }

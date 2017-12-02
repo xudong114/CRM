@@ -10,7 +10,7 @@ namespace Ingenious.Infrastructure
     /// 分页基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class PagedResult<T> : ICollection<T>
+    public class PagedResult<T> : ICollection<T>,PagedList.IPagedList
     {
         public static readonly PagedResult<T> Empty = new PagedResult<T>(0, 0, 0, 0, new List<T>());
 
@@ -20,7 +20,7 @@ namespace Ingenious.Infrastructure
             this.Data = new List<T>();
         }
 
-        public PagedResult(int pageSize, int pageIndex, int totalRecords, int totalPages, List<T> rows)
+        public PagedResult(int totalRecords, int totalPages, int pageSize, int pageIndex, List<T> rows)
         {
             this.PageSize = pageSize;
             this.PageIndex = PageIndex;
@@ -100,6 +100,51 @@ namespace Ingenious.Infrastructure
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.Rows.GetEnumerator();
+        }
+
+        public int FirstItemOnPage
+        {
+            get { return 1; }
+        }
+
+        public bool HasNextPage
+        {
+            get { return this.PageIndex < this.TotalPages; }
+        }
+
+        public bool HasPreviousPage
+        {
+            get { return this.PageIndex > 1 && this.PageIndex < this.TotalPages; }
+        }
+
+        public bool IsFirstPage
+        {
+            get { return this.PageIndex == 1; }
+        }
+
+        public bool IsLastPage
+        {
+            get { return this.PageIndex == this.TotalPages; }
+        }
+
+        public int LastItemOnPage
+        {
+            get { return this.TotalPages; }
+        }
+
+        public int PageCount
+        {
+            get { return this.TotalPages; }
+        }
+
+        public int PageNumber
+        {
+            get { return this.PageIndex; }
+        }
+
+        public int TotalItemCount
+        {
+            get { return this.TotalRecords; }
         }
     }
 }

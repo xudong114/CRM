@@ -1,0 +1,201 @@
+﻿
+@model CRM.Areas.GlobalData.Models.ProfileComplexModel
+@{
+    ViewBag.Title = "Create";
+}
+<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
+    <li><a href="/globaldata/profile/index"><i class="fa fa-home"></i>账户管理</a></li>
+    <li class="active">新建账户</li>
+</ul>
+
+<div>
+    <section class="panel panel-default">
+        <header class="panel-heading font-bold">新建账户</header>
+
+        <div class="panel-body">
+
+            <form id="form1" class="bs-example form-horizontal" action="/globaldata/profile/account" method="post">
+                <input type="hidden" id="Account_IDNo" name="Account.IDNo" value="@ViewBag.idno" />
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.InlineNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 required">
+                        @Html.EditorFor(model => model.Account.InlineNo, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.InlineNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.VirtualNo, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.VirtualNo, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.VirtualNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.CardImg, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        <input type="hidden" id="Account_CardImg" name="Account.CardImg" />
+                        <a id="btnfileAccount_CardImg" class="btn btn-default">关联卡片账号<input type="file" id="fileAccount_CardImg" /></a>
+                        <img id="Account_CardImgPreview" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.Account.CardImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.QRCode, new { @class = "col-lg-2 control-label" })
+                    
+                    <div class="col-lg-10">
+                        <input type="hidden" id="Account_QRCode" name="Account.QRCode" />
+                        <a id="btnfileAccount_QRCode" class="btn btn-default">闪付二维码<input type="file" id="fileAccount_QRCode" /></a>
+                        <img id="Account_QRCodePreview" style="width:100px;" />
+                        @Html.ValidationMessageFor(model => model.Account.CardImg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.PayCode, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.PayCode, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.PayCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Account.BankCode, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.BankCode, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.BankCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.IsDefault, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10">
+                        @Html.EditorFor(model => model.Account.IsDefault, new { htmlAttributes = new { @class = "form-control form-control-large" } })
+                        @Html.ValidationMessageFor(model => model.Account.IsDefault, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.Remark, new { @class = "col-lg-2 control-label" })
+                    <div class="col-lg-10 ">
+                        @Html.TextAreaFor(model => model.Account.Remark, new { @class = "form-control form-control-large" })
+                        @Html.ValidationMessageFor(model => model.Account.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <a id="btnSave" class="btn btn-sm btn-primary">保存</a>
+                        <a href="/globaldata/profile/" class="btn btn-sm btn-default">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</div>
+
+@section css{
+
+    <link href="~/Areas/GlobalData/Content/css/mui.toast.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Areas/GlobalData/Content/js/datepicker/datepicker.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+    <script src="~/Areas/GlobalData/Content/js/mui.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/jquery-1.11.0.min.js"></script>
+
+    <script src="~/Areas/GlobalData/Content/Scripts/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/img-tool/upload.js"></script>
+    <script src="~/Areas/GlobalData/Content/Scripts/jquery.dialog.waitting-1.0/jquery.dialog.waitting-1.0.js"></script>
+    <script src="~/Areas/GlobalData/Content/js/datepicker/bootstrap-datepicker.js"></script>
+    <script>
+
+        $().ready(function () {
+
+            $('#btnSave').click(function () {
+                var inlineNo = $('#Account_InlineNo').val();
+                if (inlineNo == '') {
+                    return mui.toast('关联账号是必填项');
+                }
+                $.ajax({
+                    type: 'post',
+                    url: "/globaldata/profile/account",
+                    data: $('#form1').serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+
+                        mui.toast(data.Message);
+                        console.log(data.Message);
+                        if (data.Status) {
+                            window.location.href = '/globaldata/profile';
+                        }
+                    },
+                    error: function (arg1, arg2, arg3) {
+                        console.log(arg3);
+
+                    }
+                });
+            });
+
+            $('#fileAccount_CardImg').change(function () {
+
+                var file = $(this)[0].files[0];
+                if (!file) {
+                    mui.toast('未选择任何文件');
+                    return;
+                }
+                dialog.hide();
+                dialog.show({ title: '正在上传文件...' });
+                $('#Account_CardImgPreview').attr('src', File.getObjectURL(file));
+
+                var option = {
+                    file: file,
+                    width: 1000,
+                    callback: function (data) {
+
+                        if (data.url) {
+                            $('#Account_CardImg').val(data.url);
+                        }
+                        dialog.hide();
+
+                    }, error: function (arg1, arg2, arg3) {
+                        dialog.hide();
+                    }
+                };
+
+                File.send(option);
+            });
+            $('#fileAccount_QRCode').change(function () {
+
+                var file = $(this)[0].files[0];
+                if (!file) {
+                    mui.toast('未选择任何文件');
+                    return;
+                }
+                dialog.hide();
+                dialog.show({ title: '正在上传文件...' });
+                $('#Account_QRCodePreview').attr('src', File.getObjectURL(file));
+
+                var option = {
+                    file: file,
+                    width: 1000,
+                    callback: function (data) {
+
+                        if (data.url) {
+                            $('#Account_QRCode').val(data.url);
+                        }
+                        dialog.hide();
+
+                    }, error: function (arg1, arg2, arg3) {
+                        dialog.hide();
+                    }
+                };
+
+                File.send(option);
+            });
+        });
+
+    </script>
+}
+

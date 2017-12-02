@@ -1,4 +1,5 @@
-﻿using Ingenious.Infrastructure.Enum;
+﻿using Ingenious.Infrastructure;
+using Ingenious.Infrastructure.Enum;
 using Ingenious.Infrastructure.Helper;
 using System;
 using System.Collections.Generic;
@@ -221,4 +222,10 @@ namespace Ingenious.DTO
     [DisplayName("贷款申请单List")]
     public class F_OrderDTOList : List<F_OrderDTO>
     { }
+
+    [DisplayName("贷款申请单分页List")]
+    public class F_OrderDTOListWithPagination : PagedResult<F_OrderDTO>
+    {
+
+    }
 }

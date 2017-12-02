@@ -23,6 +23,7 @@ namespace Ingenious.Domain.Models
         /// 姓名
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// 性别
         /// </summary>

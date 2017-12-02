@@ -3647,8 +3647,10 @@ background-color:transparent;
 	z-index:2;
 	color:#ffffff;
 	cursor:default;
-	background-color:#428bca;
-	border-color:#428bca;
+	/*background-color:#428bca;
+	border-color:#428bca;*/
+    background-color: #65bd77;
+    border-color: #65bd77;
 }
 .pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus {
 	color:#999999;

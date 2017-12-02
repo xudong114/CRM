@@ -119,15 +119,15 @@ namespace API.Go.Controllers
                 return Json(new MessageResult { Status = false, Message = "资料不全" });
             }
 
-            var oldCode = APICacheService.Instance.Get(order.PersonalPhone, order.PersonalPhone);
-            if (oldCode == null)
-            {
-                return Json(new MessageResult { Status = false, Message = "验证码失效" });
-            }
-            if (!oldCode.ToString().Equals(order.Code))
-            {
-                return Json(new MessageResult { Status = false, Message = "验证码错误" });
-            }
+            //var oldCode = APICacheService.Instance.Get(order.PersonalPhone, order.PersonalPhone);
+            //if (oldCode == null)
+            //{
+            //    return Json(new MessageResult { Status = false, Message = "验证码失效" });
+            //}
+            //if (!oldCode.ToString().Equals(order.Code))
+            //{
+            //    return Json(new MessageResult { Status = false, Message = "验证码错误" });
+            //}
             
             var orderId = order.Id;
             if (order.Id == Guid.Empty)
@@ -206,7 +206,7 @@ namespace API.Go.Controllers
             {
                 return Json(new MessageResult { Status = false, Message = "资料不全" });
             }
-
+            bool submit = order.IsActive;
             var model = this._IF_OrderService.GetByKey(order.Id);
             if (model == null)
             {
@@ -220,14 +220,14 @@ namespace API.Go.Controllers
                 return Json(new MessageResult { Status = false, Message = "店铺无效" });
             }
             //如果导购工号未填写，则不需要校验导购和商铺的从属关系
-            if(!string.IsNullOrWhiteSpace(order.ClerkCode))
-            {
-                var boundStore = this._IF_StorerService.GetStoreByClerkId(order.ClerkCode);
-                if (boundStore == null || boundStore.Code != order.StoreCode)
-                {
-                    return Json(new MessageResult { Status = false, Message = "导购和店铺不匹配" });
-                }
-            }
+            //if(!string.IsNullOrWhiteSpace(order.ClerkCode))
+            //{
+            //    var boundStore = this._IF_StorerService.GetStoreByClerkId(order.ClerkCode);
+            //    if (boundStore == null || boundStore.Code != order.StoreCode)
+            //    {
+            //        return Json(new MessageResult { Status = false, Message = "导购和店铺不匹配" });
+            //    }
+            //}
             
             model.StoreCode = order.StoreCode;
             model.ClerkCode = order.ClerkCode;
@@ -239,7 +239,12 @@ namespace API.Go.Controllers
             model.ModifiedBy = this.User.Id;
             this._IF_OrderService.Update(new List<F_OrderDTO> { model });
 
-            return Json(new MessageResult { Status = true, Message = "交易信息保存成功" });
+            if (submit)
+            {
+                this.Submit(model.Id);
+                return Json(new MessageResult { Status = true, Message = "订单提交成功" });
+            }
+            return Json(new MessageResult { Status = true, Message = "订单保存成功" });
         }
 
 
@@ -286,6 +291,7 @@ namespace API.Go.Controllers
             this._IF_OrderService.Update(new List<F_OrderDTO> { order });
 
             this.CreateMessage(order, new F_OrderRecordDTO());
+            Ingenious.Infrastructure.Message.MessageService.SMSSend("", "");
 
             return Json(new MessageResult { Status = true, Message = "订单提交成功" });
         }
@@ -352,11 +358,11 @@ namespace API.Go.Controllers
             decimal? min = null,
             decimal? max = null)
         {
-            var orders = new F_OrderDTOList();
+            var orders = new F_OrderDTOListWithPagination();
 
-            orders = this._IF_OrderService.GetAll(clerkCode, storeCode, fromBank, userId, status, bankManager, bankClerkCode, gojiajuClerkCode, keyword, date, min, max);
+            orders = this._IF_OrderService.GetAll(1, int.MaxValue, clerkCode, storeCode, fromBank, userId, status, bankManager, bankClerkCode, gojiajuClerkCode, keyword, date, min, max);
 
-            return Json(orders);
+            return Json(orders.Rows);
         }
 
 
@@ -395,22 +401,22 @@ namespace API.Go.Controllers
 
             var result = new { InProcess = 0, Presigned = 0, Prepassed = 0, Passed = 0, Failed = 0 };
 
-            var list = new F_OrderDTOList();
+            var list = new F_OrderDTOListWithPagination();
 
-            list = this._IF_OrderService.GetAll(null, null, user.BankCode);
+            list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, user.BankCode);
 
-            if (list.Count() == 0)
+            if (list.Rows.Count() == 0)
             {
                 return Json(new MessageResult { Status = true, Data = result });
             }
             result = new
             {
-                InProcess = list.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed).Count(),
+                InProcess = list.Rows.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed).Count(),
 
-                Presigned = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed).Count(),
-                Prepassed = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned).Count(),
-                Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed).Count(),
-                Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                Presigned = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed).Count(),
+                Prepassed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned).Count(),
+                Passed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed).Count(),
+                Failed = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                                     || (item.Status == F_OrderStatusEnum.SignCanceled)).Count()
             };
 
@@ -457,9 +463,9 @@ namespace API.Go.Controllers
                 return Json(new MessageResult { Status = false, Message = "所属银行未设置" });
             }
 
-            var list = new F_OrderDTOList();
+            var list = new F_OrderDTOListWithPagination();
 
-            list = this._IF_OrderService.GetAll(null, null, user.BankCode, null, null, null, bankClerk, null, keyword, date);
+            list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, user.BankCode, null, null, null, bankClerk, null, keyword, date);
 
             // 默认返回所有状态订单
             //if (!string.IsNullOrWhiteSpace(status))
@@ -468,41 +474,41 @@ namespace API.Go.Controllers
                 {
                     case "inprocess":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed) });
                         }
                     case "presigned":
                         {
                             return Json(new MessageResult
                             {
                                 Status = true,
-                                Data = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
+                                Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
                             });
                         }
                     case "prepassed":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
                         }
                     case "passed":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.Successed) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed) });
                         }
                     case "failed":
                         {
                             return Json(new MessageResult
                             {
                                 Status = true,
-                                Data = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                                Data = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                                     || (item.Status == F_OrderStatusEnum.SignCanceled))
                             });
                         }
                     default:
                         {
-                            return Json(new MessageResult { Status = true, Data = list });
+                            return Json(new MessageResult { Status = true, Data = list.Rows });
                         }
                 }
             }
 
-            if (list.Count() == 0)
+            if (list.Rows.Count() == 0)
             {
                 var defaultResult = new { InProcess = new List<F_OrderDTO>(), Presigned = new List<F_OrderDTO>(), Prepassed = new List<F_OrderDTO>(), Passed = new List<F_OrderDTO>(), Failed = new List<F_OrderDTO>() };
 
@@ -510,12 +516,12 @@ namespace API.Go.Controllers
             }
             var result = new
             {
-                InProcess = list.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed),
+                InProcess = list.Rows.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed),
 
-                Presigned = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed),
-                Prepassed = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned),
-                Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed),
-                Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                Presigned = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed),
+                Prepassed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned),
+                Passed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed),
+                Failed = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                 || (item.Status == F_OrderStatusEnum.SignCanceled)
                 )
             };
@@ -557,23 +563,23 @@ namespace API.Go.Controllers
                 return Json(new MessageResult { Status = false, Message = GlobalMessage.Unauthorized });
             }
             var result = new { InProcess = 0, Presigned = 0, Prepassed = 0, Passed = 0, Failed = 0 };
-            var list = new F_OrderDTOList();
+            var list = new F_OrderDTOListWithPagination();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, user.Code);
+            list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, null, null, null, null, user.Code);
 
-            if (list.Count() == 0)
+            if (list.Rows.Count() == 0)
             {
                 return Json(new MessageResult { Status = true, Data = result });
             }
 
             result = new
             {
-                InProcess = list.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed).Count(),
+                InProcess = list.Rows.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed).Count(),
 
-                Presigned = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed).Count(),
-                Prepassed = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned).Count(),
-                Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed).Count(),
-                Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                Presigned = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed).Count(),
+                Prepassed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned).Count(),
+                Passed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed).Count(),
+                Failed = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                             || (item.Status == F_OrderStatusEnum.SignCanceled)).Count()
             };
 
@@ -618,9 +624,9 @@ namespace API.Go.Controllers
             {
                 return Json(new MessageResult { Status = false, Message = GlobalMessage.Unauthorized });
             }
-            var list = new F_OrderDTOList();
+            var list = new F_OrderDTOListWithPagination();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, user.Code, null, keyword, date);
+            list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, null, null, null, null, user.Code, null, keyword, date);
 
             // 默认返回所有状态订单
             //if (!string.IsNullOrWhiteSpace(status))
@@ -629,36 +635,36 @@ namespace API.Go.Controllers
                 {
                     case "inprocess":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed) });
                         }
                     case "presigned":
                         {
                             return Json(new MessageResult
                             {
                                 Status = true,
-                                Data = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
+                                Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
                             });
                         }
                     case "prepassed":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
                         }
                     case "passed":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.Successed) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed) });
                         }
                     case "failed":
                         {
                             return Json(new MessageResult
                             {
                                 Status = true,
-                                Data = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                                Data = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                                     || (item.Status == F_OrderStatusEnum.SignCanceled))
                             });
                         }
                     default:
                         {
-                            return Json(new MessageResult { Status = true, Data = list });
+                            return Json(new MessageResult { Status = true, Data = list.Rows });
                         }
                 }
             }
@@ -671,12 +677,12 @@ namespace API.Go.Controllers
 
             var result = new
             {
-                InProcess = list.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed),
+                InProcess = list.Rows.Where(item => item.Status == F_OrderStatusEnum.GojiajuPassed),
 
-                Presigned = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed),
-                Prepassed = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned),
-                Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed),
-                Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                Presigned = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed),
+                Prepassed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned),
+                Passed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed),
+                Failed = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                 || (item.Status == F_OrderStatusEnum.SignCanceled)
                 )
             };
@@ -717,9 +723,9 @@ namespace API.Go.Controllers
                 return Json(new MessageResult { Status = false, Message = GlobalMessage.Unauthorized });
             }
             var result = new { InProcess = 0, Presigned = 0, Prepassed = 0, Passed = 0, Failed = 0 };
-            var list = new F_OrderDTOList();
+            var list = new F_OrderDTOListWithPagination();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, null, user.Code);
+            list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, null, null, null, null, null, user.Code);
 
             if (list.Count() == 0)
             {
@@ -728,12 +734,12 @@ namespace API.Go.Controllers
 
             result = new
             {
-                InProcess = list.Where(item => item.Status == F_OrderStatusEnum.InProcess).Count(),
+                InProcess = list.Rows.Where(item => item.Status == F_OrderStatusEnum.InProcess).Count(),
 
-                Presigned = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed).Count(),
+                Presigned = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed).Count(),
                 Prepassed = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned).Count(),
-                Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed).Count(),
-                Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                Passed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed).Count(),
+                Failed = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                             || (item.Status == F_OrderStatusEnum.SignCanceled)).Count()
             };
 
@@ -778,9 +784,9 @@ namespace API.Go.Controllers
             {
                 return Json(new MessageResult { Status = false, Message = GlobalMessage.Unauthorized });
             }
-            var list = new F_OrderDTOList();
+            var list = new F_OrderDTOListWithPagination();
 
-            list = this._IF_OrderService.GetAll(null, null, null, null, null, null, null, user.Code, keyword, date);
+            list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, null, null, null, null, null, user.Code, keyword, date);
 
             //if (!string.IsNullOrWhiteSpace(status))
             {
@@ -788,30 +794,30 @@ namespace API.Go.Controllers
                 {
                     case "inprocess":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.InProcess) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.InProcess) });
                         }
                     case "presigned":
                         {
                             return Json(new MessageResult
                             {
                                 Status = true,
-                                Data = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
+                                Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed)
                             });
                         }
                     case "prepassed":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned) });
                         }
                     case "passed":
                         {
-                            return Json(new MessageResult { Status = true, Data = list.Where(item => item.Status == F_OrderStatusEnum.Successed) });
+                            return Json(new MessageResult { Status = true, Data = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed) });
                         }
                     case "failed":
                         {
                             return Json(new MessageResult
                             {
                                 Status = true,
-                                Data = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                                Data = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                                     || (item.Status == F_OrderStatusEnum.SignCanceled))
                             });
                         }
@@ -830,12 +836,12 @@ namespace API.Go.Controllers
 
             var result = new
             {
-                InProcess = list.Where(item => item.Status == F_OrderStatusEnum.InProcess),
+                InProcess = list.Rows.Where(item => item.Status == F_OrderStatusEnum.InProcess),
 
-                Presigned = list.Where(item => item.Status == F_OrderStatusEnum.BankPassed),
-                Prepassed = list.Where(item => item.Status == F_OrderStatusEnum.BankSigned),
-                Passed = list.Where(item => item.Status == F_OrderStatusEnum.Successed),
-                Failed = list.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
+                Presigned = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankPassed),
+                Prepassed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.BankSigned),
+                Passed = list.Rows.Where(item => item.Status == F_OrderStatusEnum.Successed),
+                Failed = list.Rows.Where(item => (item.Status == F_OrderStatusEnum.Canceled)
                 || (item.Status == F_OrderStatusEnum.SignCanceled)
                 )
             };
@@ -863,7 +869,7 @@ namespace API.Go.Controllers
         [HttpGet]
         public IHttpActionResult GetOrderCountByUserId()
         {
-            var list = this._IF_OrderService.GetAll(null, null, null, this.User.Id);
+            var list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, null, this.User.Id);
             //var list = this._IF_OrderService.GetAll(null, null, null, new Guid("6f7ed9a1-f762-e711-8127-0019b93d4f5e"));
             var result = new { Temp = 0, InProcess = 0, Passed = 0, Failed = 0 };
             if (list.Count() == 0)
@@ -903,7 +909,7 @@ namespace API.Go.Controllers
         /// <returns></returns>
         public IHttpActionResult GetOrderByUserId(string keyword = "")
         {
-            var list = this._IF_OrderService.GetAll(null, null, null, this.User.Id, null, null, null, null, keyword);
+            var list = this._IF_OrderService.GetAll(1, int.MaxValue, null, null, null, this.User.Id, null, null, null, null, keyword);
 
             if (list.Count() == 0)
             {
@@ -948,7 +954,7 @@ namespace API.Go.Controllers
         public IHttpActionResult GetOrderByClerkId(Guid userId)
         {
             var user = this._IF_UserDetailService.GetUserDetailByUserId(userId);
-            var list = this._IF_OrderService.GetAll(user.Code, null, null, null, F_OrderStatusEnum.Successed, null, null);
+            var list = this._IF_OrderService.GetAll(1, int.MaxValue, user.Code, null, null, null, F_OrderStatusEnum.Successed, null, null);
 
             var result = new List<dynamic>();
             var groupedList = list.GroupBy(item => item.CreatedDate.ToString("yyyy年M月"));
@@ -1030,7 +1036,7 @@ namespace API.Go.Controllers
         public IHttpActionResult GetClerkOrders(string status = "", string keyword = "", string date = "")
         {
             var user = this._IF_UserDetailService.GetUserDetailByUserId(this.User.Id);
-            var list = this._IF_OrderService.GetAll(user.Code, null, null, null, null, null, null, null, keyword, date)
+            var list = this._IF_OrderService.GetAll(1, int.MaxValue, user.Code, null, null, null, null, null, null, null, keyword, date)
             .Where(item => item.Status != F_OrderStatusEnum.Temp
                 && item.Status != F_OrderStatusEnum.Canceled)
                 .OrderByDescending(item => item.CreatedDate);
@@ -1080,7 +1086,7 @@ namespace API.Go.Controllers
         public IHttpActionResult GetStoreOrders(string status = "", string keyword = "", string date = "")
         {
             var store = this._IF_StorerService.GetStoreByEnglishName(this.User.UserName);
-            var list = this._IF_OrderService.GetAll(null, store.Code, null, null, null, null, null, null, keyword, date)
+            var list = this._IF_OrderService.GetAll(1, int.MaxValue, null, store.Code, null, null, null, null, null, null, keyword, date)
                 .Where(item => item.Status != F_OrderStatusEnum.Temp
                 && item.Status != F_OrderStatusEnum.Canceled)
                 .OrderByDescending(item => item.CreatedDate);
@@ -1633,7 +1639,7 @@ namespace API.Go.Controllers
         [AllowAnonymous]
         public IHttpActionResult GetLatestOrder()
         {
-            var list = this._IF_OrderService.GetAll().OrderByDescending(item => item.CreatedDate).Take(5);
+            var list = this._IF_OrderService.GetAll(1, int.MaxValue).OrderByDescending(item => item.CreatedDate).Take(5);
             var result = new F_OrderDTOList();
             list.ToList().ForEach(item =>
             {

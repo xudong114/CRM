@@ -35,6 +35,7 @@ namespace API.Go.Controllers
         public IHttpActionResult GetStore(string code)
         {
            var store = this._IF_StorerService.GetStoreByCode(code);
+
            return Json(new MessageResult { Status = true, Data = store });
         }
 

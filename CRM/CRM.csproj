@@ -2175,6 +2175,14 @@
     <Content Include="Areas\GlobalData\Views\Profile\Factory.cshtml" />
     <Content Include="Areas\GlobalData\Views\Profile\Store.cshtml" />
     <Content Include="Areas\GlobalData\Views\Profile\Details.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\Account.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\Realestate.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\CarEdit.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\Edit.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\FactoryEdit.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\RealestateEdit.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\StoreEdit.cshtml" />
+    <Content Include="Areas\GlobalData\Views\Profile\AccountEdit.cshtml" />
     <None Include="Properties\PublishProfiles\crm.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\calendar\bootstrap_calendar.css" />
