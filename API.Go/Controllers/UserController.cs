@@ -37,6 +37,29 @@ namespace API.Go.Controllers
         }
 
 
+        [AllowAnonymous]
+        public IHttpActionResult Get(string userName, string password)
+        {
+
+            var user = this._IF_UserService.Login(new F_UserDTO { UserName = userName, Password = password });
+
+            if (user == null)
+            {
+                return Json(new MessageResult { Status = false, Message = "账号或密码错误。" });
+            }
+
+            if (!user.IsActive)
+            {
+                return Json(new MessageResult { Status = false, Message = "账号已停用" });
+            }
+
+            var token = Guid.NewGuid().ToString().ToLower();
+
+            APICacheService.Instance.Add(token, "", user, DateTimeOffset.Now.AddDays(7));
+
+            return Json<dynamic>(new { Status = true, Message = "登录成功", User = user, Token = token });
+        }
+
 
         [AllowAnonymous]
         public IHttpActionResult Get(string userName, string password)
