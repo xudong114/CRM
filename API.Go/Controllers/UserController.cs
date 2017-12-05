@@ -36,31 +36,6 @@ namespace API.Go.Controllers
             this._IF_OrderService = iF_OrderService;
         }
 
-
-        [AllowAnonymous]
-        public IHttpActionResult Get(string userName, string password)
-        {
-
-            var user = this._IF_UserService.Login(new F_UserDTO { UserName = userName, Password = password });
-
-            if (user == null)
-            {
-                return Json(new MessageResult { Status = false, Message = "账号或密码错误。" });
-            }
-
-            if (!user.IsActive)
-            {
-                return Json(new MessageResult { Status = false, Message = "账号已停用" });
-            }
-
-            var token = Guid.NewGuid().ToString().ToLower();
-
-            APICacheService.Instance.Add(token, "", user, DateTimeOffset.Now.AddDays(7));
-
-            return Json<dynamic>(new { Status = true, Message = "登录成功", User = user, Token = token });
-        }
-
-
         [AllowAnonymous]
         public IHttpActionResult Get(string userName, string password)
         {
@@ -113,34 +88,10 @@ namespace API.Go.Controllers
 
         }
 
-        /// <summary>
-        /// 登录
-        /// </summary>
-        /// <param name="username">账号</param>
-        /// <param name="password">密码</param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [System.Web.Http.HttpGet]
-        public IHttpActionResult Login(string username, string password)
-        {
-            var user = this._IF_UserService.Login(new F_UserDTO { UserName = username, Password = password });
 
-            if (user == null)
-            {
-                return Json(new MessageResult { Status = false, Message = "账号或密码错误。" });
-            }
 
-            if (!user.IsActive)
-            {
-                return Json(new MessageResult { Status = false, Message = "账号已停用" });
-            }
 
-            var token = user.Id.ToString().ToLower();
 
-            APICacheService.Instance.Add(token, "", user, DateTimeOffset.Now.AddYears(1));
-            return Json<dynamic>(new { Status = true, Message = "登录成功", User = user, Token = user.Id });
-
-        }
 
         /// <summary>
         /// 退出系统
