@@ -555,7 +555,6 @@ namespace API.Go.Controllers
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
-            string aabbcc = "111";
         }
     }
 
